@@ -85,7 +85,7 @@ def test_scenario_normal():
         Etape(**etape)
     verifier_classement(sortie["classement"])
     assert len(sortie["classement"]) == len(PROJETS_EXEMPLE)
-    assert sortie["recommandation"] == "Je recommande ces trois projets."
+    assert sortie["recommandation"].startswith("Je recommande ces trois projets.")
 
 
 def test_poids_du_llm_normalises(monkeypatch):
@@ -115,7 +115,7 @@ def test_outil_inconnu_journalise_sans_plantage():
     sortie = lancer([reponse(appels=[appel("calculer_van")]), *SCENARIO_NORMAL])
     assert sortie["etapes"][0]["outil"] == "calculer_van"
     assert "outil inconnu" in sortie["etapes"][0]["resultat"]
-    assert sortie["recommandation"] == "Je recommande ces trois projets."
+    assert sortie["recommandation"].startswith("Je recommande ces trois projets.")
 
 
 def test_erreur_d_outil_journalisee_sans_plantage(monkeypatch):
@@ -132,9 +132,11 @@ def test_erreur_d_outil_journalisee_sans_plantage(monkeypatch):
     assert "sans LLM" in sortie["recommandation"]
 
 
-def test_arguments_invalides_journalises():
-    sortie = lancer([reponse(appels=[appel("predire", projet="P001")]), *SCENARIO_NORMAL])
-    assert sortie["etapes"][0]["resultat"].startswith("Erreur dans predire")
+def test_arguments_inventes_ignores():
+    # Vu avec qwen2.5:3b : il ajoute un argument « documents » aux outils qui n'en ont pas.
+    sortie = lancer([reponse(appels=[appel("predire", documents=["P001"])]), *SCENARIO_NORMAL])
+    assert sortie["etapes"][0]["resultat"].startswith("Prédictions")
+    assert sortie["etapes"][0]["arguments"] == {"documents": ["P001"]}  # le journal garde ce que le LLM a envoyé
     verifier_classement(sortie["classement"])
 
 
@@ -217,3 +219,15 @@ def test_agent_avec_le_vrai_llm():
     assert len(sortie["recommandation"]) > 50
     for etape in sortie["etapes"]:
         Etape(**etape)
+
+
+def test_controle_ajoute_ce_que_le_llm_a_oublie():
+    # Vu avec qwen2.5:3b : deux projets sur trois cités et « aucun dossier anormal » alors qu'il y en a un.
+    portefeuille = Portefeuille(PROJETS_EXEMPLE, DOCUMENTS_EXEMPLE, {"duree_mois": 1.0})
+    portefeuille.appeler("classer", {})
+    premier, deuxieme, troisieme = portefeuille.recommandes()["id_projet"]
+    texte = agent.controler_recommandation(portefeuille, f"Je recommande {premier} et {deuxieme}.")
+    controle = texte.split("Contrôle automatique")[1]
+    assert troisieme in controle and ANOMALIE in controle
+    complet = f"{premier}, {deuxieme}, {troisieme}. Alerte : {ANOMALIE}."
+    assert agent.controler_recommandation(portefeuille, complet) == complet

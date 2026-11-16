@@ -12,6 +12,7 @@ Deux points d'entrée :
 """
 from __future__ import annotations
 
+import inspect
 import json
 import logging
 import os
@@ -38,7 +39,7 @@ from src.contrat import (  # noqa: E402
 journal = logging.getLogger(__name__)
 
 MAX_TOURS = 10
-MODELE_PAR_DEFAUT = "qwen3:4b"
+MODELE_PAR_DEFAUT = "qwen2.5:3b"
 FICHIER_PROMPT = Path(__file__).resolve().parent.parent / "prompts" / "systeme.txt"
 CRITERES_TEXTE = ("impact_env_social", "alignement_strategique", "faisabilite")
 NOTE_NEUTRE = 3  # note donnée à un projet sans document lisible
@@ -247,8 +248,11 @@ class Portefeuille:
         if nom not in NOMS_OUTILS:
             resultat = f"Erreur : outil inconnu « {nom} ». Outils disponibles : {', '.join(NOMS_OUTILS)}."
         else:
+            outil = getattr(self, nom)
+            # Un petit LLM invente parfois des arguments : on ne garde que ceux que l'outil accepte.
+            acceptes = {k: v for k, v in arguments.items() if k in inspect.signature(outil).parameters}
             try:
-                resultat = getattr(self, nom)(**arguments)
+                resultat = outil(**acceptes)
             except Exception as erreur:  # une erreur d'outil ne doit pas arrêter l'agent
                 resultat = f"Erreur dans {nom} : {erreur}"
         duree = round(time.perf_counter() - debut, 3)
@@ -273,6 +277,19 @@ def rediger_recommandation(portefeuille: Portefeuille) -> str:
     lignes.append("Limites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; "
                   "cette recommandation aide à la décision, elle ne la remplace pas.")
     return "\n".join(lignes)
+
+
+def controler_recommandation(portefeuille: Portefeuille, texte: str) -> str:
+    """Vérifie le texte du LLM et ajoute ce qu'il a oublié : projets à recommander et dossiers anormaux."""
+    oublis = [decrire(r) for r in portefeuille.recommandes().to_dict("records") if r["id_projet"] not in texte]
+    anomalies_tues = [a for a in (portefeuille.anomalies or []) if a not in texte]
+    if not oublis and not anomalies_tues:
+        return texte
+    ajouts = ["", "", "Contrôle automatique (le texte ci-dessus a oublié ces points) :"]
+    ajouts += [f"- Projet à recommander aussi : {o}." for o in oublis]
+    if anomalies_tues:
+        ajouts.append(f"- Alerte : dossiers anormaux écartés de la recommandation : {', '.join(anomalies_tues[:10])}.")
+    return texte + "\n".join(ajouts)
 
 
 def _sortie(portefeuille: Portefeuille, recommandation: str) -> dict:
@@ -343,7 +360,7 @@ def run_agent(demande: str, projets: pd.DataFrame, documents: dict | None = None
                 return _secours(portefeuille, "réponse vide du LLM")
             if portefeuille.classement is None:
                 return _secours(portefeuille, "le LLM a répondu sans classer les projets")
-            return _sortie(portefeuille, texte)
+            return _sortie(portefeuille, controler_recommandation(portefeuille, texte))
 
         # On remet dans la conversation la demande d'outils du LLM, puis le résultat de chaque outil.
         messages.append({"role": "assistant", "content": message.content or "", "tool_calls": [

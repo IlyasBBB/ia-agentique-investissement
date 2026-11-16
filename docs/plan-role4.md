@@ -16,7 +16,7 @@ Dernière mise à jour : 16 novembre 2026.
 |---|---|---|---|---|---|
 | 1 | Créer le dépôt Git et inviter l'équipe | Réunion de lancement | dim. 15 nov. | en cours (dépôt public créé le 16 nov., équipe à inviter) | Dépôt GitHub avec la structure de dossiers |
 | 2 | Fausses fonctions | Contrat commun | lun. 16 nov. | terminé (version provisoire) | `src/mocks.py`, `src/contrat.py`, `tests/test_contrat.py` |
-| 3 | Coder l'agent | Tâche 2 | jeu. 19 nov. | en cours (code et tests avec faux LLM terminés le 16 nov. ; `qwen3:4b` trop lent sur ce PC, modèle à remplacer puis essai réel à refaire) | `src/agent.py`, `prompts/systeme.txt`, `tests/test_agent.py`. Cinq outils sur tout le portefeuille, `pipeline_fixe` comme référence et secours |
+| 3 | Coder l'agent | Tâche 2 | jeu. 19 nov. | terminé (16 nov. : essai réel réussi avec `qwen2.5:3b` en 58 s ; qualité à mesurer à la tâche 5) | `src/agent.py`, `prompts/systeme.txt`, `tests/test_agent.py`. Cinq outils sur tout le portefeuille, `pipeline_fixe` comme référence et secours |
 | 4 | Coder l'application Streamlit | Tâches 2 et 3. Graphique SHAP du rôle 1 (factice en attendant) | ven. 20 nov. | à faire | `app/app.py` |
 | 5 | Tester l'agent sur 5 scénarios | Tâche 3 | sam. 21 nov. | à faire | `tests/test_agent.py`, `reports/tests_agent.md` |
 | 6 | Intégration des vrais modules | IMPOSSIBLE avant `predict` (rôle 1), `rank` (rôle 2), `extract` et `retrieve` (rôle 3), attendus le 21 | mar. 24 nov. | bloqué | Application complète en local |
@@ -40,3 +40,4 @@ Dernière mise à jour : 16 novembre 2026.
 - 16 nov. : jeu de données choisi et préparé (Banque mondiale, cibles simulées). Scripts `scripts/telecharger_donnees.py` et `scripts/preparer_donnees.py`, tests `tests/test_donnees.py`.
 - 16 nov. : agent codé (`src/agent.py`, `prompts/systeme.txt`) avec son modèle de référence `pipeline_fixe`. Tests sans Ollama dans `tests/test_agent.py` (faux LLM). `pipeline_fixe` traite les 2 000 projets en moins d'une seconde avec les fausses fonctions.
 - 16 nov. : essai réel avec `qwen3:4b` arrêté après deux tours de 10 minutes chacun. Le modèle réfléchit toujours (`think=False` sans effet) et produit environ 4 600 jetons de réflexion par tour. Détails et pistes dans `docs/architecture.md`.
+- 16 nov. : `qwen2.5:3b` retenu : analyse complète en 58 s. Deux corrections après l'essai : arguments inventés par le LLM ignorés, contrôle automatique des projets et alertes oubliés dans la recommandation.

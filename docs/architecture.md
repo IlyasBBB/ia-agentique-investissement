@@ -56,7 +56,8 @@ Sur les 2 000 projets avec les fausses fonctions, il répond en moins d'une seco
 | Sujet | Décision | Raison |
 |---|---|---|
 | LLM | Ollama en local | Gratuit, choix de l'équipe |
-| Modèle | `qwen3:4b` par défaut (variable `OLLAMA_MODEL`), à remplacer | Gère l'appel d'outils et tient dans 16 Go de mémoire, mais trop lent sur ce PC : voir « Essai du 16 novembre » |
+| Modèle | `qwen2.5:3b` par défaut (variable `OLLAMA_MODEL`) | Gère l'appel d'outils sans phase de réflexion : environ 1 minute par analyse sur le PC d'Ilyas. `qwen3:4b` a été écarté, trop lent (voir les essais ci-dessous) |
+| Contrôle de la recommandation | `controler_recommandation` ajoute au texte du LLM les projets à recommander et les dossiers anormaux qu'il a oubliés | Un modèle de 3 milliards de paramètres oublie des faits ; ce qui peut se vérifier par le code ne doit pas dépendre de lui |
 | Outils du LLM | Cinq outils qui traitent tout le portefeuille | Un appel par projet serait impossible avec 2 000 projets |
 | Boucle de l'agent | Boucle Python maison avec l'appel d'outils du paquet `ollama`, retenue pour la version finale | Une trentaine de lignes, faciles à expliquer. Un cadriciel comme LangGraph n'apporterait rien ici |
 | Modèle de référence | `pipeline_fixe`, sans LLM | Comparaison demandée par la consigne, et secours si Ollama est arrêté |
@@ -66,7 +67,16 @@ Sur les 2 000 projets avec les fausses fonctions, il répond en moins d'une seco
 
 ## Décisions ouvertes
 
-- Modèle Ollama définitif : `qwen3:4b` est trop lent sur le PC d'Ilyas, il faut essayer un modèle sans réflexion (voir ci-dessous).
+- Aucune pour l'agent à ce stade. La qualité de `qwen2.5:3b` sera mesurée sur les 5 scénarios de la tâche 5.
+
+## Essai du 16 novembre avec `qwen2.5:3b` (modèle retenu)
+
+Même PC, même demande, mêmes cinq projets d'exemple.
+
+- Analyse complète en 58 secondes : un premier tour de 19 s où le modèle demande les cinq outils d'un coup, puis un tour de 38 s pour rédiger.
+- Poids bien tirés de la demande : `proba_risque` 0,5 et `impact_env_social` 0,5.
+- Le modèle ajoute un argument inventé (`documents`) aux outils qui n'en prennent pas. Corrigé : l'agent ne transmet à un outil que les arguments qu'il accepte, et le journal garde ce que le LLM a envoyé.
+- Le texte rédigé cite deux projets au lieu de trois, écrit « aucun dossier anormal » alors que P005 a été écarté, et cite un passage d'un projet non recommandé. D'où le contrôle automatique, qui ajoute en fin de texte le projet et l'alerte oubliés. La phrase fausse du LLM reste visible au-dessus : c'est une limite à montrer dans le rapport.
 
 ## Essai du 16 novembre avec `qwen3:4b`
 
