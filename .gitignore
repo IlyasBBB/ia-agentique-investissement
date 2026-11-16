@@ -1,0 +1,18 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.env
+.env.*
+!.env.example
+
+# Données et modèles volumineux
+data/raw/*
+data/processed/*
+data/chroma/
+models/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!models/.gitkeep

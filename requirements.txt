@@ -1,0 +1,8 @@
+pandas
+numpy
+pydantic>=2
+pytest
+streamlit
+plotly
+ollama
+python-dotenv
