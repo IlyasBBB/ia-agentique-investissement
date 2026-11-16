@@ -1,0 +1,14 @@
+Projet : Kiribati Digital Government Project
+Identifiant : P176108
+Pays : Kiribati (Asie de l'Est et Pacifique)
+Secteur : Numérique
+Coût total : 12.0 millions de dollars
+Durée prévue : 58 mois
+Année d'approbation : 2022
+Statut : en_cours
+
+Objectif de développement (PDO) :
+To build the foundations and strengthen the Recipient's technical and institutional capacity for digital public service delivery.
+
+Résumé :
+The development objective of Digital Government Project for Kiribati is to build the foundations and strengthen the Recipient's technical and institutional capacity for digital public service delivery. This project has five components. 1) The first component, Digital Government Enabling Environment, has the following sub-components: (i) Establishing the Government Digital Transformation Office; (ii) Digital Government Implementation Roadmap; (iii) Legal and regulatory reforms for Digital Government and Digital Economy; and (iv) Cyber Security Program. 2) The second component, Digital Government Foundational Infrastructure, has the following sub-components: (i) Government Enterprise Architecture; and (ii) Digital Government and Data Infrastructure. 3) The third component, Digital ID and e-Signatures, has the following sub-components: (i) Upstream design; (ii) Strengthening foundational ID systems; (iii) Developing inclusive and trusted Digital ID and e-Signatures; and (iv) Developing Priority Use Cases for Digital ID, e-Signatures and Identity Verification. 4) The fourth component, . Government Services Portal and Priority User-Centric Digital Services, has the following sub-components: (i) User-Centric Portal and Priority Digital Services; and (ii) Digital Citizen Engagement. 5) The fifth component, Project management, will support technical assistance to the Project Implementation Unit (PIU) and implementing agencies specifically for day-to-day management/administration and implementation of the project.

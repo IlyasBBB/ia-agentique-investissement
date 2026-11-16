@@ -1,0 +1,14 @@
+Projet : Telecommunications Project
+Identifiant : P008322
+Pays : Bulgaria (Europe et Asie centrale)
+Secteur : Numérique
+Coût total : 340.0 millions de dollars
+Durée prévue : 75 mois
+Année d'approbation : 1993
+Statut : termine
+
+Objectif de développement (PDO) :
+EXPANSION AND MODERNIZATION OF THE TELECOMMUNICATIONS NETWORK, CORPORATE DEVELOPMENT OF TELECOMMUNICATIONS COMPANY AND ESTABLISHMENT OF SECTOR POLICIES AND REGULATORY FRAMEWORK.09/14/98 EXTENSION OF LOAN CLOSING DATE BY SIX MONTHS TO 6/30/99(FIRST EXTENSION) WILL BE REQUIRED TO COMPLETE THE ONGOING CONTRACTS AND THE PROJECT. FURTHER, PRIVATIZATION OF BTC IS EXPECTED TO BE COMPLETED BY MARCH/APRIL 1999.
+
+Résumé :
+The project comprises: (a) implementation of a digital overlay network for the Bulgarian Telecommunications Company (BTC) for the period 1993-1997, including digitalization of the trunk routes and renewal/expansion of the network; (b) design and implementation of a computer-based operational support system/management information system for BTC; and (c) technical assistance for the corporate development of BTC, including establishment of management functions, i.e. accounting, auditing, financial management, planning, etc.

@@ -1,0 +1,14 @@
+Projet : Ethiopia Digital ID for Inclusion and Services Project
+Identifiant : P179040
+Pays : Ethiopia (Afrique de l'Est et australe)
+Secteur : Numérique
+Coût total : 300.0 millions de dollars
+Durée prévue : 61 mois
+Année d'approbation : 2023
+Statut : en_cours
+
+Objectif de développement (PDO) :
+The Project Development Objective is to establish an inclusive and secure foundational digital ID system to improve access to and delivery of benefits and services for all people in Ethiopia.
+
+Résumé :
+The objective of the Digital ID for Inclusion and Services Project is to establish an inclusive digital ID ecosystem and improve service delivery for registered persons in Ethiopia. There are five components to the project, the first component being building institutions and trust. This component includes three subcomponents: supporting stakeholder engagement and communications, establishing and operationalizing the ID Institution, and establishing and operationalizing the Data Protection Commission of Ethiopia. The second component is the establishing scalable and secure Fayda ICT infrastructure. This component includes three subcomponents: supporting the design, development and maintenance of appropriate software for Fayda, supporting development of data infrastructure, and strengthening digital security. The third component is the inclusive ID issuance. This component includes three subcomponents: supporting mass registration and issuance of physical IDs to Ethiopian residents, supporting mass registration and issuance of physical IDs to Ethiopian residents in host communities and refugees, and supporting integration of Fayda and digital civil registration. The fourth component is the improving service delivery. This component includes two subcomponents: supporting the integration of Fayda and developing an Ethiopia digital stack. Finally, the fifth component is the project management. This component will facilitate effective implementation of the project by supporting the establishment and functioning of the Project Management Unit (PMU) to undertake financial management (FM), procurement, risk management, ESF management, and reporting responsibilities, as well as act as the secretariat for the PSC and augment technical expertise in more complex activities.

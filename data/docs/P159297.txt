@@ -1,0 +1,14 @@
+Projet : P4: Pacific Regional Connectivity Program: Phase 3B, FJ Connectivity Project
+Identifiant : P159297
+Pays : Fiji (Asie de l'Est et Pacifique)
+Secteur : Numérique
+Coût total : 6.36 millions de dollars
+Durée prévue : 61 mois
+Année d'approbation : 2016
+Statut : termine
+
+Objectif de développement (PDO) :
+The objectives of the Project are to reduce the cost and increase the availability of internet services in the Northern Division ofthe Borrower’s territory.
+
+Résumé :
+The objectives of the Pacific Regional Connectivity Program Project for Fiji are to reduce the cost and increase the availability of internet services in the Northern Division of the Borrower’s territory. There are three components to the project, the first component being Submarine Cable System. This component comprising the following elements: design, supply and installation of a submarine optical fiber cable to connect Vanua Levu to the main SSCC cable, including a marine survey, a cable manufacture and cable deployment; and construction of a cable landing station and ancillary facilities in Savusavu, including acquisition and installation of onshore equipment. The second component is the Regulatory Technical Assistance. This will finance the provision of technical assistance to the FCC in relation to interconnection and access agreements, including the negotiations and implementation of regulatory instruments to ensure cost based and nondiscriminatory access to the cable infrastructure, support for cost analysis, tariff‐setting and carriers’ rights and obligations. Finally, the third component is the Project Management and Administration. This will finance the provision of support to the Project management unit in MOC, including with respect to technical, procurement, financial management and safeguards aspects. The project’s climate adaptation relevant investments are estimated to include the entirety of components 1, 2 and 3 related to connectivity, regulatory technical assistance, and project management. The expansion of optical fiber cable backbone networks in the Northern Division of Fiji and the establishment of non‐discriminatory access agreements increase the portion of the population with fast, reliable and resilient communication services and in this way help build an inclusive and effective disaster early warning and response system.

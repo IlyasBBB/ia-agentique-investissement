@@ -1,0 +1,14 @@
+Projet : Indonesia - Electricity Network Transformation (I-ENET) Program
+Identifiant : P180992
+Pays : Indonesia (Asie de l'Est et Pacifique)
+Secteur : Énergie
+Coût total : 1000.0 millions de dollars
+Durée prévue : 79 mois
+Année d'approbation : 2025
+Statut : en_cours
+
+Objectif de développement (PDO) :
+To increase the delivery and reliability of electricity supply and integrate distributed energy resources in the Java, Madura and Bali Region
+
+Résumé :
+The development objective of Electricity Network Transformation Program for Indonesia is to increase the delivery and reliability of electricity supply and integrate distributed energy resources in the Java, Madura and Bali Region. The Program fully aligns with the World Bank Group’s Country Partnership Framework (CPF) for Indonesia FY21–FY25.57. The Program is aligned with the goals of the Paris Agreement on both mitigation and adaptation. There are three Results areas as follows: Results Area 1, Increased network capacity, resilience, and reliability of the distribution grid, will support the expansion of PLN’s distribution network by 40,000 km and 3,600,000 kilovolt-ampere (KVA) in the Java-Madura-Bali Region; Results Area 2: Increased digital transformation and efficiency of the distribution grid, will support the (a) preparation and adoption of PLN’s SCADA ADMS roadmap and implementation plans; (b) upgrade of the Master SCADA systems in two of PLN’s distribution control centers; and (c) installation of 308,000 automatic meters in the Java-Madura-Bali Region.Results Area 3: Increased integration of distributed energy resources, will support the (i) preparation and adoption of PLN’s DER roadmap; (ii) training for PLN staff on clean energy topics, including DERs and gender dimensions; (iii) deployment and installation of EVCS; and (iv) facilitation of the integration of 300 MW customer-owned solar power generation capacity and 16,050 public EVCS and home EVCS to PLN’s distribution network in the Java-Madura-Bali Region.

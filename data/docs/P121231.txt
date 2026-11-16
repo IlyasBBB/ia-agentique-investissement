@@ -1,0 +1,14 @@
+Projet : Governance eTransformation Project
+Identifiant : P121231
+Pays : Moldova (Europe et Asie centrale)
+Secteur : Numérique
+Coût total : 23.0 millions de dollars
+Durée prévue : 67 mois
+Année d'approbation : 2011
+Statut : termine
+
+Objectif de développement (PDO) :
+The project development objective is to transform delivery of selected public services using ICTs. This objective will be achievedby: (i) improving leadership capacity, enabling environment and management of ICTs in the public sector; (ii) using a modern service delivery platform, and (iii) increasing transparency in the public sector.
+
+Résumé :
+The objective of the Governance e-Transformation Project for Moldova is to transform delivery of selected public services using Information and Communications Technologies (ICT). There are two components to the project. The first component is e-leadership capacity and enabling environment ($8 million): this component will provide support to the e-government center that was recently established to drive government-wide e-transformation agenda. Support will also be provided for e-leadership training and civil servants capacity building; strategic communications and partnerships; development of policy, technical, legal and regulatory frameworks; and project management; and the second component is shared infrastructure and e-services development ($15 million): this component will provide funding for: (a) establishing and implementing the M-Cloud (Government Cloud Computing Infrastructure); and (b) developing a selected number of e-government services and shared applications to be delivered through multiple channels, including government portals and mobile phones.

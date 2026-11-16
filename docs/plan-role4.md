@@ -8,13 +8,13 @@ Dernière mise à jour : 16 novembre 2026.
 
 | Tâche | Échéance | Statut | Remarque |
 |---|---|---|---|
-| Choisir et préparer le jeu de données (`data/raw/projets.csv`, `data/README.md`) | lun. 16 nov. | à faire | Pas encore choisi. Les rôles 2 et 3 attendent ce fichier pour travailler sur de vraies données. Priorité numéro un. Voir `docs/donnees.md` |
+| Choisir et préparer le jeu de données (`data/processed/projets.csv`, `data/README.md`) | lun. 16 nov. | terminé (reste à mettre le contrat à jour et à prévenir l'équipe) | Jeu hybride : 2 000 projets réels de la Banque mondiale, cibles `rentabilite` et `risque` simulées, 40 anomalies injectées, un document texte par projet. Voir `docs/donnees.md` et `data/README.md` |
 
 ## Tâches du rôle 4
 
 | N° | Tâche | Dépend de | Échéance | Statut | Livrable |
 |---|---|---|---|---|---|
-| 1 | Créer le dépôt Git et inviter l'équipe | Réunion de lancement | dim. 15 nov. | à vérifier | Dépôt GitHub avec la structure de dossiers |
+| 1 | Créer le dépôt Git et inviter l'équipe | Réunion de lancement | dim. 15 nov. | en cours (dépôt public créé le 16 nov., équipe à inviter) | Dépôt GitHub avec la structure de dossiers |
 | 2 | Fausses fonctions | Contrat commun | lun. 16 nov. | terminé (version provisoire) | `src/mocks.py`, `src/contrat.py`, `tests/test_contrat.py` |
 | 3 | Coder l'agent | Tâche 2 | jeu. 19 nov. | à faire | `src/agent.py`, `prompts/systeme.txt` |
 | 4 | Coder l'application Streamlit | Tâches 2 et 3. Graphique SHAP du rôle 1 (factice en attendant) | ven. 20 nov. | à faire | `app/app.py` |
@@ -36,3 +36,5 @@ Dernière mise à jour : 16 novembre 2026.
 ## Journal
 
 - 16 nov. : structure du projet créée. Contrat, fausses fonctions et tests du contrat en place.
+- 16 nov. : dépôt public https://github.com/IlyasBBB/ia-agentique-investissement créé, premier commit poussé sur `main`.
+- 16 nov. : jeu de données choisi et préparé (Banque mondiale, cibles simulées). Scripts `scripts/telecharger_donnees.py` et `scripts/preparer_donnees.py`, tests `tests/test_donnees.py`.

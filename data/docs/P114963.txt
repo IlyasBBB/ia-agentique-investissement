@@ -1,0 +1,14 @@
+Projet : Caribbean Regional Communications Infrastructure Program
+Identifiant : P114963
+Pays : Caribbean (Amérique latine et Caraïbes)
+Secteur : Numérique
+Coût total : 25.0 millions de dollars
+Durée prévue : 109 mois
+Année d'approbation : 2012
+Statut : termine
+
+Objectif de développement (PDO) :
+The development objective of CARCIP is to increase access to regional broadband networks and advance the development of an ICT-enabled services industry in the Caribbean Region.
+
+Résumé :
+The objective of the Caribbean Regional Communications Infrastructure Program for Latin America and the Caribbean is to increase access to regional broadband networks and advance the development of Information and Communication Technologies (ICT) enabled services industry in the Caribbean Region. The project has four components. (1) Regional connectivity infrastructure component will address the: (i) physical connectivity infrastructure including submarine cable infrastructure, terrestrial broadband backbone fiber networks and terrestrial or submarine cross-border links, leveraging government networks as needed, and national and regional Internet Exchange Points (IXPs), and (ii) enabling environment that would ensure Public Private Partnership in the ownership, management and competitive access to the infrastructure. (2) ICT-led innovation component will support activities that will leverage the regional broadband infrastructure to foster growth of the regional IT/IT Enabled Services (ITES) industry. (3) Implementation support component will support implementation, institutional and capacity building as well as monitoring and evaluation. (4) A fourth component is included in the overall program design. This component will be aimed at improving government and private sector efficiency and transparency by leveraging the regional broadband infrastructure towards the delivery of a wide variety of e-services.

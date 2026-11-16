@@ -1,0 +1,14 @@
+Projet : Lebanon Digital Acceleration Project
+Identifiant : P506791
+Pays : Lebanon (Moyen-Orient, Afrique du Nord, Afghanistan et Pakistan)
+Secteur : Numérique
+Coût total : 150.0 millions de dollars
+Durée prévue : 65 mois
+Année d'approbation : 2026
+Statut : en_cours
+
+Objectif de développement (PDO) :
+To strengthen digital foundations and enablers to improve the delivery of high-impact public services.
+
+Résumé :
+The proposed operation aims to support the implementation of digital foundations and enablers such as digital public infrastructure (including digital ID, electronic signature, and trusted data sharing platforms), modern data infrastructure and cloud computing, cybersecurity, data protection, artificial intelligence, and digital skills, to improve the delivery of high-impact public services.

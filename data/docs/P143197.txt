@@ -1,0 +1,14 @@
+Projet : LS-PFM Reform Support Project
+Identifiant : P143197
+Pays : Lesotho (Afrique de l'Est et australe)
+Secteur : Gouvernance
+Coût total : 6.09 millions de dollars
+Durée prévue : 64 mois
+Année d'approbation : 2014
+Statut : termine
+
+Objectif de développement (PDO) :
+The project development objective (PDO) is to improve the quality and timeliness of public financial management information in support of the Government’s PFM Reform Action Plan (PFMRAP) to improve budget execution.
+
+Résumé :
+The objective of the Public Financial Management Reform Support Project for Lesotho is to improve the quality and timeliness of public financial management information in support of the government's Public Finance Management Reform Action Plan (PFMRAP) to improve budget execution. This paper pertains to the provision of credit for the project. The project is implemented through the following components: 1) support for improving the stability and reliability of the existing Integrated Financial Management Information System (IFMIS) platform; 2) support for expansion and modernization of IFMIS platform; and 3) support for change management, training and project implementation. The first component aims to improve the stability, performance and reliability of the existing IFMIS platform through the following activities: improvement of existing wide-area network connectivity, improvement of primary and backup IFMIS data centers, activation of the Electronic Funds Transfer (EFT) interface with the Central Bank of Lesotho (CBL), and cleaning IFMIS databases and improving accounting controls. The second component seeks to upgrade, configure and deploy the latest version of the existing IFMIS software to support simplified business architecture from a stable and well performing technology platform. This is done through the following activities: IT audit (technical and operational assessment) of the IFMIS platform, Public Finance Management (PFM) business process re-engineering, and expansion and modernization of the IFMIS platform. The objective of the final component is to facilitate the provision of technical assistance in support of change management and capacity building requirements, through support for change management and training, support for project implementation, and audit of project/financial activities.

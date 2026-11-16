@@ -1,0 +1,14 @@
+Projet : FINANCIAL SYSTEM INFRASTRUCTURE MODERNIZATION PROJECT
+Identifiant : P054217
+Pays : Algeria (Moyen-Orient, Afrique du Nord, Afghanistan et Pakistan)
+Secteur : Numérique
+Coût total : 18.2 millions de dollars
+Durée prévue : 59 mois
+Année d'approbation : 2001
+Statut : termine
+
+Objectif de développement (PDO) :
+Project development objective as laid out in the Loan Agreement remains unchange d after the formal restructuring.
+
+Résumé :
+The main development objective of the Financial System Infrastructure Modernization Project, is to put in place an enabling infrastructure for basic financial services, primarily by modernizing the inter-bank payments system for large-value transactions, and, by developing norms, and standards for low-value payments systems. Key components address: 1) the development of a modernized inter-bank payments system, allowing to process electronic fund transfers, and facilitate secure, rapid transfers. A Real Time Gross Settlements System (RTGS) will be established, to be managed, and operated by the Bank of Algeria (BA). For this purpose, procedures will be incorporated to control credit risk, fraud, and maintain integral, confidential transactions. Subcomponents include: computerization, technical assistance and training, and, studies to identify interface standards for clearing banking activity payments; 2) the information systems of the BA, which will include the technical infrastructure for the RTGS system, computer hardware, and software, supported by technical assistance (TA), and training for both the RTGS system, and information systems in general; 3) telecommunications infrastructure support, involving a high capacity telecommunications optical ring network in Algiers, with links around the country; telecommunications hardware, and software installation; TA, and training for telecommunications engineering, and security audits; and, 4) project management support, which includes, inter alia, TA, and training to strengthen the project management unit capacity.

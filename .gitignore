@@ -16,3 +16,7 @@ models/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 !models/.gitkeep
+
+# Jeu de données préparé : petit (moins de 1 Mo), partagé avec l'équipe
+!data/processed/projets.csv
+!data/processed/anomalies_injectees.csv

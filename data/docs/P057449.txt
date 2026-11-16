@@ -1,0 +1,14 @@
+Projet : STATE MODERNIZATION
+Identifiant : P057449
+Pays : Argentina (Amérique latine et Caraïbes)
+Secteur : Gouvernance
+Coût total : 43.3 millions de dollars
+Durée prévue : 108 mois
+Année d'approbation : 1998
+Statut : termine
+
+Objectif de développement (PDO) :
+The objective of the Project is to implement the Borrower's strategy to strengthen public sector management tools to improve transparency, and civil society participation as well as increase the efficiency and quality of management by selected areas of public services.
+
+Résumé :
+The Year 2000 Technical Assistance Project assists the government of Argentina on an urgent basis to contain the disruption in the country's social and economic infrastructure that would be caused by the failure of critical central government systems to process dates properly after December 31, 1999 (the "Y2K problem"). There are three components. The first finances support activities, some of which are ongoing such as initial estimates of entities and systems at risk; an assessment of common approaches, tools, and methodologies to be used; a publicity campaign using various media; acquisition, provision, and training in the use of tools and methodologies; and development of common administrative systems. The second component provides technical assistance to agencies to carry out Y2K diagnostics, technical and impact analysis, preparing implementation plans, preparing terms of reference and supervision of consulting firms, and preparing equipment specifications. The third component funds activities typical of a project's coordination and administration.

@@ -1,0 +1,14 @@
+Projet : Smart Public Finances: Data-Driven Public Expenditure Management for Greater Efficiency
+Identifiant : P510861
+Pays : Guatemala (Amérique latine et Caraïbes)
+Secteur : Gouvernance
+Coût total : 50.0 millions de dollars
+Durée prévue : 68 mois
+Année d'approbation : 2025
+Statut : en_cours
+
+Objectif de développement (PDO) :
+To enhance effectiveness, efficiency, and accountability of public expenditures in Guatemala.
+
+Résumé :
+The program aims to enhance efficiency, effectiveness and accountability of public expenditures by deploying smart, data-driven PFM solutions. It focuses on addressing challenges related to inefficiencies in the use of public resources, the suboptimal allocation and utilization of public spending in strategic sectors, the limited adoption of evidence and data analytics for policy making and operations, and the existing vulnerability and technical weaknesses of existing management information systems. The program will support interventions around four pillars aiming at strengthening the foundations for data-driven public expenditure management (Smart PFM), supporting the optimization of expenditure management in strategic sectors (i.e. education, health, security and others), establishing a secure, sustainable PFM information ecosystem and developing the institutional capabilities and knowledge sharing mechanisms for the effective use and absorption of data analytics practices in government institutions.

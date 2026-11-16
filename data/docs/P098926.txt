@@ -1,0 +1,14 @@
+Projet : eRwanda Project
+Identifiant : P098926
+Pays : Rwanda (Afrique de l'Est et australe)
+Secteur : Gouvernance
+Coût total : 10.0 millions de dollars
+Durée prévue : 52 mois
+Année d'approbation : 2006
+Statut : termine
+
+Objectif de développement (PDO) :
+The key objective of the project is to improve (i) efficiency and effectiveness of some internal processes of the Government of Rwanda, and (ii) the delivery of services in selected key sectors including better access to information through the use of technology. The Project will complement existing activities by the World Bank and other development partners, in particular in the social sectors and in rural development. It draws heavily from the fundamental building blocks lain in the Public Sector Capacity Building Project (PSCBP) in the areas of basic support of government functions, improvement of service delivery, and capacity building.
+
+Résumé :
+The eRwanda Project improves: (1) efficiency and effectiveness of some internal processes of the Government of Rwanda; and (2) the delivery of applications and services in selected key sectors including better access to information through the use of technology. The project supports four components, which focus on the use of technology as an enabler to growth and development. While there are many activities which rely on communication and information technology (ICT), in all cases the anticipated results relate to selected improvements o f government's internal functions, its ability to deliver services and information to its citizens, and strengthening of the private sector for economic growth and poverty reduction. There are four project components. The first and third components are primarily concerned with setting the foundation for eGovernment (the basic infrastructure to link the ministries and other government offices, strengthening the Government's district offices, and the underlying computer systems which will form the basis of the operating system). Upon that foundation, component two, which focuses on services for citizens, can be built. Component four is not an application; rather it is a means of building capacity within the Rwandan Information and Technology Authority to undertake a major project.
