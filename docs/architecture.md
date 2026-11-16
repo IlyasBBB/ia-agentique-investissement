@@ -40,7 +40,8 @@ L'ordre n'est pas imposé en dur : le LLM choisit les outils. Le prompt système
 - **Le journal.** Chaque appel d'outil est noté : outil, arguments, résumé du résultat, durée. Une erreur d'outil (outil inconnu, mauvais argument, module en panne) est notée dans le journal et renvoyée au LLM, sans arrêter l'agent.
 - **Les poids.** Ceux que propose le LLM sont nettoyés et ramenés à une somme de 1. Si l'utilisateur a fixé les poids (curseurs de l'application), les siens passent avant ceux du LLM.
 - **Les garde-fous.** `classer` lance lui-même les étapes oubliées (notes, prédictions, anomalies). Les dossiers anormaux restent dans le classement avec une colonne `anomalie`, mais ils sont retirés des trois projets à recommander. Un projet sans document reçoit la note neutre 3. Seuls les passages des projets analysés sont cités.
-- **Le secours.** Si Ollama ne répond pas, si le plafond de tours est atteint, ou si le LLM répond sans avoir classé les projets, l'agent termine sans LLM : il complète le classement et rédige la recommandation avec un modèle de texte, en indiquant la raison.
+- **La relance.** Si le LLM rend une réponse vide (ni texte ni outil), l'agent lui envoie une fois le message de `prompts/relance.txt` et note la relance dans le journal. Une seconde réponse vide déclenche le secours.
+- **Le secours.** Si Ollama ne répond pas, si le plafond de tours est atteint, ou si le LLM répond sans avoir classé les projets, l'agent termine sans LLM : il complète le classement et rédige la recommandation avec un modèle de texte, en indiquant la raison. Quand le LLM a répondu par un texte sans rien classer (demande hors sujet, par exemple), ce texte n'est pas repris dans la recommandation, mais le journal le garde.
 
 ## Modèle de référence : `pipeline_fixe`
 
@@ -67,7 +68,17 @@ Sur les 2 000 projets avec les fausses fonctions, il répond en moins d'une seco
 
 ## Décisions ouvertes
 
-- Aucune pour l'agent à ce stade. La qualité de `qwen2.5:3b` sera mesurée sur les 5 scénarios de la tâche 5.
+- `chercher_passages` n'est presque jamais demandé par `qwen2.5:3b` (voir `reports/tests_agent.md`). À décider à l'intégration du vrai module `retrieve` : laisser ce choix au LLM, ou lancer la recherche d'office après `classer`.
+- Le prompt système est gardé tel quel après deux essais de reformulation qui ont déplacé les erreurs au lieu de les supprimer (même rapport).
+
+## Évaluation du 16 novembre sur cinq scénarios
+
+Cinq demandes, 30 projets en cours, deux passages, agent et `pipeline_fixe` : protocole, résultats et analyse des erreurs dans `reports/tests_agent.md`. Les scénarios et les vérifications automatiques sont dans `src/scenarios.py`, l'évaluation se relance avec `python scripts/evaluer_agent.py --passages 2`.
+
+Deux corrections de `src/agent.py` en sont sorties :
+
+- relance après une réponse vide du LLM (avant : secours immédiat, avec les poids par défaut, alors que la demande donnait des priorités) ;
+- réponse du LLM sans outil gardée dans le journal (avant : texte perdu, on ne savait pas pourquoi l'agent n'avait rien classé).
 
 ## Essai du 16 novembre avec `qwen2.5:3b` (modèle retenu)
 

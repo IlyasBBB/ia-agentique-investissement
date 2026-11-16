@@ -41,6 +41,7 @@ journal = logging.getLogger(__name__)
 MAX_TOURS = 10
 MODELE_PAR_DEFAUT = "qwen2.5:3b"
 FICHIER_PROMPT = Path(__file__).resolve().parent.parent / "prompts" / "systeme.txt"
+FICHIER_RELANCE = FICHIER_PROMPT.with_name("relance.txt")  # message envoyé après une réponse vide du LLM
 CRITERES_TEXTE = ("impact_env_social", "alignement_strategique", "faisabilite")
 NOTE_NEUTRE = 3  # note donnée à un projet sans document lisible
 NB_RECOMMANDES = 3
@@ -348,6 +349,7 @@ def run_agent(demande: str, projets: pd.DataFrame, documents: dict | None = None
     messages = [{"role": "system", "content": FICHIER_PROMPT.read_text(encoding="utf-8")},
                 {"role": "user", "content": contexte}]
 
+    relance_envoyee = False
     for tour in range(1, MAX_TOURS + 1):
         debut = time.perf_counter()
         try:
@@ -364,9 +366,23 @@ def run_agent(demande: str, projets: pd.DataFrame, documents: dict | None = None
 
         if not appels:  # plus d'outil demandé : le texte est la recommandation finale
             texte = re.sub(r"<think>.*?</think>", "", message.content or "", flags=re.S).strip()
+            if not texte and not relance_envoyee:
+                # Vu avec qwen2.5:3b : une réponse sans texte ni outil. On relance une fois, puis secours.
+                relance_envoyee = True
+                portefeuille.etapes.append({"outil": "llm", "arguments": {},
+                                            "resultat": "Réponse vide du LLM : une relance lui est envoyée.",
+                                            "duree_s": round(time.perf_counter() - debut, 3)})
+                messages.append({"role": "assistant", "content": ""})
+                messages.append({"role": "user", "content": FICHIER_RELANCE.read_text(encoding="utf-8")})
+                continue
             if not texte:
                 return _secours(portefeuille, "réponse vide du LLM")
             if portefeuille.classement is None:
+                # Son texte n'est pas repris (rien n'y est vérifiable), mais le journal le garde :
+                # on voit ainsi pourquoi il n'a rien classé, par exemple une demande hors sujet.
+                portefeuille.etapes.append({"outil": "llm", "arguments": {},
+                                            "resultat": f"Réponse du LLM sans outil, non reprise : {texte[:400]}",
+                                            "duree_s": round(time.perf_counter() - debut, 3)})
                 return _secours(portefeuille, "le LLM a répondu sans classer les projets")
             return _sortie(portefeuille, controler_recommandation(portefeuille, texte))
 

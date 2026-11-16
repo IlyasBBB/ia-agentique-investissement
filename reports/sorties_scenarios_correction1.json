@@ -1,0 +1,186 @@
+[
+ {
+  "passage": 1,
+  "scenario": 1,
+  "mode": "pipeline_fixe",
+  "demande": "Je veux des projets peu risqués avec un fort impact environnemental",
+  "duree_s": 0.0,
+  "recommandation": "Projets recommandés :\n- rang 1, P161534 Climate-Smart Agriculture and Water Management Project : score 0.856, rentabilité prédite 13.0 %, probabilité de risque élevé 0.22, impact 5/5, alignement 5/5, faisabilité 3/5.\n- rang 2, P159577 Khyber Pass Economic Corridor Project : score 0.795, rentabilité prédite 13.1 %, probabilité de risque élevé 0.05, impact 5/5, alignement 4/5, faisabilité 2/5.\n- rang 3, P159112 Uganda Rural Electrification : score 0.789, rentabilité prédite 14.1 %, probabilité de risque élevé 0.15, impact 3/5, alignement 4/5, faisabilité 4/5.\nAlerte : 1 dossiers anormaux écartés de la recommandation (P121507). À vérifier avant toute décision.\nLimites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision, elle ne la remplace pas.",
+  "etapes": [
+   {
+    "outil": "extraire_criteres",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 3.0, alignement_strategique 3.2, faisabilite 3.3.",
+    "duree_s": 0.002
+   },
+   {
+    "outil": "predire",
+    "arguments": {},
+    "resultat": "Prédictions pour 30 projets. Rentabilité prédite moyenne 9.8 %. Risque prédit : {'faible': 11, 'eleve': 11, 'moyen': 8}.",
+    "duree_s": 0.006
+   },
+   {
+    "outil": "detecter_anomalies",
+    "arguments": {},
+    "resultat": "1 dossiers anormaux, à écarter de la recommandation : P121507.",
+    "duree_s": 0.001
+   },
+   {
+    "outil": "classer",
+    "arguments": {},
+    "resultat": "Poids utilisés : rentabilite_predite 0.25, proba_risque 0.20, cout_total 0.10, duree_mois 0.05, impact_env_social 0.15, alignement_strategique 0.15, faisabilite 0.10. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P161534 Climate-Smart Agriculture and Water Management Project : score 0.856, rentabilité prédite 13.0 %, probabilité de risque élevé 0.22, impact 5/5, alignement 5/5, faisabilité 3/5 | rang 2, P159577 Khyber Pass Economic Corridor Project : score 0.795, rentabilité prédite 13.1 %, probabilité de risque élevé 0.05, impact 5/5, alignement 4/5, faisabilité 2/5 | rang 3, P159112 Uganda Rural Electrification : score 0.789, rentabilité prédite 14.1 %, probabilité de risque élevé 0.15, impact 3/5, alignement 4/5, faisabilité 4/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.018
+   },
+   {
+    "outil": "chercher_passages",
+    "arguments": {
+     "question": "Je veux des projets peu risqués avec un fort impact environnemental"
+    },
+    "resultat": "Aucun passage trouvé dans les documents des projets analysés.",
+    "duree_s": 0.0
+   }
+  ]
+ },
+ {
+  "passage": 1,
+  "scenario": 1,
+  "mode": "agent",
+  "demande": "Je veux des projets peu risqués avec un fort impact environnemental",
+  "duree_s": 82.5,
+  "recommandation": "Projets recommandés :\n1. P161534 Climate-Smart Agriculture and Water Management Project : score 0.897, rentabilité prédite 13.0 %, probabilité de risque élevé 0.22, impact 5/5, alignement 5/5, faisabilité 3/5.\n2. P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 12.0 %, probabilité de risque élevé 0.67, impact 5/5, alignement 5/5, faisabilité 5/5.\n3. P159577 Khyber Pass Economic Corridor Project : score 0.832, rentabilité prédite 13.1 %, probabilité de risque élevé 0.05, impact 5/5, alignement 4/5, faisabilité 2/5.\n\nAlertes : les dossiers anormaux écartés, ou « aucune ».\n\nPassage cité : aucun.\n\nLimites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision et ne la remplace pas.\n\nContrôle automatique :\n- Alerte oubliée : 1 dossiers anormaux écartés de la recommandation (P121507).",
+  "etapes": [
+   {
+    "outil": "llm",
+    "arguments": {},
+    "resultat": "Réponse vide du LLM : une relance lui est envoyée.",
+    "duree_s": 20.618
+   },
+   {
+    "outil": "extraire_criteres",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 3.0, alignement_strategique 3.2, faisabilite 3.3.",
+    "duree_s": 0.003
+   },
+   {
+    "outil": "predire",
+    "arguments": {},
+    "resultat": "Prédictions pour 30 projets. Rentabilité prédite moyenne 9.8 %. Risque prédit : {'faible': 11, 'eleve': 11, 'moyen': 8}.",
+    "duree_s": 0.006
+   },
+   {
+    "outil": "detecter_anomalies",
+    "arguments": {},
+    "resultat": "1 dossiers anormaux, à écarter de la recommandation : P121507.",
+    "duree_s": 0.002
+   },
+   {
+    "outil": "classer",
+    "arguments": {
+     "poids": {
+      "alignement_strategique": 0.2,
+      "cout_total": 0.05,
+      "duree_mois": 0.05,
+      "faisabilite": 0.1,
+      "impact_env_social": 0.4,
+      "proba_risque": 0.2,
+      "rentabilite_predite": 0.1
+     }
+    },
+    "resultat": "Poids utilisés : rentabilite_predite 0.09, proba_risque 0.18, cout_total 0.05, duree_mois 0.05, impact_env_social 0.36, alignement_strategique 0.18, faisabilite 0.09. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P161534 Climate-Smart Agriculture and Water Management Project : score 0.897, rentabilité prédite 13.0 %, probabilité de risque élevé 0.22, impact 5/5, alignement 5/5, faisabilité 3/5 | rang 2, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 12.0 %, probabilité de risque élevé 0.67, impact 5/5, alignement 5/5, faisabilité 5/5 | rang 3, P159577 Khyber Pass Economic Corridor Project : score 0.832, rentabilité prédite 13.1 %, probabilité de risque élevé 0.05, impact 5/5, alignement 4/5, faisabilité 2/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.017
+   }
+  ]
+ },
+ {
+  "passage": 2,
+  "scenario": 1,
+  "mode": "pipeline_fixe",
+  "demande": "Je veux des projets peu risqués avec un fort impact environnemental",
+  "duree_s": 0.0,
+  "recommandation": "Projets recommandés :\n- rang 1, P161534 Climate-Smart Agriculture and Water Management Project : score 0.856, rentabilité prédite 13.0 %, probabilité de risque élevé 0.22, impact 5/5, alignement 5/5, faisabilité 3/5.\n- rang 2, P159577 Khyber Pass Economic Corridor Project : score 0.795, rentabilité prédite 13.1 %, probabilité de risque élevé 0.05, impact 5/5, alignement 4/5, faisabilité 2/5.\n- rang 3, P159112 Uganda Rural Electrification : score 0.789, rentabilité prédite 14.1 %, probabilité de risque élevé 0.15, impact 3/5, alignement 4/5, faisabilité 4/5.\nAlerte : 1 dossiers anormaux écartés de la recommandation (P121507). À vérifier avant toute décision.\nLimites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision, elle ne la remplace pas.",
+  "etapes": [
+   {
+    "outil": "extraire_criteres",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 3.0, alignement_strategique 3.2, faisabilite 3.3.",
+    "duree_s": 0.002
+   },
+   {
+    "outil": "predire",
+    "arguments": {},
+    "resultat": "Prédictions pour 30 projets. Rentabilité prédite moyenne 9.8 %. Risque prédit : {'faible': 11, 'eleve': 11, 'moyen': 8}.",
+    "duree_s": 0.003
+   },
+   {
+    "outil": "detecter_anomalies",
+    "arguments": {},
+    "resultat": "1 dossiers anormaux, à écarter de la recommandation : P121507.",
+    "duree_s": 0.002
+   },
+   {
+    "outil": "classer",
+    "arguments": {},
+    "resultat": "Poids utilisés : rentabilite_predite 0.25, proba_risque 0.20, cout_total 0.10, duree_mois 0.05, impact_env_social 0.15, alignement_strategique 0.15, faisabilite 0.10. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P161534 Climate-Smart Agriculture and Water Management Project : score 0.856, rentabilité prédite 13.0 %, probabilité de risque élevé 0.22, impact 5/5, alignement 5/5, faisabilité 3/5 | rang 2, P159577 Khyber Pass Economic Corridor Project : score 0.795, rentabilité prédite 13.1 %, probabilité de risque élevé 0.05, impact 5/5, alignement 4/5, faisabilité 2/5 | rang 3, P159112 Uganda Rural Electrification : score 0.789, rentabilité prédite 14.1 %, probabilité de risque élevé 0.15, impact 3/5, alignement 4/5, faisabilité 4/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.017
+   },
+   {
+    "outil": "chercher_passages",
+    "arguments": {
+     "question": "Je veux des projets peu risqués avec un fort impact environnemental"
+    },
+    "resultat": "Aucun passage trouvé dans les documents des projets analysés.",
+    "duree_s": 0.0
+   }
+  ]
+ },
+ {
+  "passage": 2,
+  "scenario": 1,
+  "mode": "agent",
+  "demande": "Je veux des projets peu risqués avec un fort impact environnemental",
+  "duree_s": 82.4,
+  "recommandation": "Projets recommandés :\n1. P161534 Climate-Smart Agriculture and Water Management Project : score 0.897, rentabilité prédite 13.0 %, probabilité de risque élevé 0.22, impact 5/5, alignement 5/5, faisabilité 3/5.\n2. P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 12.0 %, probabilité de risque élevé 0.67, impact 5/5, alignement 5/5, faisabilité 5/5.\n3. P159577 Khyber Pass Economic Corridor Project : score 0.832, rentabilité prédite 13.1 %, probabilité de risque élevé 0.05, impact 5/5, alignement 4/5, faisabilité 2/5.\n\nAlertes : les dossiers anormaux écartés, ou « aucune ».\n\nPassage cité : aucun.\n\nLimites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision et ne la remplace pas.\n\nContrôle automatique :\n- Alerte oubliée : 1 dossiers anormaux écartés de la recommandation (P121507).",
+  "etapes": [
+   {
+    "outil": "llm",
+    "arguments": {},
+    "resultat": "Réponse vide du LLM : une relance lui est envoyée.",
+    "duree_s": 20.567
+   },
+   {
+    "outil": "extraire_criteres",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 3.0, alignement_strategique 3.2, faisabilite 3.3.",
+    "duree_s": 0.002
+   },
+   {
+    "outil": "predire",
+    "arguments": {},
+    "resultat": "Prédictions pour 30 projets. Rentabilité prédite moyenne 9.8 %. Risque prédit : {'faible': 11, 'eleve': 11, 'moyen': 8}.",
+    "duree_s": 0.004
+   },
+   {
+    "outil": "detecter_anomalies",
+    "arguments": {},
+    "resultat": "1 dossiers anormaux, à écarter de la recommandation : P121507.",
+    "duree_s": 0.002
+   },
+   {
+    "outil": "classer",
+    "arguments": {
+     "poids": {
+      "alignement_strategique": 0.2,
+      "cout_total": 0.05,
+      "duree_mois": 0.05,
+      "faisabilite": 0.1,
+      "impact_env_social": 0.4,
+      "proba_risque": 0.2,
+      "rentabilite_predite": 0.1
+     }
+    },
+    "resultat": "Poids utilisés : rentabilite_predite 0.09, proba_risque 0.18, cout_total 0.05, duree_mois 0.05, impact_env_social 0.36, alignement_strategique 0.18, faisabilite 0.09. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P161534 Climate-Smart Agriculture and Water Management Project : score 0.897, rentabilité prédite 13.0 %, probabilité de risque élevé 0.22, impact 5/5, alignement 5/5, faisabilité 3/5 | rang 2, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 12.0 %, probabilité de risque élevé 0.67, impact 5/5, alignement 5/5, faisabilité 5/5 | rang 3, P159577 Khyber Pass Economic Corridor Project : score 0.832, rentabilité prédite 13.1 %, probabilité de risque élevé 0.05, impact 5/5, alignement 4/5, faisabilité 2/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.018
+   }
+  ]
+ }
+]

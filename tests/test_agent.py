@@ -2,8 +2,11 @@
 
 Le LLM est remplacé par un faux client qui rejoue un scénario écrit à l'avance :
 les tests n'ont donc pas besoin d'Ollama et donnent toujours le même résultat.
-Seul le dernier test (marqué llm) appelle le vrai modèle. Il est lent, donc écarté
-par défaut (pytest.ini) : le lancer avec `python -m pytest -m llm`.
+Seuls les tests marqués llm appellent le vrai modèle. Ils sont lents, donc écartés
+par défaut (pytest.ini) : les lancer avec `python -m pytest -m llm`.
+
+En fin de fichier : les cinq scénarios de la tâche 5 (définis dans src/scenarios.py)
+et les tests des vérifications automatiques utilisées pour les évaluer.
 """
 import os
 from types import SimpleNamespace
@@ -14,6 +17,7 @@ from src import agent, outils
 from src.agent import MAX_TOURS, Portefeuille, normaliser_poids, pipeline_fixe, run_agent
 from src.contrat import CRITERES, POIDS_PAR_DEFAUT, Etape, verifier_classement, verifier_poids
 from src.mocks import DOCUMENTS_EXEMPLE, PROJETS_EXEMPLE
+from src.scenarios import SCENARIOS, charger_projets_scenarios, chiffres_non_retrouves, citation_verifiee,     dossiers_anormaux, poids_coherents, trois_premiers, verifier_sortie
 
 DEMANDE = "Je veux des projets peu risqués avec un fort impact environnemental"
 ORDRE_FIXE = ["extraire_criteres", "predire", "detecter_anomalies", "classer", "chercher_passages"]
@@ -242,3 +246,113 @@ def test_controle_signale_une_citation_inventee():
     assert "n'est pas vérifié" in invente
     honnete = f"{ids}. Passage cité : aucun."
     assert agent.controler_recommandation(portefeuille, honnete) == honnete
+
+
+def test_reponse_vide_relancee_une_fois():
+    # Vu avec qwen2.5:3b (scénario 1, passage 2) : réponse sans texte ni outil dès le premier tour.
+    sortie = lancer([reponse(""), *SCENARIO_NORMAL])
+    assert outils_appeles(sortie) == ["llm", *ORDRE_FIXE]
+    assert "relance" in sortie["etapes"][0]["resultat"]
+    assert sortie["recommandation"].startswith("Je recommande ces trois projets.")
+    for etape in sortie["etapes"]:
+        Etape(**etape)
+
+    toujours_vide = FauxLLM([reponse("")])
+    sortie = run_agent(DEMANDE, PROJETS_EXEMPLE, DOCUMENTS_EXEMPLE, client=toujours_vide)
+    assert toujours_vide.nb_appels == 2  # une seule relance, puis le secours
+    assert "réponse vide du LLM" in sortie["recommandation"]
+    verifier_classement(sortie["classement"])
+
+
+def test_reponse_sans_outil_gardee_dans_le_journal():
+    # Vu avec qwen2.5:3b (scénario 5, demande hors sujet) : le LLM explique que ses outils ne
+    # répondent pas à la demande. Ce texte était perdu ; le journal le garde maintenant.
+    refus = "Cette demande n'est pas gérée par les outils disponibles."
+    sortie = lancer([reponse(refus)])
+    assert outils_appeles(sortie) == ["llm", "classer"]
+    assert refus in sortie["etapes"][0]["resultat"]
+    assert refus not in sortie["recommandation"]  # la recommandation ne contient que du vérifié
+    assert "sans classer" in sortie["recommandation"]
+    for etape in sortie["etapes"]:
+        Etape(**etape)
+
+
+# --- Tâche 5 : les cinq scénarios ---------------------------------------------------
+
+
+def exiger_ollama() -> None:
+    """Saute le test si Ollama ou le modèle n'est pas disponible."""
+    ollama = pytest.importorskip("ollama")
+    modele = os.getenv("OLLAMA_MODEL") or agent.MODELE_PAR_DEFAUT
+    try:
+        disponibles = [m.model for m in ollama.Client(host=os.getenv("OLLAMA_HOST") or None).list().models]
+    except Exception:
+        pytest.skip("Serveur Ollama injoignable : lancer `ollama serve`")
+    if modele not in disponibles:
+        pytest.skip(f"Modèle {modele} absent : lancer `ollama pull {modele}`")
+
+
+def verifier_ce_qui_doit_tenir(sortie: dict, scenario: dict) -> dict:
+    """Assertions communes aux scénarios : ce que le code garantit, quel que soit le texte du LLM.
+
+    Les comportements qui dépendent du modèle (poids choisis, ordre des outils, qualité
+    du texte) ne sont pas affirmés ici : ils sont mesurés par scripts/evaluer_agent.py
+    et commentés dans reports/tests_agent.md.
+    """
+    resultat = verifier_sortie(sortie, scenario)
+    assert resultat["contrat_ok"]
+    assert "classer" in outils_appeles(sortie)  # demandé par le LLM, ou lancé par le secours
+    assert len(trois_premiers(sortie["classement"])) == 3
+    assert resultat["top3_dans_sortie"]  # cités par le LLM, sinon ajoutés par le contrôle automatique
+    assert resultat["anomalies_dans_sortie"]
+    assert not set(dossiers_anormaux(sortie["classement"])) & set(trois_premiers(sortie["classement"]))
+    if scenario["poids_utilisateur"]:
+        assert resultat["poids_ok"]  # les poids de l'utilisateur passent toujours avant ceux du LLM
+    return resultat
+
+
+@pytest.mark.parametrize("scenario", SCENARIOS, ids=[f"scenario_{s['numero']}" for s in SCENARIOS])
+def test_scenario_avec_le_pipeline_fixe(scenario):
+    """Les mêmes vérifications sur le modèle de référence : rapide, sans LLM."""
+    projets, documents = charger_projets_scenarios()
+    assert len(projets) == 30 and (projets["statut"] == "en_cours").all()
+    sortie = pipeline_fixe(scenario["demande"], projets, documents, scenario["poids_utilisateur"])
+    resultat = verifier_ce_qui_doit_tenir(sortie, scenario)
+    assert resultat["ordre_ok"] and resultat["citation_ok"]
+    assert resultat["anomalies"] == "P121507"  # le dossier signalé par la fausse détection
+    assert resultat["chiffres_non_retrouves"] == "" and resultat["identifiants_inconnus"] == ""
+
+
+@pytest.mark.llm
+@pytest.mark.parametrize("scenario", SCENARIOS, ids=[f"scenario_{s['numero']}" for s in SCENARIOS])
+def test_scenario_avec_le_vrai_llm(scenario):
+    """Un scénario de bout en bout avec le vrai modèle, sur les 30 projets de test."""
+    exiger_ollama()
+    projets, documents = charger_projets_scenarios()
+    sortie = run_agent(scenario["demande"], projets, documents, scenario["poids_utilisateur"])
+    verifier_ce_qui_doit_tenir(sortie, scenario)
+
+
+def test_poids_coherents_avec_la_demande():
+    peu_risque, plus_rentable, _, poids_fixes, hors_sujet = SCENARIOS
+    assert poids_coherents(normaliser_poids({"proba_risque": 0.5, "impact_env_social": 0.5}), peu_risque)
+    assert not poids_coherents(dict(POIDS_PAR_DEFAUT), peu_risque)  # la rentabilité pèse plus que l'impact
+    assert poids_coherents(dict(POIDS_PAR_DEFAUT), plus_rentable)
+    assert poids_coherents(normaliser_poids(poids_fixes["poids_utilisateur"]), poids_fixes)
+    assert poids_coherents(dict(POIDS_PAR_DEFAUT), hors_sujet)  # aucune priorité : poids par défaut attendus
+
+
+def test_chiffre_invente_repere():
+    sortie = pipeline_fixe(DEMANDE, PROJETS_EXEMPLE, DOCUMENTS_EXEMPLE)
+    classement = sortie["classement"]
+    premier = classement.iloc[0]
+    juste = f"{premier['id_projet']} : score {premier['score']:.2f}, rentabilité {premier['rentabilite_predite']} %"
+    assert chiffres_non_retrouves(juste, classement, POIDS_PAR_DEFAUT) == []
+    assert chiffres_non_retrouves(juste + ", VAN 99.7", classement, POIDS_PAR_DEFAUT) == ["99.7"]
+
+
+def test_citation_verifiee_seulement_si_rendue_par_l_outil():
+    sortie = pipeline_fixe("émissions de CO2", PROJETS_EXEMPLE, DOCUMENTS_EXEMPLE)
+    assert citation_verifiee("Passage cité : aucun.", sortie)
+    assert citation_verifiee("Passage cité : P001 « Réduction attendue des émissions de CO2. »", sortie)
+    assert not citation_verifiee("Passage cité : P001 « Le projet crée 5 000 emplois. »", sortie)
