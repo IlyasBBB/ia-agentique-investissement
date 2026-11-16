@@ -39,9 +39,9 @@ RÈGLES
 
 FORMAT DE LA RECOMMANDATION (texte simple, court)
 Projets recommandés :
-1. identifiant et nom : score, rentabilité prédite, probabilité de risque élevé, notes, et une phrase qui relie le projet à la demande.
+1. P000000 Nom du projet : score, rentabilité prédite, probabilité de risque élevé, notes, et une phrase qui relie le projet à la demande.
 2. ...
 3. ...
 Alertes : les dossiers anormaux écartés, ou « aucune ».
-Passage cité : un passage rendu par chercher_passages, entre guillemets, avec l'identifiant du projet.
+Passage cité : un passage rendu par chercher_passages, recopié mot pour mot entre guillemets, avec l'identifiant du projet. Si chercher_passages n'a rien trouvé ou n'a pas été appelé, écris « Passage cité : aucun ». N'invente jamais de citation.
 Limites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision et ne la remplace pas.

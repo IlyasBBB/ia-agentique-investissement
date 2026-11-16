@@ -280,15 +280,23 @@ def rediger_recommandation(portefeuille: Portefeuille) -> str:
 
 
 def controler_recommandation(portefeuille: Portefeuille, texte: str) -> str:
-    """Vérifie le texte du LLM et ajoute ce qu'il a oublié : projets à recommander et dossiers anormaux."""
+    """Vérifie le texte du LLM et ajoute ce qu'il a oublié ou n'a pas pu vérifier."""
     oublis = [decrire(r) for r in portefeuille.recommandes().to_dict("records") if r["id_projet"] not in texte]
-    anomalies_tues = [a for a in (portefeuille.anomalies or []) if a not in texte]
-    if not oublis and not anomalies_tues:
+    anomalies = portefeuille.anomalies or []
+    alerte_oubliee = bool(anomalies) and not any(a in texte for a in anomalies)
+    # Vu avec qwen2.5:3b : sans avoir cherché de passage, il en invente un et le cite.
+    citation_non_verifiee = not portefeuille.passages and "passage cité" in texte.lower() \
+        and "passage cité : aucun" not in texte.lower()
+    if not oublis and not alerte_oubliee and not citation_non_verifiee:
         return texte
-    ajouts = ["", "", "Contrôle automatique (le texte ci-dessus a oublié ces points) :"]
-    ajouts += [f"- Projet à recommander aussi : {o}." for o in oublis]
-    if anomalies_tues:
-        ajouts.append(f"- Alerte : dossiers anormaux écartés de la recommandation : {', '.join(anomalies_tues[:10])}.")
+    ajouts = ["", "", "Contrôle automatique :"]
+    ajouts += [f"- Projet à recommander oublié dans le texte : {o}." for o in oublis]
+    if alerte_oubliee:
+        ajouts.append(f"- Alerte oubliée : {len(anomalies)} dossiers anormaux écartés de la recommandation "
+                      f"({', '.join(anomalies[:10])}{' …' if len(anomalies) > 10 else ''}).")
+    if citation_non_verifiee:
+        ajouts.append("- Le passage cité n'a pas été rendu par l'outil chercher_passages : "
+                      "il n'est pas vérifié et ne doit pas être pris en compte.")
     return texte + "\n".join(ajouts)
 
 

@@ -231,3 +231,14 @@ def test_controle_ajoute_ce_que_le_llm_a_oublie():
     assert troisieme in controle and ANOMALIE in controle
     complet = f"{premier}, {deuxieme}, {troisieme}. Alerte : {ANOMALIE}."
     assert agent.controler_recommandation(portefeuille, complet) == complet
+
+
+def test_controle_signale_une_citation_inventee():
+    # Vu avec qwen2.5:3b sur 500 projets : chercher_passages jamais appelé, mais un « passage cité » inventé.
+    portefeuille = Portefeuille(PROJETS_EXEMPLE, DOCUMENTS_EXEMPLE, None)
+    portefeuille.appeler("classer", {})
+    ids = ", ".join(portefeuille.recommandes()["id_projet"]) + ", " + ", ".join(portefeuille.anomalies)
+    invente = agent.controler_recommandation(portefeuille, f"{ids}. Passage cité : « texte inventé »")
+    assert "n'est pas vérifié" in invente
+    honnete = f"{ids}. Passage cité : aucun."
+    assert agent.controler_recommandation(portefeuille, honnete) == honnete
