@@ -91,4 +91,42 @@ Conclusion : l'agent n'est pas utilisable en démonstration avec ce modèle sur 
 
 ## Application
 
-Trois zones : chargement (CSV des projets, documents texte), réglages (curseurs des poids, demande en langage naturel), résultats (classement, alertes, recommandation, journal des étapes, graphique du classement).
+L'application ne calcule rien : elle charge les projets, appelle `run_agent` ou `pipeline_fixe` et affiche ce qu'ils rendent.
+
+Trois zones :
+
+- **barre latérale** : source des données (jeu Banque mondiale ou fichiers importés), filtres, mode (agent ou pipeline fixe), comparaison, état d'Ollama ;
+- **haut de page** : nom du produit, bandeau d'indicateurs du portefeuille retenu (projets, coût total en milliards de dollars, secteurs, pays, documents), puis la demande, ses trois exemples et le choix des poids ;
+- **résultats**, en onglets : Recommandation (cartes des trois projets, alerte sur les dossiers anormaux, texte rédigé), Classement (dix meilleurs scores et tableau complet), Vue 3D, Journal des étapes (ligne du temps), Explication (poids utilisés, graphique SHAP à venir), Comparaison (agent face au pipeline fixe).
+
+### Fichiers
+
+| Fichier | Rôle |
+|---|---|
+| `app/app.py` | La page : chargement, barre latérale, demande, appel de l'agent, onglets |
+| `app/composants.py` | Blocs écrits en HTML : bandeau, cartes, alerte, journal, panneaux de comparaison |
+| `app/graphiques.py` | Graphiques Plotly et leur modèle sombre commun, dont le nuage 3D |
+| `app/style.css` | Habillage : fond, polices, cartes, journal, animations. Lu par `app.py` et injecté avec `st.markdown` |
+| `.streamlit/config.toml` | Thème Streamlit : couleurs de base, polices, barre d'outils réduite |
+
+### Thème
+
+Thème sombre de terminal financier : fond presque noir bleuté avec une grille fine, cyan pour les actions et les repères, vert pour une rentabilité positive, rouge pour les alertes et les dossiers anormaux. Trois polices Google Fonts : Chakra Petch (titres), IBM Plex Sans (texte), IBM Plex Mono (chiffres, journal). Hors ligne, les polices du système prennent le relais (Segoe UI, Consolas) : l'application reste utilisable, seul l'aspect change. Les animations sont courtes et coupées si le système demande de réduire les mouvements.
+
+Les couleurs des graphiques sont plus sourdes que celles de l'interface : cyan `#1298b4`, ambre `#c98500`, rose-rouge `#e0527a`. Elles ont été choisies pour rester distinctes sur fond sombre, y compris en cas de daltonisme. Le vert et le rouge ne sont jamais opposés dans un graphique, et une forme ou des hachures doublent toujours la couleur.
+
+### Vue 3D
+
+Nuage de points Plotly (`scatter3d`), qu'on peut tourner et zoomer. Un point par projet analysé :
+
+- position : rentabilité prédite, probabilité de risque élevé, impact environnemental et social ;
+- couleur : score (plus clair = meilleur) ;
+- taille : coût total (racine du coût, plafonnée au 95e centile pour qu'un coût extrême n'écrase pas les autres) ;
+- losanges ambre avec leur rang : les trois projets recommandés ;
+- croix rouges : dossiers anormaux.
+
+Plotly est déjà embarqué par Streamlit : aucun script n'est chargé depuis Internet pour la 3D.
+
+### Sécurité de l'affichage
+
+Le texte du LLM est affiché avec `st.text`, donc jamais lu comme du Markdown ou du HTML. Dans les blocs HTML, tout ce qui vient des données ou du LLM (noms de projets, CSV importé, arguments et résultats d'outils) passe par `composants.propre`, qui neutralise les balises. Un test le vérifie.

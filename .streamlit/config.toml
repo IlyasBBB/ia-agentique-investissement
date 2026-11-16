@@ -1,0 +1,22 @@
+# Thème de l'application : terminal financier sombre.
+# Les couleurs de base sont ici ; le reste de l'habillage est dans app/style.css.
+
+[theme]
+base = "dark"
+primaryColor = "#22d3ee"
+backgroundColor = "#070b14"
+secondaryBackgroundColor = "#0f1828"
+textColor = "#e6edf7"
+borderColor = "#26364f"
+# Polices chargées par app/style.css ; les suivantes servent de secours hors ligne.
+font = "'IBM Plex Sans', 'Segoe UI', sans-serif"
+headingFont = "'Chakra Petch', 'Segoe UI', sans-serif"
+codeFont = "'IBM Plex Mono', Consolas, monospace"
+
+[theme.sidebar]
+backgroundColor = "#0a101c"
+secondaryBackgroundColor = "#111b2d"
+
+[client]
+# Masque le bouton « Deploy » : l'application tourne en local.
+toolbarMode = "minimal"
