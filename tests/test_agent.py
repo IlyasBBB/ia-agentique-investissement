@@ -1,0 +1,219 @@
+"""Tests de l'agent (src/agent.py).
+
+Le LLM est remplacé par un faux client qui rejoue un scénario écrit à l'avance :
+les tests n'ont donc pas besoin d'Ollama et donnent toujours le même résultat.
+Seul le dernier test (marqué llm) appelle le vrai modèle. Il est lent, donc écarté
+par défaut (pytest.ini) : le lancer avec `python -m pytest -m llm`.
+"""
+import os
+from types import SimpleNamespace
+
+import pytest
+
+from src import agent, outils
+from src.agent import MAX_TOURS, Portefeuille, normaliser_poids, pipeline_fixe, run_agent
+from src.contrat import CRITERES, POIDS_PAR_DEFAUT, Etape, verifier_classement, verifier_poids
+from src.mocks import DOCUMENTS_EXEMPLE, PROJETS_EXEMPLE
+
+DEMANDE = "Je veux des projets peu risqués avec un fort impact environnemental"
+ORDRE_FIXE = ["extraire_criteres", "predire", "detecter_anomalies", "classer", "chercher_passages"]
+ANOMALIE = "P005"  # coût énorme pour 6 mois : signalé par la fausse détection
+
+
+def appel(nom: str, **arguments) -> SimpleNamespace:
+    """Une demande d'outil, comme la renvoie Ollama."""
+    return SimpleNamespace(function=SimpleNamespace(name=nom, arguments=arguments))
+
+
+def reponse(texte: str = "", appels: list | None = None) -> SimpleNamespace:
+    """Une réponse du LLM : du texte, ou des demandes d'outils."""
+    return SimpleNamespace(message=SimpleNamespace(content=texte, tool_calls=appels))
+
+
+class FauxLLM:
+    """Faux client Ollama : rend les réponses du scénario une par une."""
+
+    def __init__(self, scenario: list) -> None:
+        self.scenario = list(scenario)
+        self.nb_appels = 0
+
+    def chat(self, **parametres) -> SimpleNamespace:
+        self.nb_appels += 1
+        suivante = self.scenario.pop(0) if len(self.scenario) > 1 else self.scenario[0]
+        if isinstance(suivante, Exception):
+            raise suivante
+        return suivante
+
+
+def lancer(scenario: list, poids: dict | None = None) -> dict:
+    """Lance l'agent sur les projets d'exemple avec un faux LLM."""
+    return run_agent(DEMANDE, PROJETS_EXEMPLE, DOCUMENTS_EXEMPLE, poids, client=FauxLLM(scenario))
+
+
+def outils_appeles(sortie: dict) -> list[str]:
+    return [etape["outil"] for etape in sortie["etapes"]]
+
+
+def poids_utilises(monkeypatch) -> dict:
+    """Espionne rank pour voir les poids que l'agent lui passe."""
+    vus = {}
+    vrai_rank = outils.rank
+
+    def faux_rank(matrice, poids):
+        vus.update(poids)
+        return vrai_rank(matrice, poids)
+
+    monkeypatch.setattr(agent.outils, "rank", faux_rank)
+    return vus
+
+
+SCENARIO_NORMAL = [
+    reponse(appels=[appel("extraire_criteres")]),
+    reponse(appels=[appel("predire")]),
+    reponse(appels=[appel("detecter_anomalies")]),
+    reponse(appels=[appel("classer", poids={"proba_risque": 3, "impact_env_social": 1})]),
+    reponse(appels=[appel("chercher_passages", question="impact environnemental", k=2)]),
+    reponse("Je recommande ces trois projets."),
+]
+
+
+def test_scenario_normal():
+    sortie = lancer(SCENARIO_NORMAL)
+    assert set(sortie) == {"classement", "recommandation", "etapes"}
+    assert outils_appeles(sortie) == ORDRE_FIXE
+    for etape in sortie["etapes"]:
+        Etape(**etape)
+    verifier_classement(sortie["classement"])
+    assert len(sortie["classement"]) == len(PROJETS_EXEMPLE)
+    assert sortie["recommandation"] == "Je recommande ces trois projets."
+
+
+def test_poids_du_llm_normalises(monkeypatch):
+    vus = poids_utilises(monkeypatch)
+    lancer(SCENARIO_NORMAL)
+    verifier_poids(vus)
+    assert vus["proba_risque"] == pytest.approx(0.75)
+    assert vus["impact_env_social"] == pytest.approx(0.25)
+    assert vus["cout_total"] == 0
+
+
+def test_normaliser_poids_cas_limites():
+    assert normaliser_poids(None) == POIDS_PAR_DEFAUT
+    assert normaliser_poids({"critere_inconnu": 1, "faisabilite": "beaucoup"}) == POIDS_PAR_DEFAUT
+    assert normaliser_poids('{"faisabilite": 2}')["faisabilite"] == 1
+    assert set(normaliser_poids({"cout_total": 5})) == set(CRITERES)
+
+
+def test_poids_de_l_utilisateur_prioritaires(monkeypatch):
+    vus = poids_utilises(monkeypatch)
+    lancer(SCENARIO_NORMAL, poids={"faisabilite": 1.0})
+    assert vus["faisabilite"] == 1
+    assert vus["proba_risque"] == 0
+
+
+def test_outil_inconnu_journalise_sans_plantage():
+    sortie = lancer([reponse(appels=[appel("calculer_van")]), *SCENARIO_NORMAL])
+    assert sortie["etapes"][0]["outil"] == "calculer_van"
+    assert "outil inconnu" in sortie["etapes"][0]["resultat"]
+    assert sortie["recommandation"] == "Je recommande ces trois projets."
+
+
+def test_erreur_d_outil_journalisee_sans_plantage(monkeypatch):
+    def predict_en_panne(projet):
+        raise RuntimeError("modèle introuvable")
+
+    monkeypatch.setattr(agent.outils, "predict", predict_en_panne)
+    sortie = lancer(SCENARIO_NORMAL)
+    etape = sortie["etapes"][1]
+    assert etape["outil"] == "predire"
+    assert "Erreur dans predire : modèle introuvable" in etape["resultat"]
+    # Sans prédiction, pas de classement : la sortie garde quand même le format du contrat.
+    assert list(sortie["classement"].columns) == ["id_projet", "score", "rang"]
+    assert "sans LLM" in sortie["recommandation"]
+
+
+def test_arguments_invalides_journalises():
+    sortie = lancer([reponse(appels=[appel("predire", projet="P001")]), *SCENARIO_NORMAL])
+    assert sortie["etapes"][0]["resultat"].startswith("Erreur dans predire")
+    verifier_classement(sortie["classement"])
+
+
+def test_plafond_de_tours_donne_la_recommandation_de_secours():
+    faux = FauxLLM([reponse(appels=[appel("predire")])])  # le LLM ne s'arrête jamais
+    sortie = run_agent(DEMANDE, PROJETS_EXEMPLE, DOCUMENTS_EXEMPLE, client=faux)
+    assert faux.nb_appels == MAX_TOURS
+    assert "plafond" in sortie["recommandation"]
+    assert "Projets recommandés" in sortie["recommandation"]
+    verifier_classement(sortie["classement"])
+
+
+def test_llm_en_panne_donne_la_recommandation_de_secours():
+    sortie = lancer([ConnectionError("Ollama ne répond pas")])
+    assert sortie["etapes"][0]["outil"] == "llm"
+    assert "Ollama ne répond pas" in sortie["etapes"][0]["resultat"]
+    assert "erreur du LLM" in sortie["recommandation"]
+    verifier_classement(sortie["classement"])
+    for etape in sortie["etapes"]:
+        Etape(**etape)
+
+
+def test_reponse_sans_outil_donne_la_recommandation_de_secours():
+    sortie = lancer([reponse("Je recommande P005, rentabilité 42 %.")])
+    assert "sans classer" in sortie["recommandation"]
+    assert "42 %" not in sortie["recommandation"]
+
+
+def test_pipeline_fixe_conforme_et_toujours_dans_le_meme_ordre():
+    premiere = pipeline_fixe(DEMANDE, PROJETS_EXEMPLE, DOCUMENTS_EXEMPLE)
+    seconde = pipeline_fixe("Autre demande", PROJETS_EXEMPLE, DOCUMENTS_EXEMPLE)
+    assert outils_appeles(premiere) == outils_appeles(seconde) == ORDRE_FIXE
+    for etape in premiere["etapes"]:
+        Etape(**etape)
+    verifier_classement(premiere["classement"])
+    assert isinstance(premiere["recommandation"], str)
+    assert "cibles simulées" in premiere["recommandation"]
+    assert premiere["classement"].equals(seconde["classement"])
+
+
+def test_anomalies_exclues_du_top_3():
+    # Tout le poids sur la durée : le dossier anormal (6 mois) arrive premier du classement.
+    portefeuille = Portefeuille(PROJETS_EXEMPLE, DOCUMENTS_EXEMPLE, {"duree_mois": 1.0})
+    resume = portefeuille.appeler("classer", {})
+    assert portefeuille.classement.iloc[0]["id_projet"] == ANOMALIE
+    assert bool(portefeuille.classement.iloc[0]["anomalie"])
+    retenus = portefeuille.recommandes()
+    assert len(retenus) == 3
+    assert ANOMALIE not in list(retenus["id_projet"])
+    a_recommander = resume.split("Projets à recommander")[1].split("Dossiers anormaux à signaler")[0]
+    assert ANOMALIE not in a_recommander
+
+    sortie = pipeline_fixe(DEMANDE, PROJETS_EXEMPLE, DOCUMENTS_EXEMPLE, {"duree_mois": 1.0})
+    recommandes, alerte = sortie["recommandation"].split("Alerte")
+    assert ANOMALIE not in recommandes
+    assert ANOMALIE in alerte
+
+
+def test_projet_sans_document_recoit_la_note_neutre():
+    sortie = pipeline_fixe(DEMANDE, PROJETS_EXEMPLE, documents=None)
+    assert "5 sans document" in sortie["etapes"][0]["resultat"]
+    assert (sortie["classement"]["faisabilite"] == agent.NOTE_NEUTRE).all()
+
+
+@pytest.mark.llm
+def test_agent_avec_le_vrai_llm():
+    """Lance le vrai agent. Sauté si Ollama ou le modèle n'est pas disponible."""
+    ollama = pytest.importorskip("ollama")
+    modele = os.getenv("OLLAMA_MODEL") or agent.MODELE_PAR_DEFAUT
+    try:
+        disponibles = [m.model for m in ollama.Client(host=os.getenv("OLLAMA_HOST") or None).list().models]
+    except Exception:
+        pytest.skip("Serveur Ollama injoignable : lancer `ollama serve`")
+    if modele not in disponibles:
+        pytest.skip(f"Modèle {modele} absent : lancer `ollama pull {modele}`")
+
+    sortie = run_agent(DEMANDE, PROJETS_EXEMPLE, DOCUMENTS_EXEMPLE)
+    verifier_classement(sortie["classement"])
+    assert "classer" in outils_appeles(sortie)
+    assert len(sortie["recommandation"]) > 50
+    for etape in sortie["etapes"]:
+        Etape(**etape)
