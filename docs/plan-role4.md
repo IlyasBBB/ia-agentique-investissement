@@ -2,7 +2,7 @@
 
 Le plan complet des quatre rôles est dans `docs/Plan_projet_ML_IA_agentique.xlsx`. Ce fichier ne reprend que les tâches d'Ilyas. Statuts possibles : à faire, en cours, terminé.
 
-Dernière mise à jour : 16 novembre 2026.
+Dernière mise à jour : 17 novembre 2026.
 
 ## Tâche reprise au rôle 1
 
@@ -43,3 +43,4 @@ Dernière mise à jour : 16 novembre 2026.
 - 16 nov. : `qwen2.5:3b` retenu : analyse complète en 58 s. Deux corrections après l'essai : arguments inventés par le LLM ignorés, contrôle automatique des projets et alertes oubliés dans la recommandation.
 - 16 nov. : application redessinée (`app/app.py`, `app/composants.py`, `app/graphiques.py`, `app/style.css`, `.streamlit/config.toml`) : thème sombre de terminal financier, bandeau d'indicateurs, cartes des trois projets recommandés, journal en ligne du temps, onglet « Vue 3D » (nuage Plotly rentabilité, risque, impact). Fonctions inchangées, tests de `tests/test_app.py` adaptés.
 - 16 nov. : agent évalué sur 5 scénarios et 30 projets en cours, 2 passages, face au pipeline fixe (`reports/tests_agent.md`). Poids cohérents avec la demande dans les 8 analyses menées par le LLM, aucun chiffre ni citation inventé dans l'état final. Deux corrections de `src/agent.py` : relance après une réponse vide du LLM, réponse sans outil gardée dans le journal. Deux reformulations du prompt essayées puis abandonnées. Reste ouvert : `chercher_passages` presque jamais demandé par le LLM, scénario 1 instable d'un passage à l'autre.
+- 17 nov. : application refaite (branche `role4/app-v2`) : thème de quotidien financier sur papier saumon, relief 3D du portefeuille en Three.js (colonnes cliquables qui se réordonnent), poids modifiables en direct sans relancer l'agent, page découpée en fragment pour la fluidité, polices et Three.js copiés dans le dépôt (aucun appel externe).

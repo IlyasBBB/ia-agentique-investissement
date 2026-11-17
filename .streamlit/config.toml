@@ -1,21 +1,39 @@
-# Thème de l'application : terminal financier sombre.
+# Thème de l'application : page de quotidien financier sur papier saumon.
 # Les couleurs de base sont ici ; le reste de l'habillage est dans app/style.css.
 
+[server]
+# Sert le dossier app/static (les polices) : aucune police n'est chargée depuis Internet.
+enableStaticServing = true
+
 [theme]
-base = "dark"
-primaryColor = "#22d3ee"
-backgroundColor = "#070b14"
-secondaryBackgroundColor = "#0f1828"
-textColor = "#e6edf7"
-borderColor = "#26364f"
-# Polices chargées par app/style.css ; les suivantes servent de secours hors ligne.
-font = "'IBM Plex Sans', 'Segoe UI', sans-serif"
-headingFont = "'Chakra Petch', 'Segoe UI', sans-serif"
-codeFont = "'IBM Plex Mono', Consolas, monospace"
+base = "light"
+primaryColor = "#1d4f8c"
+backgroundColor = "#fae1cf"
+secondaryBackgroundColor = "#f2d3be"
+textColor = "#2b2724"
+borderColor = "#dcc6b3"
+linkColor = "#1d4f8c"
+baseRadius = "2px"
+font = "Archivo, 'Segoe UI', sans-serif"
+headingFont = "'Source Serif 4', Georgia, serif"
+codeFont = "Consolas, monospace"
+
+[[theme.fontFaces]]
+family = "Archivo"
+url = "app/static/polices/archivo.woff2"
+weight = "100 900"
+
+[[theme.fontFaces]]
+family = "Source Serif 4"
+url = "app/static/polices/source-serif-4.woff2"
+weight = "200 900"
 
 [theme.sidebar]
-backgroundColor = "#0a101c"
-secondaryBackgroundColor = "#111b2d"
+backgroundColor = "#13263f"
+secondaryBackgroundColor = "#1d3352"
+textColor = "#f6e6d8"
+primaryColor = "#f0a77a"
+borderColor = "#2e4766"
 
 [client]
 # Masque le bouton « Deploy » : l'application tourne en local.

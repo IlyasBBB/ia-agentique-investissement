@@ -51,3 +51,17 @@ def test_les_textes_des_donnees_ne_sont_pas_lus_comme_du_html():
     assert "<script>" not in carte and "&lt;script&gt;" in carte
     journal = composants.journal_etapes([{"outil": "classer", "arguments": {}, "resultat": "<b>x</b>", "duree_s": 0.1}])
     assert "<b>x</b>" not in journal
+
+
+def test_les_curseurs_reclassent_sans_relancer_l_analyse():
+    app = ouvrir()
+    app.number_input(key="maximum").set_value(20)
+    app.radio(key="mode").set_value("Pipeline fixe (sans LLM)")
+    app.text_area(key="demande").set_value("Projets peu risqués")
+    app.run()
+    app.button(key="analyser").click().run()
+    etapes_avant = app.session_state["resultat"]["etapes"]
+    app.slider(key="poids_rentabilite_predite").set_value(1.0).run()
+    assert not app.exception
+    assert app.session_state["resultat"]["etapes"] is etapes_avant  # l'analyse n'a pas été relancée
+    assert "Cartes et classement suivent vos poids" in " ".join(m.value for m in app.markdown)

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relief du portefeuille</title>
+<!-- Three.js est copié dans ce dossier : rien n'est chargé depuis Internet. -->
+<script type="importmap">{"imports": {"three": "./three.module.min.js"}}</script>
+<style>
+  @font-face { font-family: "Archivo"; src: url("/app/static/polices/archivo.woff2") format("woff2"); font-weight: 100 900; }
+  :root { --papier: #fae1cf; --encre: #2b2724; --encre-2: #6b625b; --bleu: #1d4f8c; --bordeaux: #8e1b3a; --filet: #dcc6b3; }
+  html, body { margin: 0; height: 100%; background: var(--papier); color: var(--encre);
+               font: 14px/1.4 "Archivo", "Segoe UI", sans-serif; font-variant-numeric: tabular-nums; overflow: hidden; }
+  #scene { position: absolute; inset: 0; }
+  #scene canvas { display: block; outline: none; cursor: grab; }
+  #scene canvas:active { cursor: grabbing; }
+  .legende { position: absolute; left: 12px; bottom: 10px; display: flex; flex-wrap: wrap; gap: 4px 14px;
+             font-size: 12px; color: var(--encre-2); pointer-events: none; }
+  .legende i { display: inline-block; width: 9px; height: 9px; margin-right: 6px; vertical-align: -1px; background: var(--encre); }
+  .legende .reco { background: var(--bleu); }
+  .legende .anomalie { background: var(--bordeaux); }
+  .etat { position: absolute; left: 12px; top: 10px; font-size: 12px; color: var(--encre-2); pointer-events: none; }
+  .bulle { position: absolute; pointer-events: none; min-width: 180px; max-width: 260px; padding: 8px 10px;
+           background: #fffaf5; border: 1px solid var(--filet); border-radius: 2px;
+           box-shadow: 0 6px 18px rgba(60, 35, 20, 0.12); opacity: 0; transform: translateY(4px);
+           transition: opacity 140ms ease-out, transform 140ms ease-out; }
+  .bulle.visible { opacity: 1; transform: none; }
+  .bulle b { display: block; font-weight: 600; margin-bottom: 2px; }
+  .bulle span { display: block; color: var(--encre-2); font-size: 12px; }
+  .etiquette { position: absolute; pointer-events: none; transform: translate(-50%, -100%); white-space: nowrap;
+               font-size: 12px; font-weight: 600; color: var(--bleu); background: rgba(250, 225, 207, 0.88);
+               padding: 1px 6px; border-top: 2px solid var(--bleu); }
+  .repli { padding: 24px; color: var(--encre-2); }
+</style>
+</head>
+<body>
+<div id="scene" aria-label="Relief 3D du portefeuille : une colonne par projet, hauteur proportionnelle au score"></div>
+<div class="etat" id="etat"></div>
+<div class="legende" aria-hidden="true">
+  <span><i></i>Hauteur : score (centre = n° 1)</span><span><i class="reco"></i>Recommandés</span>
+  <span><i class="anomalie"></i>Dossiers anormaux</span><span>Glisser pour tourner · clic pour la fiche</span>
+</div>
+<div class="bulle" id="bulle" role="status"></div>
+<script type="module" src="./scene.js"></script>
+</body>
+</html>

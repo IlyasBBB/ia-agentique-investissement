@@ -106,37 +106,58 @@ L'application ne calcule rien : elle charge les projets, appelle `run_agent` ou 
 
 Trois zones :
 
-- **barre latérale** : source des données (jeu Banque mondiale ou fichiers importés), filtres, mode (agent ou pipeline fixe), comparaison, état d'Ollama ;
-- **haut de page** : nom du produit, bandeau d'indicateurs du portefeuille retenu (projets, coût total en milliards de dollars, secteurs, pays, documents), puis la demande, ses trois exemples et le choix des poids ;
-- **résultats**, en onglets : Recommandation (cartes des trois projets, alerte sur les dossiers anormaux, texte rédigé), Classement (dix meilleurs scores et tableau complet), Vue 3D, Journal des étapes (ligne du temps), Explication (poids utilisés, graphique SHAP à venir), Comparaison (agent face au pipeline fixe).
+- **barre latérale** (bleu nuit) : source des données (jeu Banque mondiale ou fichiers importés), filtres, mode (agent ou pipeline fixe), comparaison, état d'Ollama ;
+- **haut de page** : manchette (nom du produit, date, rappel que rentabilité et risque sont simulés), bandeau de chiffres du portefeuille retenu, puis deux colonnes : à gauche la demande, ses trois exemples, les poids et le bouton « Analyser » ; à droite le relief 3D du portefeuille et la fiche du projet cliqué ;
+- **résultats**, en onglets : Recommandation (cartes des trois projets, alerte sur les dossiers anormaux, texte rédigé), Classement (dix meilleurs scores et tableau complet), Vue 3D (nuage Plotly), Journal des étapes, Explication (poids utilisés, graphique SHAP à venir), Comparaison (agent face au pipeline fixe).
 
 ### Fichiers
 
 | Fichier | Rôle |
 |---|---|
-| `app/app.py` | La page : chargement, barre latérale, demande, appel de l'agent, onglets |
-| `app/composants.py` | Blocs écrits en HTML : bandeau, cartes, alerte, journal, panneaux de comparaison |
-| `app/graphiques.py` | Graphiques Plotly et leur modèle sombre commun, dont le nuage 3D |
-| `app/style.css` | Habillage : fond, polices, cartes, journal, animations. Lu par `app.py` et injecté avec `st.markdown` |
-| `.streamlit/config.toml` | Thème Streamlit : couleurs de base, polices, barre d'outils réduite |
+| `app/app.py` | La page : chargement, barre latérale, demande, poids en direct, relief, onglets |
+| `app/composants.py` | Blocs écrits en HTML : bandeau, cartes, fiche du projet, alerte, journal, panneaux de comparaison |
+| `app/graphiques.py` | Graphiques Plotly et leur modèle commun « papier saumon », dont le nuage 3D |
+| `app/style.css` | Habillage : manchette, cartes, journal, animations. Lu par `app.py` et injecté avec `st.markdown` |
+| `app/scene3d/` | Relief 3D : `index.html`, `scene.js` (code de la scène), Three.js 0.160 copié dans le dossier (`three.module.min.js`, `OrbitControls.js`, licence MIT) |
+| `app/static/polices/` | Polices Archivo et Source Serif 4 (licence OFL), servies par Streamlit |
+| `.streamlit/config.toml` | Thème Streamlit (couleurs, polices, barre latérale) et service des fichiers de `app/static` |
 
 ### Thème
 
-Thème sombre de terminal financier : fond presque noir bleuté avec une grille fine, cyan pour les actions et les repères, vert pour une rentabilité positive, rouge pour les alertes et les dossiers anormaux. Trois polices Google Fonts : Chakra Petch (titres), IBM Plex Sans (texte), IBM Plex Mono (chiffres, journal). Hors ligne, les polices du système prennent le relais (Segoe UI, Consolas) : l'application reste utilisable, seul l'aspect change. Les animations sont courtes et coupées si le système demande de réduire les mouvements.
+Direction choisie le 17 novembre : la page d'un quotidien financier sur papier saumon, pour quitter le look « tableau de bord généré par IA » (fond noir, néon cyan) de la première version.
 
-Les couleurs des graphiques sont plus sourdes que celles de l'interface : cyan `#1298b4`, ambre `#c98500`, rose-rouge `#e0527a`. Elles ont été choisies pour rester distinctes sur fond sombre, y compris en cas de daltonisme. Le vert et le rouge ne sont jamais opposés dans un graphique, et une forme ou des hachures doublent toujours la couleur.
+- Couleurs : papier saumon, encre brun-noir, bleu profond pour l'action et les projets recommandés, bordeaux pour les alertes et les dossiers anormaux, sarcelle pour une rentabilité positive. Barre latérale bleu nuit.
+- Polices : Source Serif 4 pour les titres, Archivo pour le texte et les chiffres (chiffres de largeur égale, qui s'alignent dans les tableaux). Elles sont copiées dans le dépôt : plus aucun appel à Google Fonts, l'application ne contacte aucun service externe.
+- Filets fins à la place des cartes à ombre, rayons de 2 px. Les animations sont courtes et coupées si le système demande de réduire les mouvements.
 
-### Vue 3D
+Les couleurs des graphiques Plotly restent distinctes sur le papier, y compris en cas de daltonisme : bleu, ocre, bordeaux. Une forme ou des hachures doublent toujours la couleur.
 
-Nuage de points Plotly (`scatter3d`), qu'on peut tourner et zoomer. Un point par projet analysé :
+### Fluidité
 
-- position : rentabilité prédite, probabilité de risque élevé, impact environnemental et social ;
-- couleur : score (plus clair = meilleur) ;
-- taille : coût total (racine du coût, plafonnée au 95e centile pour qu'un coût extrême n'écrase pas les autres) ;
-- losanges ambre avec leur rang : les trois projets recommandés ;
-- croix rouges : dossiers anormaux.
+Streamlit relance tout le script à chaque clic. Pour éviter cet effet de page qui se recharge :
 
-Plotly est déjà embarqué par Streamlit : aucun script n'est chargé depuis Internet pour la 3D.
+- la demande, les poids, le relief et les résultats sont dans un **fragment** (`@st.fragment`, fonction `atelier`) : un clic dans ce bloc ne relance que lui ;
+- **poids en direct** : après une analyse, les curseurs partent des poids utilisés. Les bouger refait le classement avec `rank` sur les sept critères déjà calculés (fonction `reclasser`, via `src/outils.py`), sans relancer l'agent. Les cartes, le classement et le relief suivent ; la recommandation rédigée, le journal et la comparaison restent ceux de l'analyse, et un message le dit ;
+- le relief 3D reste le même d'un clic à l'autre : seules ses données changent, et les colonnes glissent vers leur nouvelle place.
+
+Ce qui reste lent : l'analyse par l'agent (environ une minute, le LLM tourne sur le processeur).
+
+### Relief 3D
+
+Composant Streamlit maison (`components.declare_component`, dossier `app/scene3d`), écrit avec Three.js. Une colonne par projet :
+
+- disposition en spirale par rang : le n° 1 au centre, les suivants de plus en plus loin, si bien que les meilleurs projets forment le sommet ;
+- hauteur : le score, ramené entre le plus faible et le plus fort du portefeuille et accentué vers le haut pour que le sommet se détache ;
+- couleur : encre pour les projets ordinaires, bleu pour les trois recommandés (avec leur numéro), bordeaux pour les dossiers anormaux ;
+- avant l'analyse, les colonnes sont au repos, presque plates ; après, elles montent en vague du centre vers le bord ;
+- survol : bulle avec le nom, le secteur, le pays, le rang et le score ; clic : l'identifiant revient à Python, qui affiche la fiche du projet sous le relief ;
+- la caméra tourne lentement et s'arrête dès qu'on la manipule. Sans WebGL, un message remplace la scène ; si le système demande moins de mouvement, ni rotation ni animation.
+
+Les noms de projets passent dans la scène par `textContent`, jamais par `innerHTML` : ils ne peuvent pas être lus comme du HTML.
+
+### Vue 3D (onglet)
+
+Nuage de points Plotly (`scatter3d`) : rentabilité prédite, probabilité de risque élevé, impact environnemental et social ; couleur = score (plus foncé = meilleur), taille = coût total, losanges ocre = projets recommandés, croix bordeaux = dossiers anormaux.
 
 ### Sécurité de l'affichage
 

@@ -72,6 +72,29 @@ def carte_projet(ligne: dict) -> str:
     )
 
 
+def fiche_projet(ligne: dict) -> str:
+    """Fiche du projet cliqué dans le relief 3D : identité, rang, score et les sept critères."""
+    def note(colonne: str) -> str:
+        return f"{float(ligne[colonne]):.0f}/5" if ligne.get(colonne) is not None else "—"
+
+    lieu = " · ".join(str(ligne[c]) for c in ("secteur", "pays") if ligne.get(c))
+    mesures = [
+        ("Rang", f"{ligne['rang']}"), ("Score", nombre(float(ligne["score"]), 3)),
+        ("Rentabilité prédite", f"{nombre(float(ligne['rentabilite_predite']), 1)}{ESPACE_FINE}%"),
+        ("Risque élevé", f"{float(ligne['proba_risque']):.0%}"),
+        ("Coût", f"{nombre(float(ligne['cout_total']))}{ESPACE_FINE}M$"),
+        ("Durée", f"{nombre(float(ligne['duree_mois']))} mois"),
+        ("Impact", note("impact_env_social")), ("Alignement", note("alignement_strategique")),
+        ("Faisabilité", note("faisabilite")),
+    ]
+    anormale = bool(ligne.get("anomalie"))
+    drapeau = '<span class="drapeau">Dossier anormal : écarté de la recommandation</span>' if anormale else ""
+    cases = "".join(f"<div><dt>{propre(titre)}</dt><dd>{propre(valeur)}</dd></div>" for titre, valeur in mesures)
+    return (f'<section class="fiche{" anormale" if anormale else ""}" aria-label="Fiche du projet">'
+            f'<div class="fiche-tete"><span>{propre(ligne["id_projet"])} · {propre(lieu)}</span>{drapeau}</div>'
+            f'<p class="fiche-nom">{propre(ligne.get("nom", ""))}</p><dl>{cases}</dl></section>')
+
+
 def cartes_recommandes(recommandes: pd.DataFrame) -> str:
     """Les cartes des projets recommandés, côte à côte."""
     return f'<div class="cartes">{"".join(carte_projet(l) for l in recommandes.to_dict("records"))}</div>'

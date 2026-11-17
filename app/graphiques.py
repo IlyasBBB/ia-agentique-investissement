@@ -1,9 +1,8 @@
-"""Graphiques Plotly de l'application, tous dessinés avec le même modèle sombre.
+"""Graphiques Plotly de l'application, tous dessinés avec le même modèle « papier saumon ».
 
-Les couleurs des marques ont été vérifiées pour rester distinctes sur fond
-sombre, y compris pour une personne daltonienne : cyan (cas normal, agent),
-ambre (projets recommandés, pipeline fixe), rose-rouge (dossiers anormaux).
-Une forme ou des hachures doublent toujours la couleur.
+Trois couleurs de marque, distinctes sur le papier, y compris pour une personne
+daltonienne : bleu (cas normal, agent), ocre (projets recommandés, pipeline fixe),
+bordeaux (dossiers anormaux). Une forme ou des hachures doublent toujours la couleur.
 """
 from __future__ import annotations
 
@@ -22,21 +21,21 @@ LIBELLES = {
     "faisabilite": "Faisabilité",
 }
 
-CYAN = "#1298b4"
-AMBRE = "#c98500"
-ROUGE = "#e0527a"
-TEXTE = "#e6edf7"
-TEXTE_SECOND = "#b3c1d6"
-GRILLE = "rgba(125, 170, 220, 0.16)"
-FOND_BULLE = "#131e32"
-POLICE_TEXTE = "IBM Plex Sans, Segoe UI, sans-serif"
-POLICE_CHIFFRES = "IBM Plex Mono, Consolas, monospace"
-# Du score le plus faible (sombre) au plus fort (clair) : une seule teinte.
-ECHELLE_SCORE = [[0.0, "#12414f"], [0.5, "#1298b4"], [1.0, "#8ff0ff"]]
+BLEU = "#1d4f8c"
+OCRE = "#a8641c"
+BORDEAUX = "#8e1b3a"
+TEXTE = "#2b2724"
+TEXTE_SECOND = "#6b625b"
+GRILLE = "rgba(43, 39, 36, 0.12)"
+FOND_BULLE = "#fff7f0"
+POLICE_TEXTE = "Archivo, Segoe UI, sans-serif"
+POLICE_CHIFFRES = POLICE_TEXTE  # Archivo a des chiffres de largeur égale : pas besoin de police à chasse fixe
+# Du score le plus faible (clair) au plus fort (bleu foncé) : une seule teinte.
+ECHELLE_SCORE = [[0.0, "#e8d3c1"], [0.5, "#7d9cc0"], [1.0, "#1d4f8c"]]
 AXES_3D = ("rentabilite_predite", "proba_risque", "impact_env_social")
 
 
-def modele_sombre() -> go.layout.Template:
+def modele_papier() -> go.layout.Template:
     """Le modèle commun : fond transparent, grille discrète, polices et couleurs du thème."""
     axe = {"gridcolor": GRILLE, "zerolinecolor": GRILLE, "linecolor": GRILLE,
            "tickfont": {"family": POLICE_CHIFFRES, "size": 12, "color": TEXTE_SECOND},
@@ -45,21 +44,21 @@ def modele_sombre() -> go.layout.Template:
         "paper_bgcolor": "rgba(0,0,0,0)",
         "plot_bgcolor": "rgba(0,0,0,0)",
         "font": {"family": POLICE_TEXTE, "color": TEXTE, "size": 13},
-        "colorway": [CYAN, AMBRE, ROUGE],
+        "colorway": [BLEU, OCRE, BORDEAUX],
         "xaxis": axe,
         "yaxis": {**axe, "tickfont": {"family": POLICE_TEXTE, "size": 12, "color": TEXTE},
                   "automargin": True, "ticksuffix": "  "},
         "legend": {"orientation": "h", "y": 1.02, "yanchor": "bottom", "x": 0, "font": {"color": TEXTE}},
-        "hoverlabel": {"bgcolor": FOND_BULLE, "bordercolor": "#3a5273",
+        "hoverlabel": {"bgcolor": FOND_BULLE, "bordercolor": "#dcc6b3",
                        "font": {"family": POLICE_TEXTE, "color": TEXTE, "size": 13}},
         "margin": {"l": 10, "r": 30, "t": 40, "b": 40},
         "separators": ", ",  # virgule décimale, espace pour les milliers
-        "barcornerradius": 4,
+        "barcornerradius": 0,
         "bargap": 0.35,
     })
 
 
-MODELE = modele_sombre()
+MODELE = modele_papier()
 
 
 def _sans_balise(textes: pd.Series) -> pd.Series:
@@ -72,9 +71,9 @@ def _barres(nom: str, valeurs: list[float], etiquettes: list[str], couleur: str,
     """Une série de barres horizontales, avec la valeur écrite au bout de chaque barre."""
     return go.Bar(
         name=nom, x=valeurs, y=etiquettes, orientation="h",
-        # Hachures sombres dessinées par-dessus la couleur : la série se reconnaît aussi sans la couleur.
+        # Hachures claires dessinées par-dessus la couleur : la série se reconnaît aussi sans la couleur.
         marker={"color": couleur, "pattern": {"shape": hachures, "fillmode": "overlay", "size": 7, "solidity": 0.35,
-                                              "fgcolor": "rgba(7, 11, 20, 0.6)"}},
+                                              "fgcolor": "rgba(250, 225, 207, 0.75)"}},
         text=[f"{v:.{decimales}f}".replace(".", ",") for v in valeurs],
         textposition="outside", textfont={"family": POLICE_CHIFFRES, "color": TEXTE, "size": 12},
         cliponaxis=False, hovertemplate="%{y} : %{x:." + str(decimales) + "f}<extra>" + nom + "</extra>")
@@ -83,7 +82,7 @@ def _barres(nom: str, valeurs: list[float], etiquettes: list[str], couleur: str,
 def figure_poids(poids: dict[str, float]) -> go.Figure:
     """Barres horizontales des poids utilisés pour le classement, du plus fort au plus faible."""
     tries = sorted(poids.items(), key=lambda paire: paire[1])
-    figure = go.Figure(_barres("Poids", [p for _, p in tries], [LIBELLES[c] for c, _ in tries], CYAN))
+    figure = go.Figure(_barres("Poids", [p for _, p in tries], [LIBELLES[c] for c, _ in tries], BLEU))
     figure.update_layout(template=MODELE, height=330, showlegend=False, xaxis_title="Poids (somme = 1)")
     return figure
 
@@ -94,8 +93,8 @@ def figure_comparaison_poids(poids_agent: dict[str, float], poids_fixe: dict[str
     criteres = list(reversed(LIBELLES))  # Plotly dessine de bas en haut
     etiquettes = [LIBELLES[c] for c in criteres]
     figure = go.Figure([
-        _barres(nom_fixe, [poids_fixe[c] for c in criteres], etiquettes, AMBRE, hachures="/"),
-        _barres(nom_agent, [poids_agent[c] for c in criteres], etiquettes, CYAN),
+        _barres(nom_fixe, [poids_fixe[c] for c in criteres], etiquettes, OCRE, hachures="/"),
+        _barres(nom_agent, [poids_agent[c] for c in criteres], etiquettes, BLEU),
     ])
     figure.update_layout(template=MODELE, height=460, barmode="group", bargroupgap=0.12,
                          xaxis_title="Poids (somme = 1)", legend_traceorder="reversed")
@@ -103,14 +102,14 @@ def figure_comparaison_poids(poids_agent: dict[str, float], poids_fixe: dict[str
 
 
 def figure_meilleurs_scores(classement: pd.DataFrame, nombre: int = 10) -> go.Figure:
-    """Les meilleurs scores en barres ; les dossiers anormaux sont en rouge hachuré."""
+    """Les meilleurs scores en barres ; les dossiers anormaux sont en bordeaux hachuré."""
     haut = classement.head(nombre).iloc[::-1]  # inversé : le premier se retrouve en haut
     noms = haut["nom"].astype(str).map(lambda nom: nom if len(nom) <= 34 else nom[:33] + "…") if "nom" in haut else ""
     etiquettes = _sans_balise(haut["id_projet"].astype(str) + "  " + noms)
     anormal = haut["anomalie"].astype(bool) if "anomalie" in haut else pd.Series(False, index=haut.index)
     figure = go.Figure()
-    for nom, masque, couleur, hachures in (("Dossier normal", ~anormal, CYAN, ""),
-                                           ("Dossier anormal", anormal, ROUGE, "/")):
+    for nom, masque, couleur, hachures in (("Dossier normal", ~anormal, BLEU, ""),
+                                           ("Dossier anormal", anormal, BORDEAUX, "/")):
         if masque.any():
             figure.add_trace(_barres(nom, haut.loc[masque, "score"].tolist(), etiquettes[masque].tolist(),
                                      couleur, hachures, decimales=3))
@@ -144,8 +143,8 @@ def _points_3d(lignes: pd.DataFrame, nom: str, tailles: pd.Series, marqueur: dic
 def figure_nuage_3d(classement: pd.DataFrame, recommandes: list[str]) -> go.Figure | None:
     """Nuage 3D des projets : rentabilité prédite, probabilité de risque, impact.
 
-    Couleur = score, taille = coût, croix rouges = dossiers anormaux, losanges
-    ambre = projets recommandés. Rend None si une colonne nécessaire manque.
+    Couleur = score, taille = coût, croix bordeaux = dossiers anormaux, losanges
+    ocre = projets recommandés. Rend None si une colonne nécessaire manque.
     """
     if classement.empty or any(c not in classement for c in (*AXES_3D, "score", "rang", "cout_total")):
         return None
@@ -164,13 +163,13 @@ def figure_nuage_3d(classement: pd.DataFrame, recommandes: list[str]) -> go.Figu
                          "outlinewidth": 0, "tickfont": {"family": POLICE_CHIFFRES, "color": TEXTE_SECOND}}}))
     if anormal.any():
         figure.add_trace(_points_3d(classement[anormal], "Dossiers anormaux", tailles * 0.8,
-                                    {"color": ROUGE, "symbol": "x"}))
+                                    {"color": BORDEAUX, "symbol": "x"}))
     if retenu.any():
         figure.add_trace(_points_3d(classement[retenu], "Projets recommandés", tailles.clip(lower=11),
-                                    {"color": AMBRE, "symbol": "diamond", "line": {"color": TEXTE, "width": 2}},
+                                    {"color": OCRE, "symbol": "diamond", "line": {"color": TEXTE, "width": 2}},
                                     avec_texte=True))
-    axe = {"backgroundcolor": "rgba(0,0,0,0)", "gridcolor": "rgba(125, 170, 220, 0.22)", "showbackground": True,
-           "zerolinecolor": "rgba(125, 170, 220, 0.4)", "color": TEXTE_SECOND,
+    axe = {"backgroundcolor": "rgba(0,0,0,0)", "gridcolor": "rgba(43, 39, 36, 0.14)", "showbackground": True,
+           "zerolinecolor": "rgba(43, 39, 36, 0.3)", "color": TEXTE_SECOND,
            "tickfont": {"family": POLICE_CHIFFRES, "size": 11}}
     figure.update_layout(
         template=MODELE, height=640, margin={"l": 0, "r": 0, "t": 30, "b": 0},

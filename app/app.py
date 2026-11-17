@@ -5,12 +5,14 @@ demande à l'agent (src/agent.py) et affiche ce qu'il rend. Lancement :
     streamlit run app/app.py
 
 Trois fichiers l'accompagnent dans ce dossier :
-- style.css      : l'habillage (thème sombre, cartes, journal) ;
+- style.css      : l'habillage (papier saumon, manchette, cartes, journal) ;
 - composants.py  : les blocs écrits en HTML (bandeau, cartes, alerte, journal) ;
-- graphiques.py  : les graphiques Plotly, dont le nuage 3D.
+- graphiques.py  : les graphiques Plotly, dont le nuage 3D ;
+- scene3d/       : le relief 3D du portefeuille (Three.js), composant maison.
 """
 from __future__ import annotations
 
+import datetime
 import os
 import sys
 import time
@@ -18,6 +20,7 @@ from pathlib import Path
 
 import pandas as pd
 import streamlit as st
+import streamlit.components.v1 as components
 
 DOSSIER_APP = Path(__file__).resolve().parent
 RACINE = DOSSIER_APP.parent
@@ -52,6 +55,11 @@ COLONNES_TABLEAU = {
     "impact_env_social": "Impact /5", "alignement_strategique": "Alignement /5", "faisabilite": "Faisabilité /5",
     "anomalie": "Dossier anormal",
 }
+JOURS = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]
+MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre",
+        "novembre", "décembre"]
+# Relief 3D : page HTML de app/scene3d servie par Streamlit, qui garde la même scène d'un clic à l'autre.
+relief_3d = components.declare_component("relief_portefeuille", path=str(DOSSIER_APP / "scene3d"))
 
 
 # --- Chargement des données ------------------------------------------------
@@ -101,7 +109,7 @@ def appliquer_style() -> None:
 
 
 def afficher_graphique(figure) -> None:
-    """Affiche une figure Plotly avec son propre modèle sombre, sans le thème par défaut de Streamlit."""
+    """Affiche une figure Plotly avec son propre modèle, sans le thème par défaut de Streamlit."""
     st.plotly_chart(figure, width="stretch", theme=None, config={"displaylogo": False})
 
 
@@ -153,7 +161,7 @@ def afficher_classement(classement: pd.DataFrame) -> None:
     st.subheader("Classement complet")
     tableau = classement[[c for c in COLONNES_TABLEAU if c in classement]]
     if "anomalie" in tableau:  # lignes des dossiers anormaux sur fond rouge sombre
-        surligner = lambda ligne: ["background-color: #4a1626; color: #ffd3dc" if ligne["anomalie"] else ""] * len(ligne)  # noqa: E731
+        surligner = lambda ligne: ["background-color: #f7dcd9; color: #5c0f24" if ligne["anomalie"] else ""] * len(ligne)  # noqa: E731
         tableau = tableau.style.apply(surligner, axis=1).format(precision=3, decimal=",")
     st.dataframe(tableau, hide_index=True, width="stretch", column_config=COLONNES_TABLEAU)
 
@@ -166,8 +174,8 @@ def afficher_vue_3d(classement: pd.DataFrame) -> None:
         return
     afficher_html('<p class="lecture">Chaque point est un projet. <b>Position</b> : rentabilité prédite, '
                   'probabilité de risque élevé, impact environnemental et social. <b>Couleur</b> : score '
-                  '(plus clair = meilleur). <b>Taille</b> : coût total. <b>Losanges ambre</b> : les trois projets '
-                  'recommandés. <b>Croix rouges</b> : dossiers anormaux. Faites glisser pour tourner, '
+                  '(plus foncé = meilleur). <b>Taille</b> : coût total. <b>Losanges ocre</b> : les trois projets '
+                  'recommandés. <b>Croix bordeaux</b> : dossiers anormaux. Faites glisser pour tourner, '
                   'molette pour zoomer, survolez un point pour sa fiche.</p>')
     afficher_graphique(figure)
 
@@ -193,7 +201,7 @@ def afficher_comparaison(agent: dict, reference: dict, poids_fixes: dict | None)
     premiers = {titre: trois_premiers(r["classement"])["id_projet"].astype(str).tolist()
                 for titre, r in ((MODE_AGENT, agent), (MODE_FIXE, reference))}
     panneaux = [composants.panneau_mode(titre, couleur, r["duree_s"], premiers[titre], len(r["etapes"]))
-                for titre, couleur, r in ((MODE_AGENT, graphiques.CYAN, agent), (MODE_FIXE, graphiques.AMBRE, reference))]
+                for titre, couleur, r in ((MODE_AGENT, graphiques.BLEU, agent), (MODE_FIXE, graphiques.OCRE, reference))]
     afficher_html(f'<div class="duel">{"".join(panneaux)}</div>')
     communs = set(premiers[MODE_AGENT]) & set(premiers[MODE_FIXE])
     st.info(f"{len(communs)} projet(s) en commun dans les trois premiers. Le pipeline fixe utilise toujours les "
@@ -204,12 +212,161 @@ def afficher_comparaison(agent: dict, reference: dict, poids_fixes: dict | None)
         MODE_AGENT, MODE_FIXE))
 
 
+# --- Poids en direct et relief 3D ---------------------------------------------------
+
+def reclasser(classement: pd.DataFrame, poids: dict[str, float]) -> pd.DataFrame:
+    """Refait le classement avec d'autres poids, sans relancer l'agent : rank sur les sept critères déjà calculés."""
+    nouveau = outils.rank(classement[["id_projet", *CRITERES]], poids)
+    infos = classement.drop(columns=[c for c in ("score", "rang", *CRITERES) if c in classement])
+    return nouveau.merge(infos, on="id_projet", how="left")
+
+
+def projets_pour_relief(projets: pd.DataFrame, classement: pd.DataFrame | None) -> list[dict]:
+    """Ce que reçoit la scène 3D : une ligne courte par projet (identité, rang, score, recommandé, anormal)."""
+    if classement is None:  # avant l'analyse : colonnes au repos, dans l'ordre du fichier
+        lignes = projets.assign(rang=range(1, len(projets) + 1), score=None, anomalie=False)
+        recommandes = []
+    else:
+        lignes = classement
+        recommandes = trois_premiers(classement)["id_projet"].tolist()
+    return [{"id": str(l["id_projet"]), "nom": str(l.get("nom", ""))[:80], "secteur": str(l.get("secteur", "")),
+             "pays": str(l.get("pays", "")), "rang": int(l["rang"]),
+             "score": None if pd.isna(l["score"]) else round(float(l["score"]), 4),
+             "anomalie": bool(l["anomalie"]), "reco": l["id_projet"] in recommandes}
+            for l in lignes.to_dict("records")]
+
+
+def date_du_jour() -> str:
+    """La date à la française, pour la manchette : « mardi 17 novembre 2026 »."""
+    jour = datetime.date.today()
+    return f"{JOURS[jour.weekday()]} {jour.day} {MOIS[jour.month - 1]} {jour.year}"
+
+
+def demander_analyse() -> None:
+    """Appelé au clic sur « Analyser » : l'analyse se lance au début de la mise à jour suivante."""
+    st.session_state["analyse_demandee"] = True
+
+
+def lancer_analyse(demande: str, projets: pd.DataFrame, documents: dict, mode: str, comparer: bool,
+                   poids_fixes: dict | None) -> None:
+    """Lance l'agent (ou le pipeline fixe), garde le résultat en session et cale les curseurs sur ses poids."""
+    message = ("L'agent lit la demande, choisit ses outils et rédige la recommandation (environ une minute)…"
+               if mode == MODE_AGENT else "Le pipeline fixe appelle les cinq outils dans l'ordre…")
+    with st.spinner(message):
+        debut = time.perf_counter()
+        if mode == MODE_AGENT:
+            resultat = run_agent(demande, projets, documents, poids_fixes)
+        else:
+            resultat = pipeline_fixe(demande, projets, documents, poids_fixes)
+        resultat["duree_s"] = time.perf_counter() - debut
+        reference = None
+        if comparer:
+            debut = time.perf_counter()
+            reference = pipeline_fixe(demande, projets, documents, poids_fixes)
+            reference["duree_s"] = time.perf_counter() - debut
+    poids = poids_utilises(resultat["etapes"], poids_fixes)
+    # Gardé en mémoire de session : changer d'onglet ou bouger un curseur ne relance pas l'analyse.
+    st.session_state.update(resultat=resultat, reference=reference, poids_analyse=poids_fixes, poids_resultat=poids)
+    for critere, valeur in poids.items():  # les curseurs partent des poids de l'analyse
+        st.session_state[f"poids_{critere}"] = round(valeur, 2)
+
+
+def afficher_resultats(resultat: dict, classement: pd.DataFrame, recalcule: bool,
+                       poids_curseurs: dict | None) -> None:
+    """Les onglets de résultats, sous la demande et le relief."""
+    reference = st.session_state["reference"]
+    poids_analyse = st.session_state["poids_analyse"]
+    if recalcule:
+        afficher_html('<p class="note vive">Cartes et classement suivent vos poids. La recommandation rédigée, '
+                      'le journal et la comparaison restent ceux de l\'analyse.</p>')
+    noms = ["Recommandation", "Classement", "Vue 3D", "Journal des étapes", "Explication"]
+    onglets = st.tabs(noms + (["Comparaison"] if reference else []))
+    with onglets[0]:
+        afficher_recommandation({**resultat, "classement": classement})
+    with onglets[1]:
+        afficher_classement(classement)
+    with onglets[2]:
+        afficher_vue_3d(classement)
+    with onglets[3]:
+        afficher_journal(resultat["etapes"])
+    with onglets[4]:
+        afficher_explication(resultat, poids_curseurs if recalcule else poids_analyse)
+    if reference:
+        with onglets[5]:
+            afficher_comparaison(resultat, reference, poids_analyse)
+
+
+@st.fragment
+def atelier(projets: pd.DataFrame, documents: dict, mode: str, comparer: bool) -> None:
+    """Demande, poids, relief 3D et résultats. Fragment : un clic ici ne recharge que ce bloc, pas la page."""
+    if st.session_state.pop("analyse_demandee", False) and st.session_state.get("demande", "").strip():
+        fixes = st.session_state.get("choix_poids") == "Je les fixe moi-même"
+        poids_fixes = normaliser_poids({c: st.session_state.get(f"poids_{c}", POIDS_PAR_DEFAUT[c])
+                                        for c in CRITERES}) if fixes else None
+        lancer_analyse(st.session_state["demande"], projets, documents, mode, comparer, poids_fixes)
+    resultat = st.session_state.get("resultat")
+
+    gauche, droite = st.columns([5, 7], gap="large")
+    with gauche, st.container(key="panneau_demande"):
+        st.subheader("Votre demande")
+        for exemple in EXEMPLES:
+            st.button(exemple, on_click=lambda e=exemple: st.session_state.update(demande=e), width="stretch")
+        demande = st.text_area("Décrivez vos priorités", key="demande", placeholder=EXEMPLES[0])
+        choix_poids = st.radio("Poids des critères", ["L'agent les choisit selon la demande", "Je les fixe moi-même"],
+                               horizontal=True, key="choix_poids")
+        poids_curseurs = None
+        if choix_poids == "Je les fixe moi-même" or resultat:
+            if resultat:
+                afficher_html('<p class="note vive">Bougez un curseur : le classement et le relief se recalculent '
+                              'aussitôt, sans relancer l\'agent.</p>')
+            colonnes = st.columns(2)
+            for c in CRITERES:  # valeur de départ en session (et pas en argument) : lancer_analyse peut la changer
+                st.session_state.setdefault(f"poids_{c}", POIDS_PAR_DEFAUT[c])
+            bruts = {c: colonnes[i % 2].slider(LIBELLES[c], 0.0, 1.0, step=0.05, key=f"poids_{c}")
+                     for i, c in enumerate(CRITERES)}
+            poids_curseurs = normaliser_poids(bruts)  # ramenés à une somme de 1
+        elif mode == MODE_FIXE:
+            afficher_html('<p class="note">Le pipeline fixe ne lit pas la demande pour les poids : '
+                          'il utilise les poids par défaut.</p>')
+        st.button("Analyser", type="primary", key="analyser", disabled=not demande.strip(),
+                  on_click=demander_analyse, width="stretch")
+
+    # Le classement affiché suit les curseurs dès qu'ils s'écartent des poids de l'analyse.
+    classement = resultat["classement"] if resultat else None
+    recalcule = False
+    if resultat and not classement.empty and poids_curseurs:
+        ecart = max(abs(poids_curseurs[c] - st.session_state["poids_resultat"][c]) for c in CRITERES)
+        if ecart > 0.005:
+            classement, recalcule = reclasser(classement, poids_curseurs), True
+
+    with droite, st.container(key="zone_relief"):
+        if not resultat:
+            etat = f"{len(projets)} projets au repos · lancez une analyse pour les classer"
+        elif recalcule:
+            etat = "Classement recalculé avec vos poids"
+        else:
+            etat = f"Classement de l'analyse · {len(classement)} projets"
+        choisi = relief_3d(projets=projets_pour_relief(projets, classement), hauteur=520, etat=etat,
+                           key="relief", default=None)
+        if choisi and classement is not None and choisi in set(classement["id_projet"].astype(str)):
+            ligne = classement[classement["id_projet"].astype(str) == choisi].iloc[0].to_dict()
+            afficher_html(composants.fiche_projet(ligne))
+        elif resultat:
+            afficher_html('<p class="note">Cliquez une colonne du relief pour afficher la fiche du projet.</p>')
+
+    if resultat:
+        afficher_resultats(resultat, classement, recalcule, poids_curseurs)
+    else:
+        afficher_html('<p class="attente">Aucune analyse pour l\'instant. Décrivez vos priorités ou choisissez un '
+                      'exemple, puis lancez l\'analyse : les projets du relief se classeront, et la recommandation, '
+                      'le classement et le journal des étapes s\'afficheront ici.</p>')
+
+
 # --- La page ------------------------------------------------------------------
 
 st.set_page_config(page_title=f"{NOM_PRODUIT} · sélection de projets d'investissement", layout="wide")
 appliquer_style()
 st.title(NOM_PRODUIT)
-afficher_html(f'<p class="accroche">{composants.propre(ACCROCHE)}</p>')
 
 with st.sidebar:
     st.header("Données")
@@ -266,65 +423,10 @@ with st.sidebar:
         st.success(f"Ollama prêt, modèle {modele}.")
     st.caption("Modules : fausses fonctions (USE_MOCKS=1)" if outils.utilise_mocks() else "Modules : vrais modules des rôles 1 à 3")
 
+modules = "fonctions factices" if outils.utilise_mocks() else "modules des rôles 1 à 3"
+afficher_html(f'<div class="manchette"><span><b>{composants.propre(date_du_jour().capitalize())}</b> · '
+              f'Banque mondiale, {composants.nombre(nb_charges)} dossiers</span>'
+              f'<span>Rentabilité et risque simulés · {composants.propre(modules)} · LLM local</span></div>')
+afficher_html(f'<p class="accroche">{composants.propre(ACCROCHE)}</p>')
 afficher_html(composants.bandeau_portefeuille(projets, len(documents), nb_charges))
-
-with st.container(key="panneau_demande"):
-    st.subheader("Votre demande")
-    exemples = st.columns(len(EXEMPLES))
-    for colonne, exemple in zip(exemples, EXEMPLES):
-        colonne.button(exemple, on_click=lambda e=exemple: st.session_state.update(demande=e), width="stretch")
-    demande = st.text_area("Décrivez vos priorités", key="demande", placeholder=EXEMPLES[0])
-
-    choix_poids = st.radio("Poids des critères", ["L'agent les choisit selon la demande", "Je les fixe moi-même"],
-                           horizontal=True, key="choix_poids")
-    poids_fixes = None
-    if choix_poids == "Je les fixe moi-même":
-        colonnes = st.columns(4)
-        bruts = {c: colonnes[i % 4].slider(LIBELLES[c], 0.0, 1.0, POIDS_PAR_DEFAUT[c], 0.05, key=f"poids_{c}")
-                 for i, c in enumerate(CRITERES)}
-        poids_fixes = normaliser_poids(bruts)  # ramenés à une somme de 1
-        st.caption("Poids ramenés à une somme de 1 : " + ", ".join(f"{LIBELLES[c]} {p:.2f}" for c, p in poids_fixes.items() if p))
-    elif mode == MODE_FIXE:
-        st.caption("Le pipeline fixe ne lit pas la demande pour les poids : il utilise les poids par défaut.")
-
-    lancer = st.button("Analyser", type="primary", key="analyser", disabled=not demande.strip())
-
-if lancer:
-    with st.spinner("Analyse en cours (environ une minute avec l'agent)…"):
-        debut = time.perf_counter()
-        if mode == MODE_AGENT:
-            resultat = run_agent(demande, projets, documents, poids_fixes)
-        else:
-            resultat = pipeline_fixe(demande, projets, documents, poids_fixes)
-        resultat["duree_s"] = time.perf_counter() - debut
-        reference = None
-        if comparer:
-            debut = time.perf_counter()
-            reference = pipeline_fixe(demande, projets, documents, poids_fixes)
-            reference["duree_s"] = time.perf_counter() - debut
-    # Gardé en mémoire de session : changer d'onglet ne relance pas l'analyse.
-    st.session_state.update(resultat=resultat, reference=reference, poids_analyse=poids_fixes)
-
-if "resultat" not in st.session_state:
-    afficher_html('<p class="attente">Aucune analyse pour l\'instant. Décrivez vos priorités (ou choisissez un '
-                  'exemple), puis lancez l\'analyse : la recommandation, le classement, la vue 3D et le journal '
-                  'des étapes s\'afficheront ici.</p>')
-else:
-    resultat = st.session_state["resultat"]
-    reference = st.session_state["reference"]
-    poids_analyse = st.session_state["poids_analyse"]
-    noms = ["Recommandation", "Classement", "Vue 3D", "Journal des étapes", "Explication"] + (["Comparaison"] if reference else [])
-    onglets = st.tabs(noms)
-    with onglets[0]:
-        afficher_recommandation(resultat)
-    with onglets[1]:
-        afficher_classement(resultat["classement"])
-    with onglets[2]:
-        afficher_vue_3d(resultat["classement"])
-    with onglets[3]:
-        afficher_journal(resultat["etapes"])
-    with onglets[4]:
-        afficher_explication(resultat, poids_analyse)
-    if reference:
-        with onglets[5]:
-            afficher_comparaison(resultat, reference, poids_analyse)
+atelier(projets, documents, mode, comparer)
