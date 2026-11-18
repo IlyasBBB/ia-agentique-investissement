@@ -232,4 +232,6 @@ def retrieve(question: str, k: int = 3) -> list[dict]:
     Un seul passage par projet, pour que l'agent voie k projets différents.
     Format de chaque élément : {"id_projet", "passage", "score"} (modèle Passage du contrat).
     """
+    if not question or not question.strip() or k <= 0:
+        return []  # rien à chercher : inutile de charger l'index
     return chercher(index_par_defaut(), question, k)
