@@ -91,6 +91,22 @@ def creer_pretraitement() -> ColumnTransformer:
     ], verbose_feature_names_out=False)
 
 
+def bornes_rentabilite(rentabilite: pd.Series, k: float = 3.0) -> tuple[float, float]:
+    """Bornes [Q1 − k·IQR ; Q3 + k·IQR] de la rentabilité, à calculer sur l'entraînement seulement.
+
+    IQR = Q3 − Q1 (écart interquartile). Les quartiles bougent très peu à cause de
+    quelques valeurs extrêmes, donc la règle n'est pas faussée par ce qu'elle doit repérer.
+    """
+    q1, q3 = rentabilite.quantile([0.25, 0.75])
+    ecart = q3 - q1
+    return float(q1 - k * ecart), float(q3 + k * ecart)
+
+
+def dans_les_bornes(projets: pd.DataFrame, bornes: tuple[float, float]) -> pd.Series:
+    """Vrai pour les projets dont la rentabilité est dans les bornes (règle apprise ailleurs)."""
+    return projets[CIBLE_REGRESSION].between(*bornes)
+
+
 def charger_jeux(fichier_projets: Path = FICHIER_PROJETS,
                  fichier_separation: Path = FICHIER_SEPARATION) -> dict[str, pd.DataFrame]:
     """Rend les projets terminés de chaque jeu : {"entrainement": ..., "validation": ..., "test": ...}.
