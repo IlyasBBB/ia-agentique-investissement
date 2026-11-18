@@ -49,8 +49,8 @@ def executer(mode: str, scenario: dict, projets: pd.DataFrame, documents: dict) 
 def evaluer(passages: int, numeros: list[int], suffixe: str) -> pd.DataFrame:
     """Lance les scénarios demandés et écrit les deux fichiers de résultats au fur et à mesure."""
     projets, documents = charger_projets_scenarios()
-    journal.info("%d projets, %d documents, USE_MOCKS=%s, modèle %s", len(projets), len(documents),
-                 "1" if outils.utilise_mocks() else "0", os.getenv("OLLAMA_MODEL") or MODELE_PAR_DEFAUT)
+    journal.info("%d projets, %d documents, modules : %s, modèle %s", len(projets), len(documents),
+                 outils.description_modules(), os.getenv("OLLAMA_MODEL") or MODELE_PAR_DEFAUT)
     DOSSIER_RAPPORTS.mkdir(exist_ok=True)
     fin = f"_{suffixe}" if suffixe else ""
     fichier_csv = DOSSIER_RAPPORTS / f"resultats_scenarios{fin}.csv"

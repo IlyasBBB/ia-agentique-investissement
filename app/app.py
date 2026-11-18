@@ -392,7 +392,7 @@ with st.sidebar:
         st.stop()
     projets, documents = jeu
     nb_charges = len(projets)
-    if not outils.utilise_mocks() and documents:
+    if "nlp" in outils.modules_reels() and documents:
         prechauffer_modeles(next(iter(documents.values())))
 
     st.header("Projets à analyser")
@@ -430,9 +430,11 @@ with st.sidebar:
         st.warning(f"Modèle {modele} absent : `ollama pull {modele}`.")
     else:
         st.success(f"Ollama prêt, modèle {modele}.")
-    st.caption("Modules : fausses fonctions (USE_MOCKS=1)" if outils.utilise_mocks() else "Modules : vrais modules des rôles 1 à 3")
+    st.caption(f"Modules : {outils.description_modules()}")
 
-modules = "fonctions factices" if outils.utilise_mocks() else "modules des rôles 1 à 3"
+reels = outils.modules_reels()
+modules = ("fonctions factices" if not reels else "modules des rôles 1 à 3" if not outils.utilise_mocks()
+           else "modules réels : " + ", ".join(sorted(reels)))
 afficher_html(f'<div class="manchette"><span><b>{composants.propre(date_du_jour().capitalize())}</b> · '
               f'Banque mondiale, {composants.nombre(nb_charges)} dossiers</span>'
               f'<span>Rentabilité et risque simulés · {composants.propre(modules)} · LLM local</span></div>')

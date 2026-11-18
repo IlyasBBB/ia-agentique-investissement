@@ -63,7 +63,7 @@ Sur les 2 000 projets avec les fausses fonctions, il répond en moins d'une seco
 | Boucle de l'agent | Boucle Python maison avec l'appel d'outils du paquet `ollama`, retenue pour la version finale | Une trentaine de lignes, faciles à expliquer. Un cadriciel comme LangGraph n'apporterait rien ici |
 | Modèle de référence | `pipeline_fixe`, sans LLM | Comparaison demandée par la consigne, et secours si Ollama est arrêté |
 | Interface | Streamlit | Cité dans les consignes, rapide à écrire |
-| Branchement des modules | `src/outils.py` avec `USE_MOCKS` | Permet d'avancer sans attendre les autres rôles |
+| Branchement des modules | `src/outils.py` avec `USE_MOCKS`, ou `MODULES_REELS` module par module (par exemple `MODULES_REELS=nlp`) | Permet d'avancer sans attendre les autres rôles, et d'essayer chaque module dès sa livraison |
 | Déploiement | Démonstration locale filmée | Ollama ne tourne pas sur l'hébergement Streamlit gratuit |
 
 ## Décisions ouvertes

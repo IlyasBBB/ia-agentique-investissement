@@ -60,6 +60,7 @@ Une analyse par l'agent prend environ une minute sur un PC portable, car le LLM 
 | Variable | Valeur par défaut | Effet |
 |---|---|---|
 | `USE_MOCKS` | `1` | `1` : fausses fonctions ; `0` : vrais modules des rôles 1 à 3 |
+| `MODULES_REELS` | vide | Liste des modules à prendre en vrai, les autres restant factices, par exemple `nlp` ou `nlp,supervise`. Passe avant `USE_MOCKS` |
 | `OLLAMA_MODEL` | `qwen2.5:3b` | Modèle utilisé par l'agent |
 | `OLLAMA_HOST` | adresse locale d'Ollama | Adresse du serveur Ollama |
 | `OLLAMA_TIMEOUT` | `600` | Attente maximale d'une réponse du LLM, en secondes. Au-delà, l'agent termine sans LLM |

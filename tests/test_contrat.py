@@ -84,3 +84,44 @@ def test_poids_invalides_refuses():
         verifier_poids({"rentabilite_predite": 0.5})
     with pytest.raises(ValueError):
         verifier_poids({"critere_inconnu": 1.0})
+
+
+@pytest.fixture
+def recharger_outils(monkeypatch):
+    """Recharge src/outils.py avec d'autres variables, puis le remet dans son état d'origine."""
+    import importlib
+
+    def recharger(**variables):
+        for nom in ("USE_MOCKS", "MODULES_REELS"):
+            monkeypatch.delenv(nom, raising=False)
+        for nom, valeur in variables.items():
+            monkeypatch.setenv(nom, valeur)
+        return importlib.reload(outils)
+
+    yield recharger
+    monkeypatch.undo()
+    importlib.reload(outils)
+
+
+def test_modules_reels_branche_seulement_le_module_demande(recharger_outils):
+    from src import mocks, nlp
+
+    module = recharger_outils(MODULES_REELS="nlp")
+    assert module.modules_reels() == {"nlp"}
+    assert module.extract is nlp.extract and module.retrieve is nlp.retrieve
+    assert module.predict is mocks.predict and module.rank is mocks.rank
+    assert module.utilise_mocks()
+    assert "nlp" in module.description_modules()
+
+
+def test_sans_variable_tout_est_factice(recharger_outils):
+    from src import mocks
+
+    module = recharger_outils()
+    assert module.modules_reels() == set()
+    assert module.extract is mocks.extract
+
+
+def test_module_inconnu_refuse(recharger_outils):
+    with pytest.raises(ValueError, match="module inconnu"):
+        recharger_outils(MODULES_REELS="nlp,inexistant")
