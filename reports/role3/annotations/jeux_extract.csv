@@ -1,0 +1,2001 @@
+id_projet,secteur,jeu
+P000001,Gouvernance,non_annote
+P000034,Transport,entrainement
+P000044,Finance,non_annote
+P000103,Éducation,non_annote
+P000237,Industrie et commerce,non_annote
+P000282,Éducation,non_annote
+P000285,Agriculture,non_annote
+P000289,Gouvernance,non_annote
+P000290,Protection sociale,entrainement
+P000301,Gouvernance,non_annote
+P000393,Transport,non_annote
+P000527,Éducation,non_annote
+P000647,Énergie,entrainement
+P000722,Eau et assainissement,entrainement
+P000758,Énergie,non_annote
+P000771,Protection sociale,non_annote
+P000821,Éducation,non_annote
+P000895,Transport,entrainement
+P000900,Agriculture,non_annote
+P000910,Gouvernance,non_annote
+P000911,Finance,non_annote
+P000914,Agriculture,validation
+P000936,Transport,non_annote
+P000966,Gouvernance,entrainement
+P000973,Eau et assainissement,test
+P001055,Gouvernance,entrainement
+P001075,Eau et assainissement,non_annote
+P001210,Gouvernance,entrainement
+P001214,Santé,non_annote
+P001361,Eau et assainissement,non_annote
+P001556,Gouvernance,entrainement
+P001571,Finance,entrainement
+P001582,Industrie et commerce,non_annote
+P001746,Éducation,entrainement
+P001755,Industrie et commerce,validation
+P001781,Agriculture,non_annote
+P001790,Gouvernance,entrainement
+P001792,Santé,non_annote
+P001906,Agriculture,entrainement
+P001921,Eau et assainissement,entrainement
+P001923,Éducation,entrainement
+P001963,Agriculture,non_annote
+P001974,Industrie et commerce,test
+P002082,Eau et assainissement,validation
+P002084,Eau et assainissement,entrainement
+P002121,Gouvernance,non_annote
+P002156,Éducation,entrainement
+P002167,Gouvernance,non_annote
+P002222,Eau et assainissement,non_annote
+P002241,Énergie,entrainement
+P002339,Industrie et commerce,entrainement
+P002356,Industrie et commerce,non_annote
+P002364,Industrie et commerce,entrainement
+P002411,Énergie,entrainement
+P002424,Industrie et commerce,entrainement
+P002672,Gouvernance,non_annote
+P002780,Numérique,non_annote
+P002790,Éducation,non_annote
+P002811,Énergie,non_annote
+P002817,Gouvernance,test
+P002880,Gouvernance,non_annote
+P002953,Éducation,entrainement
+P002957,Eau et assainissement,entrainement
+P002977,Agriculture,non_annote
+P002978,Gouvernance,non_annote
+P003218,Agriculture,entrainement
+P003239,Santé,non_annote
+P003241,Eau et assainissement,non_annote
+P003242,Gouvernance,non_annote
+P003251,Gouvernance,entrainement
+P003302,Santé,non_annote
+P003409,Industrie et commerce,non_annote
+P003493,Transport,validation
+P003534,Transport,entrainement
+P003567,Éducation,non_annote
+P003570,Transport,validation
+P003571,Transport,non_annote
+P003590,Agriculture,non_annote
+P003594,Agriculture,non_annote
+P003609,Énergie,non_annote
+P003626,Transport,entrainement
+P003643,Transport,non_annote
+P003646,Industrie et commerce,entrainement
+P003647,Gouvernance,entrainement
+P003699,Gouvernance,non_annote
+P003860,Agriculture,entrainement
+P003920,Énergie,entrainement
+P003966,Gouvernance,non_annote
+P003967,Santé,entrainement
+P003969,Éducation,non_annote
+P003972,Agriculture,non_annote
+P003975,Énergie,non_annote
+P003988,Industrie et commerce,non_annote
+P003990,Eau et assainissement,entrainement
+P004003,Éducation,non_annote
+P004012,Gouvernance,non_annote
+P004016,Transport,non_annote
+P004168,Éducation,test
+P004201,Transport,test
+P004203,Éducation,non_annote
+P004207,Transport,entrainement
+P004342,Transport,entrainement
+P004404,Énergie,non_annote
+P004566,Santé,non_annote
+P004576,Eau et assainissement,validation
+P004609,Transport,non_annote
+P004629,Éducation,non_annote
+P004772,Énergie,entrainement
+P004801,Énergie,non_annote
+P004834,Agriculture,non_annote
+P004845,Agriculture,non_annote
+P004871,Transport,non_annote
+P004904,Énergie,non_annote
+P004917,Transport,entrainement
+P004954,Éducation,non_annote
+P005153,Agriculture,validation
+P005161,Éducation,entrainement
+P005167,Gouvernance,non_annote
+P005168,Numérique,non_annote
+P005215,Énergie,non_annote
+P005295,Éducation,validation
+P005345,Eau et assainissement,non_annote
+P005433,Transport,non_annote
+P005440,Santé,entrainement
+P005460,Éducation,non_annote
+P005462,Agriculture,non_annote
+P005504,Gouvernance,entrainement
+P005524,Transport,test
+P005733,Transport,non_annote
+P005735,Énergie,entrainement
+P005746,Santé,test
+P006032,Énergie,non_annote
+P006060,Transport,validation
+P006086,Transport,non_annote
+P006104,Transport,non_annote
+P006181,Éducation,entrainement
+P006210,Agriculture,non_annote
+P006446,Gouvernance,non_annote
+P006473,Agriculture,non_annote
+P006547,Transport,non_annote
+P006553,Eau et assainissement,non_annote
+P006570,Agriculture,entrainement
+P006636,Agriculture,non_annote
+P006664,Gouvernance,validation
+P006870,Gouvernance,non_annote
+P006884,Gouvernance,entrainement
+P006889,Gouvernance,entrainement
+P006954,Santé,non_annote
+P006967,Agriculture,test
+P007257,Eau et assainissement,entrainement
+P007311,Santé,non_annote
+P007395,Énergie,entrainement
+P007399,Éducation,non_annote
+P007648,Transport,non_annote
+P007716,Éducation,entrainement
+P007786,Protection sociale,entrainement
+P007790,Gouvernance,validation
+P007847,Protection sociale,non_annote
+P007913,Transport,entrainement
+P007923,Éducation,entrainement
+P007927,Santé,entrainement
+P008037,Agriculture,entrainement
+P008048,Santé,entrainement
+P008177,Énergie,validation
+P008214,Gouvernance,entrainement
+P008215,Santé,entrainement
+P008216,Gouvernance,entrainement
+P008226,Gouvernance,non_annote
+P008233,Gouvernance,validation
+P008252,Gouvernance,non_annote
+P008284,Agriculture,non_annote
+P008288,Eau et assainissement,validation
+P008290,Gouvernance,non_annote
+P008312,Industrie et commerce,non_annote
+P008314,Énergie,entrainement
+P008322,Numérique,non_annote
+P008414,Santé,entrainement
+P008417,Eau et assainissement,entrainement
+P008494,Transport,entrainement
+P008499,Transport,non_annote
+P008500,Eau et assainissement,non_annote
+P008504,Gouvernance,test
+P008515,Protection sociale,test
+P008527,Finance,entrainement
+P008537,Énergie,validation
+P008593,Transport,non_annote
+P008599,Transport,non_annote
+P008614,Énergie,non_annote
+P008759,Santé,entrainement
+P008823,Gouvernance,test
+P008837,Gouvernance,entrainement
+P008839,Industrie et commerce,non_annote
+P008974,Agriculture,entrainement
+P009468,Agriculture,entrainement
+P009560,Éducation,entrainement
+P009563,Industrie et commerce,entrainement
+P009869,Énergie,non_annote
+P009907,Industrie et commerce,non_annote
+P009921,Agriculture,non_annote
+P009946,Transport,non_annote
+P009979,Énergie,entrainement
+P010313,Énergie,entrainement
+P010370,Eau et assainissement,entrainement
+P010373,Numérique,entrainement
+P010387,Santé,non_annote
+P010413,Eau et assainissement,non_annote
+P010414,Santé,non_annote
+P010415,Transport,entrainement
+P010458,Énergie,non_annote
+P010460,Santé,non_annote
+P010467,Eau et assainissement,entrainement
+P010489,Santé,non_annote
+P010496,Santé,non_annote
+P010509,Transport,non_annote
+P010529,Agriculture,non_annote
+P010531,Santé,validation
+P033965,Eau et assainissement,non_annote
+P034038,Transport,non_annote
+P034082,Protection sociale,entrainement
+P034112,Transport,test
+P034140,Agriculture,non_annote
+P034154,Transport,non_annote
+P034181,Finance,entrainement
+P034491,Énergie,non_annote
+P034607,Gouvernance,validation
+P035076,Énergie,non_annote
+P035605,Gouvernance,non_annote
+P035645,Éducation,non_annote
+P035655,Éducation,non_annote
+P035691,Transport,entrainement
+P035722,Transport,non_annote
+P035728,Eau et assainissement,validation
+P035733,Gouvernance,entrainement
+P035761,Santé,non_annote
+P035781,Finance,entrainement
+P035805,Eau et assainissement,entrainement
+P035810,Énergie,entrainement
+P035827,Santé,non_annote
+P036015,Gouvernance,entrainement
+P036042,Finance,non_annote
+P036053,Eau et assainissement,non_annote
+P036056,Gouvernance,non_annote
+P036405,Eau et assainissement,non_annote
+P036417,Éducation,non_annote
+P037049,Gouvernance,entrainement
+P037097,Éducation,entrainement
+P037558,Gouvernance,non_annote
+P038121,Énergie,entrainement
+P038392,Protection sociale,entrainement
+P038507,Transport,test
+P038695,Industrie et commerce,entrainement
+P038698,Éducation,validation
+P038916,Eau et assainissement,non_annote
+P038988,Agriculture,validation
+P039003,Eau et assainissement,non_annote
+P039015,Eau et assainissement,non_annote
+P039166,Protection sociale,entrainement
+P039312,Eau et assainissement,non_annote
+P039644,Éducation,non_annote
+P039870,Agriculture,entrainement
+P039882,Finance,entrainement
+P039935,Transport,validation
+P040061,Agriculture,entrainement
+P040085,Gouvernance,non_annote
+P040115,Transport,entrainement
+P040150,Transport,entrainement
+P040560,Finance,non_annote
+P040721,Agriculture,entrainement
+P040975,Eau et assainissement,non_annote
+P040985,Finance,non_annote
+P041268,Transport,entrainement
+P041528,Eau et assainissement,non_annote
+P041583,Protection sociale,entrainement
+P041680,Éducation,entrainement
+P041723,Agriculture,non_annote
+P041887,Gouvernance,non_annote
+P042266,Éducation,non_annote
+P042540,Santé,non_annote
+P042720,Gouvernance,non_annote
+P042882,Énergie,non_annote
+P043254,Santé,entrainement
+P043339,Transport,non_annote
+P043725,Transport,entrainement
+P043728,Gouvernance,entrainement
+P043736,Gouvernance,non_annote
+P043871,Agriculture,validation
+P044056,Finance,non_annote
+P044110,Énergie,non_annote
+P044176,Agriculture,non_annote
+P044383,Transport,non_annote
+P044601,Transport,entrainement
+P044729,Industrie et commerce,non_annote
+P044804,Finance,entrainement
+P044824,Protection sociale,test
+P044830,Énergie,non_annote
+P044912,Gouvernance,non_annote
+P044974,Industrie et commerce,entrainement
+P045182,Eau et assainissement,validation
+P045484,Transport,non_annote
+P045546,Gouvernance,entrainement
+P045915,Transport,non_annote
+P046006,Protection sociale,non_annote
+P046651,Énergie,non_annote
+P046821,Gouvernance,non_annote
+P047039,Gouvernance,non_annote
+P047110,Eau et assainissement,non_annote
+P047250,Transport,entrainement
+P047345,Eau et assainissement,entrainement
+P047438,Finance,non_annote
+P048389,Gouvernance,non_annote
+P048588,Gouvernance,non_annote
+P048697,Transport,entrainement
+P048795,Agriculture,entrainement
+P048852,Énergie,non_annote
+P049203,Gouvernance,entrainement
+P049265,Eau et assainissement,entrainement
+P049346,Agriculture,entrainement
+P049385,Agriculture,non_annote
+P049502,Industrie et commerce,non_annote
+P049735,Gouvernance,non_annote
+P049770,Énergie,validation
+P049878,Gouvernance,non_annote
+P050400,Gouvernance,non_annote
+P050439,Gouvernance,non_annote
+P050474,Éducation,non_annote
+P050530,Énergie,non_annote
+P050576,Protection sociale,non_annote
+P050616,Eau et assainissement,non_annote
+P050741,Éducation,non_annote
+P050745,Eau et assainissement,non_annote
+P050910,Protection sociale,non_annote
+P050945,Éducation,entrainement
+P051173,Protection sociale,entrainement
+P051272,Gouvernance,non_annote
+P051372,Santé,non_annote
+P051610,Industrie et commerce,entrainement
+P051859,Eau et assainissement,entrainement
+P051931,Agriculture,non_annote
+P052037,Eau et assainissement,non_annote
+P052186,Finance,entrainement
+P052297,Éducation,non_annote
+P052368,Agriculture,non_annote
+P053578,Numérique,non_annote
+P054120,Santé,non_annote
+P054125,Industrie et commerce,non_annote
+P054217,Numérique,non_annote
+P054221,Eau et assainissement,non_annote
+P054966,Gouvernance,entrainement
+P055003,Santé,non_annote
+P055166,Gouvernance,entrainement
+P055733,Énergie,entrainement
+P055739,Énergie,non_annote
+P055815,Finance,non_annote
+P055823,Gouvernance,entrainement
+P055844,Gouvernance,non_annote
+P055954,Transport,non_annote
+P056213,Gouvernance,non_annote
+P056256,Eau et assainissement,non_annote
+P056342,Gouvernance,entrainement
+P056452,Énergie,non_annote
+P056514,Gouvernance,entrainement
+P056596,Transport,non_annote
+P057188,Éducation,non_annote
+P057294,Industrie et commerce,entrainement
+P057295,Finance,test
+P057326,Agriculture,non_annote
+P057350,Éducation,entrainement
+P057449,Gouvernance,non_annote
+P057602,Eau et assainissement,non_annote
+P057959,Éducation,non_annote
+P058056,Protection sociale,non_annote
+P058367,Agriculture,entrainement
+P058468,Industrie et commerce,non_annote
+P058503,Agriculture,non_annote
+P058512,Éducation,entrainement
+P058526,Protection sociale,non_annote
+P058681,Éducation,entrainement
+P058841,Gouvernance,non_annote
+P058969,Protection sociale,entrainement
+P059127,Gouvernance,non_annote
+P059143,Finance,non_annote
+P059257,Gouvernance,non_annote
+P059947,Éducation,validation
+P061314,Agriculture,non_annote
+P062837,Gouvernance,non_annote
+P062916,Finance,entrainement
+P063095,Gouvernance,validation
+P063096,Gouvernance,non_annote
+P063383,Eau et assainissement,non_annote
+P064305,Protection sociale,non_annote
+P064570,Gouvernance,non_annote
+P064672,Éducation,entrainement
+P064883,Agriculture,entrainement
+P064895,Éducation,non_annote
+P064906,Éducation,validation
+P064910,Agriculture,entrainement
+P064965,Agriculture,entrainement
+P065035,Agriculture,non_annote
+P065736,Numérique,non_annote
+P065790,Énergie,entrainement
+P065954,Santé,entrainement
+P065988,Agriculture,non_annote
+P066149,Éducation,validation
+P066345,Gouvernance,validation
+P066488,Eau et assainissement,non_annote
+P066490,Gouvernance,non_annote
+P066674,Agriculture,non_annote
+P066867,Gouvernance,non_annote
+P066998,Transport,validation
+P067103,Agriculture,entrainement
+P067605,Protection sociale,non_annote
+P067774,Protection sociale,entrainement
+P068134,Gouvernance,entrainement
+P068845,Finance,non_annote
+P068853,Transport,non_annote
+P069095,Éducation,non_annote
+P069183,Énergie,non_annote
+P069259,Gouvernance,entrainement
+P069326,Éducation,test
+P069479,Gouvernance,validation
+P069889,Transport,non_annote
+P069890,Gouvernance,validation
+P069892,Transport,non_annote
+P069982,Finance,non_annote
+P070078,Gouvernance,non_annote
+P070123,Gouvernance,entrainement
+P070191,Eau et assainissement,non_annote
+P070256,Gouvernance,non_annote
+P070291,Santé,entrainement
+P070374,Protection sociale,non_annote
+P070391,Transport,entrainement
+P070421,Transport,non_annote
+P070430,Gouvernance,validation
+P070441,Transport,entrainement
+P070541,Santé,non_annote
+P070542,Santé,test
+P070552,Agriculture,non_annote
+P070556,Gouvernance,entrainement
+P070640,Finance,entrainement
+P070653,Agriculture,entrainement
+P070899,Eau et assainissement,non_annote
+P070962,Énergie,non_annote
+P070992,Protection sociale,non_annote
+P071001,Industrie et commerce,non_annote
+P071014,Gouvernance,entrainement
+P071023,Finance,non_annote
+P071061,Gouvernance,entrainement
+P071062,Santé,entrainement
+P071144,Numérique,entrainement
+P071147,Santé,entrainement
+P071244,Transport,non_annote
+P071291,Numérique,non_annote
+P071296,Industrie et commerce,non_annote
+P071407,Industrie et commerce,validation
+P071817,Agriculture,entrainement
+P072003,Gouvernance,non_annote
+P072080,Gouvernance,non_annote
+P072355,Protection sociale,non_annote
+P072458,Transport,entrainement
+P072601,Finance,entrainement
+P072721,Industrie et commerce,entrainement
+P072996,Agriculture,entrainement
+P073135,Gouvernance,entrainement
+P073206,Gouvernance,non_annote
+P073267,Gouvernance,test
+P073438,Gouvernance,entrainement
+P073442,Gouvernance,non_annote
+P073479,Numérique,entrainement
+P073763,Eau et assainissement,test
+P073776,Transport,entrainement
+P073832,Gouvernance,test
+P074001,Gouvernance,entrainement
+P074006,Transport,non_annote
+P074015,Éducation,entrainement
+P074132,Éducation,non_annote
+P074212,Santé,non_annote
+P074235,Gouvernance,non_annote
+P074313,Gouvernance,non_annote
+P074320,Éducation,non_annote
+P074408,Protection sociale,entrainement
+P074445,Gouvernance,non_annote
+P074543,Agriculture,non_annote
+P074547,Énergie,non_annote
+P074602,Finance,entrainement
+P074618,Eau et assainissement,non_annote
+P074762,Gouvernance,entrainement
+P074908,Énergie,non_annote
+P074938,Gouvernance,non_annote
+P074968,Énergie,entrainement
+P075184,Transport,entrainement
+P075189,Éducation,non_annote
+P075220,Santé,non_annote
+P075247,Agriculture,non_annote
+P075343,Énergie,non_annote
+P075728,Eau et assainissement,non_annote
+P075732,Eau et assainissement,non_annote
+P075941,Énergie,entrainement
+P075945,Énergie,non_annote
+P075979,Éducation,non_annote
+P075997,Agriculture,non_annote
+P076234,Eau et assainissement,non_annote
+P076764,Énergie,entrainement
+P076795,Gouvernance,non_annote
+P076837,Transport,entrainement
+P076872,Gouvernance,entrainement
+P076884,Eau et assainissement,validation
+P077031,Agriculture,entrainement
+P077044,Protection sociale,entrainement
+P077137,Énergie,non_annote
+P077175,Énergie,non_annote
+P077187,Numérique,entrainement
+P077473,Énergie,non_annote
+P077615,Agriculture,non_annote
+P077749,Gouvernance,non_annote
+P078070,Gouvernance,non_annote
+P078088,Protection sociale,entrainement
+P078091,Énergie,entrainement
+P078138,Gouvernance,entrainement
+P078284,Transport,validation
+P078288,Protection sociale,non_annote
+P078359,Gouvernance,non_annote
+P078523,Éducation,non_annote
+P078627,Gouvernance,non_annote
+P078813,Transport,validation
+P078894,Gouvernance,non_annote
+P079260,Éducation,non_annote
+P079633,Énergie,non_annote
+P080961,Finance,non_annote
+P081346,Eau et assainissement,non_annote
+P081495,Éducation,non_annote
+P081718,Agriculture,validation
+P081776,Eau et assainissement,non_annote
+P081969,Gouvernance,entrainement
+P081991,Santé,validation
+P082278,Gouvernance,non_annote
+P082429,Gouvernance,non_annote
+P082510,Eau et assainissement,non_annote
+P082613,Santé,entrainement
+P082814,Santé,non_annote
+P082879,Gouvernance,non_annote
+P082885,Gouvernance,non_annote
+P082916,Gouvernance,non_annote
+P082999,Éducation,non_annote
+P083080,Éducation,validation
+P083275,Gouvernance,entrainement
+P083313,Gouvernance,entrainement
+P083325,Transport,non_annote
+P083533,Gouvernance,entrainement
+P083588,Transport,non_annote
+P083620,Transport,entrainement
+P083702,Énergie,entrainement
+P083720,Numérique,entrainement
+P083897,Transport,non_annote
+P083965,Éducation,test
+P084035,Agriculture,non_annote
+P084160,Gouvernance,entrainement
+P084213,Gouvernance,validation
+P084219,Finance,test
+P084437,Santé,non_annote
+P084580,Éducation,validation
+P084601,Santé,non_annote
+P084632,Gouvernance,non_annote
+P084790,Agriculture,non_annote
+P084792,Transport,non_annote
+P085009,Industrie et commerce,non_annote
+P085080,Gouvernance,validation
+P085374,Éducation,validation
+P085621,Agriculture,non_annote
+P085752,Agriculture,entrainement
+P085981,Agriculture,entrainement
+P086228,Gouvernance,non_annote
+P086747,Agriculture,entrainement
+P086807,Eau et assainissement,non_annote
+P086875,Éducation,entrainement
+P086903,Énergie,non_annote
+P087004,Transport,entrainement
+P087036,Gouvernance,non_annote
+P087038,Agriculture,non_annote
+P087470,Protection sociale,non_annote
+P087479,Éducation,validation
+P087620,Protection sociale,non_annote
+P087713,Protection sociale,non_annote
+P087801,Énergie,non_annote
+P087964,Agriculture,non_annote
+P087970,Agriculture,entrainement
+P087980,Gouvernance,non_annote
+P088246,Transport,non_annote
+P088256,Énergie,non_annote
+P088575,Santé,non_annote
+P088642,Santé,validation
+P088759,Finance,non_annote
+P088820,Gouvernance,non_annote
+P088865,Énergie,entrainement
+P088926,Agriculture,non_annote
+P088929,Gouvernance,non_annote
+P088966,Eau et assainissement,non_annote
+P088996,Énergie,non_annote
+P089040,Éducation,entrainement
+P089082,Eau et assainissement,entrainement
+P089326,Gouvernance,entrainement
+P089479,Éducation,entrainement
+P089568,Énergie,entrainement
+P089761,Éducation,non_annote
+P089793,Gouvernance,entrainement
+P090041,Gouvernance,non_annote
+P090104,Énergie,non_annote
+P090157,Protection sociale,entrainement
+P090309,Gouvernance,non_annote
+P090340,Gouvernance,non_annote
+P090390,Transport,non_annote
+P090644,Protection sociale,non_annote
+P090652,Santé,entrainement
+P090693,Gouvernance,non_annote
+P090872,Finance,non_annote
+P090884,Protection sociale,test
+P090990,Transport,non_annote
+P090993,Santé,non_annote
+P091365,Éducation,non_annote
+P091659,Agriculture,test
+P091979,Agriculture,non_annote
+P092154,Énergie,non_annote
+P092211,Énergie,entrainement
+P092353,Agriculture,validation
+P092786,Gouvernance,non_annote
+P092949,Gouvernance,entrainement
+P093096,Protection sociale,entrainement
+P093132,Eau et assainissement,test
+P093491,Eau et assainissement,non_annote
+P093826,Agriculture,test
+P093963,Transport,non_annote
+P093991,Éducation,non_annote
+P094007,Transport,non_annote
+P094055,Finance,entrainement
+P094084,Agriculture,non_annote
+P094097,Éducation,non_annote
+P094183,Agriculture,non_annote
+P094335,Agriculture,non_annote
+P094488,Transport,non_annote
+P094704,Finance,non_annote
+P094735,Énergie,non_annote
+P094869,Gouvernance,non_annote
+P094917,Énergie,non_annote
+P094945,Énergie,entrainement
+P095050,Agriculture,non_annote
+P095114,Énergie,entrainement
+P095229,Transport,non_annote
+P095424,Agriculture,non_annote
+P095485,Transport,entrainement
+P095514,Éducation,non_annote
+P095515,Santé,non_annote
+P095570,Transport,non_annote
+P095617,Agriculture,entrainement
+P095730,Gouvernance,non_annote
+P095840,Eau et assainissement,non_annote
+P095847,Eau et assainissement,non_annote
+P095873,Gouvernance,non_annote
+P095877,Gouvernance,entrainement
+P096019,Transport,entrainement
+P096105,Industrie et commerce,non_annote
+P096181,Énergie,non_annote
+P096389,Gouvernance,entrainement
+P096414,Agriculture,entrainement
+P096481,Eau et assainissement,non_annote
+P096923,Eau et assainissement,non_annote
+P096931,Transport,validation
+P097036,Gouvernance,entrainement
+P097104,Éducation,non_annote
+P097181,Protection sociale,validation
+P097471,Éducation,non_annote
+P097671,Gouvernance,non_annote
+P097742,Agriculture,non_annote
+P098052,Agriculture,entrainement
+P098266,Protection sociale,entrainement
+P098273,Gouvernance,non_annote
+P098376,Gouvernance,non_annote
+P098538,Agriculture,entrainement
+P098583,Protection sociale,non_annote
+P098615,Agriculture,entrainement
+P098654,Énergie,non_annote
+P098916,Finance,non_annote
+P098926,Gouvernance,entrainement
+P098956,Éducation,non_annote
+P099059,Énergie,non_annote
+P099287,Gouvernance,non_annote
+P099295,Protection sociale,non_annote
+P099376,Gouvernance,test
+P099618,Énergie,non_annote
+P099626,Énergie,non_annote
+P099738,Gouvernance,test
+P099758,Gouvernance,non_annote
+P099832,Gouvernance,non_annote
+P099992,Transport,non_annote
+P100081,Gouvernance,non_annote
+P100101,Énergie,entrainement
+P100311,Énergie,entrainement
+P100397,Eau et assainissement,non_annote
+P100966,Gouvernance,entrainement
+P101124,Gouvernance,entrainement
+P101160,Santé,entrainement
+P101170,Gouvernance,entrainement
+P101289,Eau et assainissement,non_annote
+P101311,Gouvernance,non_annote
+P101321,Gouvernance,entrainement
+P101322,Gouvernance,non_annote
+P101336,Gouvernance,non_annote
+P101356,Transport,entrainement
+P101369,Éducation,non_annote
+P101425,Éducation,non_annote
+P101502,Santé,entrainement
+P101504,Protection sociale,entrainement
+P101653,Énergie,non_annote
+P101699,Énergie,non_annote
+P101716,Agriculture,non_annote
+P101745,Transport,entrainement
+P101852,Santé,non_annote
+P101981,Gouvernance,non_annote
+P102000,Transport,entrainement
+P102031,Gouvernance,non_annote
+P102170,Eau et assainissement,entrainement
+P102181,Protection sociale,non_annote
+P102302,Gouvernance,non_annote
+P102396,Gouvernance,non_annote
+P102478,Eau et assainissement,non_annote
+P102508,Gouvernance,entrainement
+P102513,Santé,validation
+P102567,Énergie,test
+P102931,Gouvernance,non_annote
+P103276,Eau et assainissement,non_annote
+P103343,Transport,non_annote
+P103518,Eau et assainissement,non_annote
+P103922,Agriculture,test
+P104041,Gouvernance,entrainement
+P104164,Agriculture,non_annote
+P104272,Protection sociale,non_annote
+P104340,Éducation,entrainement
+P104483,Protection sociale,entrainement
+P104497,Gouvernance,entrainement
+P104507,Protection sociale,entrainement
+P104566,Eau et assainissement,entrainement
+P104724,Agriculture,entrainement
+P104749,Gouvernance,non_annote
+P104774,Gouvernance,validation
+P104786,Agriculture,entrainement
+P104931,Gouvernance,entrainement
+P104984,Transport,entrainement
+P105120,Transport,non_annote
+P105226,Industrie et commerce,non_annote
+P105282,Santé,entrainement
+P105403,Gouvernance,non_annote
+P105662,Agriculture,entrainement
+P105750,Transport,entrainement
+P105958,Agriculture,entrainement
+P106228,Santé,non_annote
+P106355,Industrie et commerce,entrainement
+P106369,Numérique,non_annote
+P106384,Gouvernance,non_annote
+P106424,Énergie,entrainement
+P106559,Éducation,entrainement
+P106605,Éducation,non_annote
+P106641,Gouvernance,non_annote
+P106703,Eau et assainissement,entrainement
+P106735,Santé,entrainement
+P106870,Santé,non_annote
+P106993,Gouvernance,test
+P107015,Gouvernance,entrainement
+P107037,Eau et assainissement,non_annote
+P107050,Gouvernance,entrainement
+P107142,Eau et assainissement,entrainement
+P107311,Gouvernance,non_annote
+P107410,Eau et assainissement,non_annote
+P107416,Protection sociale,entrainement
+P107498,Gouvernance,entrainement
+P107722,Gouvernance,non_annote
+P107921,Gouvernance,test
+P108776,Éducation,non_annote
+P108787,Gouvernance,validation
+P108932,Agriculture,non_annote
+P109196,Protection sociale,entrainement
+P109209,Eau et assainissement,validation
+P109224,Agriculture,entrainement
+P109649,Finance,entrainement
+P110050,Gouvernance,non_annote
+P110075,Énergie,entrainement
+P110126,Eau et assainissement,non_annote
+P110324,Transport,validation
+P110421,Agriculture,entrainement
+P110446,Protection sociale,non_annote
+P110477,Énergie,non_annote
+P110525,Gouvernance,non_annote
+P110535,Santé,test
+P110618,Gouvernance,entrainement
+P110770,Eau et assainissement,non_annote
+P110849,Eau et assainissement,non_annote
+P110892,Éducation,test
+P110978,Énergie,entrainement
+P111061,Eau et assainissement,non_annote
+P111097,Énergie,entrainement
+P111272,Eau et assainissement,non_annote
+P111290,Agriculture,validation
+P111304,Éducation,non_annote
+P111366,Eau et assainissement,non_annote
+P111394,Éducation,non_annote
+P111570,Agriculture,entrainement
+P111598,Énergie,non_annote
+P111667,Agriculture,validation
+P111825,Eau et assainissement,non_annote
+P112031,Agriculture,non_annote
+P112052,Éducation,non_annote
+P112061,Agriculture,non_annote
+P112092,Agriculture,entrainement
+P112136,Santé,non_annote
+P112253,Énergie,non_annote
+P112264,Finance,entrainement
+P112345,Protection sociale,entrainement
+P112495,Gouvernance,non_annote
+P112615,Eau et assainissement,entrainement
+P112684,Agriculture,test
+P112700,Gouvernance,non_annote
+P112712,Protection sociale,non_annote
+P112713,Gouvernance,test
+P112762,Gouvernance,validation
+P112765,Protection sociale,non_annote
+P112893,Énergie,non_annote
+P112902,Transport,entrainement
+P112943,Industrie et commerce,entrainement
+P112963,Énergie,validation
+P113028,Transport,non_annote
+P113030,Agriculture,entrainement
+P113117,Protection sociale,non_annote
+P113145,Eau et assainissement,non_annote
+P113160,Gouvernance,test
+P113203,Santé,entrainement
+P113273,Agriculture,non_annote
+P113306,Gouvernance,validation
+P113350,Éducation,non_annote
+P113370,Numérique,test
+P113457,Gouvernance,non_annote
+P113508,Éducation,non_annote
+P113757,Eau et assainissement,entrainement
+P113860,Agriculture,non_annote
+P114048,Transport,entrainement
+P114081,Eau et assainissement,validation
+P114182,Énergie,non_annote
+P114348,Agriculture,test
+P114365,Transport,test
+P114441,Protection sociale,entrainement
+P114515,Eau et assainissement,non_annote
+P114740,Protection sociale,non_annote
+P114827,Transport,entrainement
+P114838,Protection sociale,non_annote
+P114963,Numérique,non_annote
+P115036,Santé,non_annote
+P115052,Agriculture,entrainement
+P115178,Transport,entrainement
+P115199,Finance,non_annote
+P115226,Agriculture,non_annote
+P115347,Éducation,entrainement
+P115386,Transport,test
+P115398,Finance,non_annote
+P115491,Santé,non_annote
+P115658,Eau et assainissement,test
+P115659,Transport,test
+P115700,Industrie et commerce,non_annote
+P115732,Protection sociale,entrainement
+P115762,Industrie et commerce,non_annote
+P115897,Eau et assainissement,non_annote
+P115963,Agriculture,non_annote
+P116080,Industrie et commerce,non_annote
+P116166,Énergie,non_annote
+P116170,Transport,non_annote
+P116199,Énergie,non_annote
+P116209,Protection sociale,non_annote
+P116215,Gouvernance,entrainement
+P116355,Agriculture,non_annote
+P116426,Éducation,validation
+P116666,Agriculture,non_annote
+P116742,Transport,entrainement
+P116774,Protection sociale,non_annote
+P116792,Eau et assainissement,non_annote
+P116805,Agriculture,non_annote
+P116951,Gouvernance,non_annote
+P117081,Agriculture,non_annote
+P117279,Gouvernance,non_annote
+P117417,Santé,entrainement
+P117593,Agriculture,validation
+P117731,Transport,validation
+P117838,Éducation,non_annote
+P117877,Eau et assainissement,entrainement
+P117947,Transport,non_annote
+P118045,Agriculture,non_annote
+P118090,Eau et assainissement,validation
+P118139,Agriculture,test
+P118145,Eau et assainissement,non_annote
+P118158,Protection sociale,non_annote
+P118213,Numérique,non_annote
+P118494,Éducation,entrainement
+P118533,Eau et assainissement,non_annote
+P118579,Transport,non_annote
+P118585,Numérique,non_annote
+P118700,Éducation,non_annote
+P118713,Agriculture,non_annote
+P118797,Éducation,non_annote
+P118821,Agriculture,non_annote
+P118838,Agriculture,non_annote
+P118908,Eau et assainissement,entrainement
+P118974,Éducation,test
+P119043,Finance,non_annote
+P119090,Santé,entrainement
+P119140,Agriculture,non_annote
+P119247,Agriculture,test
+P119355,Gouvernance,non_annote
+P119357,Énergie,test
+P119380,Agriculture,validation
+P119401,Éducation,non_annote
+P119882,Eau et assainissement,entrainement
+P119892,Agriculture,entrainement
+P120014,Énergie,entrainement
+P120190,Eau et assainissement,entrainement
+P120207,Énergie,validation
+P120265,Gouvernance,non_annote
+P120546,Eau et assainissement,non_annote
+P120566,Éducation,entrainement
+P120583,Agriculture,entrainement
+P120652,Eau et assainissement,entrainement
+P120654,Énergie,non_annote
+P120660,Énergie,non_annote
+P120881,Protection sociale,validation
+P120890,Éducation,entrainement
+P120942,Gouvernance,non_annote
+P121033,Transport,test
+P121052,Protection sociale,entrainement
+P121097,Transport,validation
+P121231,Numérique,entrainement
+P121263,Transport,non_annote
+P121398,Agriculture,non_annote
+P121430,Énergie,entrainement
+P121496,Protection sociale,entrainement
+P121507,Eau et assainissement,non_annote
+P121651,Énergie,validation
+P121714,Gouvernance,entrainement
+P121731,Gouvernance,non_annote
+P121743,Finance,non_annote
+P121812,Gouvernance,entrainement
+P121899,Agriculture,entrainement
+P121915,Agriculture,non_annote
+P122008,Éducation,non_annote
+P122084,Finance,validation
+P122123,Agriculture,non_annote
+P122178,Énergie,entrainement
+P122201,Numérique,non_annote
+P122247,Gouvernance,entrainement
+P122268,Eau et assainissement,non_annote
+P122272,Santé,non_annote
+P122329,Énergie,entrainement
+P122419,Agriculture,non_annote
+P122476,Gouvernance,entrainement
+P122629,Santé,validation
+P122756,Éducation,test
+P122800,Gouvernance,non_annote
+P122811,Eau et assainissement,non_annote
+P122812,Industrie et commerce,entrainement
+P122847,Finance,non_annote
+P122944,Transport,non_annote
+P123201,Eau et assainissement,non_annote
+P123239,Énergie,entrainement
+P123255,Gouvernance,entrainement
+P123501,Eau et assainissement,entrainement
+P123567,Agriculture,non_annote
+P123572,Agriculture,non_annote
+P123940,Gouvernance,non_annote
+P124355,Gouvernance,entrainement
+P124584,Agriculture,non_annote
+P124639,Transport,non_annote
+P124942,Eau et assainissement,entrainement
+P125102,Protection sociale,non_annote
+P125105,Protection sociale,non_annote
+P125135,Transport,non_annote
+P125156,Agriculture,non_annote
+P125209,Finance,entrainement
+P125237,Protection sociale,validation
+P125307,Agriculture,non_annote
+P125447,Eau et assainissement,non_annote
+P125600,Agriculture,non_annote
+P125719,Santé,entrainement
+P125805,Industrie et commerce,entrainement
+P125866,Gouvernance,entrainement
+P125961,Transport,non_annote
+P125964,Agriculture,non_annote
+P126088,Santé,test
+P126101,Énergie,non_annote
+P126211,Éducation,non_annote
+P126274,Gouvernance,non_annote
+P126339,Protection sociale,entrainement
+P126351,Protection sociale,non_annote
+P126357,Éducation,entrainement
+P126361,Agriculture,entrainement
+P126430,Protection sociale,test
+P126507,Transport,non_annote
+P126537,Énergie,entrainement
+P126661,Énergie,entrainement
+P126735,Gouvernance,validation
+P126817,Eau et assainissement,entrainement
+P126856,Transport,entrainement
+P126897,Gouvernance,non_annote
+P127035,Énergie,test
+P127036,Transport,non_annote
+P127086,Eau et assainissement,validation
+P127105,Industrie et commerce,entrainement
+P127176,Agriculture,non_annote
+P127332,Gouvernance,entrainement
+P127543,Gouvernance,non_annote
+P127867,Transport,entrainement
+P127956,Énergie,non_annote
+P128140,Industrie et commerce,entrainement
+P128309,Agriculture,non_annote
+P128427,Protection sociale,entrainement
+P128443,Industrie et commerce,validation
+P128628,Éducation,entrainement
+P128663,Santé,entrainement
+P128904,Numérique,non_annote
+P129182,Agriculture,entrainement
+P129210,Éducation,non_annote
+P129282,Transport,non_annote
+P129375,Eau et assainissement,non_annote
+P129565,Agriculture,non_annote
+P129704,Énergie,non_annote
+P129713,Transport,non_annote
+P130150,Finance,non_annote
+P130202,Gouvernance,entrainement
+P130276,Agriculture,entrainement
+P130328,Protection sociale,non_annote
+P130418,Agriculture,entrainement
+P130492,Agriculture,non_annote
+P130493,Énergie,entrainement
+P130623,Agriculture,non_annote
+P130710,Industrie et commerce,non_annote
+P130783,Eau et assainissement,test
+P130864,Finance,non_annote
+P130944,Agriculture,non_annote
+P131049,Eau et assainissement,test
+P131195,Agriculture,non_annote
+P131236,Santé,entrainement
+P131296,Protection sociale,validation
+P131512,Eau et assainissement,non_annote
+P131659,Énergie,non_annote
+P131660,Éducation,non_annote
+P131765,Transport,entrainement
+P131921,Énergie,entrainement
+P132098,Agriculture,non_annote
+P132405,Éducation,non_annote
+P132418,Transport,validation
+P132500,Transport,entrainement
+P132616,Éducation,non_annote
+P132667,Protection sociale,non_annote
+P132753,Santé,entrainement
+P132824,Santé,non_annote
+P132846,Agriculture,entrainement
+P133005,Énergie,non_annote
+P133021,Industrie et commerce,entrainement
+P133184,Énergie,entrainement
+P133226,Gouvernance,test
+P133305,Énergie,non_annote
+P133333,Éducation,non_annote
+P133352,Transport,non_annote
+P133531,Énergie,non_annote
+P133653,Gouvernance,entrainement
+P133706,Gouvernance,validation
+P133777,Finance,non_annote
+P143036,Eau et assainissement,validation
+P143197,Gouvernance,entrainement
+P143362,Agriculture,entrainement
+P143495,Eau et assainissement,non_annote
+P143661,Industrie et commerce,non_annote
+P143774,Gouvernance,non_annote
+P144030,Énergie,non_annote
+P144111,Eau et assainissement,non_annote
+P144134,Protection sociale,non_annote
+P144197,Santé,entrainement
+P144336,Eau et assainissement,non_annote
+P144377,Gouvernance,entrainement
+P144454,Éducation,non_annote
+P144484,Protection sociale,non_annote
+P144532,Santé,non_annote
+P144597,Transport,non_annote
+P144675,Énergie,non_annote
+P144856,Éducation,validation
+P144893,Santé,non_annote
+P144967,Protection sociale,entrainement
+P145037,Agriculture,non_annote
+P145139,Eau et assainissement,non_annote
+P145162,Agriculture,non_annote
+P145174,Santé,non_annote
+P145275,Gouvernance,non_annote
+P145578,Eau et assainissement,entrainement
+P145586,Gouvernance,test
+P145634,Transport,non_annote
+P145657,Énergie,entrainement
+P145750,Éducation,non_annote
+P145764,Santé,entrainement
+P145766,Transport,non_annote
+P145897,Eau et assainissement,entrainement
+P145938,Agriculture,entrainement
+P146095,Gouvernance,non_annote
+P146123,Protection sociale,test
+P146199,Énergie,test
+P146206,Énergie,non_annote
+P146247,Agriculture,validation
+P146287,Énergie,non_annote
+P146322,Finance,non_annote
+P146402,Transport,non_annote
+P146500,Transport,validation
+P146512,Industrie et commerce,non_annote
+P146602,Éducation,entrainement
+P146666,Industrie et commerce,non_annote
+P146740,Industrie et commerce,entrainement
+P146870,Eau et assainissement,entrainement
+P146877,Éducation,entrainement
+P146923,Protection sociale,non_annote
+P146942,Protection sociale,non_annote
+P147014,Gouvernance,entrainement
+P147074,Éducation,non_annote
+P147089,Protection sociale,non_annote
+P147218,Eau et assainissement,entrainement
+P147343,Gouvernance,test
+P147438,Finance,non_annote
+P147456,Énergie,non_annote
+P147486,Éducation,non_annote
+P147646,Énergie,entrainement
+P147760,Agriculture,non_annote
+P147827,Eau et assainissement,entrainement
+P147924,Éducation,entrainement
+P148052,Santé,non_annote
+P148114,Agriculture,entrainement
+P148129,Transport,entrainement
+P148294,Transport,test
+P148349,Protection sociale,non_annote
+P148586,Protection sociale,entrainement
+P148617,Protection sociale,non_annote
+P148628,Eau et assainissement,non_annote
+P148853,Transport,entrainement
+P149303,Gouvernance,non_annote
+P149307,Gouvernance,non_annote
+P149522,Énergie,non_annote
+P149528,Industrie et commerce,entrainement
+P149609,Finance,non_annote
+P149690,Protection sociale,entrainement
+P149768,Gouvernance,entrainement
+P149886,Énergie,non_annote
+P149963,Gouvernance,non_annote
+P150033,Eau et assainissement,non_annote
+P150116,Gouvernance,non_annote
+P150194,Gouvernance,non_annote
+P150481,Santé,non_annote
+P150572,Transport,non_annote
+P150743,Finance,entrainement
+P150908,Énergie,validation
+P150956,Transport,validation
+P151030,Agriculture,non_annote
+P151059,Éducation,entrainement
+P151155,Gouvernance,non_annote
+P151275,Gouvernance,non_annote
+P151439,Eau et assainissement,non_annote
+P151442,Protection sociale,non_annote
+P151739,Énergie,non_annote
+P151746,Numérique,entrainement
+P151816,Finance,non_annote
+P151847,Éducation,entrainement
+P151869,Agriculture,non_annote
+P151946,Agriculture,entrainement
+P151978,Agriculture,non_annote
+P151979,Énergie,entrainement
+P152241,Industrie et commerce,entrainement
+P152307,Finance,non_annote
+P152359,Protection sociale,entrainement
+P152398,Gouvernance,entrainement
+P152415,Agriculture,non_annote
+P152440,Énergie,non_annote
+P152441,Industrie et commerce,non_annote
+P152512,Protection sociale,non_annote
+P152569,Eau et assainissement,non_annote
+P152586,Gouvernance,entrainement
+P152659,Énergie,non_annote
+P152698,Eau et assainissement,test
+P152801,Eau et assainissement,entrainement
+P152821,Protection sociale,entrainement
+P152851,Eau et assainissement,validation
+P153113,Gouvernance,non_annote
+P153124,Énergie,non_annote
+P153251,Eau et assainissement,entrainement
+P153301,Agriculture,non_annote
+P153338,Finance,entrainement
+P153381,Transport,non_annote
+P153401,Protection sociale,test
+P153603,Finance,test
+P153713,Agriculture,validation
+P153814,Eau et assainissement,entrainement
+P154036,Eau et assainissement,entrainement
+P154238,Agriculture,non_annote
+P154253,Éducation,non_annote
+P154255,Agriculture,entrainement
+P154291,Énergie,non_annote
+P154482,Agriculture,entrainement
+P154623,Éducation,non_annote
+P154660,Santé,non_annote
+P154693,Énergie,non_annote
+P154777,Protection sociale,non_annote
+P154780,Eau et assainissement,non_annote
+P154784,Agriculture,non_annote
+P154819,Gouvernance,non_annote
+P154880,Éducation,validation
+P154943,Gouvernance,validation
+P154947,Eau et assainissement,non_annote
+P154984,Santé,entrainement
+P155097,Protection sociale,entrainement
+P155268,Gouvernance,entrainement
+P155339,Santé,entrainement
+P155443,Industrie et commerce,entrainement
+P155480,Gouvernance,non_annote
+P155553,Finance,validation
+P155658,Santé,entrainement
+P155759,Gouvernance,non_annote
+P155827,Agriculture,entrainement
+P156012,Santé,non_annote
+P156019,Agriculture,non_annote
+P156049,Gouvernance,validation
+P156125,Eau et assainissement,non_annote
+P156257,Gouvernance,non_annote
+P156411,Gouvernance,non_annote
+P156455,Finance,non_annote
+P156473,Agriculture,non_annote
+P156559,Eau et assainissement,validation
+P156590,Industrie et commerce,non_annote
+P156738,Eau et assainissement,entrainement
+P156746,Éducation,entrainement
+P156766,Finance,non_annote
+P156774,Gouvernance,non_annote
+P156880,Transport,entrainement
+P157035,Gouvernance,non_annote
+P157043,Eau et assainissement,test
+P157097,Gouvernance,non_annote
+P157127,Agriculture,entrainement
+P157206,Agriculture,non_annote
+P157245,Eau et assainissement,entrainement
+P157282,Agriculture,non_annote
+P157406,Gouvernance,non_annote
+P157416,Énergie,non_annote
+P157425,Éducation,non_annote
+P157591,Protection sociale,non_annote
+P157716,Santé,non_annote
+P157801,Agriculture,validation
+P157804,Gouvernance,entrainement
+P157891,Eau et assainissement,non_annote
+P157892,Protection sociale,non_annote
+P157922,Éducation,non_annote
+P157929,Transport,non_annote
+P158003,Agriculture,non_annote
+P158099,Industrie et commerce,non_annote
+P158194,Transport,validation
+P158235,Finance,entrainement
+P158239,Numérique,non_annote
+P158249,Énergie,non_annote
+P158463,Gouvernance,non_annote
+P158502,Eau et assainissement,entrainement
+P158522,Agriculture,entrainement
+P158696,Protection sociale,non_annote
+P158713,Eau et assainissement,test
+P158717,Transport,non_annote
+P158810,Industrie et commerce,non_annote
+P158864,Protection sociale,non_annote
+P158982,Industrie et commerce,entrainement
+P159053,Protection sociale,non_annote
+P159112,Énergie,entrainement
+P159215,Protection sociale,entrainement
+P159240,Eau et assainissement,non_annote
+P159297,Numérique,entrainement
+P159337,Éducation,non_annote
+P159577,Transport,non_annote
+P159653,Gouvernance,non_annote
+P159655,Gouvernance,non_annote
+P159697,Transport,non_annote
+P159710,Gouvernance,non_annote
+P159756,Eau et assainissement,entrainement
+P159883,Transport,non_annote
+P159931,Gouvernance,non_annote
+P159969,Gouvernance,entrainement
+P160005,Eau et assainissement,entrainement
+P160009,Énergie,non_annote
+P160018,Énergie,non_annote
+P160157,Énergie,validation
+P160170,Énergie,non_annote
+P160182,Agriculture,entrainement
+P160207,Santé,non_annote
+P160331,Éducation,non_annote
+P160339,Agriculture,entrainement
+P160427,Énergie,validation
+P160442,Éducation,entrainement
+P160505,Transport,entrainement
+P160543,Éducation,non_annote
+P160606,Agriculture,validation
+P160652,Énergie,non_annote
+P160678,Éducation,non_annote
+P160719,Énergie,non_annote
+P160748,Éducation,entrainement
+P160806,Industrie et commerce,non_annote
+P160917,Énergie,entrainement
+P161015,Énergie,entrainement
+P161086,Numérique,non_annote
+P161320,Transport,non_annote
+P161386,Éducation,entrainement
+P161387,Gouvernance,non_annote
+P161447,Agriculture,validation
+P161463,Gouvernance,validation
+P161465,Gouvernance,entrainement
+P161477,Eau et assainissement,entrainement
+P161534,Agriculture,entrainement
+P161539,Transport,non_annote
+P161540,Transport,entrainement
+P161541,Protection sociale,entrainement
+P161707,Finance,entrainement
+P161836,Numérique,non_annote
+P161998,Gouvernance,non_annote
+P162094,Eau et assainissement,non_annote
+P162178,Industrie et commerce,validation
+P162246,Protection sociale,entrainement
+P162349,Protection sociale,non_annote
+P162454,Énergie,non_annote
+P162548,Gouvernance,entrainement
+P162789,Agriculture,non_annote
+P162833,Gouvernance,non_annote
+P162837,Agriculture,non_annote
+P162902,Énergie,validation
+P162929,Gouvernance,non_annote
+P162933,Énergie,entrainement
+P163004,Agriculture,entrainement
+P163023,Agriculture,validation
+P163035,Transport,non_annote
+P163131,Gouvernance,non_annote
+P163143,Éducation,non_annote
+P163199,Transport,non_annote
+P163226,Gouvernance,non_annote
+P163250,Industrie et commerce,entrainement
+P163258,Agriculture,entrainement
+P163260,Eau et assainissement,non_annote
+P163267,Agriculture,non_annote
+P163328,Transport,validation
+P163345,Santé,entrainement
+P163350,Protection sociale,non_annote
+P163387,Santé,non_annote
+P163424,Gouvernance,validation
+P163437,Éducation,non_annote
+P163444,Agriculture,test
+P163484,Agriculture,non_annote
+P163533,Agriculture,non_annote
+P163542,Gouvernance,test
+P163723,Éducation,entrainement
+P163729,Protection sociale,entrainement
+P163752,Énergie,validation
+P163846,Eau et assainissement,non_annote
+P163923,Agriculture,entrainement
+P163984,Énergie,non_annote
+P164001,Énergie,non_annote
+P164137,Gouvernance,entrainement
+P164212,Industrie et commerce,non_annote
+P164271,Gouvernance,entrainement
+P164294,Éducation,entrainement
+P164321,Énergie,non_annote
+P164410,Gouvernance,entrainement
+P164424,Agriculture,non_annote
+P164453,Santé,validation
+P164525,Numérique,validation
+P164529,Gouvernance,non_annote
+P164546,Éducation,entrainement
+P164584,Industrie et commerce,non_annote
+P164625,Énergie,test
+P164654,Protection sociale,entrainement
+P164686,Santé,test
+P164728,Industrie et commerce,entrainement
+P164765,Éducation,non_annote
+P164845,Santé,non_annote
+P164941,Agriculture,non_annote
+P165017,Gouvernance,entrainement
+P165249,Transport,entrainement
+P165300,Transport,non_annote
+P165310,Éducation,non_annote
+P165313,Gouvernance,entrainement
+P165375,Agriculture,non_annote
+P165411,Transport,entrainement
+P165467,Transport,validation
+P165782,Transport,entrainement
+P165821,Agriculture,entrainement
+P165855,Agriculture,entrainement
+P165870,Gouvernance,entrainement
+P166020,Transport,non_annote
+P166059,Éducation,entrainement
+P166063,Éducation,non_annote
+P166072,Agriculture,non_annote
+P166115,Agriculture,non_annote
+P166124,Énergie,non_annote
+P166187,Industrie et commerce,non_annote
+P166220,Protection sociale,entrainement
+P166303,Gouvernance,entrainement
+P166415,Éducation,non_annote
+P166685,Énergie,non_annote
+P166693,Protection sociale,validation
+P166694,Gouvernance,validation
+P166732,Transport,non_annote
+P166936,Énergie,entrainement
+P166983,Gouvernance,entrainement
+P166991,Transport,non_annote
+P167190,Industrie et commerce,test
+P167216,Éducation,validation
+P167278,Gouvernance,test
+P167348,Éducation,entrainement
+P167357,Gouvernance,entrainement
+P167359,Eau et assainissement,entrainement
+P167380,Industrie et commerce,entrainement
+P167396,Protection sociale,entrainement
+P167401,Transport,entrainement
+P167506,Éducation,entrainement
+P167523,Santé,entrainement
+P167534,Gouvernance,entrainement
+P167543,Numérique,non_annote
+P167569,Énergie,test
+P167583,Gouvernance,entrainement
+P167623,Numérique,entrainement
+P167675,Industrie et commerce,entrainement
+P167790,Éducation,non_annote
+P167798,Transport,entrainement
+P167814,Eau et assainissement,entrainement
+P167897,Éducation,entrainement
+P167916,Santé,entrainement
+P167992,Éducation,non_annote
+P168014,Industrie et commerce,non_annote
+P168074,Agriculture,entrainement
+P168119,Gouvernance,non_annote
+P168142,Éducation,validation
+P168147,Gouvernance,non_annote
+P168153,Industrie et commerce,non_annote
+P168166,Finance,test
+P168266,Finance,validation
+P168273,Énergie,entrainement
+P168295,Éducation,non_annote
+P168308,Eau et assainissement,non_annote
+P168385,Industrie et commerce,non_annote
+P168386,Transport,non_annote
+P168475,Agriculture,non_annote
+P168608,Gouvernance,validation
+P168777,Protection sociale,non_annote
+P168847,Agriculture,non_annote
+P168940,Agriculture,test
+P168961,Éducation,test
+P168993,Protection sociale,non_annote
+P169003,Agriculture,non_annote
+P169064,Éducation,non_annote
+P169071,Eau et assainissement,entrainement
+P169120,Agriculture,non_annote
+P169134,Transport,non_annote
+P169140,Transport,non_annote
+P169150,Eau et assainissement,non_annote
+P169198,Protection sociale,non_annote
+P169279,Transport,non_annote
+P169330,Gouvernance,entrainement
+P169357,Transport,non_annote
+P169435,Gouvernance,entrainement
+P169486,Éducation,non_annote
+P169505,Finance,entrainement
+P169561,Énergie,validation
+P169742,Finance,non_annote
+P169758,Agriculture,entrainement
+P169830,Énergie,non_annote
+P169945,Numérique,non_annote
+P169954,Transport,entrainement
+P169996,Eau et assainissement,entrainement
+P170035,Agriculture,non_annote
+P170230,Énergie,test
+P170236,Énergie,non_annote
+P170267,Transport,non_annote
+P170278,Santé,entrainement
+P170309,Gouvernance,non_annote
+P170366,Numérique,test
+P170397,Énergie,non_annote
+P170452,Éducation,non_annote
+P170480,Éducation,entrainement
+P170542,Éducation,non_annote
+P170559,Agriculture,non_annote
+P170561,Éducation,entrainement
+P170590,Énergie,test
+P170604,Transport,non_annote
+P170682,Gouvernance,validation
+P170704,Gouvernance,non_annote
+P170706,Industrie et commerce,non_annote
+P170846,Industrie et commerce,non_annote
+P170848,Agriculture,non_annote
+P170854,Agriculture,non_annote
+P170874,Gouvernance,entrainement
+P171039,Finance,non_annote
+P171040,Gouvernance,non_annote
+P171086,Protection sociale,validation
+P171114,Protection sociale,non_annote
+P171266,Agriculture,test
+P171305,Numérique,non_annote
+P171316,Éducation,non_annote
+P171331,Gouvernance,entrainement
+P171339,Transport,entrainement
+P171406,Agriculture,entrainement
+P171422,Eau et assainissement,entrainement
+P171440,Gouvernance,entrainement
+P171471,Protection sociale,validation
+P171516,Éducation,non_annote
+P171517,Numérique,validation
+P171528,Numérique,non_annote
+P171587,Numérique,non_annote
+P171633,Protection sociale,entrainement
+P171644,Eau et assainissement,non_annote
+P171645,Industrie et commerce,test
+P171683,Énergie,validation
+P171720,Agriculture,non_annote
+P171742,Énergie,entrainement
+P171778,Eau et assainissement,entrainement
+P171850,Gouvernance,entrainement
+P171933,Agriculture,entrainement
+P172012,Agriculture,test
+P172226,Industrie et commerce,non_annote
+P172284,Protection sociale,non_annote
+P172386,Agriculture,entrainement
+P172442,Gouvernance,entrainement
+P172492,Gouvernance,non_annote
+P172497,Agriculture,entrainement
+P172504,Santé,non_annote
+P172524,Numérique,entrainement
+P172548,Eau et assainissement,non_annote
+P172562,Agriculture,non_annote
+P172627,Éducation,non_annote
+P172630,Gouvernance,entrainement
+P172796,Protection sociale,entrainement
+P172806,Agriculture,entrainement
+P172868,Gouvernance,non_annote
+P172893,Agriculture,non_annote
+P172951,Transport,non_annote
+P172972,Gouvernance,non_annote
+P173043,Agriculture,non_annote
+P173065,Gouvernance,non_annote
+P173073,Éducation,non_annote
+P173076,Eau et assainissement,validation
+P173088,Énergie,non_annote
+P173114,Transport,non_annote
+P173125,Eau et assainissement,non_annote
+P173151,Éducation,entrainement
+P173225,Gouvernance,entrainement
+P173259,Gouvernance,entrainement
+P173278,Gouvernance,validation
+P173297,Agriculture,entrainement
+P173368,Santé,test
+P173387,Protection sociale,non_annote
+P173391,Agriculture,entrainement
+P173398,Agriculture,non_annote
+P173399,Éducation,validation
+P173429,Gouvernance,entrainement
+P173480,Industrie et commerce,non_annote
+P173503,Agriculture,non_annote
+P173521,Protection sociale,non_annote
+P173589,Santé,entrainement
+P173663,Industrie et commerce,validation
+P173676,Gouvernance,non_annote
+P173704,Éducation,non_annote
+P173731,Gouvernance,non_annote
+P173743,Finance,non_annote
+P173746,Agriculture,non_annote
+P173749,Énergie,entrainement
+P173763,Énergie,test
+P173773,Santé,validation
+P173775,Santé,non_annote
+P173782,Transport,entrainement
+P173817,Santé,validation
+P173836,Santé,validation
+P173839,Santé,non_annote
+P173866,Industrie et commerce,entrainement
+P173883,Santé,non_annote
+P173948,Protection sociale,non_annote
+P173950,Santé,non_annote
+P173974,Protection sociale,non_annote
+P173977,Gouvernance,non_annote
+P174014,Protection sociale,validation
+P174017,Industrie et commerce,test
+P174033,Éducation,non_annote
+P174041,Santé,non_annote
+P174047,Éducation,entrainement
+P174059,Éducation,non_annote
+P174064,Gouvernance,validation
+P174114,Protection sociale,non_annote
+P174115,Gouvernance,entrainement
+P174128,Éducation,entrainement
+P174135,Agriculture,non_annote
+P174137,Agriculture,non_annote
+P174144,Gouvernance,non_annote
+P174155,Gouvernance,entrainement
+P174171,Gouvernance,non_annote
+P174177,Santé,non_annote
+P174186,Éducation,entrainement
+P174227,Santé,non_annote
+P174251,Transport,test
+P174267,Eau et assainissement,entrainement
+P174285,Agriculture,entrainement
+P174314,Agriculture,non_annote
+P174352,Santé,non_annote
+P174388,Gouvernance,non_annote
+P174417,Protection sociale,non_annote
+P174586,Énergie,entrainement
+P174593,Eau et assainissement,entrainement
+P174605,Santé,non_annote
+P174620,Gouvernance,non_annote
+P174622,Énergie,non_annote
+P174677,Éducation,non_annote
+P174812,Énergie,entrainement
+P174813,Protection sociale,non_annote
+P174874,Finance,validation
+P174927,Gouvernance,non_annote
+P174946,Numérique,entrainement
+P175023,Santé,non_annote
+P175111,Protection sociale,entrainement
+P175170,Santé,non_annote
+P175176,Agriculture,non_annote
+P175249,Gouvernance,entrainement
+P175293,Gouvernance,entrainement
+P175298,Protection sociale,non_annote
+P175308,Éducation,entrainement
+P175320,Gouvernance,entrainement
+P175355,Eau et assainissement,entrainement
+P175363,Protection sociale,test
+P175414,Industrie et commerce,non_annote
+P175493,Santé,non_annote
+P175523,Gouvernance,non_annote
+P175616,Finance,non_annote
+P175672,Agriculture,entrainement
+P175720,Transport,non_annote
+P175721,Éducation,test
+P175749,Gouvernance,non_annote
+P175771,Santé,non_annote
+P175778,Protection sociale,entrainement
+P175783,Industrie et commerce,non_annote
+P175801,Finance,non_annote
+P175837,Santé,non_annote
+P175952,Industrie et commerce,entrainement
+P175953,Santé,non_annote
+P176025,Eau et assainissement,validation
+P176034,Eau et assainissement,non_annote
+P176069,Finance,entrainement
+P176105,Éducation,test
+P176108,Numérique,test
+P176154,Protection sociale,non_annote
+P176163,Eau et assainissement,non_annote
+P176183,Eau et assainissement,entrainement
+P176216,Protection sociale,non_annote
+P176226,Énergie,non_annote
+P176300,Santé,entrainement
+P176302,Gouvernance,validation
+P176327,Gouvernance,non_annote
+P176335,Santé,non_annote
+P176336,Santé,entrainement
+P176345,Santé,non_annote
+P176354,Gouvernance,entrainement
+P176369,Protection sociale,non_annote
+P176396,Numérique,entrainement
+P176407,Santé,non_annote
+P176418,Agriculture,non_annote
+P176419,Transport,non_annote
+P176447,Gouvernance,non_annote
+P176450,Transport,non_annote
+P176498,Gouvernance,entrainement
+P176513,Énergie,non_annote
+P176526,Santé,non_annote
+P176643,Santé,non_annote
+P176650,Gouvernance,non_annote
+P176682,Transport,non_annote
+P176693,Santé,entrainement
+P176697,Éducation,entrainement
+P176700,Agriculture,entrainement
+P176733,Numérique,non_annote
+P176758,Agriculture,entrainement
+P176778,Santé,non_annote
+P176781,Protection sociale,non_annote
+P176811,Transport,non_annote
+P176822,Gouvernance,non_annote
+P176856,Industrie et commerce,entrainement
+P176878,Agriculture,entrainement
+P176885,Transport,non_annote
+P176893,Transport,test
+P176941,Eau et assainissement,non_annote
+P176956,Santé,non_annote
+P176981,Transport,entrainement
+P176982,Eau et assainissement,non_annote
+P177022,Numérique,non_annote
+P177031,Agriculture,validation
+P177053,Transport,validation
+P177062,Gouvernance,non_annote
+P177069,Transport,entrainement
+P177072,Agriculture,non_annote
+P177099,Énergie,validation
+P177135,Transport,entrainement
+P177145,Santé,entrainement
+P177163,Gouvernance,non_annote
+P177210,Transport,non_annote
+P177246,Santé,test
+P177263,Santé,non_annote
+P177308,Gouvernance,non_annote
+P177450,Agriculture,validation
+P177453,Protection sociale,non_annote
+P177460,Gouvernance,entrainement
+P177468,Gouvernance,non_annote
+P177489,Transport,non_annote
+P177590,Agriculture,non_annote
+P177627,Eau et assainissement,entrainement
+P177646,Énergie,validation
+P177688,Finance,entrainement
+P177714,Santé,non_annote
+P177741,Éducation,non_annote
+P177742,Gouvernance,non_annote
+P177785,Énergie,non_annote
+P177786,Gouvernance,non_annote
+P177807,Agriculture,non_annote
+P177813,Protection sociale,entrainement
+P177814,Protection sociale,non_annote
+P177823,Eau et assainissement,non_annote
+P177825,Industrie et commerce,non_annote
+P177850,Santé,entrainement
+P177871,Énergie,entrainement
+P177881,Éducation,non_annote
+P177932,Transport,entrainement
+P177959,Éducation,entrainement
+P177980,Gouvernance,non_annote
+P178011,Santé,entrainement
+P178018,Protection sociale,non_annote
+P178033,Santé,non_annote
+P178047,Protection sociale,non_annote
+P178068,Santé,non_annote
+P178100,Santé,entrainement
+P178125,Éducation,validation
+P178133,Protection sociale,validation
+P178157,Éducation,non_annote
+P178202,Gouvernance,entrainement
+P178209,Gouvernance,validation
+P178224,Agriculture,non_annote
+P178303,Énergie,non_annote
+P178322,Gouvernance,non_annote
+P178329,Industrie et commerce,non_annote
+P178347,Énergie,non_annote
+P178389,Eau et assainissement,non_annote
+P178419,Transport,non_annote
+P178427,Gouvernance,non_annote
+P178434,Protection sociale,non_annote
+P178455,Santé,non_annote
+P178497,Gouvernance,non_annote
+P178553,Énergie,entrainement
+P178557,Transport,entrainement
+P178567,Santé,non_annote
+P178581,Transport,non_annote
+P178591,Gouvernance,non_annote
+P178598,Agriculture,non_annote
+P178608,Gouvernance,non_annote
+P178609,Numérique,non_annote
+P178615,Santé,validation
+P178658,Finance,non_annote
+P178684,Éducation,non_annote
+P178694,Industrie et commerce,non_annote
+P178710,Finance,validation
+P178750,Éducation,entrainement
+P178758,Éducation,non_annote
+P178770,Protection sociale,entrainement
+P178816,Santé,test
+P178824,Protection sociale,entrainement
+P178842,Transport,non_annote
+P178848,Gouvernance,entrainement
+P178894,Santé,entrainement
+P178914,Énergie,entrainement
+P178924,Transport,entrainement
+P178954,Eau et assainissement,entrainement
+P178965,Santé,non_annote
+P178985,Gouvernance,non_annote
+P179007,Gouvernance,non_annote
+P179017,Eau et assainissement,non_annote
+P179040,Numérique,entrainement
+P179056,Gouvernance,non_annote
+P179204,Numérique,validation
+P179214,Gouvernance,entrainement
+P179227,Eau et assainissement,entrainement
+P179238,Agriculture,entrainement
+P179274,Agriculture,non_annote
+P179284,Transport,entrainement
+P179292,Gouvernance,non_annote
+P179307,Gouvernance,validation
+P179311,Eau et assainissement,entrainement
+P179361,Finance,non_annote
+P179383,Énergie,entrainement
+P179397,Éducation,non_annote
+P179414,Protection sociale,non_annote
+P179449,Protection sociale,non_annote
+P179507,Industrie et commerce,non_annote
+P179543,Gouvernance,entrainement
+P179550,Santé,entrainement
+P179554,Gouvernance,non_annote
+P179595,Santé,non_annote
+P179612,Gouvernance,non_annote
+P179637,Éducation,non_annote
+P179642,Gouvernance,non_annote
+P179656,Éducation,entrainement
+P179684,Agriculture,non_annote
+P179757,Agriculture,non_annote
+P179770,Transport,entrainement
+P179775,Gouvernance,test
+P179861,Gouvernance,non_annote
+P179875,Gouvernance,entrainement
+P179904,Protection sociale,non_annote
+P179913,Santé,non_annote
+P179923,Protection sociale,non_annote
+P179981,Agriculture,entrainement
+P179988,Agriculture,non_annote
+P180027,Énergie,entrainement
+P180033,Gouvernance,entrainement
+P180035,Protection sociale,non_annote
+P180060,Agriculture,non_annote
+P180064,Éducation,entrainement
+P180076,Agriculture,validation
+P180117,Gouvernance,non_annote
+P180127,Santé,entrainement
+P180152,Protection sociale,non_annote
+P180245,Santé,non_annote
+P180260,Éducation,non_annote
+P180263,Santé,validation
+P180291,Numérique,non_annote
+P180318,Transport,entrainement
+P180320,Protection sociale,entrainement
+P180323,Industrie et commerce,validation
+P180350,Protection sociale,non_annote
+P180361,Industrie et commerce,non_annote
+P180456,Finance,non_annote
+P180462,Numérique,non_annote
+P180495,Numérique,non_annote
+P180497,Énergie,entrainement
+P180501,Énergie,validation
+P180504,Gouvernance,non_annote
+P180533,Gouvernance,test
+P180539,Santé,non_annote
+P180547,Énergie,entrainement
+P180554,Gouvernance,non_annote
+P180570,Numérique,non_annote
+P180631,Santé,entrainement
+P180664,Éducation,non_annote
+P180674,Transport,entrainement
+P180679,Gouvernance,entrainement
+P180688,Éducation,non_annote
+P180693,Numérique,non_annote
+P180696,Gouvernance,non_annote
+P180748,Énergie,entrainement
+P180770,Transport,non_annote
+P180861,Finance,entrainement
+P180884,Gouvernance,non_annote
+P180904,Santé,entrainement
+P180905,Protection sociale,entrainement
+P180909,Protection sociale,entrainement
+P180979,Transport,entrainement
+P180992,Énergie,non_annote
+P180996,Agriculture,validation
+P181004,Protection sociale,non_annote
+P181011,Gouvernance,entrainement
+P181021,Agriculture,validation
+P181023,Gouvernance,non_annote
+P181029,Énergie,entrainement
+P181056,Santé,non_annote
+P181077,Agriculture,non_annote
+P181080,Énergie,non_annote
+P181081,Protection sociale,non_annote
+P181146,Protection sociale,validation
+P181200,Industrie et commerce,non_annote
+P181237,Gouvernance,validation
+P181243,Eau et assainissement,non_annote
+P181263,Gouvernance,test
+P181339,Agriculture,non_annote
+P181347,Éducation,non_annote
+P181354,Finance,entrainement
+P181391,Protection sociale,non_annote
+P181421,Eau et assainissement,non_annote
+P181456,Finance,entrainement
+P181479,Énergie,non_annote
+P181485,Industrie et commerce,entrainement
+P181491,Transport,non_annote
+P181499,Transport,non_annote
+P181512,Gouvernance,non_annote
+P181523,Protection sociale,validation
+P181526,Eau et assainissement,non_annote
+P181533,Agriculture,non_annote
+P181550,Protection sociale,non_annote
+P181557,Éducation,entrainement
+P181563,Agriculture,non_annote
+P181564,Santé,non_annote
+P181577,Transport,non_annote
+P181584,Énergie,entrainement
+P181595,Transport,non_annote
+P181620,Gouvernance,non_annote
+P181625,Énergie,non_annote
+P181632,Protection sociale,non_annote
+P181648,Protection sociale,test
+P181658,Transport,non_annote
+P181659,Santé,entrainement
+P181685,Protection sociale,entrainement
+P252350,Éducation,non_annote
+P500570,Numérique,entrainement
+P501217,Énergie,entrainement
+P502471,Numérique,entrainement
+P502532,Numérique,validation
+P503369,Éducation,non_annote
+P504543,Transport,entrainement
+P504762,Transport,non_annote
+P504998,Gouvernance,entrainement
+P505158,Protection sociale,entrainement
+P505271,Agriculture,entrainement
+P505562,Eau et assainissement,entrainement
+P505590,Transport,non_annote
+P505866,Gouvernance,non_annote
+P505887,Protection sociale,non_annote
+P506072,Santé,non_annote
+P506269,Éducation,entrainement
+P506285,Gouvernance,non_annote
+P506321,Transport,non_annote
+P506443,Gouvernance,non_annote
+P506527,Industrie et commerce,non_annote
+P506594,Protection sociale,validation
+P506602,Énergie,non_annote
+P506791,Numérique,entrainement
+P506815,Transport,non_annote
+P506997,Agriculture,non_annote
+P507538,Gouvernance,non_annote
+P507749,Gouvernance,entrainement
+P507762,Finance,non_annote
+P507844,Transport,non_annote
+P507869,Agriculture,entrainement
+P507888,Protection sociale,validation
+P507912,Gouvernance,non_annote
+P507921,Transport,non_annote
+P507935,Santé,entrainement
+P508310,Industrie et commerce,test
+P508319,Gouvernance,non_annote
+P508363,Numérique,non_annote
+P508408,Protection sociale,non_annote
+P508410,Gouvernance,entrainement
+P508537,Industrie et commerce,validation
+P508558,Transport,entrainement
+P508608,Énergie,test
+P508674,Eau et assainissement,entrainement
+P508961,Finance,non_annote
+P509161,Énergie,non_annote
+P509250,Énergie,non_annote
+P509428,Gouvernance,non_annote
+P509827,Gouvernance,non_annote
+P509855,Finance,non_annote
+P509952,Transport,non_annote
+P510002,Transport,entrainement
+P510015,Énergie,non_annote
+P510090,Gouvernance,non_annote
+P510158,Gouvernance,non_annote
+P510360,Agriculture,non_annote
+P510381,Éducation,test
+P510690,Gouvernance,non_annote
+P510696,Gouvernance,non_annote
+P510861,Gouvernance,entrainement
+P511001,Énergie,non_annote
+P511038,Éducation,entrainement
+P511398,Industrie et commerce,non_annote
+P511478,Protection sociale,non_annote
+P511555,Transport,non_annote
+P511558,Santé,non_annote
+P511758,Gouvernance,non_annote
+P511813,Finance,non_annote
+P511822,Gouvernance,entrainement
+P512359,Protection sociale,entrainement
+P512688,Transport,non_annote
+P512750,Transport,non_annote
+P512892,Industrie et commerce,non_annote
+P513028,Gouvernance,entrainement
+P513072,Finance,non_annote
+P513145,Gouvernance,non_annote
+P513182,Finance,entrainement
+P513191,Énergie,non_annote
+P513248,Agriculture,entrainement
+P513279,Éducation,entrainement
+P513341,Protection sociale,non_annote
+P513349,Eau et assainissement,non_annote
+P513352,Finance,validation
+P513580,Énergie,non_annote
+P513678,Gouvernance,validation
+P513735,Éducation,non_annote
+P513815,Transport,non_annote
+P513981,Éducation,entrainement
+P514247,Éducation,entrainement
+P514855,Protection sociale,non_annote
+P514860,Transport,non_annote
+P515269,Finance,validation
+P515685,Numérique,entrainement
+P515690,Santé,validation
+P515852,Agriculture,test
+P515897,Eau et assainissement,entrainement
