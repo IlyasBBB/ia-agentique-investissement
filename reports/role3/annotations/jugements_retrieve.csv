@@ -1,0 +1,887 @@
+id_requete,id_projet,pertinent,sources,titre
+R01,P171742,1,tfidf+embeddings,Access to Distributed Electricity and Lighting in Ethiopia (ADELE)
+R01,P160009,1,tfidf+embeddings+titre,Kenya: Off-grid Solar Access Project for Underserved Counties
+R01,P166936,1,tfidf+embeddings,Lesotho Renewable Energy & Energy Access Project
+R01,P159112,1,tfidf+embeddings+titre,Uganda Rural Electrification
+R01,P162902,1,tfidf,GEF Electricity Access and Renewable Energy Expansion Project
+R01,P120014,0,tfidf,KE Electricity Modernization Project
+R01,P110978,1,tfidf+embeddings+titre,Rural Electrification Phase II Project of the Rural Electrification (APL) Program
+R01,P112963,1,tfidf+embeddings+titre,Additional Financing For Rural Electrification and Renewable Energy Development Project
+R01,P173088,0,tfidf+embeddings,Somali Electricity Sector Recovery Project
+R01,P162933,0,tfidf,North Core/Dorsale Nord Regional Power Interconnector Project
+R01,P092211,1,embeddings+titre,RY-Rural Energy Access Project
+R01,P056452,1,embeddings,VN-RURAL ENERGY
+R01,P069183,1,embeddings,Energy Reform and Access Project
+R01,P078091,1,titre,Burkina Faso Energy Access Project
+R01,P146287,1,titre,Mali Rural Electrification Hybrid System Project - GPOBA
+R01,P150908,1,titre,Rural Electrification Project
+R01,P151979,0,titre,Cabo Verde: Distributed Solar Energy Systems (SIDS DOCK)
+R01,P160018,0,titre,Additional Financing for Grid-Connected Rooftop Solar Program
+R02,P116426,1,tfidf,EFA Fast Track Initiative Catalytic Fund Grant for Lesotho
+R02,P144856,0,tfidf+embeddings,Improving Pre-primary and General Secondary Education Project
+R02,P113350,1,tfidf+embeddings,Sector Support for Education Reform Project
+R02,P181557,1,tfidf+embeddings,Serbia Inclusive Primary Education Improvement Project
+R02,P098956,0,tfidf+embeddings,Post-Primary Education
+R02,P129210,1,tfidf,Development of Inclusive Education in Guinea
+R02,P160543,1,tfidf,VIETNAM QUALITY IMPROVEMENT OF PRIMARY EDUCATION FOR DEAF CHILDREN PROJECT (QIPEDC)
+R02,P178157,1,tfidf,Zanzibar Improving Quality of Basic Education Project
+R02,P133333,1,tfidf,Senegal Quality and Equity of Basic Education
+R02,P173399,0,tfidf,Actions to Strengthen Performance for Inclusive and Responsive Education Program
+R02,P002953,1,embeddings+titre,PRIMARY EDUC. & TEAC
+R02,P000282,1,embeddings,EDUCATION IV
+R02,P170542,0,embeddings,Learning for the Future Project
+R02,P066149,0,embeddings,Secondary Education Project
+R02,P004003,0,embeddings,ID-SECONDARY SCHOOL TEACHER DEVELOPMENT
+R02,P083965,0,embeddings,BO-Secondary Education Transformation
+R02,P003969,1,titre,ID-PRIMARY SCHOOL TEACHERS
+R02,P005161,1,titre,BASIC EDUCATION IMPROVEMENT PROJECT
+R02,P005460,0,titre,BASIC EDUCATION
+R02,P007399,1,titre,HN- BASIC EDUCATION
+R02,P038698,1,titre,ST. LUCIA BASIC EDUCATION REFORM PROJECT
+R02,P039644,1,titre,ID-W. JAVA BASIC EDUCATION
+R02,P057350,0,titre,Interactive Environmental Learning & Science Promotion Project
+R02,P074320,1,titre,Rehabilitation of Basic Education
+R02,P090340,1,titre,Quality Education in the Rural Areas of Moldova
+R03,P055003,1,tfidf+embeddings+titre,"Nutrition, Food Security, and Social Mobilization Project"
+R03,P071062,0,tfidf,Health Sector Development Project
+R03,P514855,1,tfidf,Cash for Nutrition and Livelihoods Project
+R03,P507935,1,tfidf+embeddings,Accelerating Nutrition Results in Nigeria 2.0
+R03,P169071,0,tfidf,Punjab Rural Sustainable Water Supply and Sanitation Project
+R03,P178816,1,tfidf+embeddings,DRC Multisectoral Nutrition and Health Project
+R03,P164845,1,tfidf+embeddings,Rwanda Stunting Prevention and Reduction Project
+R03,P179656,0,tfidf,Early Childhood Education and Care for Kosovo's Human Capital Project
+R03,P148052,0,tfidf,Mother and Child Health Services Strengthening Project
+R03,P173950,1,tfidf+embeddings,Additional Financing to Improving Nutrition Outcomes Project Using the Multiphase Programmatic Approach
+R03,P164686,1,embeddings,Investing in Nutrition and Early Years
+R03,P097181,1,embeddings+titre,Nutrition Enhancement Program II
+R03,P175493,1,embeddings,The Philippines Multisectoral Nutrition Project
+R03,P168295,0,embeddings,Improving Early Childhood Development in the West Bank and Gaza
+R03,P035827,1,embeddings,Women & Child Development
+R03,P008048,1,titre,PE-BASIC HLTH/NUTRITION
+R03,P070541,1,titre,Nutrition Enhancement Program
+R03,P084601,1,titre,Madagascar: Nutrition II - Supplemental Credit
+R03,P100966,1,titre,Second Community Nutrition-Additional Financing
+R03,P106228,1,titre,Ethiopia Nutrition (FY08)
+R03,P121731,1,titre,India: ICDS Systems Strengthening & Nutrition Improvement Program (ISSNIP)
+R03,P125237,1,titre,Malawi Nutrition and HIV/AIDS Project
+R03,P131236,1,titre,Emergency Targeted Nutrition Intervention
+R04,P154036,1,tfidf+embeddings,Disaster and Climate Resilience Improvement Project
+R04,P149522,0,tfidf,Belize Energy Resilience for Climate Adaptation (GEF/SCCF)
+R04,P126817,1,tfidf,Guangxi Laibin Water Environment Project
+R04,P105120,0,tfidf+titre,Additional Financing: Mekong Transport and Flood Protection Project
+R04,P010415,0,tfidf+titre,1992 FLOOD DAMAGE RE
+R04,P179227,1,tfidf,Balochistan Water Security and Productivity Improvement Project
+R04,P087964,0,tfidf,Irrigation & Drainage Rehabilitation Project (Serbia)
+R04,P176982,0,tfidf+embeddings,Brazil: Espirito Santo Water Security Management Project
+R04,P175720,0,tfidf,Grenada Resilience Improvement Project
+R04,P510690,1,tfidf,Lao PDR Southeast Asia Disaster Risk Management Project II
+R04,P504998,1,embeddings,Saint Lucia Urban Resilient Flood Investment Project
+R04,P508410,1,embeddings,DRC Urban Flood Resilience Project
+R04,P512750,1,embeddings,Sustainable Economic Corridors and Urban Resilience Project
+R04,P180323,1,embeddings,Integrated Flood Resilience and Adaptation Project
+R04,P167359,1,embeddings,Benin - Stormwater Management and Urban Resilience Project
+R04,P152851,1,embeddings,Can Tho Urban Development and Resilience Project
+R04,P180884,1,embeddings,Sustainable Cities and Land Project
+R04,P123201,1,embeddings,Cities and Climate Change
+R04,P006570,0,titre,RF Flood Plain (Varzea) Management Project
+R04,P093491,1,titre,AR APL2 Urban Flood Prevention and Drainage
+R04,P103518,1,titre,Eastern Nile Flood Prevention and Early Warning Project - Phase 1
+R04,P115178,1,titre,RY-FLOOD PROTECTION AND EMERGENCY RECONSTRUCTION ADDITIONAL FINANCING II
+R04,P125105,0,titre,Pakistan Flood Emergency Cash Transfer Project
+R04,P125156,0,titre,BO Pilot Program for Climate Resilience Ph 1
+R04,P131049,0,titre,Climate Resilience: Transforming Hydro-Meteorological Services
+R04,P153814,1,titre,Metro Manila Flood Management Project
+R05,P130864,1,tfidf+embeddings,TR Third Access to Finance for SMEs (SME III)
+R05,P152307,1,tfidf+embeddings,Access to Finance for MSMEs
+R05,P180456,1,tfidf+embeddings,"Access to Sustainable Finance for Micro, Small and Medium Enterprises Project"
+R05,P161086,0,tfidf,BD: Enhancing Digital Government & Economy Project
+R05,P156766,1,tfidf,Access to Long Term Finance
+R05,P178658,1,tfidf+embeddings,Access to Finance & Economic Opportunities Project – Mais Oportunidades
+R05,P167380,1,tfidf,Tunisia Innovative Startups and SMEs Project
+R05,P122178,0,tfidf+titre,Turkey SME Energy Efficiency Project
+R05,P176418,0,tfidf,Additional Financing to Agricultural and Livestock Transformation Project
+R05,P153603,1,tfidf+embeddings,MA-Second Capital Market Development and SME Finance DPL
+R05,P125209,0,embeddings,Financial and Private Sector Development -Additional Financing Project
+R05,P039882,0,embeddings,Benin - Private Sector Project
+R05,P153338,0,embeddings,MX: Expanding Rural Finance
+R05,P155553,0,embeddings,Private Sector Competitiveness DPO2
+R05,P072601,0,embeddings,Second Rural Finance Project
+R05,P008839,0,titre,Enterprise Support Project
+R05,P034181,0,titre,Urban Works & Microenterprise Pilot Project
+R05,P049502,0,titre,Enterprise Development Adjustment Loan 2 (EDAL 2)
+R05,P057295,0,titre,RW-Compet & Enterprise Dev (FY01)
+R05,P081969,0,titre,Enterprise Growth & Bank Modernization
+R05,P085009,0,titre,Private Sector/MSME Competitiveness
+R05,P087980,0,titre,Liberia Post-Conflict Social Assessment
+R05,P115398,0,titre,Cote d'Ivoire - SME Revitalization and Governance Project
+R05,P128443,0,titre,Guinea - MSME Development Project
+R06,P160505,1,tfidf,Mali - Rural Mobility and Connectivity Project
+R06,P165411,1,tfidf+titre,Morocco - Community-Based Rural Roads Maintenance
+R06,P044601,1,tfidf+embeddings+titre,SECOND RURAL ROADS PROJECT
+R06,P124639,1,tfidf+titre,PMGSY Rural Roads Project
+R06,P158194,0,tfidf,Myanmar Flood and Landslide Emergency Recovery Project
+R06,P094007,1,tfidf+embeddings+titre,Morocco - Second Rural Roads Project
+R06,P095570,1,tfidf+titre,Peru Decentralized Rural Transport Project
+R06,P177069,1,tfidf+embeddings+titre,Khyber Pakhtunkhwa Rural Accessibility Project (KPRAP)
+R06,P178581,1,tfidf+embeddings,Assam Resilient Rural Bridges Program
+R06,P000393,0,tfidf,CM-Transport Sect Prj (FY96)
+R06,P070441,0,embeddings,Hubei Xiaogan-Xiangfan Highway Project
+R06,P070391,1,embeddings+titre,RY-RURAL ACCESS IMPROVEMENT PROGRAM
+R06,P178924,0,embeddings,Additional Financing to the Madagascar Road Sector Sustainability Project
+R06,P507921,0,embeddings,Mali Connectivity and Road Resilience Project (Mali-NSS)
+R06,P076234,0,embeddings,Rural Investment Project (AZRIP)
+R06,P176450,1,embeddings,CAR - Emergency Infrastructure and Connectivity Recovery Project
+R06,P103343,1,titre,National Emergency Rural Access Project
+R06,P125961,1,titre,Afghanistan Rural Access Project
+R06,P177489,1,titre,Second Additional Financing for the Feeder Roads Development Project
+R07,P157892,1,tfidf,Safety Nets Project (Jigisemejiri)
+R07,P167623,1,tfidf,Social Protection and Economic Inclusion Project (Productive Social Safety Net Additional Financing)
+R07,P173521,1,tfidf+embeddings,Sudan Family Support Project
+R07,P176154,1,tfidf+embeddings,Additional Financing - Sudan Family Support Project
+R07,P163729,0,tfidf,Yemen Emergency Crisis Response Project - Second Additional Financing
+R07,P175363,1,tfidf,Adaptive Safety Nets and Economic Inclusion Project
+R07,P166220,1,tfidf+embeddings,Integrated Cash Transfer and Human Capital Project
+R07,P126430,1,tfidf,Productive Safety Nets Program (APL III) Additional Financing
+R07,P174114,1,tfidf,NIGERIA: Community Action (for) Resilience and Economic Stimulus Program
+R07,P116774,1,tfidf,Social Safety Nets & Employment Support Project
+R07,P144484,1,embeddings,Cash Transfer Program for Vulnerable Children in Northern Togo
+R07,P113117,1,embeddings+titre,FOOD PRICE CRISIS RESPONSE PROGRAM - Additional Financing to Social Safety Net Reform Project
+R07,P112345,0,embeddings,Additional Financing for Third Social Fund for Development Project
+R07,P181685,1,embeddings,Cash for Jobs Additional Financing
+R07,P514855,1,embeddings,Cash for Nutrition and Livelihoods Project
+R07,P144967,1,embeddings,West Bank and Gaza Cash Transfer Project Additional Financing
+R07,P173974,1,embeddings,Jordan Emergency Cash Transfer COVID-19 Response Project
+R07,P008515,0,titre,Social Safety Net Project
+R07,P051173,0,titre,Social Protection Project
+R07,P067774,1,titre,Social Safety Net Project
+R07,P078088,0,titre,Social Protection Sector Adjustment Loan - DDO
+R07,P087620,0,titre,Social Protection Administration Project
+R07,P088642,1,titre,Social Protection project
+R07,P094869,0,titre,Growth and Social Protection Technical Assistance Credit
+R07,P099295,0,titre,Emergency Social Protection Project
+R07,P104507,1,titre,Additional Financing for Colombia Social Safety Net Project (Ln. 7337)
+R08,P099376,1,tfidf+embeddings+titre,Tax Administration Modernization Project
+R08,P177308,1,tfidf,NG Accelerating Resource Mobilization Reforms PforR
+R08,P161463,1,tfidf+embeddings+titre,Strengthening Tax Systems and Building Tax Policy Analysis Capacity
+R08,P164410,1,tfidf+embeddings+titre,Revenue Administration Reform Support (RARS)
+R08,P513182,1,tfidf+titre,"Improving Public Expenditure, Accountability and Tax Administration in North Macedonia (IMPACT)"
+R08,P176396,0,tfidf,Burundi Digital Foundations Project
+R08,P164529,1,tfidf+titre,Chad Digitalization of Revenue Administrations and COVID-19 Response Project
+R08,P006889,0,tfidf,CO PUBLIC FINANCIAL MAN
+R08,P130202,1,tfidf+embeddings+titre,Revenue Administration Modernization Project
+R08,P180696,1,tfidf+embeddings,Economic and Financial Governance Project
+R08,P158239,1,embeddings+titre,SEMCAR Budget and Revenue Systems Enhancement Project
+R08,P156411,1,embeddings,Governance and Policy Project for Balochistan
+R08,P513145,1,embeddings+titre,Guinea Domestic Revenue Mobilization and Public Expenditure Management
+R08,P150116,1,embeddings,Public Sector Performance Project
+R08,P171850,0,embeddings,Resilient Institutions for Sustainable Economy
+R08,P155443,0,titre,ADDITIONAL FINANCING FOR SECOND CUSTOMS REFORM AND TRADE FACILITATION PROJECT
+R08,P507538,1,titre,Revenue Improvement and Spending Efficiency Program-for-Results Operation
+R09,P176396,1,tfidf+embeddings,Burundi Digital Foundations Project
+R09,P152441,0,tfidf,Georgia National Innovation Ecosystem (GENIE) Project
+R09,P508363,1,tfidf,Brazilian States and Municipalities Digital Acceleration Project
+R09,P176733,1,tfidf,IN: Manipur Infotech eNabled Development Project
+R09,P502532,1,tfidf+embeddings,Inclusive Digitalization in Eastern and Southern Africa (IDEA)
+R09,P172524,1,tfidf+embeddings,Senegal Digital Economy Acceleration Project
+R09,P177022,1,tfidf+embeddings,Burkina Faso Digital Acceleration Project
+R09,P180495,1,tfidf,DRC Digital Transformation Project
+R09,P114963,1,tfidf+embeddings,Caribbean Regional Communications Infrastructure Program
+R09,P178609,1,tfidf+embeddings,Strengthening data infrastructure to close the digital gap in Argentina Project
+R09,P118213,1,embeddings,RCIP4 - Regional Communications Infrastructure Program - APL 4 (RI)
+R09,P164525,0,embeddings,Senegal Second Multi-Sectoral Structural Reform DPF
+R09,P179204,1,embeddings,Kazakhstan Digital Acceleration for an Inclusive Economy (DARE) Project
+R09,P008322,0,embeddings+titre,Telecommunications Project
+R09,P001055,0,titre,TELECOMMUNICATIONS
+R09,P002780,0,titre,TELECOM III
+R09,P004576,0,titre,WATER DISTRICTS DEVELOPMENT PROJECT
+R09,P008314,0,titre,District Heating Project
+R09,P010373,0,titre,TELECOMS. II
+R09,P087980,0,titre,Liberia Post-Conflict Social Assessment
+R09,P122201,0,titre,"BD: Leveraging ICT Growth, Employment and Governance Project"
+R09,P122800,0,titre,CI: Post-conflict Reconstruction and Recovery Grant (PCRRG)
+R09,P128904,1,titre,WS: Pacific Regional Connectivity Program: Phase 3 - Samoa
+R10,P145037,0,tfidf,Agriculture Cluster Development Project
+R10,P006636,0,tfidf,Small Farmer Services Project
+R10,P008037,1,tfidf+embeddings+titre,PE Irrigation Subsector Project
+R10,P116355,1,tfidf+embeddings,Additional Financing for Sindh On-Farm Water Management Project
+R10,P122123,0,tfidf,Zambia: Livestock Development and Animal Health Project
+R10,P163533,1,tfidf,Odisha Integrated Irrigation Project for Climate Resilient Agriculture
+R10,P118838,0,tfidf,Agricultural Productivity Assistance Project
+R10,P092353,1,tfidf+embeddings+titre,Irrigation and Drainage Project
+R10,P178047,0,tfidf,Development Response to Displacement Impacts Project in the Horn of Africa Phase II
+R10,P088926,1,tfidf+embeddings+titre,Participatory Irrigation Development Project
+R10,P072996,1,embeddings+titre,NE-Priv Irrigation Promotion SIL (FY02)
+R10,P181077,0,embeddings,SECOND SUSTAINABLE AGRICULTURAL INTENSIFICATION AND FOOD SECURITY PROJECT
+R10,P515852,1,embeddings,Second Strengthening Water and Irrigation Management
+R10,P125307,1,embeddings,Irrigation and Drainage
+R10,P154482,1,embeddings,Sahel Irrigation Initiative Support Project
+R10,P506997,1,embeddings,Türkiye Second Irrigation Modernization and Water Efficiency Project
+R10,P004834,1,titre,IRRIGATION REHABILITATION PROJECT
+R10,P008284,1,titre,Rehabilitation & Completion of Irrigation & Drainage Infrastructure Project
+R10,P035728,0,titre,Bahia Water Resources Management Project
+R10,P084035,1,titre,Ferghana Valley Water Resources Management Project
+R10,P087964,1,titre,Irrigation & Drainage Rehabilitation Project (Serbia)
+R10,P087970,1,titre,West Delta Water Conservation and Irrigation Rehabilitation Project
+R11,P162094,1,tfidf,Baghdad Water Supply and Sewerage Improvement Project
+R11,P063383,1,tfidf,OSE Modernization and Systems Rehabilitation
+R11,P001075,1,tfidf+titre,Third Water Supply and Sanitation Project
+R11,P002957,1,tfidf+embeddings,UG-Small Towns Water (BD FY94)
+R11,P179311,0,tfidf,Water Emergency Relief Project
+R11,P008500,1,tfidf+titre,Atyrau Pilot Water Supply & Sanitation Project
+R11,P178389,1,tfidf,Water Supply and Sanitation Access Program (PASEA) Project
+R11,P176163,0,tfidf,Clean and Resilient Environment for Blue Sea Project
+R11,P147456,1,tfidf,"CG-Add. Fin. Water, Electricity & Urban Dev. SIL"
+R11,P156738,1,tfidf+embeddings,Small Town Water Supply and Urban Septage Management Project
+R11,P159240,1,embeddings,Urban Water and Sanitation Project - AF
+R11,P003241,1,embeddings,URBAN RESTRCT &WATER
+R11,P076884,1,embeddings,IR-NORTHERN CITIES WATER SUPPLY & SANITATION PROJECT
+R11,P039015,0,embeddings,MZ-Natl Water 1 (FY98)
+R11,P057602,1,embeddings,RY URBAN WTR SUPPLY & SANITATION APL
+R11,P010370,1,embeddings,CLOSED(T) URB WATER & SAN REHAB
+R11,P118533,1,embeddings,Water Supply and Sanitation Project-Additional Financing
+R11,P045182,0,embeddings+titre,Rural Water Supply and Sanitation Project
+R11,P000973,0,titre,GH-Urban Env Sanitation 1 (BD FY06)
+R11,P001921,1,titre,MU-Env Sewerage & Sanitation (FY98)
+R11,P002082,1,titre,LAGOS WATER SUPPLY
+R11,P007257,0,titre,Guyana Water Supply Technical Assistance and Rehabilitation Project
+R11,P008288,1,titre,GREATER BAKU WATER SUPPLY REHABILITATION PROJECT
+R11,P010413,1,titre,2nd Karachi Water Supply
+R11,P039003,1,titre,Istria & Slovene Coast Water Supply & Sewerage Project
+R12,P167916,1,tfidf,Africa CDC Regional Investment Financing Project
+R12,P070542,0,tfidf,KH-Health Sector Support Project
+R12,P176336,1,tfidf+embeddings,Additional Financing on Vaccines for the Liberia COVID-19 Emergency Response Project
+R12,P177980,0,tfidf,Additional Financing for Resilient Kerala Program
+R12,P178011,1,tfidf+embeddings,Additional Financing for the Panama COVID-19 Emergency Response Project
+R12,P176526,1,tfidf+embeddings,Additional Financing for the Mauritania COVID-19 Strategic Preparedness and Response Project (SPRP)
+R12,P176650,0,tfidf,Third Disaster Risk Management Development Policy Loan with a Cat DDO
+R12,P111667,1,tfidf,AVIAN INFLUENZA CONTROL AND HUMAN INFLUENZA EMERGENCY PREPARDNESS AND CONTROL
+R12,P174352,1,tfidf+embeddings,Sudan COVID-19 Emergency Response Project
+R12,P100081,1,tfidf,Avian and Human Influenza Control and Preparedness Project
+R12,P175837,1,embeddings,Additional Financing for and Restructuring of the COVID-19 Emergency Response and Pandemic Preparedness Project
+R12,P178068,1,embeddings,COVID-19 Strategic Preparedness and Response Project Additional Financing
+R12,P178100,1,embeddings,Second Additional Financing for the Mauritania COVID-19 Strategic Preparedness and Response Project (SPRP)
+R12,P176335,1,embeddings,"Togo, Additional Financing to the COVID-19 Emergency Response and System Preparedness Strengthening Project"
+R12,P173775,1,embeddings,Afghanistan COVID-19 Emergency Response and Health Systems Preparedness Project
+R12,P178965,1,embeddings,Third AF to The Gambia COVID-19 Vaccine Preparedness and Response Project
+R12,P054120,1,titre,BR: AIDS & STD Control II
+R12,P070291,1,titre,HIV/AIDS Program Development Project
+R12,P071014,1,titre,Multi-Sectoral AIDS Project
+R12,P071147,1,titre,Tuberculosis Control
+R12,P073442,1,titre,HIV/AIDS GLOBAL MITIGATION SUPPORT PROJECT
+R12,P074543,0,titre,Foot & Mouth Disease Emergency Recovery Loan
+R12,P075220,1,titre,CARIBBEAN HIV/AIDS I-BARBADOS
+R12,P076795,1,titre,ST. LUCIA HIV/AIDS PREVENTION & CONTROL
+R12,P082613,1,titre,Regional HIV/AIDS Treatment Acceleration Project
+R12,P101124,0,titre,Uruguay Additional Financing Foot & Mouth Disease Emergency Recovery Loan - Ln. 7421-0 UY
+R13,P166693,1,tfidf,Labor Market Information and Skills System Transformation for Labor Market Flexibility
+R13,P132667,1,tfidf+embeddings+titre,Benin Youth Employment Project
+R13,P118974,1,tfidf+titre,MAURITANIA - Skills Development Support Project
+R13,P122008,1,tfidf+titre,Yunnan Technical and Vocational Education and Training Project
+R13,P179414,1,tfidf+embeddings,National Youth Opportunities Towards Advancement Project
+R13,P154623,1,tfidf+titre,China: Gansu Technical and Vocational Education and Training Project
+R13,P177741,0,tfidf,Guyana Strengthening Human Capital through Education Project
+R13,P177881,1,tfidf,Ethiopia Education and Skills for Employability Project
+R13,P121052,1,tfidf+embeddings+titre,Youth Employment Support
+R13,P505158,1,tfidf,Angola Youth Employment Opportunities Project
+R13,P001746,1,embeddings+titre,Vocational Education and Training Consolidation Project
+R13,P172627,1,embeddings,Skills for A Vibrant Economy Project
+R13,P128628,1,embeddings+titre,CONGO - Rep. Skills Development for Employability Project
+R13,P066149,0,embeddings,Secondary Education Project
+R13,P101369,0,embeddings,Compensatory Education
+R13,P514247,1,embeddings,Skills Training for Results and Industry-Valued Employment Project
+R13,P176781,1,embeddings,Promoting Better Jobs through Integrated Labor and Skills Programs
+R13,P074132,1,titre,Nigeria Federal Science & Technical Education at Post-Basic Levels (STEPB)
+R13,P120566,1,titre,Morocco First Skills and Employment DPL
+R13,P131660,1,titre,Skills Development Project
+R14,P158982,1,tfidf+embeddings,Trade and Logistics Services Competitiveness Project
+R14,P156590,1,tfidf+embeddings,Trade Logistics Project
+R14,P133021,0,tfidf,Chad Value Chain Support Project
+R14,P177932,1,tfidf,Cairo Alexandria Trade Logistics Development Project
+R14,P004917,1,tfidf+embeddings+titre,PORTS III
+R14,P181595,1,tfidf,Additional Financing for Maritime Investment in Climate Resilient Operations II
+R14,P173114,1,tfidf,Comoros Interisland Connectivity Project
+R14,P129282,0,tfidf+embeddings,Regional Trade Facilitation and Competitiveness DPO
+R14,P034154,1,tfidf,ER-Ports Rehab SIL (FY98)
+R14,P102000,0,tfidf,Transport Sector Project
+R14,P508537,0,embeddings,Accelerating Trade Facilitation In The Pacific
+R14,P001790,1,embeddings+titre,FIRST ROADS AND COASTAL SHIPPING
+R14,P005433,1,embeddings+titre,PORT SECTOR
+R14,P180318,0,embeddings,Repairing Essential Logistics Infrastructure & Network Connectivity (RELINC) Project
+R14,P003571,0,embeddings,CN-7TH RAILWAYS
+R14,P159697,1,embeddings,GREATER ABIDJAN PORT - CITY INTEGRATION PROJECT
+R14,P000393,0,titre,CM-Transport Sect Prj (FY96)
+R14,P004342,0,titre,MN-Transport Rehab.
+R14,P004609,1,titre,SUBIC BAY FREEPORT
+R14,P004954,0,titre,BASIC & SECONDARY EDUCATION SUPPORT PROJECT
+R14,P006547,0,titre,RIO DE JANEIRO METROPOLITAN TRANSPORT DECENTRALIZATION PROJECT
+R14,P006870,0,titre,EXPORT DEVELOPMENT
+R14,P007648,0,titre,MEDIUM CITIES URBAN TRANSPORT PROJECT
+R15,P510015,1,tfidf,Guatemala Energy Transition Support Project
+R15,P170230,1,tfidf,Electricity Distribution Efficiency Improvement Project
+R15,P510090,0,tfidf,First Ukraine Jobs and Private Sector Growth DPO
+R15,P151155,0,tfidf,CAMEROON - Strengthening Public Sector Effectiveness and Statistical Capacity Project
+R15,P179007,0,tfidf,Advancing Uzbekistan's Economic and Social Transformation Development Policy Operation
+R15,P081969,0,tfidf,Enterprise Growth & Bank Modernization
+R15,P145586,0,tfidf,China Partnership for Market Readiness
+R15,P113457,0,tfidf,Paraguay Public Sector Reform
+R15,P179543,1,tfidf,"The Gambia Second Fiscal Management, Energy and Telecom Reform DPF: Supplemental Financing:"
+R15,P082278,0,tfidf,Croatia Programmatic Adjustment Loan
+R15,P069183,1,embeddings,Energy Reform and Access Project
+R15,P010458,1,embeddings,POWER SECT. DEV. PRO
+R15,P177871,1,embeddings,Electricity Sector Modernization and Sustainability Project
+R15,P170236,1,embeddings+titre,Renewable Energy and Improved Utility Performance Project
+R15,P050439,1,embeddings+titre,Privatization & Utility Sector Reform
+R15,P164525,1,embeddings,Senegal Second Multi-Sectoral Structural Reform DPF
+R15,P034491,1,embeddings,Power Transmission & Distribution Project
+R15,P008537,1,embeddings,POWER REHAB
+R15,P046651,0,embeddings,REGIONAL HYDROPOWER DEVELOPMENT PROJECT
+R15,P066345,1,embeddings,ENERGY/WATER/SANITATION SECTOR REFORM TECHNICAL ASSISTANCE PROJECT
+R15,P003920,1,titre,POWER SECTOR EFFICIE
+R15,P005215,1,titre,POWER SECTOR EFFICIENCY
+R15,P063095,1,titre,Privatization and Utility Reform Project
+R15,P087801,0,titre,Power Sector Priority Investments
+R15,P104774,1,titre,LB-EMERGENCY POWER SECTOR REFORM CAPACITY REINFORCEMENT
+R15,P120207,0,titre,Nigeria Power Sector Guarantees Project
+R15,P144675,1,titre,Vietnam Power Sector Reform DPO3
+R15,P164001,1,titre,Power Sector Recovery Performance Based Operation
+R16,P167790,0,tfidf,Higher Education Project
+R16,P173387,1,tfidf+embeddings,"Early Warning, Early Finance and Early Action Project"
+R16,P179775,0,tfidf+embeddings,Somalia Urban Resilience Project Phase II Second Additional Financing
+R16,P103922,1,tfidf+embeddings,Agro-biodiversity and Adaptation
+R16,P144197,0,tfidf,Kenya Health Sector Support Project - Additional Financing
+R16,P508410,0,tfidf,DRC Urban Flood Resilience Project
+R16,P128663,0,tfidf,Health Sector Support Additional Financing
+R16,P181533,1,tfidf,Additional Financing for Regional Sahel Pastoralism Support Project II Burkina Faso
+R16,P180127,0,tfidf,"Health Emergency Preparedness, Response and Resilience Program Using the Multiphase Programmatic Approach"
+R16,P173125,0,tfidf,Urban Water Supply Strengthening Project
+R16,P104724,1,embeddings+titre,Andhra Pradesh Rural Poverty Reduction: Drought Adaptative Initiative Project
+R16,P163260,1,embeddings,DR Resilient Agriculture and Integrated Water Resources Management
+R16,P163533,1,embeddings,Odisha Integrated Irrigation Project for Climate Resilient Agriculture
+R16,P506997,0,embeddings,Türkiye Second Irrigation Modernization and Water Efficiency Project
+R16,P179311,0,embeddings,Water Emergency Relief Project
+R16,P515852,0,embeddings,Second Strengthening Water and Irrigation Management
+R16,P171266,1,embeddings,Agriculture Resilience and Competitiveness Project
+R16,P125156,0,titre,BO Pilot Program for Climate Resilience Ph 1
+R16,P129375,0,titre,Increasing Resilience to Climate Change and Natural Hazards Project
+R16,P131049,0,titre,Climate Resilience: Transforming Hydro-Meteorological Services
+R16,P149522,0,titre,Belize Energy Resilience for Climate Adaptation (GEF/SCCF)
+R16,P150481,0,titre,Health System Resiliency Strengthening Project
+R16,P152851,0,titre,Can Tho Urban Development and Resilience Project
+R16,P154036,0,titre,Disaster and Climate Resilience Improvement Project
+R16,P154784,1,titre,Kenya Climate Smart Agriculture Project
+R16,P156559,0,titre,MZ - Emergency Resilient Recovery Project
+R17,P089761,1,tfidf+embeddings+titre,Secondary Education Development and Girls Access Program
+R17,P147924,0,tfidf+titre,Guyana Secondary Education Improvement
+R17,P000103,0,tfidf+embeddings,EDUCATION DEVELOPMENT PROJECT
+R17,P161541,0,tfidf,Skills and Employment for Tongans
+R17,P004003,0,tfidf+titre,ID-SECONDARY SCHOOL TEACHER DEVELOPMENT
+R17,P181391,1,tfidf+embeddings,Girls' Education and Women's Empowerment and Livelihoods for Human Capital Project
+R17,P002790,0,tfidf,EDUC PLANNING & REHA
+R17,P098956,0,tfidf+embeddings,Post-Primary Education
+R17,P174033,0,tfidf,Uganda COVID-19 Emergency Education Response Project
+R17,P170480,1,tfidf+titre,Tanzania Secondary Education Quality Improvement Project (SEQUIP)
+R17,P170561,0,embeddings,Secondary Education and Skills Development Project
+R17,P178684,1,embeddings,DRC Girls Learning and Empowerment Project
+R17,P166415,0,embeddings,Higher Education for Economic Transformation Project
+R17,P005460,0,embeddings,BASIC EDUCATION
+R17,P177069,0,embeddings,Khyber Pakhtunkhwa Rural Accessibility Project (KPRAP)
+R17,P083080,0,embeddings+titre,Secondary Education Development Program
+R17,P004954,0,titre,BASIC & SECONDARY EDUCATION SUPPORT PROJECT
+R17,P041680,0,titre,SV SECONDARY EDUCATION
+R17,P066149,0,titre,Secondary Education Project
+R17,P083965,0,titre,BO-Secondary Education Transformation
+R17,P144856,0,titre,Improving Pre-primary and General Secondary Education Project
+R18,P174605,0,tfidf,Additional Financing to Cambodia COVID-19 Emergency Response Project
+R18,P175023,0,tfidf,Additional Financing to the Disease Prevention and Control Project
+R18,P178133,0,tfidf,Bangladesh Enhancing Investments and Benefits for Early Years (BEIBEY) Project
+R18,P177246,0,tfidf,Additional Financing for the Argentina: COVID-19 Emergency Response Project
+R18,P101504,0,tfidf,Second Bolsa Família
+R18,P513815,0,tfidf,Resilient Action for Development and Disaster Recovery Himachal Pradesh
+R18,P074212,0,tfidf,BO-Health Sector Reform APL II
+R18,P514855,0,tfidf,Cash for Nutrition and Livelihoods Project
+R18,P055003,0,tfidf,"Nutrition, Food Security, and Social Mobilization Project"
+R18,P035827,0,tfidf+embeddings,Women & Child Development
+R18,P148052,1,embeddings+titre,Mother and Child Health Services Strengthening Project
+R18,P164686,0,embeddings,Investing in Nutrition and Early Years
+R18,P180904,1,embeddings+titre,Accelerating Maternal & Child Health Outcomes Project
+R18,P010387,1,embeddings,HEALTH I (MCH)
+R18,P007927,1,embeddings+titre,PY-Maternal Health and Child Development Project
+R18,P168295,0,embeddings,Improving Early Childhood Development in the West Bank and Gaza
+R18,P010531,1,embeddings+titre,Reproductive and Child Health Project
+R18,P097181,0,embeddings,Nutrition Enhancement Program II
+R18,P178033,1,embeddings,Djibouti Health System Strengthening
+R18,P095515,1,titre,AR Provincial Maternal-Child Health Investment APL 2
+R18,P110535,1,titre,Reproductive and Child Health Project - Phase 2
+R18,P132753,1,titre,Sierra Leone - Reproductive and Child Health II Project - Second Additional Financing
+R19,P120660,1,tfidf+embeddings,LIBERIA Electricity System Enhancement Project (LESEP)
+R19,P132418,0,tfidf,Efficient & Sustainable City Bus Services
+R19,P119357,0,tfidf+titre,China Energy Efficiency Promotion in Industry
+R19,P121651,0,tfidf,Environmental Sustainability and Energy Sector (ESES) DPL3
+R19,P178954,0,tfidf,Water and Sanitation Project - I
+R19,P088256,1,tfidf+embeddings,La Esperanza Hydro Project
+R19,P178557,0,tfidf,Integrated Sustainable Mobility Project in the Foz do Rio Itajaí Region
+R19,P160182,0,tfidf,Improved Forested Landscape Management Project (GEF AF)
+R19,P162837,0,tfidf,Mai-Ndombe REDD+ Integrated Project under CAFI
+R19,P127036,0,tfidf,China GEF Large City Congestion and Carbon Reduction Project
+R19,P098654,1,embeddings,Thermal Power Efficiency
+R19,P038121,1,embeddings+titre,CN-GEF-Renewable Energy Development
+R19,P100101,1,embeddings,Coal-Fired Generation Rehabilitation
+R19,P106424,0,embeddings,Efficient lighting and appliances
+R19,P002241,0,embeddings,Rwanda Energy Sector Rehabilitation and Urban Waste Management
+R19,P042882,1,embeddings,RENW. ENER SMAL PW P
+R19,P127035,0,embeddings,"Green Energy Schemes for Low-carbon City in Shanghai, China"
+R19,P154291,0,embeddings,Indonesia Energy Sector DPL
+R19,P049770,1,titre,Second Renewable Energy
+R19,P075343,0,titre,Energy Efficiency Project
+R19,P098916,0,titre,China Energy Efficiency Financing
+R19,P101699,1,titre,LK: Renewable Energy - AF
+R19,P110477,1,titre,Vietnam Renewable Energy Development Project
+R19,P112963,0,titre,Additional Financing For Rural Electrification and Renewable Energy Development Project
+R19,P114182,0,titre,Provincial Energy Efficiency Scale-up Program
+R19,P122178,0,titre,Turkey SME Energy Efficiency Project
+R20,P092949,0,tfidf,NI ENHANCED COMPETITIVENESS FOR INTERNATIONAL MARKET INTEGRATION
+R20,P112495,0,tfidf,RESTORING EQUITABLE GROWTH AND EMPLOYMENT PROGRAMMATIC DEVELOPMENT POLICY LOAN
+R20,P040560,1,tfidf+embeddings+titre,Financial Sector Structural Adjustment Loan
+R20,P115199,0,tfidf,Public Expenditure Support Facility (DPL-DDO)
+R20,P036042,0,tfidf+titre,BANKING SYSTEM MODERNIZATION
+R20,P084219,1,tfidf+embeddings+titre,Second Financial Sector Restructuring Project
+R20,P178011,0,tfidf,Additional Financing for the Panama COVID-19 Emergency Response Project
+R20,P071023,0,tfidf+embeddings,Financial Capacity Development Project
+R20,P116666,0,tfidf,Tanzania Poverty Reduction Support Credit 8
+R20,P058681,0,tfidf,Education Sector Support Project
+R20,P133777,1,embeddings,Financial sector stability DPC2
+R20,P071291,0,embeddings+titre,Financial Sector Technical Assistance Project
+R20,P171039,1,embeddings,Romania: Institutional Strengthening and Financial Safety Net Resilience Project
+R20,P000044,0,embeddings,Financial Institutions modernization project
+R20,P507762,0,embeddings,SUPPORT TO THE FINANCIAL SECTOR AND MSME ACCESS TO FINANCE IN NIGER PROJECT
+R20,P062916,0,embeddings+titre,Bangladesh Central Bank Strengthening Project
+R20,P154036,0,embeddings,Disaster and Climate Resilience Improvement Project
+R20,P070640,0,titre,First Programatic Financial Sector Adjustment Loan
+R20,P080961,0,titre,Paraguay Financial Sector Technical Assistance Project
+R20,P081969,0,titre,Enterprise Growth & Bank Modernization
+R20,P088759,0,titre,Financial Sector Modernization and Information Management System
+R20,P094704,0,titre,Ethiopia - Financial Sector Capacity Building Project
+R21,P117947,1,tfidf+embeddings,Support to the National Urban Transit Program Project
+R21,P101356,1,tfidf+embeddings,Integrated Mass Transit System - Additional Financing
+R21,P507844,1,tfidf,Dakar Sustainable Urban Mobility Project
+R21,P166732,1,tfidf+embeddings,Karachi Mobility Project
+R21,P167401,1,tfidf+embeddings,Abidjan Urban Mobility Project
+R21,P169140,1,tfidf,São Paulo Aricanduva Bus Rapid Transit Corridor
+R21,P178842,1,tfidf,Improving Lima Traffic Management and Supporting Sustainable Transport Project
+R21,P056596,1,tfidf+titre,CN-Shijiazhuang Urban Transport
+R21,P176885,1,tfidf,Rwanda Urban Mobility Improvement Project
+R21,P126507,1,tfidf,Ho Chi Minh City Green Transport Development
+R21,P132418,1,embeddings,Efficient & Sustainable City Bus Services
+R21,P095485,1,embeddings,Urban Transport in Metropolitan Areas
+R21,P007648,1,embeddings+titre,MEDIUM CITIES URBAN TRANSPORT PROJECT
+R21,P034038,1,embeddings+titre,URBAN TRANSPORT DEVELOPMENT PROJECT
+R21,P099992,0,embeddings,Liaoning Medium Cities Infrastructure Project
+R21,P004342,0,embeddings,MN-Transport Rehab.
+R21,P000237,0,titre,AGRI-BUSINESS PROMOT
+R21,P006547,1,titre,RIO DE JANEIRO METROPOLITAN TRANSPORT DECENTRALIZATION PROJECT
+R21,P006553,0,titre,BR APL Integrated Water Management In Metropolitan Sao Paulo
+R21,P010509,0,titre,MULTIMODAL TRANSIT
+R21,P044383,1,titre,URBAN TRANSPORT REFORM AND CAPACITY BUILDING TECHNICAL ASSISTANCE PROJECT
+R21,P045915,1,titre,Urumqi Urban Transport Improvement Project
+R21,P071001,0,titre,Business Enabling Environment Structural Adjustment Credit
+R22,P102931,0,tfidf+titre,Ministry of Public Works Institutional Strengthening TAL
+R22,P128427,1,tfidf+embeddings,Community Works and Local Participation
+R22,P034038,0,tfidf,URBAN TRANSPORT DEVELOPMENT PROJECT
+R22,P009946,0,tfidf,NAT. HIGHWAYS II
+R22,P126430,1,tfidf,Productive Safety Nets Program (APL III) Additional Financing
+R22,P034181,1,tfidf,Urban Works & Microenterprise Pilot Project
+R22,P181550,1,tfidf+embeddings,Urban Productive Safety Net and Jobs Project Second Additional Financing
+R22,P179284,0,tfidf,Lao PDR Climate Resilient Road Connectivity Improvement Project
+R22,P180996,0,tfidf,Additional Financing to the Central African Republic (CAR) Emergency Food Crisis Response Project
+R22,P007648,0,tfidf,MEDIUM CITIES URBAN TRANSPORT PROJECT
+R22,P174417,0,embeddings,Recovery of Economic Activity for Liberian Informal Sector Employment Project
+R22,P176781,0,embeddings,Promoting Better Jobs through Integrated Labor and Skills Programs
+R22,P008252,0,embeddings,Labor Market Development Project
+R22,P041583,1,embeddings+titre,EMPLOYMENT GENERATIO
+R22,P159215,0,embeddings,Mongolia Employment Support Project
+R22,P128628,0,embeddings,CONGO - Rep. Skills Development for Employability Project
+R22,P177959,0,embeddings,Jordan Support to Private Sector Employment and Skills
+R22,P179414,0,embeddings,National Youth Opportunities Towards Advancement Project
+R22,P112495,0,titre,RESTORING EQUITABLE GROWTH AND EMPLOYMENT PROGRAMMATIC DEVELOPMENT POLICY LOAN
+R22,P112765,0,titre,"PUBLIC FINANCE MANAGEMENT, EMPLOYMENT, AND PRIVATE SECTOR DEVELOPMENT PROGRAMMATIC POLICY LOAN"
+R22,P116774,0,titre,Social Safety Nets & Employment Support Project
+R22,P120566,0,titre,Morocco First Skills and Employment DPL
+R22,P121052,1,titre,Youth Employment Support
+R22,P122201,0,titre,"BD: Leveraging ICT Growth, Employment and Governance Project"
+R22,P126339,1,titre,Egypt Emergency Labor Intensive Investment Project
+R22,P132667,0,titre,Benin Youth Employment Project
+R23,P084437,0,tfidf,Rural Health Project
+R23,P070992,0,tfidf,Social Sector Adjustment Credit 2 (SOSAC 2)
+R23,P151155,1,tfidf,CAMEROON - Strengthening Public Sector Effectiveness and Statistical Capacity Project
+R23,P506443,1,tfidf+embeddings,Mauritania Public Spending Efficiency
+R23,P513182,1,tfidf,"Improving Public Expenditure, Accountability and Tax Administration in North Macedonia (IMPACT)"
+R23,P104931,0,tfidf,Second Development Policy Grant
+R23,P173429,1,tfidf,The PFM MDTF III Support to Government of Indonesia
+R23,P176396,0,tfidf,Burundi Digital Foundations Project
+R23,P103922,0,tfidf,Agro-biodiversity and Adaptation
+R23,P170035,0,tfidf,"Agriculture Governance, Growth and Resilience Investment Project"
+R23,P069259,1,embeddings+titre,Public Expenditure Management Project
+R23,P078627,1,embeddings,Economic Management Support Project
+R23,P006889,1,embeddings+titre,CO PUBLIC FINANCIAL MAN
+R23,P177742,1,embeddings,Public Financial Management Improvement Project Phase 2
+R23,P175749,1,embeddings,Public Expenditure Management Network in Asia - Phase 2
+R23,P110050,1,embeddings,Improving Public Sector Performance
+R23,P159655,1,embeddings,Fiscal Performance Improvement Support Project (FSP):
+R23,P181237,1,embeddings,Strengthening Public Financial Management II Project
+R23,P510861,1,embeddings,Smart Public Finances: Data-Driven Public Expenditure Management for Greater Efficiency
+R23,P065790,1,titre,DJ FISCAL CONSOLIDATION CREDIT
+R23,P082916,1,titre,Public Financial Management Technical Assistance Project
+R23,P083275,1,titre,Niger Public Expenditure Reform Credit
+R23,P101321,0,titre,Fiscal and Debt Sustainability Development Policy Loan
+R23,P106641,1,titre,Competitiveness and Public Financial Management DPL 2
+R23,P110525,1,titre,Multi-Donor Trust Fund to Support Public Financial Modernization in Vietnam
+R23,P112713,1,titre,Capacity Building in Public Financial Management
+R23,P115199,0,titre,Public Expenditure Support Facility (DPL-DDO)
+R24,P172524,1,tfidf,Senegal Digital Economy Acceleration Project
+R24,P171528,1,tfidf,Caribbean Digital Transformation Project
+R24,P172868,0,tfidf,UGANDA INTERGOVERNMENTAL FISCAL TRANSFERS - ADDITIONAL FINANCING
+R24,P176108,1,tfidf+embeddings+titre,Kiribati Digital Government Project
+R24,P066490,0,tfidf,KE-Pub Sec Mgmt TAL (FY02)
+R24,P066345,0,tfidf,ENERGY/WATER/SANITATION SECTOR REFORM TECHNICAL ASSISTANCE PROJECT
+R24,P157406,0,tfidf,Hunan Fiscal Sustainability DPO
+R24,P171517,0,tfidf+embeddings,Digital Republic of the Marshall Islands Project
+R24,P121231,1,tfidf,Governance eTransformation Project
+R24,P166415,0,tfidf,Higher Education for Economic Transformation Project
+R24,P500570,1,embeddings,Sergipe Efficient Digital Acceleration project
+R24,P176396,0,embeddings,Burundi Digital Foundations Project
+R24,P174946,1,embeddings,Digital Inclusion and Innovation in Public Services in Argentina
+R24,P154943,1,embeddings+titre,Tonga Digital Government Support Project
+R24,P088929,0,embeddings,Tunisia Information and Communication Technologies Sector Development Project
+R24,P171305,1,embeddings,Uganda Digital Acceleration Project - GovNet
+R24,P179923,0,embeddings,Improving MIDIS’s Information Services within the National Targeting System (SINAFO) at the National Level Project
+R24,P180291,1,embeddings+titre,Jordan People-Centric Digital Government Program for Results
+R24,P149768,0,titre,Bosnia and Herzegovina: Public Finances DPL
+R24,P161086,1,titre,BD: Enhancing Digital Government & Economy Project
+R25,P000290,0,tfidf,ENVIRONMENTAL MGMT
+R25,P095617,1,tfidf,Northern Botswana Human Wildlife Coexistence Project
+R25,P101745,0,tfidf,DEMOCRATIC REPUBLIC OF CONGO - High Priority Reopening and Maintenance Project
+R25,P166415,0,tfidf,Higher Education for Economic Transformation Project
+R25,P000001,1,tfidf+titre,West Africa Pilot Community-based Natural Resources & Wildlife Management Project
+R25,P113860,1,tfidf+embeddings,LA-Nam Et-Phou Louey Tiger Landscape Conservation Project
+R25,P157127,1,tfidf,Forest Sector Modernization and Coastal Resilience Enhancement Project
+R25,P177450,1,tfidf,Sustainable Ecosystem Restoration and Biodiversity Conservation Project
+R25,P047250,0,tfidf,"KM-Infrast, Water & Env Prj (FY01)"
+R25,P115963,1,tfidf+embeddings,Support to Protected Areas Management
+R25,P122419,1,embeddings,Support to Protected Areas Management
+R25,P008290,1,embeddings+titre,Forest Biodiversity Protection GEF Project
+R25,P094335,1,embeddings,Conservation of Biodiversity and Sustainable Land Management in the Atlantic Forest of Eastern Paraguay
+R25,P147760,1,embeddings,Forestry Development Project
+R25,P052368,1,embeddings+titre,Maloti-Drakensberg Transfrontier Conservation and Development Project
+R25,P098052,1,embeddings,Integrating Environment and Forest Protection into the Recovery and Future Development of Aceh
+R25,P000900,0,embeddings+titre,FORESTRY
+R25,P170846,1,embeddings,Leveraging Eco-Tourism for Biodiversity Protection in Dominica
+R25,P003609,0,titre,SICHUAN GAS DEV & CONSERVATION
+R25,P006210,1,titre,National Biodiversity Project - PROBIO (GEF)
+R25,P008614,0,titre,Katowice Heat Supply & Conservation Project
+R25,P039166,1,titre,Danube Delta Biodiversity GEF Project
+R25,P044176,1,titre,Biodiversity Conservation Management Project
+R25,P058503,1,titre,Amazon Region Protected Areas (GEF)
+R26,P008417,0,tfidf+embeddings,Municipal Infrastructure Rehabilitation Project
+R26,P005345,1,tfidf+embeddings+titre,SOLID WASTE/ENVIRONMENT
+R26,P161477,1,tfidf+titre,Senegal Municipal Solid Waste Management Project
+R26,P081346,0,tfidf,LIUZHOU ENVIRONMENT MANAGEMENT PROJECT
+R26,P070191,0,tfidf+embeddings,Shanghai Urban Environment Project
+R26,P157245,1,tfidf+embeddings+titre,Improvement of Solid Waste Management to Support Regional and Metropolitan Cities
+R26,P144111,1,tfidf+embeddings+titre,Second Solid Waste Management Project Additional Financing - EC IPA
+R26,P149528,0,tfidf,CH-Second Gansu Cultural and Natural Heritage Protection and Development Project
+R26,P169996,0,tfidf,Municipal Services Improvement Project
+R26,P000936,0,tfidf,LOCAL GOVT DEV.
+R26,P181243,1,embeddings,Seychelles Solid Waste Management Project
+R26,P114515,1,embeddings+titre,Integrated Solid Waste Management Project
+R26,P010467,0,embeddings,Colombo Environmental Improvement
+R26,P168308,1,embeddings+titre,Urban Resilience and Solid Waste Management Project
+R26,P107410,1,embeddings+titre,JO-Amman Landfill Gas Recovery
+R26,P002241,1,titre,Rwanda Energy Sector Rehabilitation and Urban Waste Management
+R26,P112092,0,titre,Thailand Small Scale Livestock Waste Management Program
+R26,P119090,0,titre,Hospital Waste Management Support Project
+R27,P119090,0,tfidf+titre,Hospital Waste Management Support Project
+R27,P082879,0,tfidf+embeddings,Health Sector Modernization Support Technical Assistance Project
+R27,P051372,0,tfidf+embeddings,Health Sector Reform 2 Project
+R27,P070542,0,tfidf,KH-Health Sector Support Project
+R27,P082814,0,tfidf+embeddings+titre,Health System Modernization Project
+R27,P175170,1,tfidf,Tuvalu Health System Strengthening Project
+R27,P145174,1,tfidf+embeddings,Health Sector Reform
+R27,P144893,1,tfidf,"Serving People, Improving Health Project"
+R27,P106870,1,tfidf,Improving Community and Family Health Care Services Project
+R27,P065954,0,tfidf,Health Reform Project
+R27,P180263,1,embeddings,Health System Efficiency and Resilience Project
+R27,P008215,1,embeddings+titre,HEALTH SERVICE REFORM PROJECT
+R27,P164453,1,embeddings,Health Service Delivery Network Project
+R27,P180245,1,embeddings,Health Enhancement And Lifesaving (HEAL) Ukraine Project
+R27,P005440,0,embeddings,HEALTH SECTOR INVEST
+R27,P173368,1,embeddings,Cambodia Health Equity and Quality Improvement Project - Phase 2
+R27,P001214,1,titre,Integrated Health Services Development
+R27,P010496,0,titre,Orissa Health Systems
+R27,P105282,0,titre,Liberia Health Systems Reconstruction
+R27,P122629,1,titre,North East and Red River Delta Regions Health System Support Project
+R27,P125719,0,titre,Health Services and Social Assistance Additional Financing
+R27,P148052,0,titre,Mother and Child Health Services Strengthening Project
+R27,P150481,0,titre,Health System Resiliency Strengthening Project
+R28,P180664,1,tfidf+embeddings,Second Higher Education Improvement Project
+R28,P161386,1,tfidf+embeddings,Higher Education Development in Pakistan
+R28,P106605,1,tfidf+embeddings+titre,Higher Education Quality and Capacity Improvement Project
+R28,P168961,1,tfidf+embeddings,Higher Education Acceleration and Transformation Project
+R28,P163437,1,tfidf,Strengthening of State Universities in Chile
+R28,P167790,1,tfidf+embeddings,Higher Education Project
+R28,P178750,1,tfidf,SENEGAL HIGHER EDUCATION PROJECT - ESPOIR-JEUNES
+R28,P167992,1,tfidf,Belarus Higher Education Modernization Project
+R28,P169064,1,tfidf,Second Africa Higher Education Centers of Excellence for Development Impact
+R28,P166415,1,tfidf+embeddings,Higher Education for Economic Transformation Project
+R28,P151847,1,embeddings+titre,Eastern and Southern Africa Higher Education Centers of Excellence
+R28,P085374,1,embeddings+titre,Managing Higher Education for Relevance and Efficiency
+R28,P001923,1,embeddings,H & T EDUCATION
+R28,P069326,1,embeddings+titre,Jordan Higher Education Development
+R28,P003972,0,titre,Second Agricultural Research Management Project
+R28,P089040,1,titre,Afghanistan: Strengthening Higher Education Program
+R28,P112684,0,titre,Forum for Agricultural Research in Africa (FARA) Trust Fund
+R28,P146602,1,titre,Additional Financing for Mozambique Higher Education Science and Technology Project
+R28,P151059,1,titre,Tunisia Tertiary Education for Employability Project
+R28,P157425,1,titre,Transformation of the Tertiary Technical and Technological Institutes Project
+R29,P102031,1,tfidf+embeddings,MR - Business Environment Enhancement Project
+R29,P092949,0,tfidf,NI ENHANCED COMPETITIVENESS FOR INTERNATIONAL MARKET INTEGRATION
+R29,P146322,0,tfidf,Turkey Sustaining Shared Growth DPL
+R29,P133021,1,tfidf,Chad Value Chain Support Project
+R29,P102508,0,tfidf,BI-ERSG II
+R29,P106355,1,tfidf,Competitiveness and Private Sector Development
+R29,P096389,0,tfidf+embeddings,Development Policy Loan 2 (DPL 2)
+R29,P071001,1,tfidf+embeddings,Business Enabling Environment Structural Adjustment Credit
+R29,P166187,0,tfidf,Competitiveness and Sector Diversification
+R29,P164212,0,tfidf,Sierra Leone Economic Diversification Project
+R29,P164728,1,embeddings,Africa Region - Improved Investment Climate within the Organization for the Harmonization of Business Laws in Africa (OHADA) AF
+R29,P130150,1,embeddings,Financial sector and Investment climate Reform and Modernization DPL
+R29,P094869,0,embeddings,Growth and Social Protection Technical Assistance Credit
+R29,P098916,0,embeddings,China Energy Efficiency Financing
+R29,P115398,1,embeddings,Cote d'Ivoire - SME Revitalization and Governance Project
+R29,P112495,0,embeddings,RESTORING EQUITABLE GROWTH AND EMPLOYMENT PROGRAMMATIC DEVELOPMENT POLICY LOAN
+R29,P511813,0,embeddings,Morocco Climate & Risk Finance Program
+R29,P000289,1,titre,PRIVATE SECTOR ASSIS
+R29,P010313,0,titre,PRIVATE SECTOR ENERGY DEVELOPMENT
+R29,P039882,1,titre,Benin - Private Sector Project
+R29,P054966,0,titre,Private Sector Development Project (APL #1)
+R29,P055815,0,titre,Third Economic Competitiveness Adjustment Loan
+R29,P069890,0,titre,Private Sector Adjustment Loan 2 (PSAL 2)
+R29,P071144,1,titre,DR Congo Private Sector Development and Competitiveness Project
+R29,P084792,0,titre,Assam Agricultural Competitiveness Project
+R29,P085009,1,titre,Private Sector/MSME Competitiveness
+R29,P090872,1,titre,Additional Financing for Private Sector Development and Competitiveness Project
+R30,P003626,1,tfidf,CN-FUJIAN PROV HWY
+R30,P000973,0,tfidf,GH-Urban Env Sanitation 1 (BD FY06)
+R30,P003534,1,tfidf+embeddings+titre,ZHEJIANG PROVINCIAL HIGHWAY PROJECT
+R30,P035722,1,tfidf+embeddings,DO NATIONAL HWY. PROJ.
+R30,P070441,1,tfidf+embeddings,Hubei Xiaogan-Xiangfan Highway Project
+R30,P003643,1,tfidf+embeddings+titre,CN-Second Xinjiang Highway Project
+R30,P055954,0,tfidf,BR GOIAS STATE HIGHWAY MANAGEMENT
+R30,P040150,0,tfidf,BZ ROADS AND MUNICIPAL DRAINAGE PROJECT
+R30,P008593,0,tfidf+embeddings+titre,Roads 2 Project
+R30,P041268,1,tfidf,CN-Nat Hwy4/Hubei-Hunan
+R30,P008599,0,embeddings+titre,Roads Project
+R30,P009946,1,embeddings,NAT. HIGHWAYS II
+R30,P004016,0,embeddings+titre,Strategic Urban Roads Infrastructure project
+R30,P004201,1,embeddings,LA-HWY Improv.II
+R30,P093963,0,embeddings,Guiyang Transport Project
+R30,P001790,0,titre,FIRST ROADS AND COASTAL SHIPPING
+R30,P003594,0,titre,CN-Gansu Hexi Corridor
+R30,P006086,0,titre,ROAD MAINT & REHAB I
+R30,P007913,1,titre,Eighth Highway Project
+R30,P008499,0,titre,Road Transport Restructuring Project
+R31,P171040,1,tfidf+embeddings,Mozambique: Cyclone Idai & Kenneth Emergency Recovery and Resilience Project
+R31,P173225,1,tfidf,SINT MAARTEN: AF - EMERGENCY RECOVERY PROJECT I
+R31,P179056,1,tfidf,SINT MAARTEN: SECOND ADDITIONAL FINANCING - EMERGENCY RECOVERY PROJECT I
+R31,P158194,0,tfidf,Myanmar Flood and Landslide Emergency Recovery Project
+R31,P088246,1,tfidf+embeddings,Cyclone Emergency Recovery Project
+R31,P111272,1,tfidf,Emergency 2007 Cyclone Recovery and Restoration Project
+R31,P146500,1,tfidf,Emergency 2007 Cyclone Recovery and Restoration Project-- AF II
+R31,P156049,0,tfidf,Second Additional Financing Infra & Instit Emergency Recovery
+R31,P049878,0,tfidf,MZ-EMPSO
+R31,P145938,1,tfidf,Samoa Agriculture & Fisheries Cyclone Response Project
+R31,P070556,1,embeddings+titre,Post-Cyclone Emergency Supplemental to SAC 2
+R31,P070430,1,embeddings+titre,Emergency Recovery & Disaster Management Project
+R31,P513341,0,embeddings,Regional Emergency Preparedness and Access to Inclusive Recovery Phase 3
+R31,P508319,0,embeddings,Regional Emergency Preparedness and Access to Inclusive Recovery Phase 2
+R31,P171114,1,embeddings,Zimbabwe Idai Recovery Project
+R31,P512359,0,embeddings,Mexico Disaster and Climate Resilience Development Policy Loan with a Catastrophe Deferred Drawdown Option
+R31,P156559,0,embeddings,MZ - Emergency Resilient Recovery Project
+R31,P074006,0,embeddings+titre,Emergency Infrastructure Rehabilitation and Living Conditions Improvement Project
+R31,P001792,0,titre,Health Sector Recovery
+R31,P003242,0,titre,SOCIAL RECOVERY PROJ
+R31,P034112,0,titre,OT - EMERGENCY REHAB. I
+R31,P045484,0,titre,Emergency Transport Reconstruction 2 Project
+R31,P050530,0,titre,RY-SANA'A EMERGENCY POWER
+R31,P068853,0,titre,Emergency Road Repair Project
+R31,P074543,0,titre,Foot & Mouth Disease Emergency Recovery Loan
+R32,P151746,1,tfidf+embeddings,Modernization of Real Property Registration and Cadastre
+R32,P073206,1,tfidf+embeddings+titre,LAND ADMINISTRATION AND MANAGEMENT II PROJECT
+R32,P179554,1,tfidf,Public Information and Awareness Services for Vulnerable Communities in Kosovo
+R32,P036056,0,tfidf,Judicial Reform Project
+R32,P006636,0,tfidf,Small Farmer Services Project
+R32,P513352,0,tfidf+embeddings,"Housing Finance, Lands and Sustainable Investments"
+R32,P005733,0,tfidf,NORTHWEST MOUNTAINOUS AREAS DEVELOPMENT PROJECT
+R32,P075247,0,tfidf+embeddings+titre,Community-Based Rural Land Development Project
+R32,P171331,1,tfidf+embeddings,Land Allocation for Social and Economic Development Project III
+R32,P105403,1,tfidf+embeddings,Second Land Administration Project (LAP-2)
+R32,P078894,1,embeddings,REAL PROPERTY RIGHTS CONSOLIDATION PROJECT
+R32,P157206,1,embeddings,Cote d'Ivoire Land Policy Improvement and Implementation Project
+R32,P177031,1,embeddings,Sierra Leone Land Administration Project
+R32,P180884,1,embeddings,Sustainable Cities and Land Project
+R32,P003493,0,titre,Inland Waterways
+R32,P006473,0,titre,2nd Land Management Project - Santa Catarina
+R32,P040975,0,titre,Land Development Project
+R32,P044912,0,titre,URBAN LAND MGMT
+R32,P063096,0,titre,Land Reform Support Project
+R32,P070256,0,titre,Reversing Land and Water Degradation Trends in the Niger River Basin
+R32,P077137,0,titre,Fourth Inland Waterways Project
+R32,P085621,0,titre,Sustainable Land Management Project
+R33,P122123,1,tfidf+embeddings+titre,Zambia: Livestock Development and Animal Health Project
+R33,P145162,1,tfidf+embeddings+titre,Pasture and Livestock Management Improvement Project
+R33,P125964,1,tfidf+embeddings+titre,Mongolia Livestock and Agricultural Marketing Project
+R33,P181021,1,tfidf+embeddings+titre,Sustainable Fodder Production and Low Methane Livestock Development Program-for-Results
+R33,P000285,1,tfidf+embeddings,AGRIC. SERVICES
+R33,P148052,0,tfidf,Mother and Child Health Services Strengthening Project
+R33,P122812,0,tfidf+embeddings,AGRICULTURAL COMPETITIVENESS IMPROVEMENT PROJECT
+R33,P106870,0,tfidf,Improving Community and Family Health Care Services Project
+R33,P177263,0,tfidf,AF to The Gambia Essential Health Services Strengthening Project
+R33,P181659,0,tfidf,Third AF to The Gambia Essential Health Services Strengthening Project
+R33,P178598,1,embeddings+titre,Burkina Faso Livestock Resilience and Competitiveness Project
+R33,P177825,1,embeddings+titre,Second Livestock Sector Development Project
+R33,P173503,0,embeddings,Support for improved farm management and piloting models of aggregation in Iraq
+R33,P118045,0,embeddings,Togo Agricultural Sector Support Project
+R33,P112092,0,titre,Thailand Small Scale Livestock Waste Management Program
+R33,P151946,1,titre,Additional Financing to Livestock Competitiveness and Food Safety Project
+R33,P163258,1,titre,Emergency Food and Livestock Crisis Response AF
+R33,P176418,1,titre,Additional Financing to Agricultural and Livestock Transformation Project
+R34,P174137,1,tfidf+embeddings,Philippine Fisheries and Coastal Resiliency Project
+R34,P058367,1,tfidf+embeddings+titre,Integrated Marine and Coastal Resources Management Project
+R34,P086807,1,tfidf+titre,Integrated Coastal Zone Management & Clean-Up Project (APL #1)
+R34,P084213,1,tfidf+embeddings+titre,Marine and Coastal Environmental Management Project
+R34,P157801,1,tfidf+embeddings,Sustainable Fisheries Resources Development Project (Fourth South West Indian Ocean Fisheries Governance and Shared Growth Project)
+R34,P107037,0,tfidf,Yemen-Water Sector Support
+R34,P118090,0,tfidf,EG-Enhanced Water Resources Management
+R34,P168475,1,tfidf,Costa Rica Sustainable Fisheries Development Project
+R34,P144336,0,tfidf,NATIONAL WATER RESOURCES MANAGEMENT PROJECT
+R34,P039015,0,tfidf,MZ-Natl Water 1 (FY98)
+R34,P069479,1,embeddings+titre,Pilot Fishery Development Project
+R34,P513248,1,embeddings,Vanuatu: Pacific Islands Regional Oceanscape Program - First Phase
+R34,P009468,1,embeddings+titre,Fourth Fisheries
+R34,P009921,1,embeddings,SHRIMP & FISH CULTUR
+R34,P165821,1,embeddings,Kiribati: Pacific Islands Regional Oceanscape Program
+R34,P164941,1,embeddings,Tonga: Pathway to Sustainable Oceans
+R34,P001790,0,titre,FIRST ROADS AND COASTAL SHIPPING
+R34,P094917,0,titre,WAPP APL 1 (2nd Phase - COASTAL TRANSMISSION BACKBONE)
+R34,P130783,0,titre,Applying Knowledge Management to Scale up Partnership Investments for Sustainable Devt of Large Marine Ecosystems of East Asia
+R34,P145938,0,titre,Samoa Agriculture & Fisheries Cyclone Response Project
+R34,P157127,1,titre,Forest Sector Modernization and Coastal Resilience Enhancement Project
+R35,P055815,0,tfidf,Third Economic Competitiveness Adjustment Loan
+R35,P044056,0,tfidf,Structural Adjustment Loan (SAL)
+R35,P096389,0,tfidf,Development Policy Loan 2 (DPL 2)
+R35,P087620,0,tfidf+embeddings,Social Protection Administration Project
+R35,P087470,1,tfidf+embeddings+titre,Pensions System Administration Investment Project (Montenegro)
+R35,P058056,1,tfidf+embeddings+titre,Pension Reform Technical Assistance Project
+R35,P074908,0,tfidf,Structural Adjustment Credit 2 (SAC 2) (Montenegro)
+R35,P088575,0,tfidf,Health Insurance Strategy for the Poor Support Project
+R35,P154984,0,tfidf,China Health Reform Program
+R35,P509855,0,tfidf,Jordan Growth and Competitiveness DPF II
+R35,P070992,0,embeddings,Social Sector Adjustment Credit 2 (SOSAC 2)
+R35,P046821,1,embeddings+titre,AR PENSION TA
+R35,P155553,0,embeddings,Private Sector Competitiveness DPO2
+R35,P089793,1,embeddings+titre,State Pension Reform II TAL
+R35,P038392,0,embeddings,Social Sectors Adjustment Loan
+R35,P006954,0,embeddings,CR HEALTH SECTOR REFORM
+R35,P051173,1,embeddings,Social Protection Project
+R36,P035076,0,tfidf,ZM-Power Rehab SIL (FY98)
+R36,P178914,1,tfidf+embeddings,Emergency Power Restoration Project
+R36,P179684,1,tfidf,Sustainable Power and Irrigation for Nigeria Project
+R36,P083702,1,tfidf+embeddings+titre,Hydropower Rehabilitation Project
+R36,P046651,1,tfidf+embeddings+titre,REGIONAL HYDROPOWER DEVELOPMENT PROJECT
+R36,P093132,1,tfidf+titre,LK Dam Safety and Water Resources Planning (DSWRPP)
+R36,P121507,1,tfidf+embeddings,Dasu Hydropower Stage I Project
+R36,P509250,1,tfidf+embeddings,Uzbekistan Small Hydropower Development Project
+R36,P095114,1,tfidf+embeddings,Rampur Hydropower Project
+R36,P181029,1,tfidf+embeddings,Sustainable Financing for Rogun Hydropower Project
+R36,P086903,1,embeddings+titre,SL Completion of Bumbuna Hydroelectric project - IDA Guarantee
+R36,P002811,0,embeddings,ENGINEERING CREDIT
+R36,P094945,1,embeddings+titre,Hydropower Rehabilitation Proto-Carbon Finance Project
+R36,P006032,0,titre,HYDROCARBON ENGINEER
+R36,P010415,0,titre,1992 FLOOD DAMAGE RE
+R36,P075941,1,titre,AFR RI-Regional Rusumo Falls Hydroelectric Project
+R36,P084632,0,titre,Hydrology Project Phase II
+R36,P088256,1,titre,La Esperanza Hydro Project
+R37,P164212,0,tfidf,Sierra Leone Economic Diversification Project
+R37,P119043,1,tfidf+embeddings+titre,India: Scaling Up Sustainable and Responsible Microfinance
+R37,P052186,1,tfidf+embeddings+titre,MG-Microfinance
+R37,P059143,1,tfidf+embeddings+titre,Second Poverty Alleviation Microfinance Project (Microfinance II)
+R37,P175783,0,tfidf,Lesotho Competitiveness and Financial Inclusion Project
+R37,P172226,0,tfidf,Raising and Accelerating MSME Performance
+R37,P040985,1,tfidf+embeddings+titre,Poverty Alleviation Microfinance
+R37,P128628,0,tfidf,CONGO - Rep. Skills Development for Employability Project
+R37,P003590,0,tfidf,Qinba Mountains Poverty Reduction Project
+R37,P178658,0,tfidf+embeddings,Access to Finance & Economic Opportunities Project – Mais Oportunidades
+R37,P144134,1,embeddings,Strengthening micro-entrepreneurship for disadvantaged youth
+R37,P153338,0,embeddings,MX: Expanding Rural Finance
+R37,P174874,1,embeddings+titre,ETHIOPIA WOMEN ENTREPRENEURSHIP DEVELOPMENT PROJECT ADDITIONAL FINANCING
+R37,P072601,0,embeddings,Second Rural Finance Project
+R37,P160806,0,embeddings,DRC- SME Development and Growth Project
+R37,P163267,1,titre,Women's Economic Empowerment National Priority Program
+R37,P181391,0,titre,Girls' Education and Women's Empowerment and Livelihoods for Human Capital Project
+R37,P502471,0,titre,Capacity Building for Improved Gender-based Violence Response Project
+R37,P511398,1,titre,Tajikistan Women's Economic Empowerment Project
+R38,P159883,1,tfidf,China: GEF Efficient and Green Freight Transport Project
+R38,P177932,0,tfidf,Cairo Alexandria Trade Logistics Development Project
+R38,P043725,1,tfidf+embeddings+titre,MA-RAILWAY RESTR & PRIV
+R38,P040115,1,tfidf+embeddings+titre,RAILWAYS REHAB
+R38,P000895,1,tfidf+embeddings,TRANSP REHAB II
+R38,P513580,0,tfidf,South Africa's Infrastructure Modernization and Job Creation DPL
+R38,P004342,0,tfidf+embeddings,MN-Transport Rehab.
+R38,P003571,1,tfidf+titre,CN-7TH RAILWAYS
+R38,P003570,1,tfidf+embeddings+titre,Railway VI
+R38,P131765,1,tfidf,Eastern Dedicated Freight Corridor - II
+R38,P045484,0,embeddings,Emergency Transport Reconstruction 2 Project
+R38,P078284,0,embeddings,Emergency Transport Rehabilitation Project
+R38,P083620,1,embeddings,Transport Restructuring Project
+R38,P180318,0,embeddings,Repairing Essential Logistics Infrastructure & Network Connectivity (RELINC) Project
+R38,P072458,0,embeddings,DZ-Transport Technical Assistance
+R38,P170706,0,titre,Palestinian Heritage Trail: Increased Economic Opportunities and Improved Livelihood for Fragile Communities
+R38,P176682,1,titre,Second Tanzania Intermodal and Rail Development Project
+R38,P509952,1,titre,Istanbul North Rail Crossing Project
+R39,P176778,1,tfidf+embeddings+titre,Supporting Lebanon's COVID-19 Response for Refugees and Host Communities
+R39,P178033,0,tfidf,Djibouti Health System Strengthening
+R39,P172868,1,tfidf,UGANDA INTERGOVERNMENTAL FISCAL TRANSFERS - ADDITIONAL FINANCING
+R39,P181523,0,tfidf,Social Safety Net System Project II second Additional Financing
+R39,P171305,0,tfidf,Uganda Digital Acceleration Project - GovNet
+R39,P178047,1,tfidf+embeddings,Development Response to Displacement Impacts Project in the Horn of Africa Phase II
+R39,P179238,0,tfidf,Chad Agribusiness and Rural Transformation Project
+R39,P181632,0,tfidf+embeddings,Additional Financing to Togo for the Gulf of Guinea Northern Regions Social Cohesion Project
+R39,P175111,1,tfidf+embeddings+titre,SPF Colombia: COVID-19 Response for Migrants from Venezuela and Host communities
+R39,P179770,0,tfidf,Southern Niger Connectivity and Integration Project
+R39,P161465,1,embeddings,Emergency Services and Social Resilience Project AF
+R39,P152821,1,embeddings+titre,AFR RI-GLR: Displaced Persons & Border Communities
+R39,P166220,0,embeddings,Integrated Cash Transfer and Human Capital Project
+R39,P177881,0,embeddings,Ethiopia Education and Skills for Employability Project
+R39,P098266,0,embeddings,Community Empowerment Project
+R39,P167790,0,embeddings,Higher Education Project
+R39,P171339,1,titre,Uganda: Roads and Bridges in the Refugee Hosting Districts/Koboko-Yumbe-Moyo Road Corridor Project
+R39,P178125,1,titre,SPF: Improved Livelihoods for Internally Displaced Persons in Azerbaijan
+R40,P051610,1,tfidf+embeddings+titre,Senegal:AG.EXPORT PROMOTION
+R40,P005433,0,tfidf+embeddings,PORT SECTOR
+R40,P096105,0,tfidf,Rural and Private Sector Development
+R40,P158982,1,tfidf,Trade and Logistics Services Competitiveness Project
+R40,P508537,1,tfidf+embeddings,Accelerating Trade Facilitation In The Pacific
+R40,P057295,0,tfidf,RW-Compet & Enterprise Dev (FY01)
+R40,P006870,1,tfidf+embeddings+titre,EXPORT DEVELOPMENT
+R40,P009907,1,tfidf,EXTERNAL SECTOR ADJU
+R40,P129282,1,tfidf+embeddings+titre,Regional Trade Facilitation and Competitiveness DPO
+R40,P155443,1,tfidf+embeddings,ADDITIONAL FINANCING FOR SECOND CUSTOMS REFORM AND TRADE FACILITATION PROJECT
+R40,P070078,1,embeddings+titre,Trade & Transport Facilitation in South East Europe Project
+R40,P043736,0,embeddings,CI-PSD TA (FY98)
+R40,P001755,0,embeddings,Agricultural Trading and Process Promotion Pilot Project
+R40,P009563,0,embeddings,IND SECTOR SECAL II/
+R40,P056213,1,titre,A Trade and Transport Facilitation Project
+R40,P069982,1,titre,Regional Trade Facilitation Project - Tanzania
+R40,P075945,0,titre,SVP: Regional Power Trade
+R40,P109649,1,titre,EXPORT DEVELOPMENT 2 ADDITIONAL FINANCING
+R40,P116080,1,titre,Export Finance Intermediation Loan
+R40,P121743,1,titre,Fourth Export Finance Intermediation Project Add. Fin. (EFIL IV AF)

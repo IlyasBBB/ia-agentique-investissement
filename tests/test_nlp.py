@@ -88,8 +88,14 @@ def test_chercher_cas_limites():
     assert len(nlp.chercher(index, "schools", 50)) == 3  # pas plus de projets qu'il n'en existe
 
 
-def test_retrieve_question_vide():
+def test_retrieve_question_vide_sans_charger_l_index(monkeypatch):
+    def interdit(*args, **kwargs):
+        raise AssertionError("l'index ne doit pas être chargé pour une question vide")
+
+    monkeypatch.setattr(nlp, "index_par_defaut", interdit)
     assert nlp.retrieve("", 3) == []
+    assert nlp.retrieve("   ", 3) == []
+    assert nlp.retrieve("schools", 0) == []
 
 
 def modele_embeddings_disponible() -> bool:

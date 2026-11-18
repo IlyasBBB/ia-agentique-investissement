@@ -175,6 +175,30 @@ class IndexEmbeddings:
         return self.matrice @ q
 
 
+class IndexHybride:
+    """Mélange des deux moteurs : alpha * embeddings + (1 - alpha) * TF-IDF.
+
+    Les deux scores sont d'abord ramenés entre 0 et 1 pour chaque question (min-max),
+    car la similarité TF-IDF est en général bien plus petite que celle des embeddings.
+    """
+
+    nom = "hybride"
+
+    def __init__(self, tfidf: IndexTfidf, embeddings: IndexEmbeddings, alpha: float = 0.5):
+        self.tfidf, self.embeddings, self.alpha = tfidf, embeddings, alpha
+        self.passages = tfidf.passages
+
+    @staticmethod
+    def _normer(s: np.ndarray) -> np.ndarray:
+        etendue = s.max() - s.min()
+        return (s - s.min()) / etendue if etendue > 0 else np.zeros_like(s)
+
+    def scores(self, question: str) -> np.ndarray:
+        """Score combiné de chaque passage."""
+        return (self.alpha * self._normer(self.embeddings.scores(question))
+                + (1 - self.alpha) * self._normer(self.tfidf.scores(question)))
+
+
 def signature_documents(documents: dict[str, str]) -> str:
     """Empreinte du corpus et du découpage : l'index est recalculé si l'un des deux change."""
     empreinte = hashlib.sha256(
@@ -232,4 +256,6 @@ def retrieve(question: str, k: int = 3) -> list[dict]:
     Un seul passage par projet, pour que l'agent voie k projets différents.
     Format de chaque élément : {"id_projet", "passage", "score"} (modèle Passage du contrat).
     """
+    if not question or not question.strip() or k <= 0:
+        return []  # rien à chercher : inutile de charger l'index
     return chercher(index_par_defaut(), question, k)
