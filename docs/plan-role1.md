@@ -19,8 +19,8 @@ Responsable : Salma Akazi. Module à livrer : `src/supervise.py` (`predict`), su
 | 2 | Analyse exploratoire | 19 nov. | fusionnée (PR n°12) | `notebooks/role1/01_exploration.ipynb`, `reports/role1/figures/` |
 | 3 | Séparation 70 / 15 / 15 stratifiée | 19 nov. | fusionnée (PR n°13) | `scripts/separer_jeux_supervise.py`, `reports/role1/separation.csv` : 1 050 / 225 / 225 projets |
 | 4 | Prétraitement (`Pipeline`, `ColumnTransformer`) | 19 nov. | fusionnée (PR n°14) | `src/supervise.py` : `creer_pretraitement`, `charger_jeux` (175 colonnes après encodage) |
-| 5 | Modèles de référence | 20 nov. | faite, branche `role1/tache-5` (corrigée) | `notebooks/role1/02_modeles.ipynb` : R² 0 (moyenne) et 0,39 (linéaire, validation dans les bornes ; 0,08 sur la validation complète) ; risque 40 % / F1 macro 0,19 (classe majoritaire) |
-| 6 | Ridge, Lasso, ElasticNet | 20 nov. | à faire | notebook 02 |
+| 5 | Modèles de référence | 20 nov. | fusionnée (PR n°15) | `notebooks/role1/02_modeles.ipynb` : R² 0 (moyenne) et 0,39 (linéaire, validation dans les bornes ; 0,08 sur la validation complète) ; risque 40 % / F1 macro 0,19 (classe majoritaire) |
+| 6 | Ridge, Lasso, ElasticNet | 20 nov. | faite, branche `role1/tache-6` | notebook 02 : R² validation dans les bornes 0,44 (Ridge, ElasticNet), 0,42 (Lasso, 66 colonnes sur 175 mises à zéro) ; `reports/role1/figures/regularisation_alpha.png` |
 | 7 | Classification du risque | 20 nov. | à faire | notebook 02 |
 | 8 | Tableau comparatif, test ouvert une fois | 20 nov. | à faire | `reports/role1/` |
 | 9 | Interprétabilité (SHAP, permutation, erreurs) | 21 nov. | à faire | `notebooks/role1/03_interpretabilite.ipynb`, `reports/role1/shap_importance.csv` |
