@@ -86,3 +86,29 @@ def test_chercher_cas_limites():
     assert nlp.chercher(index, "   ", 3) == []
     assert nlp.chercher(index, "schools", 0) == []
     assert len(nlp.chercher(index, "schools", 50)) == 3  # pas plus de projets qu'il n'en existe
+
+
+def test_retrieve_question_vide():
+    assert nlp.retrieve("", 3) == []
+
+
+def modele_embeddings_disponible() -> bool:
+    """Vrai si le modèle d'embeddings est déjà téléchargé (pas de réseau pendant les tests)."""
+    try:
+        from huggingface_hub import try_to_load_from_cache
+
+        return isinstance(try_to_load_from_cache(nlp.MODELE_EMBEDDINGS, "config.json"), str)
+    except Exception:
+        return False
+
+
+@pytest.mark.skipif(not modele_embeddings_disponible(), reason="modèle d'embeddings non téléchargé")
+def test_retrieve_vrai_corpus_trouve_le_projet_attendu():
+    resultats = nlp.retrieve("rural electrification with solar mini-grids", k=5)
+    assert len(resultats) == 5
+    for r in resultats:
+        Passage(**r)
+    assert "P171742" in [r["id_projet"] for r in resultats[:3]]  # projet ADELE, Éthiopie
+    debut = time.perf_counter()
+    nlp.retrieve("access to finance for small businesses", k=50)
+    assert time.perf_counter() - debut < 1.0  # index déjà en mémoire : réponse rapide
