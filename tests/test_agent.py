@@ -75,8 +75,9 @@ SCENARIO_NORMAL = [
     reponse(appels=[appel("extraire_criteres")]),
     reponse(appels=[appel("predire")]),
     reponse(appels=[appel("detecter_anomalies")]),
-    reponse(appels=[appel("classer", poids={"proba_risque": 3, "impact_env_social": 1})]),
-    reponse(appels=[appel("chercher_passages", question="impact environnemental", k=2)]),
+    # Comme le vrai LLM, classer et chercher_passages demandés dans le même tour.
+    reponse(appels=[appel("classer", poids={"proba_risque": 3, "impact_env_social": 1}),
+                    appel("chercher_passages", question="impact environnemental", k=2)]),
     reponse("Je recommande ces trois projets."),
 ]
 
@@ -264,6 +265,33 @@ def test_controle_signale_une_citation_inventee():
     assert "n'est pas vérifié" in invente
     honnete = f"{ids}. Passage cité : aucun."
     assert agent.controler_recommandation(portefeuille, honnete) == honnete
+
+
+def test_passages_cherches_d_office_apres_classer():
+    # Vu avec qwen2.5:3b sur 500 projets : il s'arrête après classer, sans chercher de passage.
+    sortie = lancer([reponse(appels=[appel("classer", poids={"proba_risque": 1})]),
+                     reponse("Je recommande ces trois projets.")])
+    auto = [e for e in sortie["etapes"] if e["outil"] == "chercher_passages"]
+    assert len(auto) == 1 and auto[0]["arguments"]["lance_par"] == "agent"
+    premier = sortie["classement"].query("not anomalie").iloc[0]["nom"]
+    assert premier in auto[0]["arguments"]["question"]  # question tirée des projets recommandés
+
+
+def test_passages_pas_cherches_deux_fois():
+    sortie = lancer(SCENARIO_NORMAL)
+    assert [e["outil"] for e in sortie["etapes"]].count("chercher_passages") == 1
+
+
+def test_citation_inventee_signalee_meme_avec_des_passages():
+    portefeuille = Portefeuille(PROJETS_EXEMPLE, DOCUMENTS_EXEMPLE, None)
+    portefeuille.appeler("classer", {})
+    portefeuille.appeler("chercher_passages", {"question": "réduction des émissions"})
+    vrai = portefeuille.passages[0]
+    ids = ", ".join(portefeuille.recommandes()["id_projet"]) + ", " + ", ".join(portefeuille.anomalies)
+    invente = agent.controler_recommandation(portefeuille, f"{ids}. Passage cité : « texte inventé »")
+    assert "n'est pas vérifié" in invente and "Passage vérifié" in invente
+    fidele = f"{ids}. Passage cité : {vrai['id_projet']} « {vrai['passage']} »"
+    assert agent.controler_recommandation(portefeuille, fidele) == fidele
 
 
 def test_reponse_vide_relancee_une_fois():

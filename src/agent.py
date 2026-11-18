@@ -239,6 +239,17 @@ class Portefeuille:
             return "Aucun passage trouvé dans les documents des projets analysés."
         return " | ".join(f"{p['id_projet']} : « {p['passage'][:200]} »" for p in self.passages)
 
+    def question_automatique(self) -> str:
+        """Question de recherche tirée des noms des projets recommandés (en anglais, comme les documents)."""
+        recommandes = self.recommandes()
+        if "nom" not in recommandes or recommandes.empty:
+            return "project objectives and expected results"
+        return ". ".join(str(n) for n in recommandes["nom"].dropna())
+
+    def passages_cherches(self) -> bool:
+        """Vrai si chercher_passages a déjà été lancé pendant cette analyse."""
+        return any(e["outil"] == "chercher_passages" for e in self.etapes)
+
     # --- Aides --------------------------------------------------------------
 
     def recommandes(self) -> pd.DataFrame:
@@ -284,14 +295,29 @@ def rediger_recommandation(portefeuille: Portefeuille) -> str:
     return "\n".join(lignes)
 
 
+def citation_inventee(texte: str, passages: list[dict]) -> bool:
+    """Vrai si le texte cite entre guillemets un passage absent des passages rendus par l'outil."""
+    morceaux = re.split(r"passage cité", texte, flags=re.I)
+    if len(morceaux) < 2:
+        return False
+    citation = morceaux[1].split("Limites")[0]
+    if "aucun" in citation.lower()[:20]:
+        return False
+    cites = [next(m for m in groupe if m)
+             for groupe in re.findall(r"«\s*(.+?)\s*»|\"(.+?)\"|“(.+?)”", citation, flags=re.S)]
+    if not cites:  # « Passage cité » sans guillemets : rien à vérifier, acceptable seulement si un passage existe
+        return not passages
+    rendus = " ".join(" ".join(p["passage"].split()) for p in passages)
+    return not all(" ".join(c.split()).rstrip(".… ") in rendus for c in cites)
+
+
 def controler_recommandation(portefeuille: Portefeuille, texte: str) -> str:
     """Vérifie le texte du LLM et ajoute ce qu'il a oublié ou n'a pas pu vérifier."""
     oublis = [decrire(r) for r in portefeuille.recommandes().to_dict("records") if r["id_projet"] not in texte]
     anomalies = portefeuille.anomalies or []
     alerte_oubliee = bool(anomalies) and not any(a in texte for a in anomalies)
-    # Vu avec qwen2.5:3b : sans avoir cherché de passage, il en invente un et le cite.
-    citation_non_verifiee = not portefeuille.passages and "passage cité" in texte.lower() \
-        and "passage cité : aucun" not in texte.lower()
+    # Vu avec qwen2.5:3b : il invente un passage et le cite, qu'il ait cherché ou non.
+    citation_non_verifiee = citation_inventee(texte, portefeuille.passages)
     if not oublis and not alerte_oubliee and not citation_non_verifiee:
         return texte
     ajouts = ["", "", "Contrôle automatique :"]
@@ -302,6 +328,9 @@ def controler_recommandation(portefeuille: Portefeuille, texte: str) -> str:
     if citation_non_verifiee:
         ajouts.append("- Le passage cité n'a pas été rendu par l'outil chercher_passages : "
                       "il n'est pas vérifié et ne doit pas être pris en compte.")
+        if portefeuille.passages:
+            p = portefeuille.passages[0]
+            ajouts.append(f"- Passage vérifié ({p['id_projet']}) : « {p['passage'][:300]} »")
     return texte + "\n".join(ajouts)
 
 
@@ -396,5 +425,14 @@ def run_agent(demande: str, projets: pd.DataFrame, documents: dict | None = None
         for appel in appels:
             resultat = portefeuille.appeler(appel.function.name, dict(appel.function.arguments or {}))
             messages.append({"role": "tool", "tool_name": appel.function.name, "content": resultat})
+
+        # Vu avec qwen2.5:3b : il s'arrête après classer et invente une citation. Une fois le classement
+        # fait, l'agent cherche donc lui-même les passages des projets recommandés, avant la rédaction.
+        if portefeuille.classement is not None and not portefeuille.passages_cherches():
+            arguments = {"question": portefeuille.question_automatique(), "lance_par": "agent"}
+            resultat = portefeuille.appeler("chercher_passages", arguments)
+            # Ajouté au dernier résultat d'outil, sans la question : le LLM recopiait la question
+            # au lieu du passage quand elle figurait dans la conversation.
+            messages[-1]["content"] += f"\nPassages trouvés dans les documents, à citer mot pour mot : {resultat}"
 
     return _secours(portefeuille, f"plafond de {MAX_TOURS} tours atteint")

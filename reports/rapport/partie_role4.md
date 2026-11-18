@@ -138,7 +138,7 @@ Aux scénarios 1 et 3, l'agent recommande d'autres projets que le pipeline fixe,
 | Réponse vide au premier tour (scénario 1) : l'agent abandonnait et prenait les poids par défaut | Le modèle et son serveur : la même demande donne une réponse normale ou vide selon l'état du serveur | Corrigée : une relance automatique. Le scénario aboutit, mais avec des poids un peu différents |
 | Demande hors sujet : la réponse du LLM était perdue | Le code jetait ce texte | Corrigée : le texte est gardé dans le journal |
 | Ligne « Alertes » recopiée telle quelle depuis le format demandé (6 textes sur 8) | Le prompt et la taille du modèle | Non corrigée dans le prompt, rattrapée par le contrôle automatique |
-| `chercher_passages` presque jamais demandé (1 fois sur 8) | Le modèle s'arrête après `classer` | À décider à l'intégration : lancer la recherche d'office |
+| `chercher_passages` presque jamais demandé (1 fois sur 8) ; avec le vrai `retrieve`, citation inventée | Le modèle s'arrête après `classer` | Corrigée : l'agent lance la recherche lui-même après `classer`, et le contrôle vérifie que la citation figure dans un passage rendu |
 | Arguments inventés, poids proposés malgré ceux de l'utilisateur | Le modèle imite les exemples du prompt | Sans effet : le code les ignore |
 | Pas de phrase qui relie chaque projet à la demande | Le modèle recopie les résultats des outils | Non corrigée |
 

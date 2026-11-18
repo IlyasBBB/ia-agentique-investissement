@@ -128,12 +128,13 @@ Chaque erreur observée, sa cause probable et ce qui a été fait.
   Avec les crochets, les poids du scénario 3 deviennent faux (rentabilité 0,26 pour une demande « rapide, peu coûteux, facile ») et rien dans le code ne le détecte. Avec la ligne « Alertes » seule, le LLM invente un passage dans les 8 textes qu'il rédige, par exemple « Pour un projet à succès, il est essentiel de combiner une forte vision environnementale avec une stratégie d'affaires solide. » ; le contrôle le signale, mais la fausse citation reste dans le texte.
 - **Décision.** Le prompt d'origine est gardé : c'est le seul dont toutes les erreurs sont rattrapées par le code sans laisser de citation inventée. Leçon pour le rapport : avec un modèle de cette taille, changer deux lignes du prompt déplace les erreurs au lieu de les supprimer. Proposition : que le contrôle remplace la ligne « Alertes » fautive au lieu d'ajouter un bloc à la fin.
 
-### E4. `chercher_passages` presque jamais demandé : non corrigée
+### E4. `chercher_passages` presque jamais demandé : corrigée le 18 novembre
 
 - **Observé.** Demandé 1 fois sur 8 dans l'évaluation finale (scénario 1, passage 1), jamais dans les trois autres séries. Le LLM s'arrête après `classer`.
 - **Cause.** Le modèle : il demande les outils d'un seul coup et omet le dernier. Demander dans le prompt de « toujours l'appeler après classer » (essai avec crochets) n'a rien changé.
 - **Effet aujourd'hui.** Faible : la fausse recherche ne trouve rien sur ces projets, et le LLM écrit honnêtement « Passage cité : aucun ».
 - **Effet à l'intégration.** Important : sans cet appel, la recommandation de l'agent n'aura pas de citation, alors que le pipeline fixe en aura une. Proposition : lancer la recherche d'office après `classer`, comme `classer` lance déjà les étapes oubliées. À décider quand le vrai module sera là.
+- **Correction du 18 novembre (code).** Essai avec le vrai `retrieve` (rôle 3), 500 projets : le LLM s'arrête après `classer` et invente une citation. L'agent lance maintenant `chercher_passages` lui-même après `classer`, avec les noms des projets recommandés comme question. Premier essai : le LLM recopie la question au lieu du passage, rattrapé par le contrôle. Après avoir retiré la question de la conversation, le LLM cite mot pour mot un passage du projet recommandé P505887. Le contrôle vérifie aussi, désormais, que la citation figure dans un passage rendu par l'outil. Tests : `test_passages_cherches_d_office_apres_classer`, `test_citation_inventee_signalee_meme_avec_des_passages`.
 
 ### E5. Arguments inventés : déjà rattrapée
 
