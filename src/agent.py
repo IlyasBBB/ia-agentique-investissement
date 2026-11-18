@@ -84,7 +84,8 @@ OUTILS_LLM = [
         "description": "Cherche dans les documents les passages qui répondent à une question, "
                        "pour justifier la recommandation par une citation.",
         "parameters": {"type": "object", "required": ["question"], "properties": {
-            "question": {"type": "string"},
+            "question": {"type": "string",
+                         "description": "Question en anglais : les documents sont en anglais."},
             "k": {"type": "integer", "description": "Nombre de passages (3 par défaut)."},
         }},
     }},

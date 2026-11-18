@@ -27,7 +27,7 @@ src/outils.py  (USE_MOCKS=1 : src/mocks.py | USE_MOCKS=0 : vrais modules)
 3. `predire` : `predict` sur chaque projet, pour la rentabilité et le risque.
 4. `detecter_anomalies` : `detect_anomalies` sur l'ensemble.
 5. `classer(poids)` : construit la matrice des sept critères et appelle `rank`.
-6. `chercher_passages(question, k)` : `retrieve`, pour citer un passage qui justifie la recommandation.
+6. `chercher_passages(question, k)` : `retrieve`, pour citer un passage qui justifie la recommandation. La question est écrite en anglais par le LLM, comme les documents. L'agent demande 50 passages sur tout le corpus et garde les `k` premiers qui viennent des projets analysés.
 7. Rédiger la recommandation : les trois premiers projets, pourquoi, les alertes, les limites.
 
 L'ordre n'est pas imposé en dur : le LLM choisit les outils. Le prompt système (`prompts/systeme.txt`) décrit la démarche attendue, et les tests vérifient le comportement avec un faux LLM.
@@ -139,6 +139,7 @@ Streamlit relance tout le script à chaque clic. Pour éviter cet effet de page 
 - la demande, les poids, le relief et les résultats sont dans un **fragment** (`@st.fragment`, fonction `atelier`) : un clic dans ce bloc ne relance que lui ;
 - **poids en direct** : après une analyse, les curseurs partent des poids utilisés. Les bouger refait le classement avec `rank` sur les sept critères déjà calculés (fonction `reclasser`, via `src/outils.py`), sans relancer l'agent. Les cartes, le classement et le relief suivent ; la recommandation rédigée, le journal et la comparaison restent ceux de l'analyse, et un message le dit ;
 - le relief 3D reste le même d'un clic à l'autre : seules ses données changent, et les colonnes glissent vers leur nouvelle place.
+- avec les vrais modules (`USE_MOCKS=0`), les modèles de texte de `extract` et `retrieve` sont chargés dès l'ouverture de l'application (`prechauffer_modeles`, mis en cache) : la première analyse ne paie pas leur chargement, une quinzaine de secondes.
 
 Ce qui reste lent : l'analyse par l'agent (environ une minute, le LLM tourne sur le processeur).
 

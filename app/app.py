@@ -72,6 +72,13 @@ def charger_jeu_banque_mondiale() -> tuple[pd.DataFrame, dict[str, str]]:
     return projets, documents
 
 
+@st.cache_resource(show_spinner="Chargement des modèles de texte (une seule fois)…")
+def prechauffer_modeles(_exemple: str) -> None:
+    """Premier appel à extract et retrieve dès l'ouverture : la première analyse n'attend pas leur chargement."""
+    outils.extract(_exemple)
+    outils.retrieve("environmental impact", 1)
+
+
 def charger_fichiers_importes(csv, textes) -> tuple[pd.DataFrame, dict[str, str]] | None:
     """Lit un CSV et des fichiers texte importés. Les textes sont associés au projet par leur nom (P001.txt)."""
     projets = pd.read_csv(csv)
@@ -385,6 +392,8 @@ with st.sidebar:
         st.stop()
     projets, documents = jeu
     nb_charges = len(projets)
+    if not outils.utilise_mocks() and documents:
+        prechauffer_modeles(next(iter(documents.values())))
 
     st.header("Projets à analyser")
     if "statut" in projets:
