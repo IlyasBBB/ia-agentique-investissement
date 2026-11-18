@@ -1,0 +1,34 @@
+{
+  "modele_retenu": "combinaison",
+  "meilleur_validation": "combinaison",
+  "kappa_validation": {
+    "mots_cles": 0.601839290812606,
+    "tfidf_llm": 0.5195609492602334,
+    "tfidf_llm_recale": 0.5281518572597453,
+    "combinaison": 0.6487898682774309,
+    "tfidf_humain": 0.6294156765539071
+  },
+  "parametres": {
+    "mots_cles": {
+      "decalage_seuils": {
+        "impact_env_social": -3,
+        "alignement_strategique": -2,
+        "faisabilite": -2
+      }
+    },
+    "tfidf_llm": {
+      "C": {
+        "impact_env_social": 0.3,
+        "alignement_strategique": 0.3,
+        "faisabilite": 0.03
+      }
+    },
+    "tfidf_humain": {
+      "C": {
+        "impact_env_social": 0.1,
+        "alignement_strategique": 0.3,
+        "faisabilite": 0.3
+      }
+    }
+  }
+}
