@@ -118,3 +118,54 @@ def test_retrieve_vrai_corpus_trouve_le_projet_attendu():
     debut = time.perf_counter()
     nlp.retrieve("access to finance for small businesses", k=50)
     assert time.perf_counter() - debut < 1.0  # index déjà en mémoire : réponse rapide
+
+
+# --- extract ----------------------------------------------------------------
+
+
+@pytest.mark.parametrize("texte", ["", "   ", "Short text.", DOC_EXEMPLE, PETIT_CORPUS["P2"]])
+def test_extract_respecte_le_contrat(texte):
+    sortie = Extraction(**nlp.extract(texte))
+    assert set(sortie.justifications) == set(nlp.CRITERES_TEXTE)
+    assert all(isinstance(j, str) and j for j in sortie.justifications.values())
+
+
+@pytest.mark.parametrize("texte", ["", "Short text.", "Objectif de développement (PDO) :\nImprove roads.\nRésumé :\nNon disponible."])
+def test_extract_note_neutre_si_texte_trop_court(texte):
+    sortie = nlp.extract(texte)
+    assert all(sortie[c] == nlp.NOTE_NEUTRE for c in nlp.CRITERES_TEXTE)
+
+
+def test_mots_cles_note_neutre_sans_aucun_mot_cle():
+    texte = "Objectif de développement (PDO) :\n" + "The road will be built between the two towns by the ministry. " * 3
+    assert all(nlp.solde_mots_cles(nlp.corps(texte), c) == 0 for c in nlp.CRITERES_TEXTE)
+    sortie = nlp.extract_mots_cles(texte)
+    assert all(sortie[c] == nlp.NOTE_NEUTRE for c in nlp.CRITERES_TEXTE)
+
+
+def test_le_jeu_de_test_ne_sert_jamais_a_apprendre():
+    import pandas as pd
+
+    jeux = pd.read_csv(nlp.FICHIER_JEUX)
+    test = set(jeux.loc[jeux.jeu == "test", "id_projet"])
+    apprentissage = set(jeux.loc[jeux.jeu == "entrainement", "id_projet"])
+    validation = set(pd.read_csv(nlp.FICHIER_VALIDATION).id_projet)
+    assert len(test) == 100 and not test & apprentissage and not test & validation
+
+
+def test_extract_utilise_le_modele_et_justifie_par_une_phrase_du_texte():
+    assert nlp.modele_extract() is not None  # annotations présentes : pas de repli sur les mots-clés
+    sortie = nlp.extract(DOC_EXEMPLE)
+    texte = nlp.corps(DOC_EXEMPLE)
+    for critere in nlp.CRITERES_TEXTE:
+        assert sortie["justifications"][critere] in texte
+    assert sortie["faisabilite"] >= 4  # quatre composantes et une unité de gestion du projet
+
+
+def test_extract_rapide_sur_les_2000_documents():
+    documents = nlp.charger_documents()
+    nlp.modele_extract()  # chargement du modèle hors chronomètre, comme au démarrage de l'application
+    debut = time.perf_counter()
+    for document in documents.values():
+        Extraction(**nlp.extract(document))
+    assert time.perf_counter() - debut < 60  # environ 10 s sur un portable sans GPU

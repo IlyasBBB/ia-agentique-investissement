@@ -259,3 +259,237 @@ def retrieve(question: str, k: int = 3) -> list[dict]:
     if not question or not question.strip() or k <= 0:
         return []  # rien à chercher : inutile de charger l'index
     return chercher(index_par_defaut(), question, k)
+
+
+# --- Extraction des notes (extract) -----------------------------------------
+# Modèle livré : combinaison de deux signaux, choisie sur une validation notée à la main
+# (scripts/evaluer_extract_nlp.py, reports/role3/choix_extract.json) :
+#   - le solde de mots-clés de la grille (mots positifs moins mots négatifs) ;
+#   - la note attendue d'une régression logistique sur TF-IDF, apprise sur 640 documents notés
+#     par le LLM local selon la grille.
+# Chaque signal est centré-réduit sur la validation, on fait leur moyenne, puis des seuils
+# convertissent ce score en note de 1 à 5. Les seuils redonnent, sur la validation, la répartition
+# des notes de référence : le modèle parle la même « échelle » que l'annotateur, pas celle du LLM.
+
+DOSSIER_ANNOTATIONS = RACINE / "reports" / "role3" / "annotations"
+FICHIER_NOTES_LLM = DOSSIER_ANNOTATIONS / "notes_llm.csv"
+FICHIER_JEUX = DOSSIER_ANNOTATIONS / "jeux_extract.csv"
+FICHIER_VALIDATION = DOSSIER_ANNOTATIONS / "validation_reference.csv"
+MOTS_MINIMUM = 15  # en dessous, le texte est jugé trop court : note neutre
+NOTES_POSSIBLES = np.array([1, 2, 3, 4, 5])
+
+MOTS_CLES: dict[str, dict[str, tuple[str, ...]]] = {
+    "impact_env_social": {
+        "plus": ("poverty", "poor", "vulnerable", "women", "gender", "health", "nutrition", "climate",
+                 "environment", "biodiversity", "resilience", "access to", "inclusion", "emission",
+                 "clean", "water supply", "sanitation", "livelihood", "social"),
+        "moins": ("resettlement", "displacement", "pollution", "deforestation"),
+    },
+    "alignement_strategique": {
+        "plus": ("strategy", "national", "government's", "program", "reform", "priority", "policy",
+                 "sustainable development", "climate", "human capital", "digital", "employment",
+                 "competitiveness"),
+        "moins": (),
+    },
+    "faisabilite": {
+        "plus": ("component", "implementation", "monitoring", "evaluation", "capacity", "project management",
+                 "unit", "pilot", "second phase", "institutional", "technical assistance", "training"),
+        "moins": ("conflict", "crisis", "emergency", "fragile", "post-war", "postwar", "weak capacity"),
+    },
+}
+# Solde minimal pour obtenir 2, 3, 4, 5, réglé sur la validation pour chaque critère.
+# Avec ces seuils, un texte sans aucun mot-clé reçoit la note neutre 3.
+SEUILS_MOTS_CLES: dict[str, tuple[int, ...]] = {
+    "impact_env_social": (-3, -1, 1, 3),
+    "alignement_strategique": (-2, 0, 2, 4),
+    "faisabilite": (-2, 0, 2, 4),
+}
+# Régularisation de la régression logistique, choisie sur la validation pour chaque critère.
+C_PAR_CRITERE = {"impact_env_social": 0.3, "alignement_strategique": 0.3, "faisabilite": 0.03}
+
+
+def trop_court(texte: str) -> bool:
+    """Vrai si le texte utile est trop court pour juger (note neutre)."""
+    return len(texte.split()) < MOTS_MINIMUM
+
+
+def neutre(raison: str = "Texte trop court pour juger : note neutre.") -> dict:
+    """Sortie neutre (note 3 partout), au format du contrat."""
+    return {**{c: NOTE_NEUTRE for c in CRITERES_TEXTE}, "justifications": {c: raison for c in CRITERES_TEXTE}}
+
+
+def solde_mots_cles(texte: str, critere: str) -> int:
+    """Nombre d'occurrences des mots-clés positifs du critère, moins celles des négatifs."""
+    minuscule = texte.lower()
+    mots = MOTS_CLES[critere]
+    return sum(minuscule.count(m) for m in mots["plus"]) - sum(minuscule.count(m) for m in mots["moins"])
+
+
+def note_par_seuils(solde: int, seuils: tuple[int, ...]) -> int:
+    """Convertit un solde (mots positifs moins négatifs) en note de 1 à 5."""
+    return 1 + sum(solde >= s for s in seuils)
+
+
+def extract_mots_cles(document: str) -> dict:
+    """Modèle de référence : notes tirées du seul solde de mots-clés."""
+    texte = corps(document)
+    if trop_court(texte):
+        return neutre()
+    liste = phrases(texte)
+    notes, justifications = {}, {}
+    for critere, mots in MOTS_CLES.items():
+        notes[critere] = note_par_seuils(solde_mots_cles(texte, critere), SEUILS_MOTS_CLES[critere])
+        trouvees = [p for p in liste if any(m in p.lower() for m in mots["plus"] + mots["moins"])]
+        justifications[critere] = trouvees[0] if trouvees else "Aucun mot-clé du critère dans le texte."
+    return {**notes, "justifications": justifications}
+
+
+class ModeleExtract:
+    """Combinaison mots-clés + TF-IDF, recalée sur l'échelle des notes de référence."""
+
+    def __init__(self, C: dict[str, float] | None = None, min_df: int = 2):
+        self.C = C or dict(C_PAR_CRITERE)
+        self.min_df = min_df
+        self.vectoriseur = None
+        self.modeles: dict = {}
+        self.normes: dict[str, tuple[float, float, float, float]] = {}
+        self.seuils: dict[str, np.ndarray] = {}
+
+    # Apprentissage --------------------------------------------------------------
+
+    def fit(self, textes: list[str], notes, textes_validation: list[str] | None = None,
+            notes_validation=None) -> "ModeleExtract":
+        """Apprend vocabulaire et régressions sur l'entraînement, puis le recalage sur la validation.
+
+        Sans validation, seule la partie TF-IDF est apprise (utilisée par l'évaluation).
+        """
+        from sklearn.feature_extraction.text import TfidfVectorizer
+        from sklearn.linear_model import LogisticRegression
+
+        self.vectoriseur = TfidfVectorizer(stop_words="english", ngram_range=(1, 2), min_df=self.min_df,
+                                           sublinear_tf=True, token_pattern=r"(?u)\b[a-zA-Z][a-zA-Z\-]+\b")
+        X = self.vectoriseur.fit_transform(textes)
+        for critere in CRITERES_TEXTE:
+            self.modeles[critere] = LogisticRegression(
+                C=self.C[critere], class_weight="balanced", max_iter=2000, random_state=42
+            ).fit(X, notes[critere])
+        if textes_validation is not None:
+            self.recaler(textes_validation, notes_validation)
+        return self
+
+    def recaler(self, textes: list[str], notes) -> None:
+        """Normes des deux signaux et seuils de notes, calculés sur la validation notée à la main."""
+        attendu = self.note_attendue(textes)
+        for critere in CRITERES_TEXTE:
+            soldes = np.array([solde_mots_cles(t, critere) for t in textes], dtype=float)
+            self.normes[critere] = (attendu[critere].mean(), attendu[critere].std(), soldes.mean(), soldes.std())
+            score = self._combiner(critere, attendu[critere], soldes)
+            cumul = np.cumsum([np.mean(np.asarray(notes[critere]) == k) for k in NOTES_POSSIBLES])[:-1]
+            self.seuils[critere] = np.quantile(score, cumul)
+
+    # Prédiction -----------------------------------------------------------------
+
+    def note_attendue(self, textes: list[str]) -> dict[str, np.ndarray]:
+        """Espérance de la note selon les probabilités de chaque régression logistique."""
+        X = self.vectoriseur.transform(textes)
+        return {c: m.predict_proba(X) @ m.classes_ for c, m in self.modeles.items()}
+
+    def _combiner(self, critere: str, attendu: np.ndarray, soldes: np.ndarray) -> np.ndarray:
+        m_a, e_a, m_s, e_s = self.normes[critere]
+        return ((attendu - m_a) / e_a + (soldes - m_s) / e_s) / 2
+
+    def scores(self, textes: list[str]) -> dict[str, np.ndarray]:
+        """Score combiné de chaque texte pour chaque critère."""
+        attendu = self.note_attendue(textes)
+        return {c: self._combiner(c, attendu[c], np.array([solde_mots_cles(t, c) for t in textes], dtype=float))
+                for c in CRITERES_TEXTE}
+
+    def predire(self, textes: list[str]) -> dict[str, np.ndarray]:
+        """Notes de 1 à 5 pour une liste de textes, sans la règle du texte court."""
+        return {c: 1 + np.searchsorted(self.seuils[c], s, side="right") for c, s in self.scores(textes).items()}
+
+    # Interprétabilité ---------------------------------------------------------------
+
+    def direction(self, critere: str) -> np.ndarray:
+        """Poids de chaque mot sur la note attendue : positif, il tire la note vers le haut."""
+        modele = self.modeles[critere]
+        return modele.coef_.T @ (modele.classes_ - modele.classes_.mean()) / len(modele.classes_)
+
+    def mots_influents(self, critere: str, n: int = 15) -> dict[str, list[tuple[str, float]]]:
+        """Les n mots ou paires de mots qui tirent le plus la note vers le haut, et vers le bas."""
+        d = self.direction(critere)
+        mots = self.vectoriseur.get_feature_names_out()
+        ordre = np.argsort(d)
+        return {"vers_le_haut": [(mots[i], float(d[i])) for i in ordre[::-1][:n]],
+                "vers_le_bas": [(mots[i], float(d[i])) for i in ordre[:n]]}
+
+    def justifier(self, texte: str, critere: str, note: int) -> str:
+        """Phrase du texte qui pèse le plus dans le sens de la note (vers le haut si note >= 3)."""
+        liste = phrases(texte) or [texte]
+        _, e_a, _, e_s = self.normes[critere]
+        poids = (self.vectoriseur.transform(liste) @ self.direction(critere)) / e_a + np.array(
+            [solde_mots_cles(p, critere) for p in liste]) / e_s
+        return liste[int(np.argmax(poids) if note >= NOTE_NEUTRE else np.argmin(poids))]
+
+    def extraire(self, document: str) -> dict:
+        """Sortie au format du contrat pour un document."""
+        texte = corps(document)
+        if trop_court(texte):
+            return neutre()
+        notes = {c: int(v[0]) for c, v in self.predire([texte]).items()}
+        return {**notes, "justifications": {c: self.justifier(texte, c, n) for c, n in notes.items()}}
+
+
+def textes_annotes(ids) -> list[str]:
+    """Texte utile des projets demandés."""
+    return [corps((DOSSIER_DOCS / f"{i}.txt").read_text(encoding="utf-8")) for i in ids]
+
+
+@lru_cache(maxsize=1)
+def modele_extract() -> ModeleExtract | None:
+    """Modèle livré, appris au premier appel (quelques secondes) puis enregistré dans models/nlp/.
+
+    Entraînement : 640 documents notés par le LLM. Recalage : 160 documents notés à la main.
+    Le jeu de test n'est jamais utilisé. Réappris si les annotations ou les réglages changent.
+    Rend None si les annotations sont absentes : extract repasse alors aux mots-clés.
+    """
+    import joblib
+    import pandas as pd
+
+    fichiers = (FICHIER_NOTES_LLM, FICHIER_JEUX, FICHIER_VALIDATION)
+    if not all(f.exists() for f in fichiers):
+        journal.warning("Annotations absentes : extract utilise les mots-clés.")
+        return None
+    empreinte = hashlib.sha256(b"".join(f.read_bytes() for f in fichiers) + json.dumps(
+        [C_PAR_CRITERE, SEUILS_MOTS_CLES, MOTS_CLES], sort_keys=True).encode()).hexdigest()[:16]
+    fichier = DOSSIER_MODELES / f"extract_{empreinte}.joblib"
+    if fichier.exists():
+        return joblib.load(fichier)
+    jeux = pd.read_csv(FICHIER_JEUX)
+    ent = pd.read_csv(FICHIER_NOTES_LLM).merge(jeux[jeux.jeu == "entrainement"], on="id_projet")
+    val = pd.read_csv(FICHIER_VALIDATION)
+    try:
+        modele = ModeleExtract(C_PAR_CRITERE).fit(textes_annotes(ent.id_projet), ent,
+                                                  textes_annotes(val.id_projet), val)
+    except ValueError as erreur:  # annotations incomplètes
+        journal.warning("Apprentissage impossible (%s) : extract utilise les mots-clés.", erreur)
+        return None
+    DOSSIER_MODELES.mkdir(parents=True, exist_ok=True)
+    for ancien in DOSSIER_MODELES.glob("extract_*.joblib"):  # versions périmées du modèle
+        ancien.unlink()
+    joblib.dump(modele, fichier)
+    journal.info("Modèle extract appris sur %d documents, recalé sur %d, enregistré dans %s",
+                 len(ent), len(val), fichier)
+    return modele
+
+
+def extract(document: str) -> dict:
+    """Trois notes de 1 à 5 tirées du texte d'un projet, avec une phrase de justification par critère.
+
+    Texte vide ou trop court (moins de 15 mots utiles) : note neutre 3 partout.
+    Format : modèle Extraction du contrat.
+    """
+    if trop_court(corps(document or "")):
+        return neutre()
+    modele = modele_extract()
+    return modele.extraire(document) if modele else extract_mots_cles(document)
