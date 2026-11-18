@@ -225,6 +225,24 @@ def test_agent_avec_le_vrai_llm():
         Etape(**etape)
 
 
+def test_chercher_passages_garde_k_passages_des_projets_analyses(monkeypatch):
+    # retrieve cherche dans tout le corpus : les premiers passages peuvent venir d'autres projets.
+    connu = PROJETS_EXEMPLE["id_projet"].iloc[0]
+    corpus = [{"id_projet": f"X{i}", "passage": "autre", "score": 1.0} for i in range(10)]
+    corpus += [{"id_projet": connu, "passage": f"passage {i}", "score": 0.5} for i in range(5)]
+    demandes = []
+
+    def faux_retrieve(question, k=3):
+        demandes.append(k)
+        return corpus[:k]
+
+    monkeypatch.setattr(agent.outils, "retrieve", faux_retrieve)
+    portefeuille = Portefeuille(PROJETS_EXEMPLE, DOCUMENTS_EXEMPLE, None)
+    portefeuille.chercher_passages("impact", k=2)
+    assert demandes == [agent.NB_PASSAGES_CHERCHES]
+    assert [p["passage"] for p in portefeuille.passages] == ["passage 0", "passage 1"]
+
+
 def test_controle_ajoute_ce_que_le_llm_a_oublie():
     # Vu avec qwen2.5:3b : deux projets sur trois cités et « aucun dossier anormal » alors qu'il y en a un.
     portefeuille = Portefeuille(PROJETS_EXEMPLE, DOCUMENTS_EXEMPLE, {"duree_mois": 1.0})

@@ -45,6 +45,8 @@ FICHIER_RELANCE = FICHIER_PROMPT.with_name("relance.txt")  # message envoyé apr
 CRITERES_TEXTE = ("impact_env_social", "alignement_strategique", "faisabilite")
 NOTE_NEUTRE = 3  # note donnée à un projet sans document lisible
 NB_RECOMMANDES = 3
+# retrieve cherche dans tout le corpus : on demande large, puis on garde les passages des projets analysés.
+NB_PASSAGES_CHERCHES = 50
 DELAI_LLM_S = 600  # attente maximale d'une réponse du LLM, en secondes (OLLAMA_TIMEOUT pour changer)
 TAILLE_CONTEXTE = 8192  # jetons gardés en mémoire par le LLM : prompt, outils et résumés doivent y tenir
 
@@ -230,7 +232,8 @@ class Portefeuille:
         k = min(max(int(k), 1), 10)
         # On ne garde que les passages des projets analysés : pas de citation d'un autre dossier.
         connus = set(self.projets["id_projet"])
-        self.passages = [p for p in outils.retrieve(str(question), k) if p["id_projet"] in connus]
+        trouves = outils.retrieve(str(question), max(k, NB_PASSAGES_CHERCHES))
+        self.passages = [p for p in trouves if p["id_projet"] in connus][:k]
         if not self.passages:
             return "Aucun passage trouvé dans les documents des projets analysés."
         return " | ".join(f"{p['id_projet']} : « {p['passage'][:200]} »" for p in self.passages)
