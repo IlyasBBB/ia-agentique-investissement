@@ -18,8 +18,8 @@ Responsable : Salma Akazi. Module à livrer : `src/supervise.py` (`predict`), su
 |---|---|---|---|---|
 | 2 | Analyse exploratoire | 19 nov. | fusionnée (PR n°12) | `notebooks/role1/01_exploration.ipynb`, `reports/role1/figures/` |
 | 3 | Séparation 70 / 15 / 15 stratifiée | 19 nov. | fusionnée (PR n°13) | `scripts/separer_jeux_supervise.py`, `reports/role1/separation.csv` : 1 050 / 225 / 225 projets |
-| 4 | Prétraitement (`Pipeline`, `ColumnTransformer`) | 19 nov. | faite, branche `role1/tache-4` | `src/supervise.py` : `creer_pretraitement`, `charger_jeux` (175 colonnes après encodage) |
-| 5 | Modèles de référence | 20 nov. | à faire | `notebooks/role1/02_modeles.ipynb` |
+| 4 | Prétraitement (`Pipeline`, `ColumnTransformer`) | 19 nov. | fusionnée (PR n°14) | `src/supervise.py` : `creer_pretraitement`, `charger_jeux` (175 colonnes après encodage) |
+| 5 | Modèles de référence | 20 nov. | faite, branche `role1/tache-5` (corrigée) | `notebooks/role1/02_modeles.ipynb` : R² 0 (moyenne) et 0,39 (linéaire, validation dans les bornes ; 0,08 sur la validation complète) ; risque 40 % / F1 macro 0,19 (classe majoritaire) |
 | 6 | Ridge, Lasso, ElasticNet | 20 nov. | à faire | notebook 02 |
 | 7 | Classification du risque | 20 nov. | à faire | notebook 02 |
 | 8 | Tableau comparatif, test ouvert une fois | 20 nov. | à faire | `reports/role1/` |
@@ -32,4 +32,4 @@ Responsable : Salma Akazi. Module à livrer : `src/supervise.py` (`predict`), su
 - Entrées : `secteur`, `pays`, `region`, `type_financement`, `cout_total` (en log10), `duree_mois`, `annee_approbation`. Exclus : `id_projet`, `nom`, `statut`, et la rentabilité comme entrée du modèle de risque (inconnue pour les projets en cours).
 - Séparation stratifiée sur le risque, `random_state=42`, avant tout prétraitement : 1 050 projets d'entraînement, 225 de validation, 225 de test, chacun à 40 / 40 / 20 % de `faible` / `moyen` / `eleve`. Anomalies injectées : 17 en entraînement, 5 en validation, 3 en test.
 - Prétraitement : log10 du coût puis médiane et standardisation ; durée et année : médiane et standardisation ; catégories : indicatrices avec `handle_unknown="ignore"`. Un manquant catégoriel devient « inconnu » (donc des zéros, comme une catégorie jamais vue) plutôt que la valeur la plus fréquente, qui lui donnerait à tort l'effet d'un pays précis. `None` et `pd.NA` sont ramenés à NaN avant l'imputation, car `SimpleImputer` ne les reconnaît pas.
-- Anomalies : comparer l'entraînement avec et sans les anomalies connues, sur le jeu d'entraînement seulement ; validation et test gardent tous les projets.
+- Rentabilités aberrantes (tâche 5, corrigée à la demande d'Ilyas) : règle apprise sur l'entraînement seulement, rentabilité hors de [Q1 − 3·IQR ; Q3 + 3·IQR] = [−6,1 % ; 23,3 %] (`supervise.bornes_rentabilite`), appliquée telle quelle à la validation et au test. Les modèles de rentabilité sont appris sur l'entraînement dans les bornes (1 044 projets) ; mesures données sur la validation complète et sur la validation dans les bornes. `anomalies_injectees.csv` ne sert qu'à vérifier après coup : la règle attrape les 10 rentabilités fabriquées et aucun autre projet. Effet sur la régression linéaire (validation dans les bornes) : R² de 0,22 à 0,39. Le risque garde tous les projets.
