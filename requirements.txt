@@ -8,3 +8,4 @@ ollama
 python-dotenv
 scikit-learn==1.9.1
 sentence-transformers==6.3.0
+joblib==1.6.0
