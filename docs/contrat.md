@@ -52,9 +52,11 @@ Sortie : le même tableau avec une colonne `anomalie` (booléen).
 Entrée : le texte d'un document de projet.
 Sortie : `{"impact_env_social": int, "alignement_strategique": int, "faisabilite": int, "justifications": {critère: phrase}}`. Notes de 1 à 5.
 
-### `retrieve(question: str, k: int = 3) -> list[dict]` (rôle 3, `src/nlp.py`)
+### `retrieve(question: str, k: int = 3, documents: dict | None = None) -> list[dict]` (rôle 3, `src/nlp.py`)
 
 Sortie : `k` éléments `{"id_projet": str, "passage": str, "score": float}`, du plus pertinent au moins pertinent.
+
+`documents` (ajouté le 18 novembre, facultatif) associe `id_projet` au texte du document, comme pour `run_agent`. Sans `documents`, la recherche se fait dans les 2 000 documents de `data/docs/`. Avec `documents`, elle ne rend que des passages de ces documents-là : c'est ce que fait l'agent, pour ne citer que les projets analysés, y compris des fichiers importés dans l'application. Si les documents reçus sont déjà dans l'index de `data/docs/` (même identifiant, même texte), la recherche réutilise cet index sans le reconstruire.
 
 ### `run_agent(demande: str, projets: DataFrame, documents: dict | None = None, poids: dict | None = None) -> dict` (rôle 4, `src/agent.py`)
 

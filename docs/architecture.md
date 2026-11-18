@@ -27,7 +27,7 @@ src/outils.py  (USE_MOCKS=1 : src/mocks.py | USE_MOCKS=0 : vrais modules)
 3. `predire` : `predict` sur chaque projet, pour la rentabilité et le risque.
 4. `detecter_anomalies` : `detect_anomalies` sur l'ensemble.
 5. `classer(poids)` : construit la matrice des sept critères et appelle `rank`.
-6. `chercher_passages(question, k)` : `retrieve`, pour citer un passage qui justifie la recommandation. La question est écrite en anglais par le LLM, comme les documents. L'agent demande 50 passages sur tout le corpus et garde les `k` premiers qui viennent des projets analysés.
+6. `chercher_passages(question, k)` : `retrieve`, pour citer un passage qui justifie la recommandation. La question est écrite en anglais par le LLM, comme les documents. L'agent transmet à `retrieve` les documents des projets analysés (paramètre `documents`, contrat du 18 novembre), puis garde par sécurité les `k` premiers passages qui viennent de ces projets. Avec une version de `retrieve` sans ce paramètre, il demande 50 passages sur tout le corpus et filtre de la même façon.
 7. Rédiger la recommandation : les trois premiers projets, pourquoi, les alertes, les limites.
 
 L'ordre n'est pas imposé en dur : le LLM choisit les outils. Le prompt système (`prompts/systeme.txt`) décrit la démarche attendue, et les tests vérifient le comportement avec un faux LLM.

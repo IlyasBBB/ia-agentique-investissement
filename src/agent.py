@@ -93,6 +93,14 @@ OUTILS_LLM = [
 NOMS_OUTILS = [o["function"]["name"] for o in OUTILS_LLM]
 
 
+def accepte_documents(fonction) -> bool:
+    """Vrai si retrieve accepte le paramètre documents (contrat du 18 novembre)."""
+    try:
+        return "documents" in inspect.signature(fonction).parameters
+    except (TypeError, ValueError):
+        return False
+
+
 def normaliser_poids(poids: dict | str | None) -> dict[str, float]:
     """Nettoie des poids (du LLM ou de l'utilisateur) et les ramène à une somme de 1.
 
@@ -233,7 +241,10 @@ class Portefeuille:
         k = min(max(int(k), 1), 10)
         # On ne garde que les passages des projets analysés : pas de citation d'un autre dossier.
         connus = set(self.projets["id_projet"])
-        trouves = outils.retrieve(str(question), max(k, NB_PASSAGES_CHERCHES))
+        if accepte_documents(outils.retrieve) and self.documents:
+            trouves = outils.retrieve(str(question), max(k, NB_PASSAGES_CHERCHES), documents=self.documents)
+        else:  # version de retrieve sans le paramètre documents : recherche dans tout le corpus
+            trouves = outils.retrieve(str(question), max(k, NB_PASSAGES_CHERCHES))
         self.passages = [p for p in trouves if p["id_projet"] in connus][:k]
         if not self.passages:
             return "Aucun passage trouvé dans les documents des projets analysés."

@@ -15,7 +15,7 @@ import pytest
 
 from src import agent, outils
 from src.agent import MAX_TOURS, Portefeuille, normaliser_poids, pipeline_fixe, run_agent
-from src.contrat import CRITERES, POIDS_PAR_DEFAUT, Etape, verifier_classement, verifier_poids
+from src.contrat import CRITERES, POIDS_PAR_DEFAUT, Etape, Passage, verifier_classement, verifier_poids
 from src.mocks import DOCUMENTS_EXEMPLE, PROJETS_EXEMPLE
 from src.scenarios import SCENARIOS, charger_projets_scenarios, chiffres_non_retrouves, citation_verifiee,     dossiers_anormaux, poids_coherents, trois_premiers, verifier_sortie
 
@@ -277,12 +277,47 @@ def test_passages_cherches_d_office_apres_classer():
     assert premier in auto[0]["arguments"]["question"]  # question tirée des projets recommandés
 
 
+def test_agent_transmet_ses_documents_a_retrieve(monkeypatch):
+    # Contrat du 18 novembre : retrieve(question, k, documents) ne cherche que dans ces documents.
+    recus = []
+
+    def faux_retrieve(question, k=3, documents=None):
+        recus.append(documents)
+        return [{"id_projet": i, "passage": texte, "score": 1.0} for i, texte in (documents or {}).items()][:k]
+
+    monkeypatch.setattr(agent.outils, "retrieve", faux_retrieve)
+    importes = {"P001": "Un document importé qui parle d'énergie solaire."}
+    portefeuille = Portefeuille(PROJETS_EXEMPLE, importes, None)
+    portefeuille.chercher_passages("solar energy", k=1)
+    assert recus == [importes]
+    assert portefeuille.passages[0]["passage"] == importes["P001"]
+
+
+def test_fausse_retrieve_cherche_dans_les_documents_recus():
+    from src import mocks
+
+    documents = {"X1": "wind farm in the north", "X2": "school meals"}
+    resultats = mocks.retrieve("wind farm", k=2, documents=documents)
+    assert {r["id_projet"] for r in resultats} == {"X1", "X2"}
+    assert resultats[0]["id_projet"] == "X1"
+    for r in resultats:
+        Passage(**r)
+
+
 def test_passages_pas_cherches_deux_fois():
     sortie = lancer(SCENARIO_NORMAL)
     assert [e["outil"] for e in sortie["etapes"]].count("chercher_passages") == 1
 
 
-def test_citation_inventee_signalee_meme_avec_des_passages():
+@pytest.fixture
+def fausse_recherche(monkeypatch):
+    """Fausse retrieve, même avec MODULES_REELS=nlp : ces tests vérifient la logique de l'agent, pas le moteur."""
+    from src import mocks
+
+    monkeypatch.setattr(agent.outils, "retrieve", mocks.retrieve)
+
+
+def test_citation_inventee_signalee_meme_avec_des_passages(fausse_recherche):
     portefeuille = Portefeuille(PROJETS_EXEMPLE, DOCUMENTS_EXEMPLE, None)
     portefeuille.appeler("classer", {})
     portefeuille.appeler("chercher_passages", {"question": "réduction des émissions"})
@@ -397,7 +432,7 @@ def test_chiffre_invente_repere():
     assert chiffres_non_retrouves(juste + ", VAN 99.7", classement, POIDS_PAR_DEFAUT) == ["99.7"]
 
 
-def test_citation_verifiee_seulement_si_rendue_par_l_outil():
+def test_citation_verifiee_seulement_si_rendue_par_l_outil(fausse_recherche):
     sortie = pipeline_fixe("émissions de CO2", PROJETS_EXEMPLE, DOCUMENTS_EXEMPLE)
     assert citation_verifiee("Passage cité : aucun.", sortie)
     assert citation_verifiee("Passage cité : P001 « Réduction attendue des émissions de CO2. »", sortie)

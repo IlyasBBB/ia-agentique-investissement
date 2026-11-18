@@ -55,11 +55,14 @@ def extract(document: str) -> dict:
     return {**notes, "justifications": {c: "Justification factice (mock)." for c in notes}}
 
 
-def retrieve(question: str, k: int = 3) -> list[dict]:
-    """Faux moteur de recherche : classe les documents d'exemple par mots en commun."""
+def retrieve(question: str, k: int = 3, documents: dict | None = None) -> list[dict]:
+    """Faux moteur de recherche : classe les documents par mots en commun avec la question.
+
+    Sans `documents`, il cherche dans les documents d'exemple.
+    """
     mots = set(question.lower().split())
     resultats = []
-    for id_projet, texte in DOCUMENTS_EXEMPLE.items():
+    for id_projet, texte in (DOCUMENTS_EXEMPLE if documents is None else documents).items():
         communs = len(mots & set(texte.lower().split()))
         resultats.append({"id_projet": id_projet, "passage": texte, "score": round(communs / (len(mots) or 1), 2)})
     return sorted(resultats, key=lambda r: r["score"], reverse=True)[:k]
