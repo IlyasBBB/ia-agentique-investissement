@@ -125,3 +125,13 @@ def test_sans_variable_tout_est_factice(recharger_outils):
 def test_module_inconnu_refuse(recharger_outils):
     with pytest.raises(ValueError, match="module inconnu"):
         recharger_outils(MODULES_REELS="nlp,inexistant")
+
+
+def test_module_sans_la_fonction_du_contrat_message_clair(recharger_outils, monkeypatch):
+    import types
+    import sys
+
+    incomplet = types.ModuleType("src.supervise")  # module livré sans predict
+    monkeypatch.setitem(sys.modules, "src.supervise", incomplet)
+    with pytest.raises(ImportError, match="ne contient pas encore predict"):
+        recharger_outils(MODULES_REELS="supervise")

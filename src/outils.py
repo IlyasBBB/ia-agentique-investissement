@@ -61,6 +61,13 @@ def _charger() -> dict:
                 "Retirer ce module de MODULES_REELS (ou remettre USE_MOCKS=1), "
                 "ou attendre sa livraison."
             ) from erreur
+        manquantes = [nom for nom in noms if not hasattr(charge, nom)]
+        if manquantes:  # module livré en partie : par exemple src/supervise.py avant predict
+            raise ImportError(
+                f"Le module {source} est chargé mais ne contient pas encore {', '.join(manquantes)} "
+                f"(contrat : docs/contrat.md). Retirer « {module} » de MODULES_REELS (ou remettre "
+                "USE_MOCKS=1) en attendant la livraison."
+            )
         fonctions.update({nom: getattr(charge, nom) for nom in noms})
     return fonctions
 
