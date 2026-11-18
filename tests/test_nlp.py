@@ -120,6 +120,60 @@ def test_retrieve_vrai_corpus_trouve_le_projet_attendu():
     assert time.perf_counter() - debut < 1.0  # index déjà en mémoire : réponse rapide
 
 
+def projets_en_cours() -> dict[str, str]:
+    """Documents des 500 projets en cours, lus comme le fait l'application."""
+    import pandas as pd
+
+    projets = pd.read_csv(nlp.RACINE / "data" / "processed" / "projets.csv")
+    ids = projets.loc[projets.statut == "en_cours", "id_projet"]
+    return {i: (nlp.DOSSIER_DOCS / f"{i}.txt").read_text(encoding="utf-8") for i in ids}
+
+
+@pytest.mark.skipif(not modele_embeddings_disponible(), reason="modèle d'embeddings non téléchargé")
+def test_retrieve_documents_connus_sans_nouvel_index(monkeypatch):
+    documents = projets_en_cours()
+    nlp.retrieve("rural electrification", 3)  # index par défaut déjà chargé, comme au démarrage
+
+    def interdit(*args, **kwargs):
+        raise AssertionError("aucun index ne doit être construit pour des documents déjà connus")
+
+    monkeypatch.setattr(nlp, "index_a_la_volee", interdit)
+    debut = time.perf_counter()
+    resultats = nlp.retrieve("access to finance for small businesses", 3, documents=documents)
+    assert time.perf_counter() - debut < 1.0
+    assert len(resultats) == 3
+    assert all(r["id_projet"] in documents for r in resultats)
+    for r in resultats:
+        Passage(**r)
+
+
+@pytest.mark.skipif(not modele_embeddings_disponible(), reason="modèle d'embeddings non téléchargé")
+def test_retrieve_documents_inconnus_index_a_la_volee_sans_fichier():
+    avant = set(nlp.DOSSIER_MODELES.glob("*"))
+    resultats = nlp.retrieve("solar electricity for rural villages", 3, documents=PETIT_CORPUS)
+    assert [r["id_projet"] for r in resultats][0] == "P1"
+    assert {r["id_projet"] for r in resultats} <= set(PETIT_CORPUS)
+    assert set(nlp.DOSSIER_MODELES.glob("*")) == avant  # rien d'écrit sur disque
+
+
+@pytest.mark.skipif(not modele_embeddings_disponible(), reason="modèle d'embeddings non téléchargé")
+def test_retrieve_melange_et_texte_modifie():
+    vrai = nlp.charger_documents()["P171742"]  # projet solaire en Éthiopie, dans l'index
+    modifie = "Objectif de développement (PDO) :\nBuild new school classrooms and train primary teachers in rural areas."
+    documents = {"P171742": vrai, "P2": PETIT_CORPUS["P2"], "P171266": modifie}
+    solaire = nlp.retrieve("solar mini-grids for rural electrification", 1, documents=documents)
+    assert solaire[0]["id_projet"] == "P171742"
+    ecoles = nlp.retrieve("training primary school teachers", 3, documents=documents)
+    assert {r["id_projet"] for r in ecoles} == set(documents)
+    # P171266 a un texte modifié : c'est ce texte qui est cherché, pas celui de l'index
+    assert any(r["id_projet"] == "P171266" and "classrooms" in r["passage"] for r in ecoles)
+
+
+def test_retrieve_documents_vides():
+    assert nlp.retrieve("schools", 3, documents={}) == []
+    assert nlp.retrieve("schools", 3, documents={"X1": ""}) == []
+
+
 # --- extract ----------------------------------------------------------------
 
 

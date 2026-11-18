@@ -140,33 +140,42 @@ class IndexTfidf:
         return (self.matrice @ self.vectoriseur.transform([question]).T).toarray().ravel()
 
 
+@lru_cache(maxsize=1)
+def modele_plongements():
+    """Modèle d'embeddings, chargé une seule fois et partagé par tous les index."""
+    os.environ.setdefault("HF_HUB_DISABLE_PROGRESS_BARS", "1")  # sorties propres pour l'agent
+    os.environ.setdefault("TRANSFORMERS_VERBOSITY", "error")
+    from sentence_transformers import SentenceTransformer
+
+    try:  # modèle déjà téléchargé : aucun accès réseau (démo hors ligne)
+        return SentenceTransformer(MODELE_EMBEDDINGS, device="cpu", local_files_only=True)
+    except Exception:
+        journal.info("Téléchargement du modèle %s (une seule fois)...", MODELE_EMBEDDINGS)
+        return SentenceTransformer(MODELE_EMBEDDINGS, device="cpu")
+
+
 class IndexEmbeddings:
     """Moteur avancé : embeddings de phrases (sentence-transformers), similarité cosinus."""
 
     nom = "embeddings"
 
-    def __init__(self, passages: list[dict], signature: str):
-        os.environ.setdefault("HF_HUB_DISABLE_PROGRESS_BARS", "1")  # sorties propres pour l'agent
-        os.environ.setdefault("TRANSFORMERS_VERBOSITY", "error")
-        from sentence_transformers import SentenceTransformer
-
+    def __init__(self, passages: list[dict], signature: str | None):
+        """signature : nom du fichier où garder les vecteurs ; None pour ne rien écrire sur disque."""
         self.passages = passages
-        try:  # modèle déjà téléchargé : aucun accès réseau (démo hors ligne)
-            self.modele = SentenceTransformer(MODELE_EMBEDDINGS, device="cpu", local_files_only=True)
-        except Exception:
-            journal.info("Téléchargement du modèle %s (une seule fois)...", MODELE_EMBEDDINGS)
-            self.modele = SentenceTransformer(MODELE_EMBEDDINGS, device="cpu")
-        fichier = DOSSIER_MODELES / f"embeddings_{signature}.npy"
-        if fichier.exists():
+        self.modele = modele_plongements()
+        fichier = DOSSIER_MODELES / f"embeddings_{signature}.npy" if signature else None
+        if fichier is not None and fichier.exists():
             self.matrice = np.load(fichier)
         else:
-            journal.info("Calcul des embeddings de %d passages (une seule fois)...", len(passages))
+            if fichier is not None:
+                journal.info("Calcul des embeddings de %d passages (une seule fois)...", len(passages))
             self.matrice = self.modele.encode(
                 [p["indexe"] for p in passages], batch_size=64, normalize_embeddings=True,
                 show_progress_bar=False, convert_to_numpy=True,
             ).astype(np.float32)
-            DOSSIER_MODELES.mkdir(parents=True, exist_ok=True)
-            np.save(fichier, self.matrice)
+            if fichier is not None:
+                DOSSIER_MODELES.mkdir(parents=True, exist_ok=True)
+                np.save(fichier, self.matrice)
 
     def scores(self, question: str) -> np.ndarray:
         """Produit scalaire entre vecteurs normés = similarité cosinus."""
@@ -210,17 +219,20 @@ def signature_documents(documents: dict[str, str]) -> str:
     return empreinte.hexdigest()[:16]
 
 
-def construire_index(methode: str | None = None, documents: dict[str, str] | None = None):
+def construire_index(methode: str | None = None, documents: dict[str, str] | None = None,
+                     enregistrer: bool = True):
     """Construit l'index de recherche. methode : "embeddings" (défaut) ou "tfidf".
 
-    Si les embeddings ne sont pas disponibles (bibliothèque ou modèle absent), repli sur TF-IDF.
+    enregistrer : garder les vecteurs sur disque (index des 2 000 documents) ou seulement en
+    mémoire (petit index construit à la volée). Si les embeddings ne sont pas disponibles
+    (bibliothèque ou modèle absent), repli sur TF-IDF.
     """
     methode = methode or os.getenv("NLP_RETRIEVE", "embeddings")
     documents = charger_documents() if documents is None else documents
     passages = decouper_passages(documents)
     if methode == "embeddings":
         try:
-            return IndexEmbeddings(passages, signature_documents(documents))
+            return IndexEmbeddings(passages, signature_documents(documents) if enregistrer else None)
         except Exception as erreur:  # pas de réseau au premier lancement, bibliothèque absente...
             journal.warning("Embeddings indisponibles (%s) : repli sur TF-IDF.", erreur)
     return IndexTfidf(passages)
@@ -232,13 +244,52 @@ def index_par_defaut(methode: str | None = None):
     return construire_index(methode)
 
 
-def chercher(index, question: str, k: int = 3) -> list[dict]:
-    """Les k meilleurs passages d'un index, un seul par projet, du plus au moins pertinent."""
+@lru_cache(maxsize=1)
+def documents_par_defaut() -> tuple[dict[str, str], dict[str, str]]:
+    """Textes bruts et textes utiles (objectif et résumé nettoyés) des documents de l'index par défaut."""
+    bruts = charger_documents()
+    return bruts, {i: corps(t) for i, t in bruts.items()}
+
+
+def est_connu(id_projet: str, texte: str) -> bool:
+    """Vrai si le document est dans l'index par défaut avec le même texte utile."""
+    bruts, utiles = documents_par_defaut()
+    if bruts.get(id_projet) == texte:  # cas normal : le même fichier, comparaison immédiate
+        return True
+    return id_projet in utiles and utiles[id_projet] == corps(texte or "")
+
+
+INDEX_A_LA_VOLEE: dict[str, object] = {}  # signature des documents -> index, les plus récents
+TAILLE_CACHE_VOLEE = 4
+
+
+def index_a_la_volee(documents: dict[str, str]):
+    """Index des documents inconnus de l'index par défaut (fichiers importés), gardé en mémoire."""
+    signature = signature_documents(documents)
+    if signature not in INDEX_A_LA_VOLEE:
+        if len(INDEX_A_LA_VOLEE) >= TAILLE_CACHE_VOLEE:
+            INDEX_A_LA_VOLEE.pop(next(iter(INDEX_A_LA_VOLEE)))  # le plus ancien
+        journal.info("Index construit à la volée pour %d documents inconnus.", len(documents))
+        INDEX_A_LA_VOLEE[signature] = construire_index(documents=documents, enregistrer=False)
+    return INDEX_A_LA_VOLEE[signature]
+
+
+def chercher(index, question: str, k: int = 3, projets: set[str] | None = None) -> list[dict]:
+    """Les k meilleurs passages d'un index, un seul par projet, du plus au moins pertinent.
+
+    projets : si donné, seuls les passages de ces projets sont gardés.
+    """
     if not question or not question.strip() or k <= 0:
         return []
     scores = index.scores(question)
+    if projets is not None:
+        if not hasattr(index, "ids_passages"):  # calculé une fois par index
+            index.ids_passages = np.array([p["id_projet"] for p in index.passages])
+        scores = np.where(np.isin(index.ids_passages, list(projets)), scores, -np.inf)
     resultats, vus = [], set()
     for i in np.argsort(-scores, kind="stable"):
+        if not np.isfinite(scores[i]):
+            break  # il ne reste que des passages exclus
         id_projet = index.passages[i]["id_projet"]
         if id_projet in vus:
             continue
@@ -250,15 +301,31 @@ def chercher(index, question: str, k: int = 3) -> list[dict]:
     return resultats
 
 
-def retrieve(question: str, k: int = 3) -> list[dict]:
+def retrieve(question: str, k: int = 3, documents: dict[str, str] | None = None) -> list[dict]:
     """Les k passages les plus pertinents pour la question, du plus au moins pertinent.
+
+    documents ({id_projet: texte}) : si donné, la recherche se limite à ces projets.
+    - Documents déjà dans l'index par défaut (même identifiant, même texte utile) : recherche
+      dans cet index en ne gardant que ces projets, sans aucun calcul supplémentaire.
+    - Documents inconnus (fichiers importés, texte modifié) : petit index construit à la volée,
+      gardé en mémoire.
+    Les deux listes sont fusionnées par score (même modèle d'embeddings, scores comparables).
 
     Un seul passage par projet, pour que l'agent voie k projets différents.
     Format de chaque élément : {"id_projet", "passage", "score"} (modèle Passage du contrat).
     """
     if not question or not question.strip() or k <= 0:
         return []  # rien à chercher : inutile de charger l'index
-    return chercher(index_par_defaut(), question, k)
+    if documents is None:
+        return chercher(index_par_defaut(), question, k)
+    connus = {i for i, t in documents.items() if est_connu(i, t)}
+    inconnus = {i: t for i, t in documents.items() if i not in connus and corps(t or "")}
+    resultats = []
+    if connus:
+        resultats += chercher(index_par_defaut(), question, k, projets=connus)
+    if inconnus:
+        resultats += chercher(index_a_la_volee(inconnus), question, k)
+    return sorted(resultats, key=lambda r: r["score"], reverse=True)[:k]
 
 
 # --- Extraction des notes (extract) -----------------------------------------
