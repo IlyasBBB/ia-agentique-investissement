@@ -6,3 +6,4 @@ streamlit
 plotly
 ollama
 python-dotenv
+scikit-learn==1.9.1
