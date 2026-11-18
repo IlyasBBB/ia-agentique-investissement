@@ -16,8 +16,8 @@ Responsable : Salma Akazi. Module à livrer : `src/supervise.py` (`predict`), su
 
 | N° | Tâche | Échéance | État | Livrables |
 |---|---|---|---|---|
-| 2 | Analyse exploratoire | 19 nov. | faite, branche `role1/tache-2` | `notebooks/role1/01_exploration.ipynb`, `reports/role1/figures/` |
-| 3 | Séparation 70 / 15 / 15 stratifiée | 19 nov. | à faire | identifiants dans `reports/role1/` |
+| 2 | Analyse exploratoire | 19 nov. | fusionnée (PR n°12) | `notebooks/role1/01_exploration.ipynb`, `reports/role1/figures/` |
+| 3 | Séparation 70 / 15 / 15 stratifiée | 19 nov. | faite, branche `role1/tache-3` | `scripts/separer_jeux_supervise.py`, `reports/role1/separation.csv` : 1 050 / 225 / 225 projets |
 | 4 | Prétraitement (`Pipeline`, `ColumnTransformer`) | 19 nov. | à faire | `src/supervise.py` |
 | 5 | Modèles de référence | 20 nov. | à faire | `notebooks/role1/02_modeles.ipynb` |
 | 6 | Ridge, Lasso, ElasticNet | 20 nov. | à faire | notebook 02 |
@@ -30,5 +30,5 @@ Responsable : Salma Akazi. Module à livrer : `src/supervise.py` (`predict`), su
 ## Décisions
 
 - Entrées : `secteur`, `pays`, `region`, `type_financement`, `cout_total` (en log10), `duree_mois`, `annee_approbation`. Exclus : `id_projet`, `nom`, `statut`, et la rentabilité comme entrée du modèle de risque (inconnue pour les projets en cours).
-- Séparation stratifiée sur le risque, `random_state=42`, avant tout prétraitement.
+- Séparation stratifiée sur le risque, `random_state=42`, avant tout prétraitement : 1 050 projets d'entraînement, 225 de validation, 225 de test, chacun à 40 / 40 / 20 % de `faible` / `moyen` / `eleve`. Anomalies injectées : 17 en entraînement, 5 en validation, 3 en test.
 - Anomalies : comparer l'entraînement avec et sans les anomalies connues, sur le jeu d'entraînement seulement ; validation et test gardent tous les projets.
