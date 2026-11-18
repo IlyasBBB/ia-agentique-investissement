@@ -2,7 +2,7 @@
 
 Le plan complet des quatre rôles est dans `docs/Plan_projet_ML_IA_agentique.xlsx`. Ce fichier ne reprend que les tâches d'Ilyas. Statuts possibles : à faire, en cours, terminé.
 
-Dernière mise à jour : 17 novembre 2026.
+Dernière mise à jour : 18 novembre 2026.
 
 ## Tâche reprise au rôle 1
 
@@ -22,7 +22,7 @@ Dernière mise à jour : 17 novembre 2026.
 | 6 | Intégration des vrais modules | IMPOSSIBLE avant `predict` (rôle 1), `rank` (rôle 2), `extract` et `retrieve` (rôle 3), attendus le 21 | mar. 24 nov. | bloqué | Application complète en local |
 | 7 | Déploiement ou démonstration locale | Tâche 6 | mar. 24 nov. | bloqué | Démonstration prête à filmer |
 | 8 | README final | Tâche 6, sources des données | mer. 25 nov. | bloqué | `README.md` |
-| 9 | Partie du rapport (LLM, agents, architecture, tests) | Tâche 5, puis tâche 6 pour les résultats | brouillon sam. 21, final ven. 27 | à faire | 4 à 6 pages, 3 à 4 diapositives |
+| 9 | Partie du rapport (LLM, agents, architecture, tests) | Tâche 5, puis tâche 6 pour les résultats | brouillon sam. 21, final ven. 27 | en cours (18 nov. : brouillon dans `reports/rapport/partie_role4.md`, résultats d'intégration à compléter) | 4 à 6 pages, 3 à 4 diapositives |
 | 10 | Assembler rapport et présentation | Parties des rôles 1, 2 et 3 | ven. 27 nov. | bloqué | Rapport et PowerPoint complets |
 
 ## Jalons communs
@@ -44,3 +44,4 @@ Dernière mise à jour : 17 novembre 2026.
 - 16 nov. : application redessinée (`app/app.py`, `app/composants.py`, `app/graphiques.py`, `app/style.css`, `.streamlit/config.toml`) : thème sombre de terminal financier, bandeau d'indicateurs, cartes des trois projets recommandés, journal en ligne du temps, onglet « Vue 3D » (nuage Plotly rentabilité, risque, impact). Fonctions inchangées, tests de `tests/test_app.py` adaptés.
 - 16 nov. : agent évalué sur 5 scénarios et 30 projets en cours, 2 passages, face au pipeline fixe (`reports/tests_agent.md`). Poids cohérents avec la demande dans les 8 analyses menées par le LLM, aucun chiffre ni citation inventé dans l'état final. Deux corrections de `src/agent.py` : relance après une réponse vide du LLM, réponse sans outil gardée dans le journal. Deux reformulations du prompt essayées puis abandonnées. Reste ouvert : `chercher_passages` presque jamais demandé par le LLM, scénario 1 instable d'un passage à l'autre.
 - 17 nov. : application refaite (branche `role4/app-v2`) : thème de quotidien financier sur papier saumon, relief 3D du portefeuille en Three.js (colonnes cliquables qui se réordonnent), poids modifiables en direct sans relancer l'agent, page découpée en fragment pour la fluidité, polices et Three.js copiés dans le dépôt (aucun appel externe).
+- 18 nov. : brouillon de la partie 4 du rapport (`reports/rapport/partie_role4.md`) : théorie (LLM, prompt, appel d'outils, agents, RAG), architecture, choix du modèle, méthode et résultats de l'évaluation, analyse des erreurs, limites, plan des diapositives. Résultats avec les vrais modules à ajouter après la tâche 6.
