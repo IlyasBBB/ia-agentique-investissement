@@ -140,6 +140,74 @@ class IndexTfidf:
         return (self.matrice @ self.vectoriseur.transform([question]).T).toarray().ravel()
 
 
+class IndexEmbeddings:
+    """Moteur avancé : embeddings de phrases (sentence-transformers), similarité cosinus."""
+
+    nom = "embeddings"
+
+    def __init__(self, passages: list[dict], signature: str):
+        os.environ.setdefault("HF_HUB_DISABLE_PROGRESS_BARS", "1")  # sorties propres pour l'agent
+        os.environ.setdefault("TRANSFORMERS_VERBOSITY", "error")
+        from sentence_transformers import SentenceTransformer
+
+        self.passages = passages
+        try:  # modèle déjà téléchargé : aucun accès réseau (démo hors ligne)
+            self.modele = SentenceTransformer(MODELE_EMBEDDINGS, device="cpu", local_files_only=True)
+        except Exception:
+            journal.info("Téléchargement du modèle %s (une seule fois)...", MODELE_EMBEDDINGS)
+            self.modele = SentenceTransformer(MODELE_EMBEDDINGS, device="cpu")
+        fichier = DOSSIER_MODELES / f"embeddings_{signature}.npy"
+        if fichier.exists():
+            self.matrice = np.load(fichier)
+        else:
+            journal.info("Calcul des embeddings de %d passages (une seule fois)...", len(passages))
+            self.matrice = self.modele.encode(
+                [p["indexe"] for p in passages], batch_size=64, normalize_embeddings=True,
+                show_progress_bar=False, convert_to_numpy=True,
+            ).astype(np.float32)
+            DOSSIER_MODELES.mkdir(parents=True, exist_ok=True)
+            np.save(fichier, self.matrice)
+
+    def scores(self, question: str) -> np.ndarray:
+        """Produit scalaire entre vecteurs normés = similarité cosinus."""
+        q = self.modele.encode([question], normalize_embeddings=True, convert_to_numpy=True,
+                               show_progress_bar=False)[0]
+        return self.matrice @ q
+
+
+def signature_documents(documents: dict[str, str]) -> str:
+    """Empreinte du corpus et du découpage : l'index est recalculé si l'un des deux change."""
+    empreinte = hashlib.sha256(
+        f"{MODELE_EMBEDDINGS}|{PHRASES_PAR_PASSAGE}|{PAS_PASSAGE}|{MOTS_MAX_PHRASE}".encode()
+    )
+    for id_projet, texte in sorted(documents.items()):
+        empreinte.update(id_projet.encode())
+        empreinte.update(texte.encode("utf-8"))
+    return empreinte.hexdigest()[:16]
+
+
+def construire_index(methode: str | None = None, documents: dict[str, str] | None = None):
+    """Construit l'index de recherche. methode : "embeddings" (défaut) ou "tfidf".
+
+    Si les embeddings ne sont pas disponibles (bibliothèque ou modèle absent), repli sur TF-IDF.
+    """
+    methode = methode or os.getenv("NLP_RETRIEVE", "embeddings")
+    documents = charger_documents() if documents is None else documents
+    passages = decouper_passages(documents)
+    if methode == "embeddings":
+        try:
+            return IndexEmbeddings(passages, signature_documents(documents))
+        except Exception as erreur:  # pas de réseau au premier lancement, bibliothèque absente...
+            journal.warning("Embeddings indisponibles (%s) : repli sur TF-IDF.", erreur)
+    return IndexTfidf(passages)
+
+
+@lru_cache(maxsize=2)
+def index_par_defaut(methode: str | None = None):
+    """Index sur data/docs/, construit au premier appel puis gardé en mémoire."""
+    return construire_index(methode)
+
+
 def chercher(index, question: str, k: int = 3) -> list[dict]:
     """Les k meilleurs passages d'un index, un seul par projet, du plus au moins pertinent."""
     if not question or not question.strip() or k <= 0:
@@ -156,3 +224,12 @@ def chercher(index, question: str, k: int = 3) -> list[dict]:
         if len(resultats) == k:
             break
     return resultats
+
+
+def retrieve(question: str, k: int = 3) -> list[dict]:
+    """Les k passages les plus pertinents pour la question, du plus au moins pertinent.
+
+    Un seul passage par projet, pour que l'agent voie k projets différents.
+    Format de chaque élément : {"id_projet", "passage", "score"} (modèle Passage du contrat).
+    """
+    return chercher(index_par_defaut(), question, k)
