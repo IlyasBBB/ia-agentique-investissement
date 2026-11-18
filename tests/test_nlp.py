@@ -63,3 +63,26 @@ def test_vrais_documents_tous_decoupes():
     assert len(documents) == 2000
     passages = nlp.decouper_passages(documents)
     assert {p["id_projet"] for p in passages} == set(documents)
+
+
+# --- retrieve ---------------------------------------------------------------
+
+
+def test_chercher_tfidf_format_ordre_et_un_passage_par_projet():
+    index = nlp.IndexTfidf(nlp.decouper_passages(PETIT_CORPUS))
+    resultats = nlp.chercher(index, "solar electricity for rural villages", k=3)
+    assert [r["id_projet"] for r in resultats][0] == "P1"
+    assert len(resultats) == 3
+    assert len({r["id_projet"] for r in resultats}) == 3
+    for r in resultats:
+        Passage(**r)
+    scores = [r["score"] for r in resultats]
+    assert scores == sorted(scores, reverse=True)
+
+
+def test_chercher_cas_limites():
+    index = nlp.IndexTfidf(nlp.decouper_passages(PETIT_CORPUS))
+    assert nlp.chercher(index, "", 3) == []
+    assert nlp.chercher(index, "   ", 3) == []
+    assert nlp.chercher(index, "schools", 0) == []
+    assert len(nlp.chercher(index, "schools", 50)) == 3  # pas plus de projets qu'il n'en existe

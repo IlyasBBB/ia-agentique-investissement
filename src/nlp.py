@@ -116,3 +116,43 @@ def decouper_passages(documents: dict[str, str]) -> list[dict]:
             texte = " ".join(liste[debut:debut + PHRASES_PAR_PASSAGE])
             passages.append({"id_projet": id_projet, "passage": texte, "indexe": f"{nom}. {texte}"})
     return passages
+
+
+# --- Recherche de passages (retrieve) ---------------------------------------
+
+
+class IndexTfidf:
+    """Moteur de référence : TF-IDF sur les passages, similarité cosinus."""
+
+    nom = "tfidf"
+
+    def __init__(self, passages: list[dict]):
+        from sklearn.feature_extraction.text import TfidfVectorizer
+
+        self.passages = passages
+        self.vectoriseur = TfidfVectorizer(
+            lowercase=True, stop_words="english", ngram_range=(1, 2), sublinear_tf=True, min_df=1
+        )
+        self.matrice = self.vectoriseur.fit_transform([p["indexe"] for p in passages])
+
+    def scores(self, question: str) -> np.ndarray:
+        """Similarité cosinus entre la question et chaque passage (vecteurs déjà normés)."""
+        return (self.matrice @ self.vectoriseur.transform([question]).T).toarray().ravel()
+
+
+def chercher(index, question: str, k: int = 3) -> list[dict]:
+    """Les k meilleurs passages d'un index, un seul par projet, du plus au moins pertinent."""
+    if not question or not question.strip() or k <= 0:
+        return []
+    scores = index.scores(question)
+    resultats, vus = [], set()
+    for i in np.argsort(-scores, kind="stable"):
+        id_projet = index.passages[i]["id_projet"]
+        if id_projet in vus:
+            continue
+        vus.add(id_projet)
+        resultats.append({"id_projet": id_projet, "passage": index.passages[i]["passage"],
+                          "score": round(float(scores[i]), 4)})
+        if len(resultats) == k:
+            break
+    return resultats
