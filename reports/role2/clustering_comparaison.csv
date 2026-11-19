@@ -1,0 +1,5 @@
+méthode,groupes,bruit (%),plus petit groupe (%),silhouette,Davies-Bouldin,Calinski-Harabasz,écartée
+K-means (k=2),2,0.0,47.2,0.204,1.801,565.745,False
+Ward (k=2),2,0.0,39.7,0.173,2.078,410.241,False
+DBSCAN (eps=1.93),1,4.2,95.8,,,,True
+Mélange gaussien (7),7,0.0,0.4,0.052,2.965,119.674,True
