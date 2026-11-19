@@ -2,13 +2,14 @@
 from __future__ import annotations
 
 import time
+from math import sqrt
 
 import numpy as np
 import pandas as pd
 import pytest
 
 from src.contrat import CRITERES, POIDS_PAR_DEFAUT, verifier_classement
-from src.mcda import FICHIER_PROJETS, detect_anomalies, normaliser, rank, score_anomalie, somme_ponderee
+from src.mcda import FICHIER_PROJETS, detect_anomalies, normaliser, rank, score_anomalie, somme_ponderee, topsis
 
 
 def matrice_exemple() -> pd.DataFrame:
@@ -221,3 +222,79 @@ def test_detect_anomalies_tableau_vide_et_colonne_obligatoire_absente(projets):
 def test_score_anomalie_positif_exactement_pour_les_projets_signales(projets):
     echantillon = projets.head(200)
     assert ((score_anomalie(echantillon) > 0) == detect_anomalies(echantillon)["anomalie"]).all()
+
+
+# --- Tâche 7 : TOPSIS -----------------------------------------------------------------
+
+def test_topsis_verifie_a_la_main_sur_4_projets():
+    """Calcul fait à la main, étape par étape (chiffres choisis pour des normes rondes)."""
+    m = pd.DataFrame({
+        "id_projet": ["P1", "P2", "P3", "P4"],
+        "rentabilite_predite": [4.0, 2.0, 2.0, 1.0],  # à maximiser, norme racine(16+4+4+1) = 5
+        "cout_total": [1.0, 2.0, 2.0, 4.0],           # à minimiser, norme racine(1+4+4+16) = 5
+        "proba_risque": [0.6, 0.0, 0.8, 0.0],         # à minimiser, norme racine(0,36+0,64) = 1
+    })
+    poids = {"rentabilite_predite": 0.5, "cout_total": 0.3, "proba_risque": 0.2}
+    # Étapes 1 et 2, matrice pondérée v :
+    #   P1 (0,40 ; 0,06 ; 0,12)   P2 (0,20 ; 0,12 ; 0)   P3 (0,20 ; 0,12 ; 0,16)   P4 (0,10 ; 0,24 ; 0)
+    # Étape 3 : idéale (0,40 ; 0,06 ; 0), anti-idéale (0,10 ; 0,24 ; 0,16).
+    # Étape 4, distances :
+    d_plus = [sqrt(0.12**2), sqrt(0.2**2 + 0.06**2), sqrt(0.2**2 + 0.06**2 + 0.16**2), sqrt(0.3**2 + 0.18**2)]
+    d_moins = [sqrt(0.3**2 + 0.18**2 + 0.04**2), sqrt(0.1**2 + 0.12**2 + 0.16**2), sqrt(0.1**2 + 0.12**2), 0.16]
+    # Étape 5 : P1 0,746 ; P2 0,517 ; P3 0,373 ; P4 0,314.
+    attendu = [dm / (dp + dm) for dp, dm in zip(d_plus, d_moins)]
+    score = topsis(m, poids)
+    assert score.tolist() == pytest.approx(attendu)
+    assert score.round(3).tolist() == [0.746, 0.517, 0.373, 0.314]
+
+
+def test_topsis_scores_entre_0_et_1_alignes_sur_l_index():
+    m = matrice_exemple().set_index(pd.Index([10, 20, 30, 40]))
+    score = topsis(m, POIDS_PAR_DEFAUT)
+    assert score.between(0, 1).all()
+    assert list(score.index) == [10, 20, 30, 40]
+
+
+def test_topsis_projet_ideal_vaut_1_et_anti_ideal_0():
+    m = pd.DataFrame({"id_projet": ["bon", "moyen", "mauvais"],
+                      "rentabilite_predite": [12.0, 8.0, 4.0], "proba_risque": [0.1, 0.5, 0.9]})
+    score = topsis(m, {"rentabilite_predite": 0.6, "proba_risque": 0.4})
+    assert score.tolist()[0] == pytest.approx(1.0)
+    assert score.tolist()[2] == pytest.approx(0.0)
+
+
+def test_topsis_un_seul_projet_colonne_constante_et_tous_identiques():
+    assert topsis(matrice_exemple().iloc[[1]], POIDS_PAR_DEFAUT).tolist() == [0.5]
+    identiques = pd.concat([matrice_exemple().iloc[[0]]] * 3, ignore_index=True)
+    assert topsis(identiques, POIDS_PAR_DEFAUT).tolist() == [0.5] * 3
+    # faisabilite est constante (4 partout) : idéale = anti-idéale sur ce critère, il ne
+    # compte pas dans les distances, quelle que soit sa valeur.
+    autre = matrice_exemple().assign(faisabilite=2)
+    assert topsis(autre, POIDS_PAR_DEFAUT).tolist() == pytest.approx(topsis(matrice_exemple(), POIDS_PAR_DEFAUT).tolist())
+
+
+def test_topsis_rentabilite_negative_et_valeur_manquante():
+    m = matrice_exemple()
+    m["rentabilite_predite"] = [-2.0, 5.0, -8.0, 1.0]
+    m.loc[3, "proba_risque"] = np.nan
+    score = topsis(m, {"rentabilite_predite": 1.0})
+    assert score.idxmax() == 1 and score.idxmin() == 2
+    pire = topsis(m, {"proba_risque": 1.0})
+    assert pire[3] == pytest.approx(pire.min())  # manquant = pire valeur (0,9, comme C)
+
+
+def test_topsis_refuse_des_poids_hors_contrat():
+    with pytest.raises(ValueError):
+        topsis(matrice_exemple(), {"rentabilite_predite": 0.4})
+    with pytest.raises(ValueError):
+        topsis(matrice_exemple().drop(columns="cout_total"), POIDS_PAR_DEFAUT)
+
+
+def test_topsis_rapide_sur_2000_projets():
+    rng = np.random.default_rng(42)
+    m = pd.DataFrame({c: rng.random(2000) for c in CRITERES})
+    topsis(m, POIDS_PAR_DEFAUT)
+    debut = time.perf_counter()
+    for _ in range(10):
+        topsis(m, POIDS_PAR_DEFAUT)
+    assert (time.perf_counter() - debut) / 10 * 1000 < 50
