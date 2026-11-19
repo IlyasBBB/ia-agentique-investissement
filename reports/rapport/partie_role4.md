@@ -1,6 +1,6 @@
 # Partie 4 : l'agent, son architecture et son évaluation
 
-Brouillon du 18 novembre 2026. Les résultats viennent des essais du 16 novembre, faits avec les fausses fonctions des rôles 1 à 3. Les passages marqués « À compléter » seront remplis après l'intégration des vrais modules (24 novembre).
+Brouillon du 19 novembre 2026. Deux séries d'essais : le 16 novembre avec les fausses fonctions des rôles 1 à 3, le 19 novembre avec les quatre vrais modules (intégration). Détail dans `reports/tests_agent.md`.
 
 ## 4.1 Fondements théoriques
 
@@ -112,6 +112,8 @@ Vérifications automatiques (`src/scenarios.py`) : respect du contrat, ordre des
 
 ## 4.4 Résultats
 
+### Avec les fausses fonctions (16 novembre)
+
 Sur les dix exécutions de l'agent :
 
 - contrat respecté, aucun plantage ;
@@ -129,7 +131,20 @@ Sur les dix exécutions de l'agent :
 
 Aux scénarios 1 et 3, l'agent recommande d'autres projets que le pipeline fixe, parce qu'il a adapté les poids à la demande. Au scénario 3, les trois projets sont entièrement différents.
 
-À compléter après l'intégration : les mêmes scénarios relancés avec les vrais modules (`python scripts/evaluer_agent.py --passages 2`), en particulier la qualité des passages cités, impossible à juger avec les fausses fonctions.
+### Avec les quatre vrais modules (19 novembre)
+
+Mêmes scénarios, mêmes projets, avec `predict` (rôle 1), `rank` et `detect_anomalies` (rôle 2), `extract` et `retrieve` (rôle 3). Sur les dix exécutions : contrat respecté, aucun plantage, aucun chiffre, identifiant ou citation inventé.
+
+| | 16 novembre (fausses fonctions) | 19 novembre (vrais modules) |
+|---|---|---|
+| Passages cherchés et cités | 1 analyse sur 8 | 8 sur 8 |
+| Alerte citée par le LLM lui-même | 2 sur 8 | 6 sur 8 |
+| Poids cohérents avec la demande | 8 sur 8 | 6 sur 8 (scénario 3) |
+| Mêmes résultats aux deux passages | non pour le scénario 1 | oui pour les 5 scénarios |
+| Demande hors sujet | refus, puis secours | refus, puis secours |
+| Durée d'une analyse complète | 77 s en moyenne | 110 s en moyenne |
+
+L'agent recommande d'autres projets que le pipeline fixe aux scénarios 1, 2 et 3. Au scénario 1 (« peu risqués avec un fort impact environnemental »), il met en tête un programme de réduction des émissions noté 5/5 en impact, et cite un passage de son document. Le pipeline fixe, lui, rend les trois mêmes projets pour toutes les demandes sans poids imposés. Une analyse prend environ deux minutes, contre 0,3 seconde pour le pipeline fixe : les vrais modules renvoient plus d'informations que le LLM doit lire avant de rédiger.
 
 ## 4.5 Analyse des erreurs
 
@@ -138,13 +153,14 @@ Aux scénarios 1 et 3, l'agent recommande d'autres projets que le pipeline fixe,
 | Réponse vide au premier tour (scénario 1) : l'agent abandonnait et prenait les poids par défaut | Le modèle et son serveur : la même demande donne une réponse normale ou vide selon l'état du serveur | Corrigée : une relance automatique. Le scénario aboutit, mais avec des poids un peu différents |
 | Demande hors sujet : la réponse du LLM était perdue | Le code jetait ce texte | Corrigée : le texte est gardé dans le journal |
 | Ligne « Alertes » recopiée telle quelle depuis le format demandé (6 textes sur 8) | Le prompt et la taille du modèle | Non corrigée dans le prompt, rattrapée par le contrôle automatique |
-| `chercher_passages` presque jamais demandé (1 fois sur 8) ; avec le vrai `retrieve`, citation inventée | Le modèle s'arrête après `classer` | Corrigée : l'agent lance la recherche lui-même après `classer`, et le contrôle vérifie que la citation figure dans un passage rendu |
+| `chercher_passages` presque jamais demandé (1 fois sur 8) ; avec le vrai `retrieve`, citation inventée | Le modèle s'arrête après `classer` | Corrigée : l'agent lance la recherche lui-même après `classer`, et le contrôle vérifie que la citation figure dans un passage rendu. Passages cités dans 8 analyses sur 8 à l'intégration |
+| Intégration : poids de l'exemple du prompt recopiés (scénario 3), analyse lancée pour une question de météo (scénario 5) | Une modification du prompt faite la veille pour une autre raison, avec un exemple qui reprenait une demande de test | Corrigée : formulation d'origine rétablie ; le scénario 5 refuse de nouveau, le scénario 3 ne recopie plus l'exemple mais sous-estime encore la faisabilité |
 | Arguments inventés, poids proposés malgré ceux de l'utilisateur | Le modèle imite les exemples du prompt | Sans effet : le code les ignore |
 | Pas de phrase qui relie chaque projet à la demande | Le modèle recopie les résultats des outils | Non corrigée |
 
-Deux reformulations du prompt ont été essayées pour corriger la ligne « Alertes ». La première a bien fait citer l'alerte, mais elle a faussé les poids du scénario 3 (rentabilité 0,26 pour une demande « rapide, peu coûteux, facile »). La seconde a fait inventer une citation dans les 8 textes rédigés. Le prompt d'origine a été gardé : c'est le seul dont toutes les erreurs sont rattrapées par le code. Avec un modèle de 3 milliards de paramètres, changer deux lignes du prompt déplace les erreurs au lieu de les supprimer.
+Deux reformulations du prompt ont été essayées pour corriger la ligne « Alertes ». La première a bien fait citer l'alerte, mais elle a faussé les poids du scénario 3 (rentabilité 0,26 pour une demande « rapide, peu coûteux, facile »). La seconde a fait inventer une citation dans les 8 textes rédigés. Le prompt d'origine a été gardé : c'est le seul dont toutes les erreurs sont rattrapées par le code. Avec un modèle de 3 milliards de paramètres, changer deux lignes du prompt déplace les erreurs au lieu de les supprimer. L'intégration l'a confirmé une troisième fois : trois lignes ajoutées pour une autre raison ont suffi à faire recopier un exemple au LLM.
 
-Autre constat : la température 0 ne suffit pas à rendre les réponses reproductibles. Au scénario 1, le troisième projet recommandé change d'un passage à l'autre.
+Autre constat : la température 0 ne suffit pas à rendre les réponses reproductibles. Le 16 novembre, au scénario 1, le troisième projet recommandé changeait d'un passage à l'autre. À l'intégration, les deux passages ont donné les mêmes résultats pour les cinq scénarios, mais rien ne le garantit.
 
 ## 4.6 Discussion et limites
 
@@ -152,7 +168,7 @@ Sur ces essais, l'apport de l'agent tient au choix des poids. Il traduit une dem
 
 Limites :
 
-- Chiffres factices. Les essais ont été faits avec les fausses fonctions : seul le comportement de l'agent est jugé ici.
+- Cibles simulées. La rentabilité et le risque prédits par le rôle 1 sont appris sur des cibles simulées : l'évaluation juge le comportement de l'agent, pas la valeur réelle des projets recommandés.
 - Petit modèle. `qwen2.5:3b` recopie plus qu'il ne rédige et réagit fortement à la formulation du prompt. Un modèle plus gros n'était pas utilisable dans un délai raisonnable sur ce matériel.
 - Petit échantillon. 30 projets, 5 demandes, 2 passages : assez pour repérer des erreurs, pas pour donner un taux de réussite.
 - Vérifications simples. Elles cherchent des identifiants et des nombres dans le texte. Elles ne jugent pas la clarté de la rédaction.

@@ -1,0 +1,866 @@
+[
+ {
+  "passage": 1,
+  "scenario": 1,
+  "mode": "pipeline_fixe",
+  "demande": "Je veux des projets peu risqués avec un fort impact environnemental",
+  "duree_s": 14.0,
+  "recommandation": "Projets recommandés :\n- rang 1, P157929 Assam Inland Water Transport Project : score 0.913, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5.\n- rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.854, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5.\n- rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5.\nAlerte : 1 dossiers anormaux écartés de la recommandation (P121507). À vérifier avant toute décision.\nPassage à l'appui (P160005) : « The third component, land acquisition, resettlement assistance and safeguards implementation objective is to mitigate the adverse social impacts of the project and enhance the safety and security of communities living along the river banks from the perennial risks of floods and other extreme weather »\nLimites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision, elle ne la remplace pas.",
+  "etapes": [
+   {
+    "outil": "extraire_criteres",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 4.0, alignement_strategique 3.9, faisabilite 4.4.",
+    "duree_s": 0.22
+   },
+   {
+    "outil": "predire",
+    "arguments": {},
+    "resultat": "Prédictions pour 30 projets. Rentabilité prédite moyenne 7.0 %. Risque prédit : {'eleve': 17, 'moyen': 13}.",
+    "duree_s": 0.292
+   },
+   {
+    "outil": "detecter_anomalies",
+    "arguments": {},
+    "resultat": "1 dossiers anormaux, à écarter de la recommandation : P121507.",
+    "duree_s": 0.135
+   },
+   {
+    "outil": "classer",
+    "arguments": {},
+    "resultat": "Poids utilisés : rentabilite_predite 0.25, proba_risque 0.20, cout_total 0.10, duree_mois 0.05, impact_env_social 0.15, alignement_strategique 0.15, faisabilite 0.10. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P157929 Assam Inland Water Transport Project : score 0.913, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5 | rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.854, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5 | rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.016
+   },
+   {
+    "outil": "chercher_passages",
+    "arguments": {
+     "question": "Je veux des projets peu risqués avec un fort impact environnemental"
+    },
+    "resultat": "P160005 : « The third component, land acquisition, resettlement assistance and safeguards implementation objective is to mitigate the adverse social impacts of the project and enhance the safety and security of c » | P163260 : « The Project Development Objective is to contribute to improved sustainable landscape management and access to water supply and sanitation services in targeted river basins. The development objective o » | P162929 : « The proposed PDO is to support the Borrower to: (1) improve access to selected urban infrastructure (including public spaces) and services in Participating Cities; and (2) to strengthen the institutio »",
+    "duree_s": 13.308
+   }
+  ]
+ },
+ {
+  "passage": 1,
+  "scenario": 1,
+  "mode": "agent",
+  "demande": "Je veux des projets peu risqués avec un fort impact environnemental",
+  "duree_s": 132.6,
+  "recommandation": "Projets recommandés :\n1. P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.861, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5.\n2. P157929 Assam Inland Water Transport Project : score 0.854, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5.\n3. P160005 Climate Resilience Multi-Phase Programmatic Approach : score 0.830, rentabilité prédite 6.62 %, probabilité de risque élevé 0.15, impact 5/5, alignement 4/5, faisabilité 5/5.\n\nAlertes : les dossiers anormaux écartés, ou « aucune ».\n\nPassages cités :\nP155827 : « 1) The first component, Emission Reductions payments distributed in accordance with agreed Benefit Sharing Plan, has the following sub-components: (i) Payment for ER credits; and (ii) Distribution of  »\nP157929 : « This project has three components. 1) The first component, Institutional, regulatory and safety strengthening, includes technical assistance and safety management. 2) The second component, Fleet safet »\nP160005 : « The Project Development Objective of the first phase is to enhance the capacity of the Government to deliver improved weather and climate forecasting and early warning; and to reduce flood risks in th »\n\nProjets à éviter en raison de leurs caractéristiques anormales : P121507.",
+  "etapes": [
+   {
+    "outil": "llm",
+    "arguments": {},
+    "resultat": "Réponse vide du LLM : une relance lui est envoyée.",
+    "duree_s": 25.124
+   },
+   {
+    "outil": "extraire_criteres",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 4.0, alignement_strategique 3.9, faisabilite 4.4.",
+    "duree_s": 0.188
+   },
+   {
+    "outil": "predire",
+    "arguments": {},
+    "resultat": "Prédictions pour 30 projets. Rentabilité prédite moyenne 7.0 %. Risque prédit : {'eleve': 17, 'moyen': 13}.",
+    "duree_s": 0.005
+   },
+   {
+    "outil": "detecter_anomalies",
+    "arguments": {},
+    "resultat": "1 dossiers anormaux, à écarter de la recommandation : P121507.",
+    "duree_s": 0.038
+   },
+   {
+    "outil": "classer",
+    "arguments": {
+     "poids": {
+      "alignement_strategique": 0.05,
+      "cout_total": 0.05,
+      "duree_mois": 0.05,
+      "faisabilite": 0.05,
+      "impact_env_social": 0.4,
+      "proba_risque": 0.4,
+      "rentabilite_predite": 0.2
+     }
+    },
+    "resultat": "Poids utilisés : rentabilite_predite 0.17, proba_risque 0.33, cout_total 0.04, duree_mois 0.04, impact_env_social 0.33, alignement_strategique 0.04, faisabilite 0.04. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.861, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5 | rang 2, P157929 Assam Inland Water Transport Project : score 0.854, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5 | rang 3, P160005 Climate Resilience Multi-Phase Programmatic Approach : score 0.830, rentabilité prédite 6.62 %, probabilité de risque élevé 0.15, impact 5/5, alignement 4/5, faisabilité 5/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.02
+   },
+   {
+    "outil": "chercher_passages",
+    "arguments": {
+     "question": "EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT. Assam Inland Water Transport Project. Climate Resilience Multi-Phase Programmatic Approach",
+     "lance_par": "agent"
+    },
+    "resultat": "P155827 : « 1) The first component, Emission Reductions payments distributed in accordance with agreed Benefit Sharing Plan, has the following sub-components: (i) Payment for ER credits; and (ii) Distribution of  » | P160005 : « The Project Development Objective of the first phase is to enhance the capacity of the Government to deliver improved weather and climate forecasting and early warning; and to reduce flood risks in th » | P157929 : « This project has three components. 1) The first component, Institutional, regulatory and safety strengthening, includes technical assistance and safety management. 2) The second component, Fleet safet »",
+    "duree_s": 0.027
+   }
+  ]
+ },
+ {
+  "passage": 1,
+  "scenario": 2,
+  "mode": "pipeline_fixe",
+  "demande": "Je cherche les projets les plus rentables, même s'ils sont risqués",
+  "duree_s": 0.3,
+  "recommandation": "Projets recommandés :\n- rang 1, P157929 Assam Inland Water Transport Project : score 0.913, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5.\n- rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.854, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5.\n- rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5.\nAlerte : 1 dossiers anormaux écartés de la recommandation (P121507). À vérifier avant toute décision.\nPassage à l'appui (P162929) : « First component, improvement of urban services and enhancement of public urban spaces will finance a targeted bundle of integrated and multi-sectoral investments to contribute to the enhancement of selected public urban spaces in project cities and improve livability; Second component, institutional »\nLimites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision, elle ne la remplace pas.",
+  "etapes": [
+   {
+    "outil": "extraire_criteres",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 4.0, alignement_strategique 3.9, faisabilite 4.4.",
+    "duree_s": 0.193
+   },
+   {
+    "outil": "predire",
+    "arguments": {},
+    "resultat": "Prédictions pour 30 projets. Rentabilité prédite moyenne 7.0 %. Risque prédit : {'eleve': 17, 'moyen': 13}.",
+    "duree_s": 0.003
+   },
+   {
+    "outil": "detecter_anomalies",
+    "arguments": {},
+    "resultat": "1 dossiers anormaux, à écarter de la recommandation : P121507.",
+    "duree_s": 0.029
+   },
+   {
+    "outil": "classer",
+    "arguments": {},
+    "resultat": "Poids utilisés : rentabilite_predite 0.25, proba_risque 0.20, cout_total 0.10, duree_mois 0.05, impact_env_social 0.15, alignement_strategique 0.15, faisabilite 0.10. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P157929 Assam Inland Water Transport Project : score 0.913, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5 | rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.854, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5 | rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.015
+   },
+   {
+    "outil": "chercher_passages",
+    "arguments": {
+     "question": "Je cherche les projets les plus rentables, même s'ils sont risqués"
+    },
+    "resultat": "P162929 : « First component, improvement of urban services and enhancement of public urban spaces will finance a targeted bundle of integrated and multi-sectoral investments to contribute to the enhancement of se » | P150572 : « The project will achieve this objective through (i) the systematic introduction of designs that include climate proofing and road safety measures and the use of performance based contracts; and (ii) b » | P162094 : « The project comprises of three components. The first component, institutional strengthening for integrated urban water management and utility management, and creating an enabling environment for priva »",
+    "duree_s": 0.025
+   }
+  ]
+ },
+ {
+  "passage": 1,
+  "scenario": 2,
+  "mode": "agent",
+  "demande": "Je cherche les projets les plus rentables, même s'ils sont risqués",
+  "duree_s": 110.6,
+  "recommandation": "Projets recommandés :\n1. P157929 Assam Inland Water Transport Project : 0.959, 10.63 %, 0.12, impact 4/5, alignement 4/5, faisabilité 5/5.\n2. P162454 IQ: Basra Electricity Dissemination and Development Project (EDDP) : 0.928, 10.08 %, 0.11, impact 2/5, alignement 3/5, faisabilité 5/5.\n3. P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : 0.890, 10.13 %, 0.37, impact 5/5, alignement 4/5, faisabilité 3/5.\n\nAlertes : dossiers anormaux à signaler en alerte : P121507.\n\nPassage cité :\nP157929 : « This project has three components. 1) The first component, Institutional, regulatory and safety strengthening, includes technical assistance and safety management. 2) The second component, Fleet safet »\n\nLimites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision et ne la remplace pas.",
+  "etapes": [
+   {
+    "outil": "extraire_criteres",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 4.0, alignement_strategique 3.9, faisabilite 4.4.",
+    "duree_s": 0.261
+   },
+   {
+    "outil": "predire",
+    "arguments": {},
+    "resultat": "Prédictions pour 30 projets. Rentabilité prédite moyenne 7.0 %. Risque prédit : {'eleve': 17, 'moyen': 13}.",
+    "duree_s": 0.004
+   },
+   {
+    "outil": "detecter_anomalies",
+    "arguments": {},
+    "resultat": "1 dossiers anormaux, à écarter de la recommandation : P121507.",
+    "duree_s": 0.036
+   },
+   {
+    "outil": "classer",
+    "arguments": {
+     "poids": {
+      "alignement_strategique": 0.05,
+      "cout_total": 0.15,
+      "duree_mois": 0.1,
+      "faisabilite": 0.05,
+      "impact_env_social": 0.05,
+      "proba_risque": 0.2,
+      "rentabilite_predite": 0.5
+     }
+    },
+    "resultat": "Poids utilisés : rentabilite_predite 0.45, proba_risque 0.18, cout_total 0.14, duree_mois 0.09, impact_env_social 0.05, alignement_strategique 0.05, faisabilite 0.05. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P157929 Assam Inland Water Transport Project : score 0.959, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5 | rang 2, P162454 IQ: Basra Electricity Dissemination and Development Project (EDDP) : score 0.928, rentabilité prédite 10.08 %, probabilité de risque élevé 0.11, impact 2/5, alignement 3/5, faisabilité 5/5 | rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.890, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.024
+   },
+   {
+    "outil": "chercher_passages",
+    "arguments": {
+     "question": "Assam Inland Water Transport Project. IQ: Basra Electricity Dissemination and Development Project (EDDP). Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project",
+     "lance_par": "agent"
+    },
+    "resultat": "P157929 : « This project has three components. 1) The first component, Institutional, regulatory and safety strengthening, includes technical assistance and safety management. 2) The second component, Fleet safet » | P158003 : « The project's global environmental objective (GEO) is the same as the project's development objective (PDO), namely, to improve governance and promote sustainable land use activities in order to reduc » | P121507 : « The overall project development objective is to facilitate the expansion of electricity supply of hydro-power in Pakistan. The Project would also improve access to socio-economic services for local co »",
+    "duree_s": 0.033
+   }
+  ]
+ },
+ {
+  "passage": 1,
+  "scenario": 3,
+  "mode": "pipeline_fixe",
+  "demande": "Je veux des projets rapides à réaliser, peu coûteux et faciles à mettre en œuvre",
+  "duree_s": 0.4,
+  "recommandation": "Projets recommandés :\n- rang 1, P157929 Assam Inland Water Transport Project : score 0.913, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5.\n- rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.854, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5.\n- rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5.\nAlerte : 1 dossiers anormaux écartés de la recommandation (P121507). À vérifier avant toute décision.\nPassage à l'appui (P162929) : « (ii) sustainable tourism development; and (iii) cooperation with the private sector. It has two subcomponents: (i) institutional strengthening and capacity building of participating cities and (ii) support to the national medium-size cities program (NMSCP); Third component, implementation support wi »\nLimites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision, elle ne la remplace pas.",
+  "etapes": [
+   {
+    "outil": "extraire_criteres",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 4.0, alignement_strategique 3.9, faisabilite 4.4.",
+    "duree_s": 0.293
+   },
+   {
+    "outil": "predire",
+    "arguments": {},
+    "resultat": "Prédictions pour 30 projets. Rentabilité prédite moyenne 7.0 %. Risque prédit : {'eleve': 17, 'moyen': 13}.",
+    "duree_s": 0.006
+   },
+   {
+    "outil": "detecter_anomalies",
+    "arguments": {},
+    "resultat": "1 dossiers anormaux, à écarter de la recommandation : P121507.",
+    "duree_s": 0.039
+   },
+   {
+    "outil": "classer",
+    "arguments": {},
+    "resultat": "Poids utilisés : rentabilite_predite 0.25, proba_risque 0.20, cout_total 0.10, duree_mois 0.05, impact_env_social 0.15, alignement_strategique 0.15, faisabilite 0.10. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P157929 Assam Inland Water Transport Project : score 0.913, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5 | rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.854, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5 | rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.034
+   },
+   {
+    "outil": "chercher_passages",
+    "arguments": {
+     "question": "Je veux des projets rapides à réaliser, peu coûteux et faciles à mettre en œuvre"
+    },
+    "resultat": "P162929 : « (ii) sustainable tourism development; and (iii) cooperation with the private sector. It has two subcomponents: (i) institutional strengthening and capacity building of participating cities and (ii) su » | P160427 : « The Project Development Objective is to enhance transmission capacity for domestic and regional markets and increase electricity generation capacity through private sector participation. The developme » | P163260 : « The Project Development Objective is to contribute to improved sustainable landscape management and access to water supply and sanitation services in targeted river basins. The development objective o »",
+    "duree_s": 0.044
+   }
+  ]
+ },
+ {
+  "passage": 1,
+  "scenario": 3,
+  "mode": "agent",
+  "demande": "Je veux des projets rapides à réaliser, peu coûteux et faciles à mettre en œuvre",
+  "duree_s": 115.8,
+  "recommandation": "Projets recommandés :\n1. P157929 Assam Inland Water Transport Project : 0.926, 10.63 %, 0.12, impact 4/5, alignement 4/5, faisabilité 5/5.\n2. P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : 0.887, 7.74 %, 0.14, impact 5/5, alignement 5/5, faisabilité 4/5.\n3. P161534 Climate-Smart Agriculture and Water Management Project : 0.859, 7.17 %, 0.31, impact 5/5, alignement 5/5, faisabilité 5/5.\n\nAlertes : les dossiers anormaux écartés, ou « aucune ».\n\nPassage cité : \nP157929 : « This project has three components. 1) The first component, Institutional, regulatory and safety strengthening, includes technical assistance and safety management. »\n\nLimites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision et ne la remplace pas.\n\nContrôle automatique :\n- Alerte oubliée : 1 dossiers anormaux écartés de la recommandation (P121507).",
+  "etapes": [
+   {
+    "outil": "extraire_criteres",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 4.0, alignement_strategique 3.9, faisabilite 4.4.",
+    "duree_s": 0.562
+   },
+   {
+    "outil": "predire",
+    "arguments": {},
+    "resultat": "Prédictions pour 30 projets. Rentabilité prédite moyenne 7.0 %. Risque prédit : {'eleve': 17, 'moyen': 13}.",
+    "duree_s": 0.008
+   },
+   {
+    "outil": "detecter_anomalies",
+    "arguments": {},
+    "resultat": "1 dossiers anormaux, à écarter de la recommandation : P121507.",
+    "duree_s": 0.064
+   },
+   {
+    "outil": "classer",
+    "arguments": {
+     "poids": {
+      "alignement_strategique": 0.1,
+      "cout_total": 0.1,
+      "duree_mois": 0.4,
+      "faisabilite": 0.1,
+      "impact_env_social": 0.1,
+      "proba_risque": 0.1,
+      "rentabilite_predite": 0.2
+     }
+    },
+    "resultat": "Poids utilisés : rentabilite_predite 0.18, proba_risque 0.09, cout_total 0.09, duree_mois 0.36, impact_env_social 0.09, alignement_strategique 0.09, faisabilite 0.09. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P157929 Assam Inland Water Transport Project : score 0.926, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5 | rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.887, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5 | rang 3, P161534 Climate-Smart Agriculture and Water Management Project : score 0.859, rentabilité prédite 7.17 %, probabilité de risque élevé 0.31, impact 5/5, alignement 5/5, faisabilité 5/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.059
+   },
+   {
+    "outil": "chercher_passages",
+    "arguments": {
+     "question": "Assam Inland Water Transport Project. EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT. Climate-Smart Agriculture and Water Management Project",
+     "lance_par": "agent"
+    },
+    "resultat": "P157929 : « This project has three components. 1) The first component, Institutional, regulatory and safety strengthening, includes technical assistance and safety management. 2) The second component, Fleet safet » | P161534 : « The first component is improved climate resilience of flood control, drainage and irrigation infrastructure systems. It consists of following sub-components: (i) flood control and drainage (FCD) and f » | P155827 : « 1) The first component, Emission Reductions payments distributed in accordance with agreed Benefit Sharing Plan, has the following sub-components: (i) Payment for ER credits; and (ii) Distribution of  »",
+    "duree_s": 0.052
+   }
+  ]
+ },
+ {
+  "passage": 1,
+  "scenario": 4,
+  "mode": "pipeline_fixe",
+  "demande": "Classe les projets avec les poids que j'ai fixés",
+  "duree_s": 0.3,
+  "recommandation": "Projets recommandés :\n- rang 1, P157929 Assam Inland Water Transport Project : score 0.970, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5.\n- rang 2, P157245 Improvement of Solid Waste Management to Support Regional and Metropolitan Cities : score 0.964, rentabilité prédite 8.88 %, probabilité de risque élevé 0.77, impact 4/5, alignement 5/5, faisabilité 5/5.\n- rang 3, P150572 KH - Road Asset Management Project II : score 0.963, rentabilité prédite 8.62 %, probabilité de risque élevé 0.87, impact 4/5, alignement 4/5, faisabilité 5/5.\nAlerte : 1 dossiers anormaux écartés de la recommandation (P121507). À vérifier avant toute décision.\nPassage à l'appui (P162094) : « The Project Development Objective (PDO) is to improve the quality of drinking water supply and wastewater services in Baghdad. The development objective of the Baghdad Water and Sewerage Improvement Project for Iraq is to improve the quality of drinking water supply and wastewater services in Baghda »\nLimites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision, elle ne la remplace pas.",
+  "etapes": [
+   {
+    "outil": "extraire_criteres",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 4.0, alignement_strategique 3.9, faisabilite 4.4.",
+    "duree_s": 0.195
+   },
+   {
+    "outil": "predire",
+    "arguments": {},
+    "resultat": "Prédictions pour 30 projets. Rentabilité prédite moyenne 7.0 %. Risque prédit : {'eleve': 17, 'moyen': 13}.",
+    "duree_s": 0.003
+   },
+   {
+    "outil": "detecter_anomalies",
+    "arguments": {},
+    "resultat": "1 dossiers anormaux, à écarter de la recommandation : P121507.",
+    "duree_s": 0.033
+   },
+   {
+    "outil": "classer",
+    "arguments": {},
+    "resultat": "Poids utilisés : rentabilite_predite 0.20, cout_total 0.30, faisabilite 0.50. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P157929 Assam Inland Water Transport Project : score 0.970, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5 | rang 2, P157245 Improvement of Solid Waste Management to Support Regional and Metropolitan Cities : score 0.964, rentabilité prédite 8.88 %, probabilité de risque élevé 0.77, impact 4/5, alignement 5/5, faisabilité 5/5 | rang 3, P150572 KH - Road Asset Management Project II : score 0.963, rentabilité prédite 8.62 %, probabilité de risque élevé 0.87, impact 4/5, alignement 4/5, faisabilité 5/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.015
+   },
+   {
+    "outil": "chercher_passages",
+    "arguments": {
+     "question": "Classe les projets avec les poids que j'ai fixés"
+    },
+    "resultat": "P162094 : « The Project Development Objective (PDO) is to improve the quality of drinking water supply and wastewater services in Baghdad. The development objective of the Baghdad Water and Sewerage Improvement P » | P151439 : « (iii) pumping and transmission facilities at La Pradera pre-treatment station, and (iv) the construction of a sludge digester; and (v) the specialized independent supervision of the construction of th » | P159655 : « There are four components to the project, the first component being budget as tool for development. This component aims to increase budget credibility by improving the efficiency of budget processes,  »",
+    "duree_s": 0.027
+   }
+  ]
+ },
+ {
+  "passage": 1,
+  "scenario": 4,
+  "mode": "agent",
+  "demande": "Classe les projets avec les poids que j'ai fixés",
+  "duree_s": 90.7,
+  "recommandation": "Projets recommandés :\n1. P157929 Assam Inland Water Transport Project : score 0.970, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5.\n2. P157245 Improvement of Solid Waste Management to Support Regional and Metropolitan Cities : score 0.964, rentabilité prédite 8.88 %, probabilité de risque élevé 0.77, impact 4/5, alignement 5/5, faisabilité 5/5.\n\nAlertes : les dossiers anormaux P121507 à signaler en alerte.\nPassage cité : \nP157929 : « The objectives of the Project are to: (a) improve passenger ferry infrastructure and service in Assam, and (b) improve the institutional capacity and framework for inland water transport in Assam The  »\nP157245 : « The project comprises of four components. The first component, institutional and policy development will support institutional strengthening and capacity building of central government agencies respon »\nP161477 : « This project has three components. 1) The first component, Strengthening Sector Governance and Institutional Capacity,has the following sub-components: (i) Operationalization of the existing laws and  »\n\nContrôle automatique :\n- Projet à recommander oublié dans le texte : rang 3, P150572 KH - Road Asset Management Project II : score 0.963, rentabilité prédite 8.62 %, probabilité de risque élevé 0.87, impact 4/5, alignement 4/5, faisabilité 5/5.",
+  "etapes": [
+   {
+    "outil": "classer",
+    "arguments": {
+     "poids": {
+      "alignement_strategique": 0.1,
+      "cout_total": 0.1,
+      "duree_mois": 0.3,
+      "faisabilite": 0.1,
+      "impact_env_social": 0.1,
+      "proba_risque": 0.1,
+      "rentabilite_predite": 0.4
+     }
+    },
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 4.0, alignement_strategique 3.9, faisabilite 4.4. Prédictions pour 30 projets. Rentabilité prédite moyenne 7.0 %. Risque prédit : {'eleve': 17, 'moyen': 13}. 1 dossiers anormaux, à écarter de la recommandation : P121507. Poids utilisés : rentabilite_predite 0.20, cout_total 0.30, faisabilite 0.50. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P157929 Assam Inland Water Transport Project : score 0.970, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5 | rang 2, P157245 Improvement of Solid Waste Management to Support Regional and Metropolitan Cities : score 0.964, rentabilité prédite 8.88 %, probabilité de risque élevé 0.77, impact 4/5, alignement 5/5, faisabilité 5/5 | rang 3, P150572 KH - Road Asset Management Project II : score 0.963, rentabilité prédite 8.62 %, probabilité de risque élevé 0.87, impact 4/5, alignement 4/5, faisabilité 5/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.249
+   },
+   {
+    "outil": "chercher_passages",
+    "arguments": {
+     "question": "Assam Inland Water Transport Project. Improvement of Solid Waste Management to Support Regional and Metropolitan Cities. KH - Road Asset Management Project II",
+     "lance_par": "agent"
+    },
+    "resultat": "P157929 : « The objectives of the Project are to: (a) improve passenger ferry infrastructure and service in Assam, and (b) improve the institutional capacity and framework for inland water transport in Assam The  » | P157245 : « The project comprises of four components. The first component, institutional and policy development will support institutional strengthening and capacity building of central government agencies respon » | P161477 : « This project has three components. 1) The first component, Strengthening Sector Governance and Institutional Capacity,has the following sub-components: (i) Operationalization of the existing laws and  »",
+    "duree_s": 0.023
+   }
+  ]
+ },
+ {
+  "passage": 1,
+  "scenario": 5,
+  "mode": "pipeline_fixe",
+  "demande": "Quel temps fera-t-il demain ?",
+  "duree_s": 0.3,
+  "recommandation": "Projets recommandés :\n- rang 1, P157929 Assam Inland Water Transport Project : score 0.913, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5.\n- rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.854, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5.\n- rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5.\nAlerte : 1 dossiers anormaux écartés de la recommandation (P121507). À vérifier avant toute décision.\nPassage à l'appui (P160427) : « The Project Development Objective is to enhance transmission capacity for domestic and regional markets and increase electricity generation capacity through private sector participation. The development objective of the Temane Regional Electricity Project for Mozambique is to enhance transmission ca »\nLimites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision, elle ne la remplace pas.",
+  "etapes": [
+   {
+    "outil": "extraire_criteres",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 4.0, alignement_strategique 3.9, faisabilite 4.4.",
+    "duree_s": 0.188
+   },
+   {
+    "outil": "predire",
+    "arguments": {},
+    "resultat": "Prédictions pour 30 projets. Rentabilité prédite moyenne 7.0 %. Risque prédit : {'eleve': 17, 'moyen': 13}.",
+    "duree_s": 0.003
+   },
+   {
+    "outil": "detecter_anomalies",
+    "arguments": {},
+    "resultat": "1 dossiers anormaux, à écarter de la recommandation : P121507.",
+    "duree_s": 0.031
+   },
+   {
+    "outil": "classer",
+    "arguments": {},
+    "resultat": "Poids utilisés : rentabilite_predite 0.25, proba_risque 0.20, cout_total 0.10, duree_mois 0.05, impact_env_social 0.15, alignement_strategique 0.15, faisabilite 0.10. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P157929 Assam Inland Water Transport Project : score 0.913, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5 | rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.854, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5 | rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.016
+   },
+   {
+    "outil": "chercher_passages",
+    "arguments": {
+     "question": "Quel temps fera-t-il demain ?"
+    },
+    "resultat": "P160427 : « The Project Development Objective is to enhance transmission capacity for domestic and regional markets and increase electricity generation capacity through private sector participation. The developme » | P160005 : « The project comprises of five components. The first component, forecasting and early warning of high impact weather, floods, and landslides objective is to enhance the capability and the performance o » | P163260 : « The Project Development Objective is to contribute to improved sustainable landscape management and access to water supply and sanitation services in targeted river basins. The development objective o »",
+    "duree_s": 0.025
+   }
+  ]
+ },
+ {
+  "passage": 1,
+  "scenario": 5,
+  "mode": "agent",
+  "demande": "Quel temps fera-t-il demain ?",
+  "duree_s": 13.6,
+  "recommandation": "L'agent n'a pas terminé (le LLM a répondu sans classer les projets). Recommandation produite sans LLM :\nProjets recommandés :\n- rang 1, P157929 Assam Inland Water Transport Project : score 0.913, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5.\n- rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.854, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5.\n- rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5.\nAlerte : 1 dossiers anormaux écartés de la recommandation (P121507). À vérifier avant toute décision.\nLimites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision, elle ne la remplace pas.",
+  "etapes": [
+   {
+    "outil": "llm",
+    "arguments": {},
+    "resultat": "Réponse du LLM sans outil, non reprise : Les demandes \"Quel temps fera-t-il demain ?\" ne sont pas gérées par les outils mis à disposition. Ces outils sont conçus pour l'analyse des projets d'investissement et non pour la météorologie. Je ne peux donc pas les utiliser pour répondre à cette demande.",
+    "duree_s": 13.039
+   },
+   {
+    "outil": "classer",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 4.0, alignement_strategique 3.9, faisabilite 4.4. Prédictions pour 30 projets. Rentabilité prédite moyenne 7.0 %. Risque prédit : {'eleve': 17, 'moyen': 13}. 1 dossiers anormaux, à écarter de la recommandation : P121507. Poids utilisés : rentabilite_predite 0.25, proba_risque 0.20, cout_total 0.10, duree_mois 0.05, impact_env_social 0.15, alignement_strategique 0.15, faisabilite 0.10. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P157929 Assam Inland Water Transport Project : score 0.913, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5 | rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.854, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5 | rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.251
+   }
+  ]
+ },
+ {
+  "passage": 2,
+  "scenario": 1,
+  "mode": "pipeline_fixe",
+  "demande": "Je veux des projets peu risqués avec un fort impact environnemental",
+  "duree_s": 0.3,
+  "recommandation": "Projets recommandés :\n- rang 1, P157929 Assam Inland Water Transport Project : score 0.913, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5.\n- rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.854, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5.\n- rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5.\nAlerte : 1 dossiers anormaux écartés de la recommandation (P121507). À vérifier avant toute décision.\nPassage à l'appui (P160005) : « The third component, land acquisition, resettlement assistance and safeguards implementation objective is to mitigate the adverse social impacts of the project and enhance the safety and security of communities living along the river banks from the perennial risks of floods and other extreme weather »\nLimites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision, elle ne la remplace pas.",
+  "etapes": [
+   {
+    "outil": "extraire_criteres",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 4.0, alignement_strategique 3.9, faisabilite 4.4.",
+    "duree_s": 0.163
+   },
+   {
+    "outil": "predire",
+    "arguments": {},
+    "resultat": "Prédictions pour 30 projets. Rentabilité prédite moyenne 7.0 %. Risque prédit : {'eleve': 17, 'moyen': 13}.",
+    "duree_s": 0.002
+   },
+   {
+    "outil": "detecter_anomalies",
+    "arguments": {},
+    "resultat": "1 dossiers anormaux, à écarter de la recommandation : P121507.",
+    "duree_s": 0.038
+   },
+   {
+    "outil": "classer",
+    "arguments": {},
+    "resultat": "Poids utilisés : rentabilite_predite 0.25, proba_risque 0.20, cout_total 0.10, duree_mois 0.05, impact_env_social 0.15, alignement_strategique 0.15, faisabilite 0.10. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P157929 Assam Inland Water Transport Project : score 0.913, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5 | rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.854, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5 | rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.016
+   },
+   {
+    "outil": "chercher_passages",
+    "arguments": {
+     "question": "Je veux des projets peu risqués avec un fort impact environnemental"
+    },
+    "resultat": "P160005 : « The third component, land acquisition, resettlement assistance and safeguards implementation objective is to mitigate the adverse social impacts of the project and enhance the safety and security of c » | P163260 : « The Project Development Objective is to contribute to improved sustainable landscape management and access to water supply and sanitation services in targeted river basins. The development objective o » | P162929 : « The proposed PDO is to support the Borrower to: (1) improve access to selected urban infrastructure (including public spaces) and services in Participating Cities; and (2) to strengthen the institutio »",
+    "duree_s": 0.028
+   }
+  ]
+ },
+ {
+  "passage": 2,
+  "scenario": 1,
+  "mode": "agent",
+  "demande": "Je veux des projets peu risqués avec un fort impact environnemental",
+  "duree_s": 136.5,
+  "recommandation": "Projets recommandés :\n1. P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.861, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5.\n2. P157929 Assam Inland Water Transport Project : score 0.854, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5.\n3. P160005 Climate Resilience Multi-Phase Programmatic Approach : score 0.830, rentabilité prédite 6.62 %, probabilité de risque élevé 0.15, impact 5/5, alignement 4/5, faisabilité 5/5.\n\nAlertes : les dossiers anormaux écartés, ou « aucune ».\n\nPassages cités :\nP155827 : « 1) The first component, Emission Reductions payments distributed in accordance with agreed Benefit Sharing Plan, has the following sub-components: (i) Payment for ER credits; and (ii) Distribution of  »\nP157929 : « This project has three components. 1) The first component, Institutional, regulatory and safety strengthening, includes technical assistance and safety management. 2) The second component, Fleet safet »\nP160005 : « The Project Development Objective of the first phase is to enhance the capacity of the Government to deliver improved weather and climate forecasting and early warning; and to reduce flood risks in th »\n\nProjets à éviter en raison de leurs caractéristiques anormales : P121507.",
+  "etapes": [
+   {
+    "outil": "llm",
+    "arguments": {},
+    "resultat": "Réponse vide du LLM : une relance lui est envoyée.",
+    "duree_s": 28.219
+   },
+   {
+    "outil": "extraire_criteres",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 4.0, alignement_strategique 3.9, faisabilite 4.4.",
+    "duree_s": 0.201
+   },
+   {
+    "outil": "predire",
+    "arguments": {},
+    "resultat": "Prédictions pour 30 projets. Rentabilité prédite moyenne 7.0 %. Risque prédit : {'eleve': 17, 'moyen': 13}.",
+    "duree_s": 0.003
+   },
+   {
+    "outil": "detecter_anomalies",
+    "arguments": {},
+    "resultat": "1 dossiers anormaux, à écarter de la recommandation : P121507.",
+    "duree_s": 0.05
+   },
+   {
+    "outil": "classer",
+    "arguments": {
+     "poids": {
+      "alignement_strategique": 0.05,
+      "cout_total": 0.05,
+      "duree_mois": 0.05,
+      "faisabilite": 0.05,
+      "impact_env_social": 0.4,
+      "proba_risque": 0.4,
+      "rentabilite_predite": 0.2
+     }
+    },
+    "resultat": "Poids utilisés : rentabilite_predite 0.17, proba_risque 0.33, cout_total 0.04, duree_mois 0.04, impact_env_social 0.33, alignement_strategique 0.04, faisabilite 0.04. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.861, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5 | rang 2, P157929 Assam Inland Water Transport Project : score 0.854, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5 | rang 3, P160005 Climate Resilience Multi-Phase Programmatic Approach : score 0.830, rentabilité prédite 6.62 %, probabilité de risque élevé 0.15, impact 5/5, alignement 4/5, faisabilité 5/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.02
+   },
+   {
+    "outil": "chercher_passages",
+    "arguments": {
+     "question": "EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT. Assam Inland Water Transport Project. Climate Resilience Multi-Phase Programmatic Approach",
+     "lance_par": "agent"
+    },
+    "resultat": "P155827 : « 1) The first component, Emission Reductions payments distributed in accordance with agreed Benefit Sharing Plan, has the following sub-components: (i) Payment for ER credits; and (ii) Distribution of  » | P160005 : « The Project Development Objective of the first phase is to enhance the capacity of the Government to deliver improved weather and climate forecasting and early warning; and to reduce flood risks in th » | P157929 : « This project has three components. 1) The first component, Institutional, regulatory and safety strengthening, includes technical assistance and safety management. 2) The second component, Fleet safet »",
+    "duree_s": 0.028
+   }
+  ]
+ },
+ {
+  "passage": 2,
+  "scenario": 2,
+  "mode": "pipeline_fixe",
+  "demande": "Je cherche les projets les plus rentables, même s'ils sont risqués",
+  "duree_s": 0.3,
+  "recommandation": "Projets recommandés :\n- rang 1, P157929 Assam Inland Water Transport Project : score 0.913, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5.\n- rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.854, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5.\n- rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5.\nAlerte : 1 dossiers anormaux écartés de la recommandation (P121507). À vérifier avant toute décision.\nPassage à l'appui (P162929) : « First component, improvement of urban services and enhancement of public urban spaces will finance a targeted bundle of integrated and multi-sectoral investments to contribute to the enhancement of selected public urban spaces in project cities and improve livability; Second component, institutional »\nLimites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision, elle ne la remplace pas.",
+  "etapes": [
+   {
+    "outil": "extraire_criteres",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 4.0, alignement_strategique 3.9, faisabilite 4.4.",
+    "duree_s": 0.249
+   },
+   {
+    "outil": "predire",
+    "arguments": {},
+    "resultat": "Prédictions pour 30 projets. Rentabilité prédite moyenne 7.0 %. Risque prédit : {'eleve': 17, 'moyen': 13}.",
+    "duree_s": 0.003
+   },
+   {
+    "outil": "detecter_anomalies",
+    "arguments": {},
+    "resultat": "1 dossiers anormaux, à écarter de la recommandation : P121507.",
+    "duree_s": 0.031
+   },
+   {
+    "outil": "classer",
+    "arguments": {},
+    "resultat": "Poids utilisés : rentabilite_predite 0.25, proba_risque 0.20, cout_total 0.10, duree_mois 0.05, impact_env_social 0.15, alignement_strategique 0.15, faisabilite 0.10. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P157929 Assam Inland Water Transport Project : score 0.913, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5 | rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.854, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5 | rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.018
+   },
+   {
+    "outil": "chercher_passages",
+    "arguments": {
+     "question": "Je cherche les projets les plus rentables, même s'ils sont risqués"
+    },
+    "resultat": "P162929 : « First component, improvement of urban services and enhancement of public urban spaces will finance a targeted bundle of integrated and multi-sectoral investments to contribute to the enhancement of se » | P150572 : « The project will achieve this objective through (i) the systematic introduction of designs that include climate proofing and road safety measures and the use of performance based contracts; and (ii) b » | P162094 : « The project comprises of three components. The first component, institutional strengthening for integrated urban water management and utility management, and creating an enabling environment for priva »",
+    "duree_s": 0.027
+   }
+  ]
+ },
+ {
+  "passage": 2,
+  "scenario": 2,
+  "mode": "agent",
+  "demande": "Je cherche les projets les plus rentables, même s'ils sont risqués",
+  "duree_s": 105.0,
+  "recommandation": "Projets recommandés :\n1. P157929 Assam Inland Water Transport Project : 0.959, 10.63 %, 0.12, impact 4/5, alignement 4/5, faisabilité 5/5.\n2. P162454 IQ: Basra Electricity Dissemination and Development Project (EDDP) : 0.928, 10.08 %, 0.11, impact 2/5, alignement 3/5, faisabilité 5/5.\n3. P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : 0.890, 10.13 %, 0.37, impact 5/5, alignement 4/5, faisabilité 3/5.\n\nAlertes : dossiers anormaux à signaler en alerte : P121507.\n\nPassage cité :\nP157929 : « This project has three components. 1) The first component, Institutional, regulatory and safety strengthening, includes technical assistance and safety management. 2) The second component, Fleet safet »\n\nLimites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision et ne la remplace pas.",
+  "etapes": [
+   {
+    "outil": "extraire_criteres",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 4.0, alignement_strategique 3.9, faisabilite 4.4.",
+    "duree_s": 0.226
+   },
+   {
+    "outil": "predire",
+    "arguments": {},
+    "resultat": "Prédictions pour 30 projets. Rentabilité prédite moyenne 7.0 %. Risque prédit : {'eleve': 17, 'moyen': 13}.",
+    "duree_s": 0.003
+   },
+   {
+    "outil": "detecter_anomalies",
+    "arguments": {},
+    "resultat": "1 dossiers anormaux, à écarter de la recommandation : P121507.",
+    "duree_s": 0.035
+   },
+   {
+    "outil": "classer",
+    "arguments": {
+     "poids": {
+      "alignement_strategique": 0.05,
+      "cout_total": 0.15,
+      "duree_mois": 0.1,
+      "faisabilite": 0.05,
+      "impact_env_social": 0.05,
+      "proba_risque": 0.2,
+      "rentabilite_predite": 0.5
+     }
+    },
+    "resultat": "Poids utilisés : rentabilite_predite 0.45, proba_risque 0.18, cout_total 0.14, duree_mois 0.09, impact_env_social 0.05, alignement_strategique 0.05, faisabilite 0.05. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P157929 Assam Inland Water Transport Project : score 0.959, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5 | rang 2, P162454 IQ: Basra Electricity Dissemination and Development Project (EDDP) : score 0.928, rentabilité prédite 10.08 %, probabilité de risque élevé 0.11, impact 2/5, alignement 3/5, faisabilité 5/5 | rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.890, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.022
+   },
+   {
+    "outil": "chercher_passages",
+    "arguments": {
+     "question": "Assam Inland Water Transport Project. IQ: Basra Electricity Dissemination and Development Project (EDDP). Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project",
+     "lance_par": "agent"
+    },
+    "resultat": "P157929 : « This project has three components. 1) The first component, Institutional, regulatory and safety strengthening, includes technical assistance and safety management. 2) The second component, Fleet safet » | P158003 : « The project's global environmental objective (GEO) is the same as the project's development objective (PDO), namely, to improve governance and promote sustainable land use activities in order to reduc » | P121507 : « The overall project development objective is to facilitate the expansion of electricity supply of hydro-power in Pakistan. The Project would also improve access to socio-economic services for local co »",
+    "duree_s": 0.034
+   }
+  ]
+ },
+ {
+  "passage": 2,
+  "scenario": 3,
+  "mode": "pipeline_fixe",
+  "demande": "Je veux des projets rapides à réaliser, peu coûteux et faciles à mettre en œuvre",
+  "duree_s": 0.3,
+  "recommandation": "Projets recommandés :\n- rang 1, P157929 Assam Inland Water Transport Project : score 0.913, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5.\n- rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.854, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5.\n- rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5.\nAlerte : 1 dossiers anormaux écartés de la recommandation (P121507). À vérifier avant toute décision.\nPassage à l'appui (P162929) : « (ii) sustainable tourism development; and (iii) cooperation with the private sector. It has two subcomponents: (i) institutional strengthening and capacity building of participating cities and (ii) support to the national medium-size cities program (NMSCP); Third component, implementation support wi »\nLimites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision, elle ne la remplace pas.",
+  "etapes": [
+   {
+    "outil": "extraire_criteres",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 4.0, alignement_strategique 3.9, faisabilite 4.4.",
+    "duree_s": 0.226
+   },
+   {
+    "outil": "predire",
+    "arguments": {},
+    "resultat": "Prédictions pour 30 projets. Rentabilité prédite moyenne 7.0 %. Risque prédit : {'eleve': 17, 'moyen': 13}.",
+    "duree_s": 0.003
+   },
+   {
+    "outil": "detecter_anomalies",
+    "arguments": {},
+    "resultat": "1 dossiers anormaux, à écarter de la recommandation : P121507.",
+    "duree_s": 0.031
+   },
+   {
+    "outil": "classer",
+    "arguments": {},
+    "resultat": "Poids utilisés : rentabilite_predite 0.25, proba_risque 0.20, cout_total 0.10, duree_mois 0.05, impact_env_social 0.15, alignement_strategique 0.15, faisabilite 0.10. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P157929 Assam Inland Water Transport Project : score 0.913, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5 | rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.854, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5 | rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.023
+   },
+   {
+    "outil": "chercher_passages",
+    "arguments": {
+     "question": "Je veux des projets rapides à réaliser, peu coûteux et faciles à mettre en œuvre"
+    },
+    "resultat": "P162929 : « (ii) sustainable tourism development; and (iii) cooperation with the private sector. It has two subcomponents: (i) institutional strengthening and capacity building of participating cities and (ii) su » | P160427 : « The Project Development Objective is to enhance transmission capacity for domestic and regional markets and increase electricity generation capacity through private sector participation. The developme » | P163260 : « The Project Development Objective is to contribute to improved sustainable landscape management and access to water supply and sanitation services in targeted river basins. The development objective o »",
+    "duree_s": 0.028
+   }
+  ]
+ },
+ {
+  "passage": 2,
+  "scenario": 3,
+  "mode": "agent",
+  "demande": "Je veux des projets rapides à réaliser, peu coûteux et faciles à mettre en œuvre",
+  "duree_s": 96.6,
+  "recommandation": "Projets recommandés :\n1. P157929 Assam Inland Water Transport Project : 0.926, 10.63 %, 0.12, impact 4/5, alignement 4/5, faisabilité 5/5.\n2. P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : 0.887, 7.74 %, 0.14, impact 5/5, alignement 5/5, faisabilité 4/5.\n3. P161534 Climate-Smart Agriculture and Water Management Project : 0.859, 7.17 %, 0.31, impact 5/5, alignement 5/5, faisabilité 5/5.\n\nAlertes : les dossiers anormaux écartés, ou « aucune ».\n\nPassage cité : \nP157929 : « This project has three components. 1) The first component, Institutional, regulatory and safety strengthening, includes technical assistance and safety management. »\n\nLimites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision et ne la remplace pas.\n\nContrôle automatique :\n- Alerte oubliée : 1 dossiers anormaux écartés de la recommandation (P121507).",
+  "etapes": [
+   {
+    "outil": "extraire_criteres",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 4.0, alignement_strategique 3.9, faisabilite 4.4.",
+    "duree_s": 0.202
+   },
+   {
+    "outil": "predire",
+    "arguments": {},
+    "resultat": "Prédictions pour 30 projets. Rentabilité prédite moyenne 7.0 %. Risque prédit : {'eleve': 17, 'moyen': 13}.",
+    "duree_s": 0.003
+   },
+   {
+    "outil": "detecter_anomalies",
+    "arguments": {},
+    "resultat": "1 dossiers anormaux, à écarter de la recommandation : P121507.",
+    "duree_s": 0.034
+   },
+   {
+    "outil": "classer",
+    "arguments": {
+     "poids": {
+      "alignement_strategique": 0.1,
+      "cout_total": 0.1,
+      "duree_mois": 0.4,
+      "faisabilite": 0.1,
+      "impact_env_social": 0.1,
+      "proba_risque": 0.1,
+      "rentabilite_predite": 0.2
+     }
+    },
+    "resultat": "Poids utilisés : rentabilite_predite 0.18, proba_risque 0.09, cout_total 0.09, duree_mois 0.36, impact_env_social 0.09, alignement_strategique 0.09, faisabilite 0.09. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P157929 Assam Inland Water Transport Project : score 0.926, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5 | rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.887, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5 | rang 3, P161534 Climate-Smart Agriculture and Water Management Project : score 0.859, rentabilité prédite 7.17 %, probabilité de risque élevé 0.31, impact 5/5, alignement 5/5, faisabilité 5/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.016
+   },
+   {
+    "outil": "chercher_passages",
+    "arguments": {
+     "question": "Assam Inland Water Transport Project. EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT. Climate-Smart Agriculture and Water Management Project",
+     "lance_par": "agent"
+    },
+    "resultat": "P157929 : « This project has three components. 1) The first component, Institutional, regulatory and safety strengthening, includes technical assistance and safety management. 2) The second component, Fleet safet » | P161534 : « The first component is improved climate resilience of flood control, drainage and irrigation infrastructure systems. It consists of following sub-components: (i) flood control and drainage (FCD) and f » | P155827 : « 1) The first component, Emission Reductions payments distributed in accordance with agreed Benefit Sharing Plan, has the following sub-components: (i) Payment for ER credits; and (ii) Distribution of  »",
+    "duree_s": 0.029
+   }
+  ]
+ },
+ {
+  "passage": 2,
+  "scenario": 4,
+  "mode": "pipeline_fixe",
+  "demande": "Classe les projets avec les poids que j'ai fixés",
+  "duree_s": 0.3,
+  "recommandation": "Projets recommandés :\n- rang 1, P157929 Assam Inland Water Transport Project : score 0.970, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5.\n- rang 2, P157245 Improvement of Solid Waste Management to Support Regional and Metropolitan Cities : score 0.964, rentabilité prédite 8.88 %, probabilité de risque élevé 0.77, impact 4/5, alignement 5/5, faisabilité 5/5.\n- rang 3, P150572 KH - Road Asset Management Project II : score 0.963, rentabilité prédite 8.62 %, probabilité de risque élevé 0.87, impact 4/5, alignement 4/5, faisabilité 5/5.\nAlerte : 1 dossiers anormaux écartés de la recommandation (P121507). À vérifier avant toute décision.\nPassage à l'appui (P162094) : « The Project Development Objective (PDO) is to improve the quality of drinking water supply and wastewater services in Baghdad. The development objective of the Baghdad Water and Sewerage Improvement Project for Iraq is to improve the quality of drinking water supply and wastewater services in Baghda »\nLimites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision, elle ne la remplace pas.",
+  "etapes": [
+   {
+    "outil": "extraire_criteres",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 4.0, alignement_strategique 3.9, faisabilite 4.4.",
+    "duree_s": 0.213
+   },
+   {
+    "outil": "predire",
+    "arguments": {},
+    "resultat": "Prédictions pour 30 projets. Rentabilité prédite moyenne 7.0 %. Risque prédit : {'eleve': 17, 'moyen': 13}.",
+    "duree_s": 0.004
+   },
+   {
+    "outil": "detecter_anomalies",
+    "arguments": {},
+    "resultat": "1 dossiers anormaux, à écarter de la recommandation : P121507.",
+    "duree_s": 0.034
+   },
+   {
+    "outil": "classer",
+    "arguments": {},
+    "resultat": "Poids utilisés : rentabilite_predite 0.20, cout_total 0.30, faisabilite 0.50. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P157929 Assam Inland Water Transport Project : score 0.970, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5 | rang 2, P157245 Improvement of Solid Waste Management to Support Regional and Metropolitan Cities : score 0.964, rentabilité prédite 8.88 %, probabilité de risque élevé 0.77, impact 4/5, alignement 5/5, faisabilité 5/5 | rang 3, P150572 KH - Road Asset Management Project II : score 0.963, rentabilité prédite 8.62 %, probabilité de risque élevé 0.87, impact 4/5, alignement 4/5, faisabilité 5/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.02
+   },
+   {
+    "outil": "chercher_passages",
+    "arguments": {
+     "question": "Classe les projets avec les poids que j'ai fixés"
+    },
+    "resultat": "P162094 : « The Project Development Objective (PDO) is to improve the quality of drinking water supply and wastewater services in Baghdad. The development objective of the Baghdad Water and Sewerage Improvement P » | P151439 : « (iii) pumping and transmission facilities at La Pradera pre-treatment station, and (iv) the construction of a sludge digester; and (v) the specialized independent supervision of the construction of th » | P159655 : « There are four components to the project, the first component being budget as tool for development. This component aims to increase budget credibility by improving the efficiency of budget processes,  »",
+    "duree_s": 0.027
+   }
+  ]
+ },
+ {
+  "passage": 2,
+  "scenario": 4,
+  "mode": "agent",
+  "demande": "Classe les projets avec les poids que j'ai fixés",
+  "duree_s": 90.4,
+  "recommandation": "Projets recommandés :\n1. P157929 Assam Inland Water Transport Project : score 0.970, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5.\n2. P157245 Improvement of Solid Waste Management to Support Regional and Metropolitan Cities : score 0.964, rentabilité prédite 8.88 %, probabilité de risque élevé 0.77, impact 4/5, alignement 5/5, faisabilité 5/5.\n\nAlertes : les dossiers anormaux P121507 à signaler en alerte.\nPassage cité : \nP157929 : « The objectives of the Project are to: (a) improve passenger ferry infrastructure and service in Assam, and (b) improve the institutional capacity and framework for inland water transport in Assam The  »\nP157245 : « The project comprises of four components. The first component, institutional and policy development will support institutional strengthening and capacity building of central government agencies respon »\nP161477 : « This project has three components. 1) The first component, Strengthening Sector Governance and Institutional Capacity,has the following sub-components: (i) Operationalization of the existing laws and  »\n\nContrôle automatique :\n- Projet à recommander oublié dans le texte : rang 3, P150572 KH - Road Asset Management Project II : score 0.963, rentabilité prédite 8.62 %, probabilité de risque élevé 0.87, impact 4/5, alignement 4/5, faisabilité 5/5.",
+  "etapes": [
+   {
+    "outil": "classer",
+    "arguments": {
+     "poids": {
+      "alignement_strategique": 0.1,
+      "cout_total": 0.1,
+      "duree_mois": 0.3,
+      "faisabilite": 0.1,
+      "impact_env_social": 0.1,
+      "proba_risque": 0.1,
+      "rentabilite_predite": 0.4
+     }
+    },
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 4.0, alignement_strategique 3.9, faisabilite 4.4. Prédictions pour 30 projets. Rentabilité prédite moyenne 7.0 %. Risque prédit : {'eleve': 17, 'moyen': 13}. 1 dossiers anormaux, à écarter de la recommandation : P121507. Poids utilisés : rentabilite_predite 0.20, cout_total 0.30, faisabilite 0.50. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P157929 Assam Inland Water Transport Project : score 0.970, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5 | rang 2, P157245 Improvement of Solid Waste Management to Support Regional and Metropolitan Cities : score 0.964, rentabilité prédite 8.88 %, probabilité de risque élevé 0.77, impact 4/5, alignement 5/5, faisabilité 5/5 | rang 3, P150572 KH - Road Asset Management Project II : score 0.963, rentabilité prédite 8.62 %, probabilité de risque élevé 0.87, impact 4/5, alignement 4/5, faisabilité 5/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.254
+   },
+   {
+    "outil": "chercher_passages",
+    "arguments": {
+     "question": "Assam Inland Water Transport Project. Improvement of Solid Waste Management to Support Regional and Metropolitan Cities. KH - Road Asset Management Project II",
+     "lance_par": "agent"
+    },
+    "resultat": "P157929 : « The objectives of the Project are to: (a) improve passenger ferry infrastructure and service in Assam, and (b) improve the institutional capacity and framework for inland water transport in Assam The  » | P157245 : « The project comprises of four components. The first component, institutional and policy development will support institutional strengthening and capacity building of central government agencies respon » | P161477 : « This project has three components. 1) The first component, Strengthening Sector Governance and Institutional Capacity,has the following sub-components: (i) Operationalization of the existing laws and  »",
+    "duree_s": 0.027
+   }
+  ]
+ },
+ {
+  "passage": 2,
+  "scenario": 5,
+  "mode": "pipeline_fixe",
+  "demande": "Quel temps fera-t-il demain ?",
+  "duree_s": 0.3,
+  "recommandation": "Projets recommandés :\n- rang 1, P157929 Assam Inland Water Transport Project : score 0.913, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5.\n- rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.854, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5.\n- rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5.\nAlerte : 1 dossiers anormaux écartés de la recommandation (P121507). À vérifier avant toute décision.\nPassage à l'appui (P160427) : « The Project Development Objective is to enhance transmission capacity for domestic and regional markets and increase electricity generation capacity through private sector participation. The development objective of the Temane Regional Electricity Project for Mozambique is to enhance transmission ca »\nLimites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision, elle ne la remplace pas.",
+  "etapes": [
+   {
+    "outil": "extraire_criteres",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 4.0, alignement_strategique 3.9, faisabilite 4.4.",
+    "duree_s": 0.191
+   },
+   {
+    "outil": "predire",
+    "arguments": {},
+    "resultat": "Prédictions pour 30 projets. Rentabilité prédite moyenne 7.0 %. Risque prédit : {'eleve': 17, 'moyen': 13}.",
+    "duree_s": 0.003
+   },
+   {
+    "outil": "detecter_anomalies",
+    "arguments": {},
+    "resultat": "1 dossiers anormaux, à écarter de la recommandation : P121507.",
+    "duree_s": 0.032
+   },
+   {
+    "outil": "classer",
+    "arguments": {},
+    "resultat": "Poids utilisés : rentabilite_predite 0.25, proba_risque 0.20, cout_total 0.10, duree_mois 0.05, impact_env_social 0.15, alignement_strategique 0.15, faisabilite 0.10. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P157929 Assam Inland Water Transport Project : score 0.913, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5 | rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.854, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5 | rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.015
+   },
+   {
+    "outil": "chercher_passages",
+    "arguments": {
+     "question": "Quel temps fera-t-il demain ?"
+    },
+    "resultat": "P160427 : « The Project Development Objective is to enhance transmission capacity for domestic and regional markets and increase electricity generation capacity through private sector participation. The developme » | P160005 : « The project comprises of five components. The first component, forecasting and early warning of high impact weather, floods, and landslides objective is to enhance the capability and the performance o » | P163260 : « The Project Development Objective is to contribute to improved sustainable landscape management and access to water supply and sanitation services in targeted river basins. The development objective o »",
+    "duree_s": 0.02
+   }
+  ]
+ },
+ {
+  "passage": 2,
+  "scenario": 5,
+  "mode": "agent",
+  "demande": "Quel temps fera-t-il demain ?",
+  "duree_s": 13.6,
+  "recommandation": "L'agent n'a pas terminé (le LLM a répondu sans classer les projets). Recommandation produite sans LLM :\nProjets recommandés :\n- rang 1, P157929 Assam Inland Water Transport Project : score 0.913, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5.\n- rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.854, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5.\n- rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5.\nAlerte : 1 dossiers anormaux écartés de la recommandation (P121507). À vérifier avant toute décision.\nLimites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; cette recommandation aide à la décision, elle ne la remplace pas.",
+  "etapes": [
+   {
+    "outil": "llm",
+    "arguments": {},
+    "resultat": "Réponse du LLM sans outil, non reprise : Les demandes \"Quel temps fera-t-il demain ?\" ne sont pas gérées par les outils mis à disposition. Ces outils sont conçus pour l'analyse des projets d'investissement et non pour la météorologie. Je ne peux donc pas les utiliser pour répondre à cette demande.",
+    "duree_s": 13.104
+   },
+   {
+    "outil": "classer",
+    "arguments": {},
+    "resultat": "Notes obtenues pour 30 projets (0 sans document lisible, note neutre 3). Moyennes sur 5 : impact_env_social 4.0, alignement_strategique 3.9, faisabilite 4.4. Prédictions pour 30 projets. Rentabilité prédite moyenne 7.0 %. Risque prédit : {'eleve': 17, 'moyen': 13}. 1 dossiers anormaux, à écarter de la recommandation : P121507. Poids utilisés : rentabilite_predite 0.25, proba_risque 0.20, cout_total 0.10, duree_mois 0.05, impact_env_social 0.15, alignement_strategique 0.15, faisabilite 0.10. Projets à recommander (dossiers anormaux déjà écartés) : rang 1, P157929 Assam Inland Water Transport Project : score 0.913, rentabilité prédite 10.63 %, probabilité de risque élevé 0.12, impact 4/5, alignement 4/5, faisabilité 5/5 | rang 2, P155827 EASTERN PROVINCE JURISDICTIONAL SUSTAINABLE LANDSCAPE PROGRAM - EMISSIONS REDUCTION PROJECT : score 0.854, rentabilité prédite 7.74 %, probabilité de risque élevé 0.14, impact 5/5, alignement 5/5, faisabilité 4/5 | rang 3, P158003 Additional Financing Forest Conservation and Sustainability in the Heart of the Colombian Amazon Project : score 0.835, rentabilité prédite 10.13 %, probabilité de risque élevé 0.37, impact 5/5, alignement 4/5, faisabilité 3/5. Dossiers anormaux à signaler en alerte : P121507.",
+    "duree_s": 0.238
+   }
+  ]
+ }
+]

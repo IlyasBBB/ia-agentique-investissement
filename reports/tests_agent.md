@@ -1,6 +1,6 @@
 # Tests de l'agent sur cinq scénarios
 
-Évaluation du 16 novembre 2026. Toutes les valeurs de ce document viennent d'exécutions réelles, dont les fichiers sont dans `reports/`.
+Évaluation du 16 novembre 2026 avec les fausses fonctions, puis intégration du 19 novembre avec les quatre vrais modules (section 9). Toutes les valeurs de ce document viennent d'exécutions réelles, dont les fichiers sont dans `reports/`.
 
 ## 1. Objectif
 
@@ -203,3 +203,44 @@ Chaque erreur observée, sa cause probable et ce qui a été fait.
 | `reports/*_avant_corrections.*` | Première évaluation, avant toute correction |
 | `reports/*_correction1.*` | Scénario 1 relancé après la correction E1 |
 | `reports/*_essai_crochets.*`, `*_essai_alertes.*` | Les deux reformulations du prompt, non gardées |
+
+## 9. Intégration du 19 novembre : les quatre vrais modules
+
+Mêmes cinq scénarios, mêmes 30 projets, deux passages, avec `USE_MOCKS=0` : `predict` (Ridge et LightGBM, rôle 1), `rank` (TOPSIS) et `detect_anomalies` (Isolation Forest, rôle 2), `extract` et `retrieve` (rôle 3). Reproduire : `USE_MOCKS=0 python scripts/evaluer_agent.py --passages 2 --suffixe integration` (environ 20 minutes). Fichiers : `reports/resultats_scenarios_integration.csv`, `reports/sorties_scenarios_integration.json`.
+
+### Résultats de l'agent
+
+| Scénario | Durée (passages 1 et 2) | Poids cohérents | Poids choisis | Alerte citée par le LLM | Contrôle automatique |
+|---|---|---|---|---|---|
+| 1. Peu risqué, fort impact | 132,6 s ; 136,5 s (une relance) | oui | risque 0,33, impact 0,33, rentabilité 0,17 | oui | non |
+| 2. Rentable, même risqué | 110,6 s ; 105,0 s | oui | rentabilité 0,45, risque 0,18, coût 0,14 | oui | non |
+| 3. Rapide, peu coûteux, facile | 115,8 s ; 96,6 s | non | durée 0,36, rentabilité 0,18, les autres 0,09 | non | oui (alerte ajoutée) |
+| 4. Poids imposés | 90,7 s ; 90,4 s | oui (ceux de l'utilisateur) | faisabilité 0,50, coût 0,30, rentabilité 0,20 | oui | oui (projets ajoutés) |
+| 5. Hors sujet (météo) | 13,6 s ; 13,6 s | par défaut | aucun outil demandé : refus, puis secours | sans objet | secours sans LLM |
+
+Sur les dix exécutions : contrat respecté, aucun plantage, aucun chiffre ni identifiant inventé, aucune citation inventée. Durée moyenne d'une analyse complète (scénarios 1 à 4) : 109,8 s.
+
+### Ce qui a changé par rapport au 16 novembre (fausses fonctions)
+
+| | 16 novembre | 19 novembre |
+|---|---|---|
+| Passages cherchés et cités | 1 analyse sur 8 | 8 sur 8 (recherche d'office après `classer`, correction E4) |
+| Citations inventées dans la sortie | 0 | 0 (citations vérifiées mot pour mot) |
+| Alerte citée par le LLM lui-même | 2 sur 8 | 6 sur 8 |
+| Poids cohérents avec la demande | 8 sur 8 | 6 sur 8 (scénario 3) |
+| Mêmes résultats aux deux passages | non pour le scénario 1 | oui pour les 5 scénarios |
+| Demande hors sujet | refus, puis secours | refus, puis secours |
+| Durée moyenne d'une analyse complète | 76,9 s | 109,8 s |
+
+La durée augmente parce que les vrais modules renvoient plus d'informations (notes, passages) que le LLM doit lire avant de rédiger, et parce que la recherche d'office ajoute ses passages à la conversation.
+
+### E8. Exemple du prompt recopié (scénarios 3 et 5) : corrigée le 19 novembre
+
+- **Observé.** Première évaluation d'intégration (`reports/resultats_scenarios_integration_prompt18nov.csv`) : au scénario 3, le LLM prend exactement les poids de l'exemple du prompt (rentabilité 0,36, durée 0,27) ; au scénario 5, il lance une analyse complète pour une question de météo au lieu de refuser.
+- **Diagnostic.** Les scénarios 3 et 5 relancés avec les fausses fonctions (`reports/resultats_scenarios_diagnostic.csv`) donnent la même erreur au scénario 3 : la cause n'est pas dans les modules. Le seul changement du premier tour depuis le 16 novembre est l'étape 5 du prompt, réécrite le 18 novembre pour faire écrire la question de recherche en anglais, avec un exemple qui reprenait mot pour mot la demande du scénario 1.
+- **Correction (prompt).** Formulation d'origine de l'étape 5 rétablie. L'indication « en anglais » reste dans la description de l'outil, et la recherche d'office utilise de toute façon les noms des projets, en anglais. Relancés avec les fausses fonctions (`reports/resultats_scenarios_diagnostic_prompt.csv`) : le scénario 3 ne recopie plus l'exemple, le scénario 5 refuse de nouveau.
+- **Ce qui reste.** Au scénario 3, la durée a bien le poids le plus fort, mais la faisabilité et le coût restent sous la rentabilité. Troisième confirmation de la leçon du point E3 : avec un modèle de 3 milliards de paramètres, une modification du prompt, même faite pour une autre raison, déplace les erreurs.
+
+### Comparaison avec le pipeline fixe
+
+Le pipeline fixe répond en 0,3 s (14 s au premier appel, chargement des modèles compris) et recommande toujours P157929, P155827 et P158003, sauf au scénario 4 (poids imposés). L'agent recommande d'autres projets aux scénarios 1, 2 et 3, parce qu'il adapte les poids à la demande ; au scénario 1, il met en tête P155827, un programme de réduction des émissions noté 5/5 en impact. Aux scénarios 4 et 5, les deux modes donnent les mêmes projets.
