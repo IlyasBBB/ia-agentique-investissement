@@ -1,0 +1,101 @@
+id_projet,nom,secteur,pays,statut,cout_total,duree_mois,score_anomalie,explication,anomalie_injectee
+P101653,POWER SYSTEM DEVELOPMENT PROJECT IV,Énergie,India,termine,2114.0,2,0.142,durée très faible (-5.8 écarts interquartiles),duree_incoherente
+P097742,UG-Nile Basin Reforestation (FY06),Agriculture,Uganda,termine,1.08,170,0.12,coût par mois très faible (-2.1 écarts interquartiles),non (faux positif)
+P177308,NG Accelerating Resource Mobilization Reforms PforR,Gouvernance,Nigeria,en_cours,37706.85,54,0.12,coût par mois très élevé (+2.8 écarts interquartiles),cout_aberrant
+P156590,Trade Logistics Project,Industrie et commerce,Ethiopia,termine,150.0,1,0.117,durée très faible (-7.0 écarts interquartiles),duree_incoherente
+P170874,Indonesia Disaster Resilience Initiatives Project (IDRIP),Gouvernance,Indonesia,termine,160.0,1,0.117,durée très faible (-7.0 écarts interquartiles),duree_incoherente
+P507538,Revenue Improvement and Spending Efficiency Program-for-Results Operation,Gouvernance,Rwanda,en_cours,100.0,1,0.111,durée très faible (-7.0 écarts interquartiles),duree_incoherente
+P164686,Investing in Nutrition and Early Years,Santé,Indonesia,termine,21243.0,66,0.108,coût très élevé (+2.5 écarts interquartiles),non (faux positif)
+P153251,IN Swachh Bharat Mission Support Operation,Eau et assainissement,India,termine,22000.0,70,0.107,coût très élevé (+2.5 écarts interquartiles),non (faux positif)
+P113273,LR Smallholder Tree Crop Revitalization Support Project,Agriculture,Liberia,termine,15.0,1,0.101,durée très faible (-7.0 écarts interquartiles),duree_incoherente
+P039166,Danube Delta Biodiversity GEF Project,Protection sociale,Ukraine,termine,1.5,2,0.098,durée très faible (-5.8 écarts interquartiles),duree_incoherente
+P163267,Women's Economic Empowerment National Priority Program,Agriculture,Afghanistan,termine,1.0,106,0.094,coût par mois très faible (-1.9 écarts interquartiles),non (faux positif)
+P171644,Yangtze River Protection and Ecological Restoration Program,Eau et assainissement,China,en_cours,13052.0,66,0.093,coût très élevé (+2.3 écarts interquartiles),non (faux positif)
+P512688,"State of Sergipe - Phase 5 of Brazil Proactive, Safe and Resilient Road Asset Management Program",Transport,Brazil,en_cours,135.0,2,0.089,durée très faible (-5.8 écarts interquartiles),duree_incoherente
+P180547,ASCENT Regional Energy Access Acceleration Platform,Énergie,Eastern and Southern Africa,en_cours,10000.0,85,0.087,coût très élevé (+2.2 écarts interquartiles),non (faux positif)
+P122756,Pakistan - Punjab Education Sector Project - AF,Éducation,Pakistan,termine,3050.0,15,0.086,durée très faible (-2.5 écarts interquartiles),non (faux positif)
+P112495,RESTORING EQUITABLE GROWTH AND EMPLOYMENT PROGRAMMATIC DEVELOPMENT POLICY LOAN,Gouvernance,Turkiye,termine,1300.0,7,0.085,durée très faible (-3.8 écarts interquartiles),non (faux positif)
+P038916,NI/FISE II,Eau et assainissement,Nicaragua,termine,102.4,2,0.085,durée très faible (-5.8 écarts interquartiles),duree_incoherente
+P177590,Green Agricultural and Rural Revitalization Program for Results - Phase I,Agriculture,China,en_cours,10032.0,75,0.084,coût très élevé (+2.2 écarts interquartiles),non (faux positif)
+P157416,Trans-Anatolian Natural Gas Pipeline Project,Énergie,Europe and Central Asia,termine,8600.0,55,0.084,coût par mois très élevé (+2.2 écarts interquartiles),non (faux positif)
+P088256,La Esperanza Hydro Project,Énergie,Honduras,termine,1.4,122,0.08,coût par mois très faible (-1.9 écarts interquartiles),non (faux positif)
+P511822,Kiribati Second Resilient Growth Development Policy Operation with a Catastrophe Deferred Drawdown Option,Gouvernance,Kiribati,en_cours,15.0,3,0.074,durée très faible (-5.2 écarts interquartiles),duree_incoherente
+P121507,Dasu Hydropower Stage I Project,Eau et assainissement,Pakistan,en_cours,4694.75,175,0.073,coût très élevé (+1.9 écarts interquartiles),non (faux positif)
+P181077,SECOND SUSTAINABLE AGRICULTURAL INTENSIFICATION AND FOOD SECURITY PROJECT,Agriculture,Rwanda,en_cours,20.0,3,0.07,durée très faible (-5.2 écarts interquartiles),duree_incoherente
+P154943,Tonga Digital Government Support Project,Gouvernance,Tonga,termine,1.0,73,0.069,coût par mois très faible (-1.8 écarts interquartiles),non (faux positif)
+P509952,Istanbul North Rail Crossing Project,Transport,Turkiye,en_cours,8272.44,93,0.069,coût très élevé (+2.1 écarts interquartiles),non (faux positif)
+P174017,Support to Economic Recovery and Job Creation in the Agri-Food Sector and Rural Space,Industrie et commerce,Tunisia,en_cours,1.0,74,0.069,coût par mois très faible (-1.8 écarts interquartiles),non (faux positif)
+P174285,CASA1000 Community Support Project COVID-19 Additional Financing - Kyrgyz Republic,Agriculture,Central Asia,en_cours,21.0,3,0.067,durée très faible (-5.2 écarts interquartiles),duree_incoherente
+P172284,Ethiopia Human Capital Operation,Protection sociale,Ethiopia,en_cours,6530.9,61,0.065,coût très élevé (+2.0 écarts interquartiles),non (faux positif)
+P178209,SEYCHELLES SECOND FISCAL SUSTAINABILITY AND CLIMATE RESILIENCE DEVELOPMENT POLICY LOAN,Gouvernance,Seychelles,termine,25.0,3,0.065,durée très faible (-5.2 écarts interquartiles),duree_incoherente
+P096414,BCF - IBI Carbon Sink - Bateke,Agriculture,"Congo, Democratic Republic of",termine,2.0,133,0.063,coût par mois très faible (-1.7 écarts interquartiles),non (faux positif)
+P087713,BR Bolsa Familia 1st APL,Protection sociale,Brazil,termine,7194.9,66,0.063,coût très élevé (+2.1 écarts interquartiles),non (faux positif)
+P126817,Guangxi Laibin Water Environment Project,Eau et assainissement,China,termine,127.38,3,0.062,durée très faible (-5.2 écarts interquartiles),duree_incoherente
+P160748,Nepal School Sector Development Program,Éducation,Nepal,termine,6471.85,64,0.061,coût très élevé (+2.0 écarts interquartiles),non (faux positif)
+P181023,Ukraine Relief and Recovery Development Policy Loan,Gouvernance,Ukraine,termine,1500.0,12,0.059,durée très faible (-2.9 écarts interquartiles),non (faux positif)
+P176354,ENHANCING SHARED PROSPERITY THROUGH EQUITABLE SERVICES (ESPES) Second Additional Financing,Gouvernance,Ethiopia,en_cours,3850.8,42,0.058,coût par mois très élevé (+2.0 écarts interquartiles),non (faux positif)
+P181029,Sustainable Financing for Rogun Hydropower Project,Énergie,Tajikistan,en_cours,5000.0,54,0.057,coût par mois très élevé (+2.0 écarts interquartiles),non (faux positif)
+P049346,AGR SEC ADJ CREDIT,Agriculture,Senegal,termine,1.8,7,0.054,durée très faible (-3.8 écarts interquartiles),non (faux positif)
+P059257,WS SAMOA IUCN MPA IN,Gouvernance,Samoa,termine,1.1,69,0.051,coût par mois très faible (-1.7 écarts interquartiles),non (faux positif)
+P513580,South Africa's Infrastructure Modernization and Job Creation DPL,Énergie,South Africa,en_cours,1500.0,15,0.05,durée très faible (-2.5 écarts interquartiles),non (faux positif)
+P180127,"Health Emergency Preparedness, Response and Resilience Program Using the Multiphase Programmatic Approach",Santé,Eastern and Southern Africa,en_cours,5854.87,84,0.05,coût très élevé (+2.0 écarts interquartiles),cout_aberrant
+P126661,AFR RI-SAPP-Program for Accelerating Regional Energy/Transformational Projects,Énergie,"Congo, Democratic Republic of",termine,2.0,115,0.048,coût par mois très faible (-1.7 écarts interquartiles),non (faux positif)
+P159931,Development of Public Sector Accounting,Gouvernance,Albania,termine,1.12,68,0.048,coût par mois très faible (-1.7 écarts interquartiles),non (faux positif)
+P154880,Education Sector - Ebola Recovery and Reconstruction Project,Éducation,Liberia,termine,1.0,18,0.046,durée très faible (-2.2 écarts interquartiles),non (faux positif)
+P115199,Public Expenditure Support Facility (DPL-DDO),Finance,Indonesia,termine,2000.0,22,0.042,coût par mois très élevé (+1.9 écarts interquartiles),non (faux positif)
+P008290,Forest Biodiversity Protection GEF Project,Gouvernance,Belarus,termine,1.0,53,0.042,coût très faible (-1.7 écarts interquartiles),non (faux positif)
+P129704,CTF in Ukraine,Énergie,Ukraine,termine,1.0,53,0.042,coût très faible (-1.7 écarts interquartiles),non (faux positif)
+P114740,Services Support Project (Co-Financing and Restructuring),Protection sociale,Comoros,termine,1.0,24,0.038,coût très faible (-1.7 écarts interquartiles),non (faux positif)
+P121915,CAADP MDTF: Conference of Ministers of Agriculture of West and Central Africa (CMA/WCA) Child Trust Fund,Agriculture,Africa,termine,1.1,19,0.036,durée très faible (-2.1 écarts interquartiles),non (faux positif)
+P074968,Structural Adjustment Credit II,Énergie,Pakistan,termine,500.0,7,0.035,durée très faible (-3.8 écarts interquartiles),non (faux positif)
+P154291,Indonesia Energy Sector DPL,Énergie,Indonesia,termine,500.0,7,0.035,durée très faible (-3.8 écarts interquartiles),non (faux positif)
+P165300,Support to the Bogota Metro Line 1 Section 1 Project - (Series 1),Transport,Colombia,termine,4400.0,88,0.035,coût très élevé (+1.9 écarts interquartiles),non (faux positif)
+P130783,Applying Knowledge Management to Scale up Partnership Investments for Sustainable Devt of Large Marine Ecosystems of East Asia,Eau et assainissement,East Asia and Pacific,termine,1.0,35,0.034,coût très faible (-1.7 écarts interquartiles),non (faux positif)
+P151979,Cabo Verde: Distributed Solar Energy Systems (SIDS DOCK),Énergie,Cabo Verde,termine,1.0,36,0.033,coût très faible (-1.7 écarts interquartiles),rentabilite_extreme
+P009907,EXTERNAL SECTOR ADJU,Industrie et commerce,India,termine,300.0,6,0.033,durée très faible (-4.0 écarts interquartiles),non (faux positif)
+P096389,Development Policy Loan 2 (DPL 2),Gouvernance,Ukraine,termine,300.0,6,0.033,durée très faible (-4.0 écarts interquartiles),non (faux positif)
+P106559,Protection of Basic Services - Additional Financing,Éducation,Ethiopia,termine,1804.12,24,0.033,coût par mois très élevé (+1.9 écarts interquartiles),non (faux positif)
+P118908,TF Philippines Local Government Grants for Sanitation Pilots,Eau et assainissement,Philippines,termine,1.0,25,0.032,coût très faible (-1.7 écarts interquartiles),non (faux positif)
+P174605,Additional Financing to Cambodia COVID-19 Emergency Response Project,Santé,Cambodia,termine,1.15,60,0.032,coût très faible (-1.7 écarts interquartiles),non (faux positif)
+P174177,Peru: Strengthening of the Public Health Emergency Preparedness and Response,Santé,Peru,en_cours,4074.14,66,0.03,coût très élevé (+1.8 écarts interquartiles),cout_aberrant
+P009869,Nathpa Jhakri Power Project,Énergie,India,termine,2183.2,157,0.03,coût très élevé (+1.6 écarts interquartiles),non (faux positif)
+P083325,Mozambique -Roads and Bridges Management and Maintenance Program - Phase II,Transport,Mozambique,termine,2670.57,139,0.029,coût très élevé (+1.6 écarts interquartiles),non (faux positif)
+P179875,Third Additional Financing for Public Expenditures for Administrative Capacity Endurance (PEACE) in Ukraine,Gouvernance,Ukraine,en_cours,3580.0,63,0.028,coût très élevé (+1.8 écarts interquartiles),non (faux positif)
+P180033,Colombia Green and Resilient DPO,Gouvernance,Colombia,termine,1000.0,12,0.028,durée très faible (-2.9 écarts interquartiles),non (faux positif)
+P172226,Raising and Accelerating MSME Performance,Industrie et commerce,India,en_cours,4208.0,70,0.028,coût très élevé (+1.8 écarts interquartiles),non (faux positif)
+P167190,Bangladesh Jobs Programmatic DPC,Industrie et commerce,Bangladesh,termine,250.0,6,0.025,durée très faible (-4.0 écarts interquartiles),non (faux positif)
+P154693,Nepal Energy Sector Development Policy Credit,Énergie,Nepal,termine,250.0,6,0.025,durée très faible (-4.0 écarts interquartiles),non (faux positif)
+P512892,Nigeria Actions for Investment and Jobs Acceleration,Industrie et commerce,Nigeria,en_cours,1250.0,18,0.024,durée très faible (-2.2 écarts interquartiles),non (faux positif)
+P124355,SILC Survey,Gouvernance,Serbia,termine,1.11,31,0.023,coût très faible (-1.7 écarts interquartiles),non (faux positif)
+P177823,Dominican Republic Water Sector Modernization Program,Eau et assainissement,Dominican Republic,en_cours,3190.56,57,0.022,coût par mois très élevé (+1.7 écarts interquartiles),non (faux positif)
+P113306,Cape Verde - DPL 1/PRSC V,Gouvernance,Cabo Verde,termine,15.0,6,0.022,durée très faible (-4.0 écarts interquartiles),non (faux positif)
+P121812,Cape Verde - DPL 1/PRSC VI,Gouvernance,Cabo Verde,termine,10.0,6,0.022,durée très faible (-4.0 écarts interquartiles),non (faux positif)
+P116170,Sao Paulo Metro Line 5 Project,Transport,Brazil,termine,2516.6,128,0.021,coût très élevé (+1.6 écarts interquartiles),non (faux positif)
+P115700,Belarus DPL,Industrie et commerce,Belarus,termine,200.0,6,0.021,durée très faible (-4.0 écarts interquartiles),non (faux positif)
+P157591,Somalia Inclusive Community Resilience and GBV Pilot,Protection sociale,"Somalia, Federal Republic of",termine,1.2,22,0.019,durée très faible (-1.9 écarts interquartiles),non (faux positif)
+P010458,POWER SECT. DEV. PRO,Énergie,Pakistan,termine,3600.0,81,0.018,coût très élevé (+1.8 écarts interquartiles),non (faux positif)
+P125237,Malawi Nutrition and HIV/AIDS Project,Protection sociale,Malawi,termine,3618.59,77,0.018,coût très élevé (+1.8 écarts interquartiles),cout_aberrant
+P161707,2nd Strengthening Growth & Fiscal Policy Development Policy Financing,Finance,Sao Tome and Principe,termine,6.0,7,0.017,durée très faible (-3.8 écarts interquartiles),non (faux positif)
+P156774,"STRENGTHENING DRR COORDINATION, PLANNING AND POLICY ADVISORY CAPACITY OF ECOWAS",Gouvernance,Western and Central Africa,termine,1.28,59,0.016,coût très faible (-1.6 écarts interquartiles),non (faux positif)
+P176822,Supplemental Financing to the Fiscal Reform and Resilience DPC Series,Gouvernance,St. Vincent and the Grenadines,termine,50.0,6,0.014,durée très faible (-4.0 écarts interquartiles),non (faux positif)
+P175293,Senegal: DPF2 - Equitable and Resilient Recovery in Senegal,Gouvernance,Senegal,termine,300.0,7,0.012,durée très faible (-3.8 écarts interquartiles),non (faux positif)
+P510090,First Ukraine Jobs and Private Sector Growth DPO,Gouvernance,Ukraine,en_cours,1040.0,17,0.012,durée très faible (-2.3 écarts interquartiles),non (faux positif)
+P122268,GZ-Gaza II Emergency Water Additional Financing III,Eau et assainissement,West Bank and Gaza,termine,3.0,10,0.011,durée très faible (-3.2 écarts interquartiles),non (faux positif)
+P081718,LK-PRSC,Agriculture,Sri Lanka,termine,125.0,6,0.01,durée très faible (-4.0 écarts interquartiles),non (faux positif)
+P049203,SAL,Gouvernance,Russian Federation,termine,600.0,10,0.01,durée très faible (-3.2 écarts interquartiles),non (faux positif)
+P074015,Protection of Basic Services,Éducation,Ethiopia,termine,2562.91,55,0.008,coût par mois très élevé (+1.7 écarts interquartiles),non (faux positif)
+P121714,Burkina Faso: Community Monitoring for Service Delivery,Gouvernance,Burkina Faso,termine,1.48,60,0.008,coût très faible (-1.6 écarts interquartiles),non (faux positif)
+P167216,INDONESIA: IMPROVING TEACHER PERFORMANCE AND ACCOUNTABILITY (KIAT Guru) Phase 2,Éducation,Indonesia,termine,1.35,22,0.006,durée très faible (-1.9 écarts interquartiles),non (faux positif)
+P133706,MM-Reengagement and Reform Support Program,Gouvernance,Myanmar,termine,440.0,9,0.006,durée très faible (-3.3 écarts interquartiles),non (faux positif)
+P160207,Nepal Health Sector Management Reform Program,Santé,Nepal,termine,2881.82,66,0.005,coût très élevé (+1.7 écarts interquartiles),non (faux positif)
+P112264,Strengthening the Business Environment for Enhanced Economic Growth DPL,Finance,Mexico,termine,751.88,12,0.005,durée très faible (-2.9 écarts interquartiles),non (faux positif)
+P074445,Second Economic Management and Growth,Gouvernance,Zambia,termine,10.0,7,0.004,durée très faible (-3.8 écarts interquartiles),non (faux positif)
+P125866,Mali RRSC,Gouvernance,Mali,termine,80.0,6,0.004,durée très faible (-4.0 écarts interquartiles),non (faux positif)
+P133777,Financial sector stability DPC2,Finance,Nepal,termine,100.0,6,0.003,durée très faible (-4.0 écarts interquartiles),non (faux positif)
+P166983,China Partnership for Market Readiness,Gouvernance,China,termine,2.0,17,0.003,durée très faible (-2.3 écarts interquartiles),non (faux positif)
+P175249,"Cameroon First Fiscal, Inclusive and Sustainable Growth DPF",Gouvernance,Cameroon,termine,100.0,6,0.003,durée très faible (-4.0 écarts interquartiles),non (faux positif)
+P112765,"PUBLIC FINANCE MANAGEMENT, EMPLOYMENT, AND PRIVATE SECTOR DEVELOPMENT PROGRAMMATIC POLICY LOAN",Protection sociale,Poland,termine,100.0,6,0.003,durée très faible (-4.0 écarts interquartiles),non (faux positif)
+P166072,Valorization of Investments in the Valley of the Benue,Agriculture,Cameroon,en_cours,2870.45,82,0.002,coût très élevé (+1.7 écarts interquartiles),cout_aberrant
+P066867,MX DECENTRALIZATION SAL,Gouvernance,Mexico,termine,1006.07,19,0.001,durée très faible (-2.1 écarts interquartiles),non (faux positif)
+P115052,Third National Program for Community Empowerment in Rural Areas (PNPM-Rural,Agriculture,Indonesia,termine,1422.12,33,0.001,coût par mois très élevé (+1.6 écarts interquartiles),non (faux positif)
+P094097,CO-3rd Prog. Labor Reform and Social Development Policy Loan,Éducation,Colombia,termine,300.0,8,0.0,durée très faible (-3.5 écarts interquartiles),non (faux positif)
