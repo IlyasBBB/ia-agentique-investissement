@@ -15,7 +15,7 @@ Responsable : Zineb Baghzali. Module à livrer : `src/mcda.py` (`rank`, `detect_
 | 7 | TOPSIS | | fait, branche `role2/tache-7` | `topsis` dans `src/mcda.py` ; vérification à la main sur 4 projets dans `tests/test_mcda.py` ; 0,6 ms sur 2 000 projets |
 | 8 | Sensibilité du classement | | fait, branche `role2/tache-8` : TOPSIS retenu pour `rank` | `notebooks/role2/02_mcda_sensibilite.ipynb` ; `reports/role2/sensibilite_*.csv`, `reports/role2/figures/rangs_topsis_somme.png`, `reactivite_profils.png` |
 | 9 | `rank` et `detect_anomalies` au format du contrat, tests | **21 nov.** | fait : `rank` (TOPSIS depuis la tâche 8) et `detect_anomalies` ; branche `role2/tache-9` pour le passage à TOPSIS | `src/mcda.py`, `tests/test_mcda.py` (37 tests) ; `rank` : 2,3 ms sur 2 000 projets |
-| 10 | Partie du rapport et diapositives | brouillon 21, final 27 | à faire | `reports/role2/rapport_partie2.md` |
+| 10 | Partie du rapport et diapositives | brouillon 21, final 27 | brouillon fait (19 nov.), branche `role2/tache-10` ; final le 27 après l'intégration du 22 | `reports/role2/rapport_partie2.md` (théorie, données, ACP, clustering, anomalies, classement, fonctions livrées, limites, références, plan des 4 diapositives) |
 
 ## Décisions
 
