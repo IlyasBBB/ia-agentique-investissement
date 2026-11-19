@@ -19,7 +19,7 @@ def ouvrir() -> AppTest:
 
 def test_page_s_affiche():
     app = ouvrir()
-    assert app.title[0].value == "Atlas Invest"
+    assert app.title[0].value == "InvestMind"
     assert app.button(key="analyser").disabled  # pas de demande, pas d'analyse
 
 

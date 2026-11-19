@@ -24,7 +24,7 @@
 ::selection { background: var(--bleu); color: var(--papier); }
 :focus-visible { outline: 2px solid var(--bleu); outline-offset: 2px; }
 .stApp { font-variant-numeric: tabular-nums; }
-.block-container { padding-top: 1.6rem; max-width: 1360px; }
+.block-container { padding-top: 4rem; max-width: 1360px; }
 
 /* --- Manchette ---------------------------------------------------------- */
 .stApp h1 {

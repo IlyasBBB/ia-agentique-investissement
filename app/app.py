@@ -34,7 +34,7 @@ from src import outils  # noqa: E402
 from src.agent import MODELE_PAR_DEFAUT, normaliser_poids, pipeline_fixe, run_agent  # noqa: E402
 from src.contrat import CRITERES, POIDS_PAR_DEFAUT  # noqa: E402
 
-NOM_PRODUIT = "Atlas Invest"
+NOM_PRODUIT = "InvestMind"
 ACCROCHE = ("Un agent prédit la rentabilité et le risque, repère les dossiers anormaux, classe les projets "
             "selon plusieurs critères et rédige une recommandation justifiée.")
 FICHIER_PROJETS = RACINE / "data" / "processed" / "projets.csv"
