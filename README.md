@@ -174,7 +174,7 @@ tests/        140 tests automatiques
 
 | Rôle | Responsable | Contribution |
 |---|---|---|
-| Responsable technique : architecture, agent, application, intégration | **Ilyas Ben Alla** | Architecture et contrat commun, jeu de données, agent LLM et ses garde-fous, évaluation de l'agent, application et relief 3D, intégration des quatre modules, revue des 31 pull requests, dépôt |
+| Responsable technique : architecture, agent, application, intégration | Ilyas Ben Alla | Architecture et contrat commun, jeu de données, agent LLM et ses garde-fous, évaluation de l'agent, application et relief 3D, intégration des quatre modules, revue des 31 pull requests, dépôt |
 | Apprentissage supervisé | Salma Akazi | Analyse exploratoire, séparation des jeux, prétraitement, une dizaine de modèles comparés, SHAP, `predict` |
 | Non supervisé et multicritère | Zineb Baghzali | ACP, clustering, Isolation Forest, somme pondérée, AHP, TOPSIS, sensibilité, `rank` et `detect_anomalies` |
 | NLP et recherche de passages | Ayoub Asseffar | Exploration des textes, vérité terrain construite, `extract`, `retrieve` par embeddings, évaluations |
