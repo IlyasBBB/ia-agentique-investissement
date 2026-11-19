@@ -6,7 +6,7 @@ Responsable : Zineb Baghzali. Module à livrer : `src/mcda.py` (`rank`, `detect_
 
 | N° | Tâche | Échéance | État | Livrables |
 |---|---|---|---|---|
-| 1 | Préparation des données | au plus vite | à faire | `notebooks/role2/01_non_supervise.ipynb` |
+| 1 | Préparation des données | au plus vite | fait, branche `role2/tache-1` | `notebooks/role2/01_non_supervise.ipynb` (partie tâche 1) ; `reports/role2/figures/cout_avant_apres_log.png`, `correlations_variables.png` |
 | 2 | ACP | | à faire | notebook 01 |
 | 3 | Clustering (K-means, hiérarchique, DBSCAN, mélange gaussien) | | à faire | notebook 01 |
 | 4 | Détection d'anomalies (Isolation Forest) | | fait (liste commentée des projets atypiques à reprendre dans le notebook 01), branche `role2/tache-4-5-9` | `detect_anomalies`, `score_anomalie` dans `src/mcda.py` ; `scripts/evaluer_anomalies_mcda.py` ; `reports/role2/anomalies_*.csv` |
@@ -55,3 +55,9 @@ Fixée par Zineb le 19 novembre 2026, **avant toute mesure** (ce commit précèd
 - Explication : le coût aberrant de 37 707 M$ (projet signalé, mais gardé dans le classement) écrase la normalisation min-max du coût : les projets non signalés coûtent tous moins de 2 800 M$ et reçoivent presque 1. Les notes qualitatives sont souvent au maximum (médiane 5 en faisabilité).
 - Spearman entre les deux classements : 0,74 ; 7 projets communs dans les 10 premiers, 29 dans les 50 premiers ; écart de rang médian 72 places.
 - Non essayé, pour ne pas ajuster la méthode après le résultat : somme pondérée sur le log du coût, ou bornes calculées sans les projets signalés.
+
+## Analyse non supervisée (tâches 1 à 3)
+
+- Variables (tâche 1, choix de Zineb le 19 novembre) : 2 000 projets, 8 variables standardisées (`StandardScaler`) : log10 du coût, durée, année d'approbation, `rentabilite_predite` et `proba_risque` (`predict`, rôle 1), `impact_env_social`, `alignement_strategique`, `faisabilite` (`extract`, rôle 3). Secteur, région et type de financement servent seulement à décrire les groupes. Cibles `rentabilite` et `risque` exclues (vides pour les 500 en cours, simulées). Aucune valeur manquante. Anomalies gardées, `anomalies_injectees.csv` non lu.
+- À écrire dans le rapport : la rentabilité et le risque prédits sont calculés à partir du coût, de la durée, de l'année, du secteur et du pays, donc en partie redondants avec les trois chiffres (corrélations : risque et durée 0,67, risque et coût 0,44, rentabilité et durée −0,46) ; pour les 1 500 terminés, ce sont des prédictions sur des projets vus à l'apprentissage du rôle 1, ce qui ne gêne pas une analyse descriptive.
+- Constats : log10 du coût, asymétrie de 18,5 à 0,06 ; deux blocs de variables liées (chiffres et prédictions ; notes du texte, corrélées entre elles de 0,45 à 0,64) ; aucun projet à plus de 4 écarts-types après standardisation.
