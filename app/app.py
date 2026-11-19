@@ -155,8 +155,12 @@ def afficher_recommandation(resultat: dict) -> None:
     if anormaux:
         afficher_html(composants.alerte_anomalies(anormaux))
     st.subheader("Recommandation rédigée")
-    st.text(resultat["recommandation"])  # texte brut : on n'interprète pas le texte du LLM comme du Markdown
-    st.caption(f"Durée de l'analyse : {resultat['duree_s']:.1f} s")
+    redacteur = ("rédigée par le LLM local, contrôlée par le code" if resultat.get("mode") == MODE_AGENT
+                 else "rédigée par le pipeline fixe, sans LLM")
+    st.caption(f"Recommandation {redacteur} · chiffres calculés par les modèles · "
+               f"analyse en {resultat['duree_s']:.1f} s".replace(".", ","))
+    # Texte du LLM rangé en sections ; chaque morceau est échappé : rien n'est lu comme du HTML ou du Markdown.
+    afficher_html(composants.recommandation_redigee(resultat["recommandation"]))
 
 
 def afficher_classement(classement: pd.DataFrame) -> None:
@@ -293,6 +297,7 @@ def lancer_analyse(demande: str, projets: pd.DataFrame, documents: dict, mode: s
         else:
             resultat = pipeline_fixe(demande, projets, documents, poids_fixes)
         resultat["duree_s"] = time.perf_counter() - debut
+        resultat["mode"] = mode
         reference = None
         if comparer:
             debut = time.perf_counter()

@@ -164,4 +164,4 @@ Nuage de points Plotly (`scatter3d`) : rentabilité prédite, probabilité de ri
 
 ### Sécurité de l'affichage
 
-Le texte du LLM est affiché avec `st.text`, donc jamais lu comme du Markdown ou du HTML. Dans les blocs HTML, tout ce qui vient des données ou du LLM (noms de projets, CSV importé, arguments et résultats d'outils) passe par `composants.propre`, qui neutralise les balises. Un test le vérifie.
+Le texte du LLM est rangé en sections par `composants.recommandation_redigee` (projets recommandés en liste numérotée, alertes, passage cité, limites, contrôle automatique), sans rien réécrire : chaque morceau est échappé, donc jamais lu comme du Markdown ou du HTML. Les cartes des projets recommandés passent de trois colonnes à une seule selon la largeur du bloc (requête de conteneur), et leurs chiffres sont alignés en bas de carte. Dans les blocs HTML, tout ce qui vient des données ou du LLM (noms de projets, CSV importé, arguments et résultats d'outils) passe par `composants.propre`, qui neutralise les balises. Un test le vérifie.
