@@ -4,7 +4,7 @@ L'application ne calcule rien elle-même : elle charge les projets, transmet la
 demande à l'agent (src/agent.py) et affiche ce qu'il rend. Lancement :
     streamlit run app/app.py
 
-Trois fichiers l'accompagnent dans ce dossier :
+Ce dossier contient aussi :
 - style.css      : l'habillage (papier saumon, manchette, cartes, journal) ;
 - composants.py  : les blocs écrits en HTML (bandeau, cartes, alerte, journal) ;
 - graphiques.py  : les graphiques Plotly, dont le nuage 3D ;
@@ -168,7 +168,7 @@ def afficher_classement(classement: pd.DataFrame) -> None:
     afficher_graphique(graphiques.figure_meilleurs_scores(classement))
     st.subheader("Classement complet")
     tableau = classement[[c for c in COLONNES_TABLEAU if c in classement]]
-    if "anomalie" in tableau:  # lignes des dossiers anormaux sur fond rouge sombre
+    if "anomalie" in tableau:  # lignes des dossiers anormaux sur fond rose pâle
         surligner = lambda ligne: ["background-color: #f7dcd9; color: #5c0f24" if ligne["anomalie"] else ""] * len(ligne)  # noqa: E731
         tableau = tableau.style.apply(surligner, axis=1).format(precision=3, decimal=",")
     st.dataframe(tableau, hide_index=True, width="stretch", column_config=COLONNES_TABLEAU)
@@ -457,7 +457,7 @@ with st.sidebar:
     st.caption(f"Modules : {outils.description_modules()}")
 
 reels = outils.modules_reels()
-modules = ("fonctions factices" if not reels else "modules des rôles 1 à 3" if not outils.utilise_mocks()
+modules = ("fonctions factices" if not reels else "modèles de l'équipe" if not outils.utilise_mocks()
            else "modules réels : " + ", ".join(sorted(reels)))
 afficher_html(f'<div class="manchette"><span><b>{composants.propre(date_du_jour().capitalize())}</b> · '
               f'Banque mondiale, {composants.nombre(nb_charges)} dossiers</span>'

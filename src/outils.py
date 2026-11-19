@@ -45,7 +45,7 @@ def description_modules() -> str:
     if not reels:
         return "fausses fonctions (USE_MOCKS=1)"
     if reels == set(MODULES):
-        return "vrais modules des rôles 1 à 3"
+        return "modèles de l'équipe (supervisé, multicritère, NLP)"
     return f"vrais modules : {', '.join(sorted(reels))} ; fausses fonctions pour les autres"
 
 

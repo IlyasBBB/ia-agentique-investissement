@@ -1,4 +1,4 @@
-# Architecture (rôle 4)
+# Architecture de l'agent et de l'application
 
 ## Vue d'ensemble
 
@@ -27,7 +27,7 @@ src/outils.py  (par défaut : vrais modules | USE_MOCKS=1 : src/mocks.py)
 3. `predire` : `predict` sur chaque projet, pour la rentabilité et le risque.
 4. `detecter_anomalies` : `detect_anomalies` sur l'ensemble.
 5. `classer(poids)` : construit la matrice des sept critères et appelle `rank`.
-6. `chercher_passages(question, k)` : `retrieve`, pour citer un passage qui justifie la recommandation. La question est écrite en anglais par le LLM, comme les documents. L'agent transmet à `retrieve` les documents des projets analysés (paramètre `documents`, contrat du 18 novembre), puis garde par sécurité les `k` premiers passages qui viennent de ces projets. Avec une version de `retrieve` sans ce paramètre, il demande 50 passages sur tout le corpus et filtre de la même façon.
+6. `chercher_passages(question, k)` : `retrieve`, pour citer un passage qui justifie la recommandation. La description de l'outil demande une question en anglais, la langue des documents ; si le LLM n'appelle pas l'outil, l'agent le fait lui-même (voir plus bas). L'agent transmet à `retrieve` les documents des projets analysés (paramètre `documents`, contrat du 18 novembre), puis garde par sécurité les `k` premiers passages qui viennent de ces projets. Avec une version de `retrieve` sans ce paramètre, il demande 50 passages sur tout le corpus et filtre de la même façon.
 7. Rédiger la recommandation : les trois premiers projets, pourquoi, les alertes, les limites.
 
 L'ordre n'est pas imposé en dur : le LLM choisit les outils. Le prompt système (`prompts/systeme.txt`) décrit la démarche attendue, et les tests vérifient le comportement avec un faux LLM.
@@ -52,14 +52,14 @@ L'ordre n'est pas imposé en dur : le LLM choisit les outils. Le prompt système
 - **comparaison** exigée par la consigne : on compare l'agent (le LLM choisit les outils et les poids) à ce modèle simple (ordre fixe, poids par défaut ou imposés) ;
 - **secours** pour la démonstration si Ollama ne tourne pas.
 
-Sur les 2 000 projets avec les fausses fonctions, il répond en moins d'une seconde (hors lecture des 2 000 fichiers texte).
+Avec les quatre modules de l'équipe, il analyse 500 projets en 3 à 5 secondes (moins d'une seconde une fois les modèles chargés).
 
 ## Décisions prises
 
 | Sujet | Décision | Raison |
 |---|---|---|
 | LLM | Ollama en local | Gratuit, choix de l'équipe |
-| Modèle | `qwen2.5:3b` par défaut (variable `OLLAMA_MODEL`) | Gère l'appel d'outils sans phase de réflexion : environ 1 minute par analyse sur le PC d'Ilyas. `qwen3:4b` a été écarté, trop lent (voir les essais ci-dessous) |
+| Modèle | `qwen2.5:3b` par défaut (variable `OLLAMA_MODEL`) | Gère l'appel d'outils sans phase de réflexion : environ deux minutes par analyse avec les vrais modules, sur un PC portable sans carte graphique. `qwen3:4b` a été écarté, trop lent (voir les essais ci-dessous) |
 | Contrôle de la recommandation | `controler_recommandation` ajoute au texte du LLM les projets à recommander et les dossiers anormaux qu'il a oubliés | Un modèle de 3 milliards de paramètres oublie des faits ; ce qui peut se vérifier par le code ne doit pas dépendre de lui |
 | Outils du LLM | Cinq outils qui traitent tout le portefeuille | Un appel par projet serait impossible avec 2 000 projets |
 | Boucle de l'agent | Boucle Python maison avec l'appel d'outils du paquet `ollama`, retenue pour la version finale | Une trentaine de lignes, faciles à expliquer. Un cadriciel comme LangGraph n'apporterait rien ici |
@@ -68,15 +68,14 @@ Sur les 2 000 projets avec les fausses fonctions, il répond en moins d'une seco
 | Branchement des modules | `src/outils.py` avec `USE_MOCKS`, ou `MODULES_REELS` module par module (par exemple `MODULES_REELS=nlp`) | Permet d'avancer sans attendre les autres rôles, et d'essayer chaque module dès sa livraison |
 | Déploiement | Démonstration locale filmée | Ollama ne tourne pas sur l'hébergement Streamlit gratuit |
 
-## Décisions ouvertes
+## Décisions prises en cours de route
 
-- 18 nov. : `chercher_passages` presque jamais demandé par `qwen2.5:3b`. Tranché : la recherche est lancée d'office après `classer` (voir « La recherche de passages d'office »).
+- 18 nov. : `chercher_passages` presque jamais demandé par `qwen2.5:3b`. La recherche est lancée d'office après `classer` (voir « La recherche de passages d'office »).
+- 16 et 19 nov. : le prompt système est gardé dans sa formulation d'origine. Deux reformulations essayées le 16 et une modification du 18 ont déplacé les erreurs au lieu de les supprimer (`reports/role4/tests_agent.md`, erreurs E3 et E8).
 
-- Le prompt système est gardé tel quel après deux essais de reformulation qui ont déplacé les erreurs au lieu de les supprimer (même rapport).
+## Évaluation sur cinq scénarios (16 et 19 novembre)
 
-## Évaluation du 16 novembre sur cinq scénarios
-
-Cinq demandes, 30 projets en cours, deux passages, agent et `pipeline_fixe` : protocole, résultats et analyse des erreurs dans `reports/role4/tests_agent.md`. Les scénarios et les vérifications automatiques sont dans `src/scenarios.py`, l'évaluation se relance avec `python scripts/evaluer_agent.py --passages 2`.
+Cinq demandes, 30 projets en cours, deux passages, agent et `pipeline_fixe`, avec les fausses fonctions le 16 novembre puis avec les quatre vrais modules le 19 : protocole, résultats et analyse des erreurs dans `reports/role4/tests_agent.md`. Les scénarios et les vérifications automatiques sont dans `src/scenarios.py`, l'évaluation se relance avec `python scripts/evaluer_agent.py --passages 2`.
 
 Deux corrections de `src/agent.py` en sont sorties :
 
@@ -101,7 +100,7 @@ PC : Ryzen 5 7520U, 16 Go de mémoire, calcul sur processeur. Demande : « Je ve
 - Avec le prompt système et les cinq outils, un seul tour a demandé environ 4 600 jetons de réflexion : 10 minutes par tour lors d'un premier essai, 33 minutes lors d'une mesure isolée. L'essai complet a été arrêté après deux tours (20 minutes).
 - Les outils choisis étaient les bons (`extraire_criteres`, `predire`, `detecter_anomalies`, `classer`), mais `extraire_criteres` a été appelé deux fois et `classer` sans poids. Le contexte par défaut d'Ollama (4 096 jetons) était dépassé par la réflexion ; il est maintenant fixé à 8 192.
 
-Conclusion : l'agent n'est pas utilisable en démonstration avec ce modèle sur ce PC. Pistes : un modèle sans réflexion de taille voisine (par exemple `qwen2.5:3b` ou `llama3.2:3b`), à mesurer de la même façon. En attendant, un délai de 600 secondes par réponse (`OLLAMA_TIMEOUT`) fait basculer l'agent sur le secours sans LLM.
+Conclusion : l'agent n'est pas utilisable en démonstration avec ce modèle sur ce PC. `qwen2.5:3b`, sans phase de réflexion, a été mesuré de la même façon et retenu (section précédente). Le délai de 600 secondes par réponse (`OLLAMA_TIMEOUT`) reste en place : au-delà, l'agent bascule sur le secours sans LLM.
 
 ## Application
 
@@ -111,7 +110,7 @@ Trois zones :
 
 - **barre latérale** (bleu nuit) : source des données (jeu Banque mondiale ou fichiers importés), filtres, mode (agent ou pipeline fixe), comparaison, état d'Ollama ;
 - **haut de page** : manchette (nom du produit, date, rappel que rentabilité et risque sont simulés), bandeau de chiffres du portefeuille retenu, puis deux colonnes : à gauche la demande, ses trois exemples, les poids et le bouton « Analyser » ; à droite le relief 3D du portefeuille et la fiche du projet cliqué ;
-- **résultats**, en onglets : Recommandation (cartes des trois projets, alerte sur les dossiers anormaux, texte rédigé), Classement (dix meilleurs scores et tableau complet), Vue 3D (nuage Plotly), Journal des étapes, Explication (poids utilisés, graphique SHAP à venir), Comparaison (agent face au pipeline fixe).
+- **résultats**, en onglets : Recommandation (cartes des trois projets, alerte sur les dossiers anormaux, texte rédigé), Classement (dix meilleurs scores et tableau complet), Vue 3D (nuage Plotly), Journal des étapes, Explication (graphique SHAP du modèle de rentabilité, poids utilisés), Comparaison (agent face au pipeline fixe).
 
 ### Fichiers
 
@@ -144,7 +143,7 @@ Streamlit relance tout le script à chaque clic. Pour éviter cet effet de page 
 - le relief 3D reste le même d'un clic à l'autre : seules ses données changent, et les colonnes glissent vers leur nouvelle place.
 - avec les vrais modules (le défaut), les modèles de texte de `extract` et `retrieve` sont chargés dès l'ouverture de l'application (`prechauffer_modeles`, mis en cache) : la première analyse ne paie pas leur chargement, une quinzaine de secondes.
 
-Ce qui reste lent : l'analyse par l'agent (environ une minute, le LLM tourne sur le processeur).
+Ce qui reste lent : l'analyse par l'agent (environ deux minutes, le LLM tourne sur le processeur).
 
 ### Relief 3D
 

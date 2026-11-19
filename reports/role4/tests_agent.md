@@ -8,7 +8,7 @@ Vérifier que l'agent se comporte correctement sur des demandes variées, et le 
 
 **Ce qui est évalué.** Le comportement de l'agent : outils demandés, poids tirés de la demande, fidélité du texte aux chiffres rendus par les outils, honnêteté quand il ne sait pas.
 
-**Ce qui n'est pas évalué.** La qualité des prédictions, des notes et du classement. Les modules des rôles 1, 2 et 3 ne sont pas encore livrés : les essais tournent avec les fausses fonctions (`USE_MOCKS=1`). Les rentabilités, risques et notes sont donc factices, et aucun projet cité ici n'est réellement « bon » ou « mauvais ».
+**Ce qui n'est pas évalué.** La qualité des prédictions, des notes et du classement. Sections 2 à 8 : essais du 16 novembre, quand les modules des rôles 1, 2 et 3 n'étaient pas encore livrés ; les essais tournent avec les fausses fonctions (`USE_MOCKS=1`). Les rentabilités, risques et notes sont donc factices, et aucun projet cité ici n'est réellement « bon » ou « mauvais ».
 
 ## 2. Protocole
 
@@ -52,7 +52,7 @@ Pour les trois projets et l'alerte, on distingue le texte écrit par le LLM et l
 
 **Limite sur les passages.** La fausse fonction `retrieve` ne connaît que cinq documents d'exemple (P001 à P005). Sur les 30 projets réels, `chercher_passages` ne trouve donc jamais rien. La seule réponse honnête est « Passage cité : aucun ». Ce cas teste bien l'honnêteté, mais pas la qualité des citations.
 
-## 3. Résultats (état final du code)
+## 3. Résultats du 16 novembre (fausses fonctions)
 
 Fichier : `reports/role4/scenarios/resultats_scenarios.csv`. Textes complets : `reports/role4/scenarios/sorties_scenarios.json`.
 
@@ -185,7 +185,7 @@ Chaque erreur observée, sa cause probable et ce qui a été fait.
 
 ## 7. Limites
 
-- **Chiffres factices.** Avec les fausses fonctions, seul le comportement de l'agent est jugé. L'évaluation est à refaire après l'intégration (`USE_MOCKS=0`), avec le même script.
+- **Chiffres factices.** Avec les fausses fonctions, seul le comportement de l'agent est jugé. L'évaluation a été refaite avec les vrais modules le 19 novembre (section 9).
 - **Citations non testées.** La fausse recherche ne trouve rien sur les projets réels.
 - **Petit modèle.** `qwen2.5:3b` (3,1 milliards de paramètres) est sensible à la formulation du prompt et recopie plus qu'il ne rédige. Un modèle plus gros n'a pas pu être essayé sur ce matériel dans un délai utilisable.
 - **Petit échantillon.** 30 projets, 5 demandes, 2 passages : assez pour repérer des erreurs, pas pour donner un taux de réussite fiable.
@@ -199,10 +199,12 @@ Chaque erreur observée, sa cause probable et ce qui a été fait.
 | `src/scenarios.py` | Les cinq scénarios, les 30 projets, les vérifications |
 | `scripts/evaluer_agent.py` | Lance l'évaluation (`--passages`, `--scenarios`, `--suffixe`) |
 | `tests/test_agent.py` | Les scénarios en tests : pipeline fixe (sans LLM) et vrai modèle (`python -m pytest -m llm`) |
-| `reports/role4/scenarios/resultats_scenarios.csv`, `sorties_scenarios.json` | État final du code |
-| `reports/*_avant_corrections.*` | Première évaluation, avant toute correction |
-| `reports/*_correction1.*` | Scénario 1 relancé après la correction E1 |
-| `reports/*_essai_crochets.*`, `*_essai_alertes.*` | Les deux reformulations du prompt, non gardées |
+| `reports/role4/scenarios/resultats_scenarios_integration.csv`, `sorties_scenarios_integration.json` | Évaluation finale, avec les quatre vrais modules (19 novembre, section 9) |
+| `reports/role4/scenarios/resultats_scenarios.csv`, `sorties_scenarios.json` | Évaluation du 16 novembre, fausses fonctions, après les corrections E1 et E2 |
+| `reports/role4/scenarios/*_avant_corrections.*` | Première évaluation, avant toute correction |
+| `reports/role4/scenarios/*_correction1.*` | Scénario 1 relancé après la correction E1 |
+| `reports/role4/scenarios/*_essai_crochets.*`, `*_essai_alertes.*` | Les deux reformulations du prompt, non gardées |
+| `reports/role4/scenarios/*_integration_prompt18nov.*`, `*_diagnostic*` | Erreur E8 : évaluation avec le prompt du 18 novembre et diagnostic |
 
 ## 9. Intégration du 19 novembre : les quatre vrais modules
 
