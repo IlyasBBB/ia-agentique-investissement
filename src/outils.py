@@ -1,9 +1,10 @@
 """Point d'accès unique aux outils de l'agent.
 
-USE_MOCKS=1 (par défaut) : fausses fonctions de src/mocks.py.
-USE_MOCKS=0 : vrais modules des rôles 1, 2 et 3.
+Par défaut : les vrais modules des rôles 1, 2 et 3 (src/supervise.py, src/mcda.py, src/nlp.py).
+USE_MOCKS=1 : fausses fonctions de src/mocks.py, rapides et sans modèle à charger. Les tests
+les utilisent par défaut (tests/conftest.py).
 MODULES_REELS="nlp" (ou "nlp,supervise"...) : seulement ces modules en vrai, les autres en
-fausses fonctions. Sert à essayer un module dès qu'il est livré, sans attendre les autres.
+fausses fonctions. A servi à essayer chaque module dès sa livraison.
 Elle passe avant USE_MOCKS. Un module demandé mais absent provoque une erreur claire plutôt
 qu'un retour silencieux aux fausses fonctions.
 """
@@ -30,7 +31,7 @@ def modules_reels() -> set[str]:
             raise ValueError(f"MODULES_REELS : module inconnu {sorted(inconnus)}. "
                              f"Modules possibles : {', '.join(MODULES)}.")
         return noms
-    return set(MODULES) if os.getenv("USE_MOCKS", "1") == "0" else set()
+    return set() if os.getenv("USE_MOCKS", "0") == "1" else set(MODULES)
 
 
 def utilise_mocks() -> bool:

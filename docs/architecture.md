@@ -12,7 +12,7 @@ app/app.py (Streamlit)
 src/agent.py  -- run_agent() -->  LLM local (Ollama)
    |                                  |  choisit l'outil suivant
    v                                  v
-src/outils.py  (USE_MOCKS=1 : src/mocks.py | USE_MOCKS=0 : vrais modules)
+src/outils.py  (par défaut : vrais modules | USE_MOCKS=1 : src/mocks.py)
    |-- predict            src/supervise.py   (rôle 1)
    |-- rank               src/mcda.py        (rôle 2)
    |-- detect_anomalies   src/mcda.py        (rôle 2)
@@ -142,7 +142,7 @@ Streamlit relance tout le script à chaque clic. Pour éviter cet effet de page 
 - la demande, les poids, le relief et les résultats sont dans un **fragment** (`@st.fragment`, fonction `atelier`) : un clic dans ce bloc ne relance que lui ;
 - **poids en direct** : après une analyse, les curseurs partent des poids utilisés. Les bouger refait le classement avec `rank` sur les sept critères déjà calculés (fonction `reclasser`, via `src/outils.py`), sans relancer l'agent. Les cartes, le classement et le relief suivent ; la recommandation rédigée, le journal et la comparaison restent ceux de l'analyse, et un message le dit ;
 - le relief 3D reste le même d'un clic à l'autre : seules ses données changent, et les colonnes glissent vers leur nouvelle place.
-- avec les vrais modules (`USE_MOCKS=0`), les modèles de texte de `extract` et `retrieve` sont chargés dès l'ouverture de l'application (`prechauffer_modeles`, mis en cache) : la première analyse ne paie pas leur chargement, une quinzaine de secondes.
+- avec les vrais modules (le défaut), les modèles de texte de `extract` et `retrieve` sont chargés dès l'ouverture de l'application (`prechauffer_modeles`, mis en cache) : la première analyse ne paie pas leur chargement, une quinzaine de secondes.
 
 Ce qui reste lent : l'analyse par l'agent (environ une minute, le LLM tourne sur le processeur).
 

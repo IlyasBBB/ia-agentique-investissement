@@ -7,11 +7,11 @@
 
 École Centrale Casablanca, novembre 2026. Équipe de quatre ingénieurs.
 
-> **In English.** InvestMind is an AI agent that ranks investment projects and writes a justified recommendation. It runs fully offline: a local LLM (Qwen 2.5, 3B, via Ollama) plans the analysis and calls five tools built by the team, covering a supervised model (return and risk prediction, Ridge and LightGBM), an NLP module (criterion scoring with TF-IDF and keywords, passage retrieval with sentence embeddings), anomaly detection (Isolation Forest) and multi-criteria ranking (TOPSIS, AHP). It works on 2,000 real World Bank projects. The Streamlit app adds a 3D portfolio view and live re-weighting. Everything is tested (140 automated tests), evaluated without data leakage, and every choice of model was fixed before looking at the test set.
+> **In English.** InvestMind is an AI agent that ranks investment projects and writes a justified recommendation. It runs fully offline: a local LLM (Qwen 2.5, 3B, via Ollama) plans the analysis and calls five tools built by the team, covering a supervised model (return and risk prediction, Ridge and LightGBM), an NLP module (criterion scoring with TF-IDF and keywords, passage retrieval with sentence embeddings), anomaly detection (Isolation Forest) and multi-criteria ranking (TOPSIS, AHP). It works on 2,000 real World Bank projects. The Streamlit app adds a 3D portfolio view and live re-weighting. Everything is tested (141 automated tests), evaluated without data leakage, and every choice of model was fixed before looking at the test set.
 
 ![Application InvestMind : demande, poids, relief 3D du portefeuille de 500 projets](docs/images/application.png)
 
-| 2 000 | 4 | 5 | 140 | 31 |
+| 2 000 | 4 | 5 | 141 | 31 |
 |:---:|:---:|:---:|:---:|:---:|
 | projets réels de la Banque mondiale | domaines de l'IA réunis : supervisé, non supervisé, NLP, IA agentique | outils pilotés par un LLM local | tests automatiques | pull requests relues avant fusion |
 
@@ -119,7 +119,6 @@ Sous macOS ou Linux : `source .venv/bin/activate`. Un processeur suffit, aucune 
 
 ```
 ollama serve                 # dans un premier terminal
-$env:USE_MOCKS="0"           # les quatre modules de l'équipe
 streamlit run app/app.py     # dans un second terminal
 ```
 
@@ -127,8 +126,8 @@ On choisit les projets (jeu de la Banque mondiale ou fichiers importés), on éc
 
 | Variable | Défaut | Effet |
 |---|---|---|
-| `USE_MOCKS` | `1` | `1` : fausses fonctions ; `0` : les quatre modules de l'équipe |
-| `MODULES_REELS` | vide | Modules à prendre en vrai, les autres restant factices, par exemple `nlp,supervise`. Passe avant `USE_MOCKS` |
+| `USE_MOCKS` | `0` | `0` : les modules de l'équipe ; `1` : fausses fonctions, rapides, sans modèle à charger (utilisées par défaut par les tests) |
+| `MODULES_REELS` | vide | Seulement ces modules en vrai, les autres factices, par exemple `nlp,supervise`. Passe avant `USE_MOCKS` |
 | `OLLAMA_MODEL` | `qwen2.5:3b` | Modèle de l'agent |
 | `OLLAMA_HOST` | adresse locale | Serveur Ollama |
 | `OLLAMA_TIMEOUT` | `600` | Attente maximale d'une réponse du LLM, en secondes |
@@ -137,8 +136,9 @@ On choisit les projets (jeu de la Banque mondiale ou fichiers importés), on éc
 ## Tests et reproduction
 
 ```
-python -m pytest            # 134 tests, sans Ollama (le LLM est remplacé par un faux client)
-python -m pytest -m llm     # + 6 tests avec le vrai LLM (Ollama doit tourner)
+python -m pytest                          # 135 tests, rapides : fausses fonctions, LLM remplacé par un faux client
+$env:USE_MOCKS="0"; python -m pytest      # les mêmes tests avec les quatre modules de l'équipe
+python -m pytest -m llm                   # + 6 tests avec le vrai LLM (Ollama doit tourner)
 ```
 
 | Résultat | Commande | Analyse |
@@ -163,7 +163,7 @@ prompts/      prompts de l'agent
 reports/      un dossier par rôle : résultats, figures, évaluations et brouillon du rapport
 scripts/      téléchargement et préparation des données, évaluations
 src/          agent, contrat, fausses fonctions et les modules des quatre rôles
-tests/        140 tests automatiques, lancés par GitHub Actions à chaque modification de main
+tests/        141 tests automatiques, lancés par GitHub Actions à chaque modification de main
 ```
 
 ## Limites
