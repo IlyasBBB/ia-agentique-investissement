@@ -12,3 +12,4 @@ joblib==1.6.0
 matplotlib==3.10.9
 lightgbm==4.6.0
 shap==0.52.0
+scipy==1.18.1
