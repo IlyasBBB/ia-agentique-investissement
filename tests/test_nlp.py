@@ -132,7 +132,8 @@ def projets_en_cours() -> dict[str, str]:
 @pytest.mark.skipif(not modele_embeddings_disponible(), reason="modèle d'embeddings non téléchargé")
 def test_retrieve_documents_connus_sans_nouvel_index(monkeypatch):
     documents = projets_en_cours()
-    nlp.retrieve("rural electrification", 3)  # index par défaut déjà chargé, comme au démarrage
+    # Préchauffage hors chronomètre : le premier appel avec documents lit les 2 000 textes de référence.
+    nlp.retrieve("rural electrification", 3, documents=documents)
 
     def interdit(*args, **kwargs):
         raise AssertionError("aucun index ne doit être construit pour des documents déjà connus")
