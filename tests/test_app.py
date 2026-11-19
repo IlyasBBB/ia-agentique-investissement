@@ -107,3 +107,26 @@ def test_cartes_et_tableau_numerotent_les_projets_retenus():
     assert "N° 2" in carte and "N° 3" not in carte
     assert composants.rang_affiche({"rang": 2, "rang_retenu": pd.NA, "anomalie": True}) == "écarté"
     assert composants.rang_affiche({"rang": 3, "rang_retenu": 2, "anomalie": False}) == "2"
+
+
+def test_recommandation_redigee_rangee_en_sections_et_echappee():
+    import sys
+
+    sys.path.insert(0, str(Path(APP).parent))
+    import composants
+
+    texte = ("Projets recommandés :\n"
+             "1. P157929 Assam Inland Water Transport Project : 0.959, 10.63 %, 0.12, impact 4/5, alignement 4/5, "
+             "faisabilité 5/5.\n"
+             "Alertes : les dossiers <script>alert(1)</script> P121507.\n"
+             "Passage cité :\nP157929 : « This project has three components. »\n"
+             "Limites : cibles simulées.")
+    html = composants.recommandation_redigee(texte)
+    for titre in ("Projets recommandés", "Alertes", "Passage cité", "Limites"):
+        assert f"<h4>{titre}</h4>" in html
+    assert "score 0,959" in html and "rentabilité prédite 10,63 %" in html and "impact 4/5" in html
+    assert "<blockquote>This project has three components.</blockquote>" in html
+    assert "Document du projet P157929" in html
+    assert "<script>" not in html and "&lt;script&gt;" in html  # le texte du LLM n'est jamais lu comme du HTML
+    secours = composants.recommandation_redigee("L'agent n'a pas terminé (erreur du LLM).\nLimites : aucune.")
+    assert 'class="redac-preambule"' in secours
