@@ -8,7 +8,7 @@ import pandas as pd
 import pytest
 
 from src.contrat import CRITERES, POIDS_PAR_DEFAUT, verifier_classement
-from src.mcda import normaliser, rank, somme_ponderee
+from src.mcda import FICHIER_PROJETS, detect_anomalies, normaliser, rank, score_anomalie, somme_ponderee
 
 
 def matrice_exemple() -> pd.DataFrame:
@@ -154,3 +154,70 @@ def test_rank_rapide_sur_2000_projets():
     duree_ms = (time.perf_counter() - debut) / 10 * 1000
     verifier_classement(sortie)
     assert duree_ms < 50, f"rank trop lent : {duree_ms:.1f} ms"
+
+
+# --- Tâche 4 : détection d'anomalies --------------------------------------------------
+# anomalies_injectees.csv n'est jamais lu ici : il ne sert qu'à l'évaluation
+# (scripts/evaluer_anomalies_mcda.py).
+
+@pytest.fixture(scope="module")
+def projets() -> pd.DataFrame:
+    return pd.read_csv(FICHIER_PROJETS)
+
+
+def fiche(cout: float, duree: float, id_projet: str = "X1") -> dict:
+    return {"id_projet": id_projet, "nom": "Essai", "secteur": "Énergie", "pays": "Maroc",
+            "cout_total": cout, "duree_mois": duree}
+
+
+def test_detect_anomalies_respecte_le_contrat(projets):
+    entree = projets.head(50)
+    copie = entree.copy()
+    sortie = detect_anomalies(entree)
+    assert sortie["anomalie"].dtype == bool
+    assert list(sortie.index) == list(entree.index)
+    assert set(entree.columns) < set(sortie.columns)
+    pd.testing.assert_frame_equal(entree, copie)
+
+
+def test_detect_anomalies_environ_5_pourcent_des_projets_de_reference(projets):
+    part = detect_anomalies(projets)["anomalie"].mean()
+    assert 0.04 <= part <= 0.06
+
+
+def test_detect_anomalies_un_seul_projet_colonnes_obligatoires():
+    normal = detect_anomalies(pd.DataFrame([fiche(50, 60)]))
+    assert normal["anomalie"].tolist() == [False]
+    # 200 000 M$ dépasse de loin le plus gros projet réel (37 707 M$). Un coût de 2 000 M$,
+    # lui, n'est pas signalé : 34 vrais projets le dépassent (limite connue du détecteur).
+    aberrants = detect_anomalies(pd.DataFrame([fiche(200_000, 60, "X2"), fiche(300, 1, "X3")]))
+    assert aberrants["anomalie"].tolist() == [True, True]
+    assert not detect_anomalies(pd.DataFrame([fiche(2000, 60)]))["anomalie"].iloc[0]
+
+
+def test_detect_anomalies_ne_depend_pas_de_la_selection(projets):
+    # Le détecteur n'est pas réappris sur la sélection : un projet reçoit la même réponse
+    # seul ou au milieu des 2 000.
+    tous = detect_anomalies(projets)["anomalie"]
+    for i in [0, 7, 123]:
+        seul = detect_anomalies(projets.iloc[[i]])["anomalie"].iloc[0]
+        assert seul == tous.iloc[i]
+    assert (detect_anomalies(projets.head(20))["anomalie"] == tous.head(20)).all()
+
+
+def test_detect_anomalies_valeurs_impossibles_ou_manquantes():
+    df = pd.DataFrame([fiche(0, 24, "Z1"), fiche(80, -3, "Z2"), fiche(np.nan, 24, "Z3"), fiche(80, None, "Z4")])
+    sortie = detect_anomalies(df)
+    assert sortie["anomalie"].tolist()[:2] == [True, True]
+    assert sortie["anomalie"].dtype == bool
+
+
+def test_detect_anomalies_tableau_vide_et_colonne_obligatoire_absente(projets):
+    assert len(detect_anomalies(projets.iloc[0:0])) == 0
+    with pytest.raises(ValueError):
+        detect_anomalies(projets.drop(columns="duree_mois"))
+
+
+def test_score_anomalie_positif_exactement_pour_les_projets_signales(projets):
+    echantillon = projets.head(200)
+    assert ((score_anomalie(echantillon) > 0) == detect_anomalies(echantillon)["anomalie"]).all()

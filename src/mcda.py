@@ -2,17 +2,34 @@
 
 Fonctions du contrat (docs/contrat.md) : rank(matrice, poids) et detect_anomalies(df).
 Ce module contient aussi la méthode de référence du classement, somme_ponderee().
+
+Le détecteur d'anomalies (Isolation Forest) est appris une fois sur les 2 000 projets de
+data/processed/projets.csv, enregistré dans models/mcda_anomalies.joblib (hors Git) et
+réappris automatiquement s'il manque. `python -m src.mcda` le réapprend.
 """
 from __future__ import annotations
 
 import logging
+from pathlib import Path
 
+import joblib
 import numpy as np
 import pandas as pd
+import sklearn
+from sklearn.ensemble import IsolationForest
 
 from src.contrat import CRITERES, verifier_poids
 
 journal = logging.getLogger(__name__)
+
+RACINE = Path(__file__).resolve().parents[1]
+FICHIER_PROJETS = RACINE / "data" / "processed" / "projets.csv"
+FICHIER_DETECTEUR = RACINE / "models" / "mcda_anomalies.joblib"
+
+# Part des projets de référence signalés. Fixée à 5 % (plan commun, tâche 4) avant toute
+# mesure sur anomalies_injectees.csv, qui ne sert qu'à évaluer.
+CONTAMINATION = 0.05
+VARIABLES_ANOMALIES = ["log_cout", "log_duree", "log_cout_par_mois"]
 
 
 def normaliser(matrice: pd.DataFrame, criteres: list[str]) -> np.ndarray:
@@ -68,3 +85,100 @@ def rank(matrice: pd.DataFrame, poids: dict[str, float]) -> pd.DataFrame:
     sortie["score"] = score[ordre]
     sortie["rang"] = np.arange(1, len(sortie) + 1)
     return sortie.reset_index(drop=True)
+
+
+# --- Détection d'anomalies ------------------------------------------------------------
+
+def variables_anomalies(df: pd.DataFrame) -> pd.DataFrame:
+    """Variables du détecteur, calculées à partir des seules colonnes obligatoires.
+
+    log10 du coût, de la durée et du coût par mois : le log rend comparables un projet de
+    5 et un de 500 millions. Un coût ou une durée nul, négatif ou manquant donne NaN.
+    """
+    manquantes = [c for c in ("cout_total", "duree_mois") if c not in df.columns]
+    if manquantes:
+        raise ValueError(f"Colonnes obligatoires absentes : {manquantes}")
+    cout = pd.to_numeric(df["cout_total"], errors="coerce").where(lambda s: s > 0)
+    duree = pd.to_numeric(df["duree_mois"], errors="coerce").where(lambda s: s > 0)
+    return pd.DataFrame({
+        "log_cout": np.log10(cout),
+        "log_duree": np.log10(duree),
+        "log_cout_par_mois": np.log10(cout / duree),
+    }, index=df.index)
+
+
+def entrainer_detecteur(projets: pd.DataFrame | None = None) -> dict:
+    """Apprend l'Isolation Forest sur les projets de référence (les 2 000 de projets.csv).
+
+    Aucune information sur les anomalies injectées n'est utilisée. Rend un dictionnaire
+    prêt à enregistrer : le modèle, les médianes (pour remplacer les manquants) et la
+    version de scikit-learn.
+    """
+    if projets is None:
+        projets = pd.read_csv(FICHIER_PROJETS)
+    x = variables_anomalies(projets)
+    medianes = x.median()
+    modele = IsolationForest(n_estimators=300, contamination=CONTAMINATION, random_state=42)
+    modele.fit(x.fillna(medianes))
+    journal.info("Détecteur d'anomalies appris sur %d projets.", len(x))
+    return {"modele": modele, "medianes": medianes, "variables": VARIABLES_ANOMALIES,
+            "contamination": CONTAMINATION, "version_sklearn": sklearn.__version__}
+
+
+_DETECTEUR: dict | None = None  # chargé une seule fois, au premier appel
+
+
+def charger_detecteur(fichier: Path = FICHIER_DETECTEUR) -> dict:
+    """Charge le détecteur enregistré, ou l'apprend et l'enregistre s'il manque ou est périmé."""
+    global _DETECTEUR
+    if _DETECTEUR is not None:
+        return _DETECTEUR
+    detecteur = None
+    if fichier.exists():
+        try:
+            detecteur = joblib.load(fichier)
+        except Exception as erreur:  # fichier abîmé : on réapprend
+            journal.warning("Détecteur illisible (%s), réapprentissage.", erreur)
+    if (detecteur is None or detecteur.get("version_sklearn") != sklearn.__version__
+            or detecteur.get("contamination") != CONTAMINATION
+            or detecteur.get("variables") != VARIABLES_ANOMALIES):
+        detecteur = entrainer_detecteur()
+        fichier.parent.mkdir(parents=True, exist_ok=True)
+        joblib.dump(detecteur, fichier)
+        journal.info("Détecteur enregistré dans %s.", fichier.name)
+    _DETECTEUR = detecteur
+    return detecteur
+
+
+def score_anomalie(df: pd.DataFrame) -> pd.Series:
+    """Score d'anomalie de chaque projet : plus il est grand, plus le projet est atypique.
+
+    Positif au-delà du seuil fixé par la contamination (projet signalé).
+    """
+    detecteur = charger_detecteur()
+    x = variables_anomalies(df)
+    if len(x) == 0:
+        return pd.Series(dtype=float, index=df.index, name="score_anomalie")
+    score = -detecteur["modele"].decision_function(x.fillna(detecteur["medianes"]))
+    return pd.Series(score, index=df.index, name="score_anomalie")
+
+
+def detect_anomalies(df: pd.DataFrame) -> pd.DataFrame:
+    """Ajoute la colonne booléenne `anomalie` (contrat : docs/contrat.md).
+
+    Le détecteur est appris une fois sur les 2 000 projets de référence puis appliqué tel
+    quel, même à un seul projet. Un coût ou une durée nul ou négatif est signalé d'office.
+    """
+    sortie = df.copy()
+    impossible = pd.Series(False, index=df.index)
+    for colonne in ("cout_total", "duree_mois"):
+        if colonne in df.columns:
+            impossible |= pd.to_numeric(df[colonne], errors="coerce") <= 0
+    sortie["anomalie"] = (score_anomalie(df) > 0) | impossible
+    return sortie
+
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO, format="%(message)s")
+    FICHIER_DETECTEUR.unlink(missing_ok=True)
+    charger_detecteur()
