@@ -65,3 +65,30 @@ def test_les_curseurs_reclassent_sans_relancer_l_analyse():
     assert not app.exception
     assert app.session_state["resultat"]["etapes"] is etapes_avant  # l'analyse n'a pas été relancée
     assert "Cartes et classement suivent vos poids" in " ".join(m.value for m in app.markdown)
+
+
+def test_graphique_shap_du_role_1(tmp_path):
+    import sys
+
+    import pandas as pd
+
+    sys.path.insert(0, str(Path(APP).parent))
+    import graphiques
+
+    importances = pd.DataFrame({"variable": ["secteur", "duree_mois", "<b>x</b>"], "importance": [1.3, 1.0, 0.2]})
+    figure = graphiques.figure_shap(importances)
+    barres = figure.data[0]
+    assert list(barres.y) == ["&lt;b&gt;x&lt;/b&gt;", "Durée", "Secteur"]  # de la plus faible à la plus forte
+    assert list(barres.x) == [0.2, 1.0, 1.3]
+
+
+def test_onglet_explication_montre_le_shap():
+    app = ouvrir()
+    app.number_input(key="maximum").set_value(20)
+    app.radio(key="mode").set_value("Pipeline fixe (sans LLM)")
+    app.text_area(key="demande").set_value("Projets peu risqués")
+    app.run()
+    app.button(key="analyser").click().run()
+    assert not app.exception
+    titres = [s.value for s in app.subheader]
+    assert "Ce qui pèse sur la rentabilité prédite" in titres

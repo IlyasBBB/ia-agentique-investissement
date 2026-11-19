@@ -21,6 +21,16 @@ LIBELLES = {
     "faisabilite": "Faisabilité",
 }
 
+# Variables d'entrée du modèle de rentabilité (rôle 1), pour le graphique SHAP.
+LIBELLES_VARIABLES = {
+    "secteur": "Secteur",
+    "duree_mois": "Durée",
+    "pays": "Pays",
+    "type_financement": "Type de financement",
+    "cout_total": "Coût total",
+    "region": "Région",
+    "annee_approbation": "Année d'approbation",
+}
 BLEU = "#1d4f8c"
 OCRE = "#a8641c"
 BORDEAUX = "#8e1b3a"
@@ -84,6 +94,16 @@ def figure_poids(poids: dict[str, float]) -> go.Figure:
     tries = sorted(poids.items(), key=lambda paire: paire[1])
     figure = go.Figure(_barres("Poids", [p for _, p in tries], [LIBELLES[c] for c, _ in tries], BLEU))
     figure.update_layout(template=MODELE, height=330, showlegend=False, xaxis_title="Poids (somme = 1)")
+    return figure
+
+
+def figure_shap(importances: pd.DataFrame) -> go.Figure:
+    """Importance SHAP moyenne de chaque variable dans la rentabilité prédite, de la plus forte à la plus faible."""
+    tries = importances.sort_values("importance")
+    etiquettes = [LIBELLES_VARIABLES.get(v, v) for v in _sans_balise(tries["variable"])]
+    figure = go.Figure(_barres("Importance SHAP", tries["importance"].tolist(), etiquettes, BLEU))
+    figure.update_layout(template=MODELE, height=330, showlegend=False,
+                         xaxis_title="Effet moyen sur la rentabilité prédite (points de %)")
     return figure
 
 

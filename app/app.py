@@ -40,6 +40,7 @@ ACCROCHE = ("Un agent prédit la rentabilité et le risque, repère les dossiers
 FICHIER_PROJETS = RACINE / "data" / "processed" / "projets.csv"
 DOSSIER_DOCUMENTS = RACINE / "data" / "docs"
 FICHIER_STYLE = DOSSIER_APP / "style.css"
+FICHIER_SHAP = RACINE / "reports" / "role1" / "shap_importance.csv"  # fourni par le rôle 1
 COLONNES_OBLIGATOIRES = ["id_projet", "nom", "secteur", "pays", "cout_total", "duree_mois"]
 MODE_AGENT = "Agent (LLM)"
 MODE_FIXE = "Pipeline fixe (sans LLM)"
@@ -196,9 +197,32 @@ def afficher_journal(etapes: list[dict]) -> None:
     afficher_html(composants.journal_etapes(etapes))
 
 
+@st.cache_data(show_spinner=False)
+def lire_shap(fichier: Path = FICHIER_SHAP) -> pd.DataFrame | None:
+    """Importance SHAP par variable (colonnes variable, importance), ou None si le fichier manque ou est invalide."""
+    try:
+        importances = pd.read_csv(fichier)
+    except (OSError, ValueError):
+        return None
+    if not {"variable", "importance"} <= set(importances.columns) or importances.empty:
+        return None
+    importances["importance"] = pd.to_numeric(importances["importance"], errors="coerce")
+    return importances.dropna(subset=["importance"])
+
+
 def afficher_explication(resultat: dict, poids_fixes: dict | None) -> None:
-    """Onglet Explication : les poids utilisés pour le classement (et bientôt le graphique SHAP)."""
-    st.info("Graphique SHAP de la prédiction de rentabilité : fourni par le rôle 1 (à venir).")
+    """Onglet Explication : ce qui pèse sur la rentabilité prédite (SHAP), puis les poids du classement."""
+    importances = lire_shap()
+    if importances is None:
+        st.info("Graphique SHAP de la prédiction de rentabilité : fichier reports/role1/shap_importance.csv absent.")
+    else:
+        st.subheader("Ce qui pèse sur la rentabilité prédite")
+        afficher_graphique(graphiques.figure_shap(importances))
+        note = ("Valeur SHAP moyenne de chaque variable : de combien, en moyenne, elle écarte la rentabilité "
+                "prédite de la moyenne. Modèle Ridge du rôle 1, appris sur les 1 500 projets terminés.")
+        if "supervise" not in outils.modules_reels():
+            note += " Les prédictions affichées viennent en ce moment de la fausse fonction predict."
+        st.caption(note)
     st.subheader("Poids utilisés pour le classement")
     afficher_graphique(graphiques.figure_poids(poids_utilises(resultat["etapes"], poids_fixes)))
 
