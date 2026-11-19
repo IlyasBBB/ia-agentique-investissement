@@ -1,20 +1,20 @@
-# Atlas Invest : un agent IA pour choisir des projets d'investissement
+# InvestMind : un agent IA pour choisir des projets d'investissement
 
-Projet de fin de cours « Introduction aux techniques d'apprentissage automatique », École Centrale Casablanca, novembre 2026. Équipe de quatre.
+École Centrale Casablanca, novembre 2026. Équipe de quatre ingénieurs, projet mené techniquement par Ilyas Ben Alla (architecture, agent, application, intégration).
 
-> **In English.** Atlas Invest is an AI agent that ranks investment projects and writes a justified recommendation. It runs fully offline: a local LLM (Qwen 2.5, 3B, via Ollama) plans the analysis and calls five tools built by the team, covering a supervised model (return and risk prediction, Ridge and LightGBM), an NLP module (criterion scoring with TF-IDF and keywords, passage retrieval with sentence embeddings), anomaly detection (Isolation Forest) and multi-criteria ranking (TOPSIS, AHP). It works on 2,000 real World Bank projects. The Streamlit app adds a 3D portfolio view and live re-weighting. Everything is tested (140 automated tests), evaluated without data leakage, and every choice of model was fixed before looking at the test set.
+> **In English.** InvestMind is an AI agent that ranks investment projects and writes a justified recommendation. It runs fully offline: a local LLM (Qwen 2.5, 3B, via Ollama) plans the analysis and calls five tools built by the team, covering a supervised model (return and risk prediction, Ridge and LightGBM), an NLP module (criterion scoring with TF-IDF and keywords, passage retrieval with sentence embeddings), anomaly detection (Isolation Forest) and multi-criteria ranking (TOPSIS, AHP). It works on 2,000 real World Bank projects. The Streamlit app adds a 3D portfolio view and live re-weighting. Everything is tested (140 automated tests), evaluated without data leakage, and every choice of model was fixed before looking at the test set. Technical lead: Ilyas Ben Alla (architecture, shared contract, LLM agent, app, integration of the four modules, review of all 31 pull requests).
 
-<!-- Capture à ajouter : ![Application Atlas Invest : demande, poids, relief 3D du portefeuille et projets recommandés](docs/images/application.png) -->
+![Application InvestMind : demande, poids, relief 3D du portefeuille de 500 projets](docs/images/application.png)
 
 | 2 000 | 4 | 5 | 140 | 31 |
 |:---:|:---:|:---:|:---:|:---:|
-| projets réels de la Banque mondiale | domaines du cours réunis : supervisé, non supervisé, NLP, IA agentique | outils pilotés par un LLM local | tests automatiques | pull requests relues avant fusion |
+| projets réels de la Banque mondiale | domaines de l'IA réunis : supervisé, non supervisé, NLP, IA agentique | outils pilotés par un LLM local | tests automatiques | pull requests relues avant fusion |
 
 ## Le problème
 
 Un comité d'investissement reçoit des centaines de dossiers : des chiffres (coût, durée, pays, secteur) et un texte (objectifs, composantes, montage). Il doit prédire ce que chaque projet rapportera et quel risque il porte, repérer les dossiers suspects, puis classer les projets selon ses propres priorités. Ces priorités changent d'une réunion à l'autre : « peu risqué d'abord », « impact environnemental avant tout ».
 
-Atlas Invest prend une demande écrite en français, par exemple « Je veux des projets peu risqués avec un fort impact environnemental ». En une à deux minutes sur un PC portable, il rend les trois projets à retenir, les dossiers anormaux écartés, un passage des documents qui appuie le choix et le journal de chaque étape.
+InvestMind prend une demande écrite en français, par exemple « Je veux des projets peu risqués avec un fort impact environnemental ». En une à deux minutes sur un PC portable, il rend les trois projets à retenir, les dossiers anormaux écartés, un passage des documents qui appuie le choix et le journal de chaque étape.
 
 ## Comment ça marche
 
@@ -44,7 +44,24 @@ Un **pipeline fixe** (les cinq outils dans le même ordre, sans LLM) sert de mod
 
 ## Ce que l'équipe a construit
 
-### Prédire la rentabilité et le risque (rôle 1, `src/supervise.py`)
+### Architecture, agent, application et intégration (Ilyas Ben Alla, responsable technique)
+
+Ilyas a conçu le système et l'a fait tenir ensemble, du premier jour à l'assemblage :
+
+- **Architecture et contrat commun.** Découpage du produit en quatre modules, format exact de chaque fonction (`docs/contrat.md`, vérifié par `src/contrat.py`), fausses fonctions pour que chaque membre avance sans attendre les autres, branchement de chaque module dès sa livraison (`src/outils.py`, `MODULES_REELS`).
+- **Jeu de données.** Téléchargement des 28 245 projets de la Banque mondiale, filtrage, tirage des 2 000 projets, documents texte, simulation documentée des cibles et injection des 40 anomalies de test (`scripts/`, `data/README.md`).
+- **L'agent** (`src/agent.py`). Boucle écrite à la main avec l'appel d'outils d'Ollama, sans cadriciel ; outils qui traitent tout le portefeuille ; tous les garde-fous décrits plus haut ; choix du modèle après mesure (`qwen3:4b` écarté, 10 minutes par tour, au profit de `qwen2.5:3b`).
+- **L'évaluation de l'agent.** Cinq scénarios (demandes variées, poids imposés, demande hors sujet), deux passages chacun, face au pipeline fixe, avec des vérifications automatiques de fidélité : chaque chiffre du texte doit venir d'un outil, chaque citation d'un document. Analyse détaillée des erreurs et des corrections dans `reports/tests_agent.md`.
+- **L'application** (`app/`). Streamlit sur le thème d'un quotidien financier :
+  - relief 3D du portefeuille, composant écrit en Three.js : une colonne cliquable par projet, qui se réordonne quand le classement change ;
+  - poids modifiables en direct, sans relancer l'agent ;
+  - journal des étapes, comparaison avec le pipeline fixe, graphique SHAP ;
+  - aucun appel externe : LLM, polices et bibliothèque 3D sont sur la machine.
+- **Intégration et revue.** Environnement de travail de chaque membre, protection de la branche `main`, relecture et fusion des 31 pull requests de l'équipe, arbitrage des choix de méthode (règles de choix fixées avant la mesure, pas de fuite de données), essais de bout en bout avec les quatre modules.
+
+![Résultat d'une analyse : les trois projets recommandés et les dossiers anormaux écartés](docs/images/recommandation.png)
+
+### Prédire la rentabilité et le risque (Salma Akazi, `src/supervise.py`)
 
 Analyse exploratoire, séparation entraînement, validation et test (70 / 15 / 15) faite avant tout prétraitement, puis prétraitement dans un `Pipeline` scikit-learn (log du coût, standardisation, encodage des catégories, pays inconnu accepté). Modèles comparés : moyenne et classe majoritaire, régression linéaire, Ridge, Lasso, ElasticNet, forêt aléatoire, LightGBM, régression logistique, réglés par validation croisée à 5 plis. Le jeu de test a été ouvert une seule fois.
 
@@ -55,26 +72,16 @@ Analyse exploratoire, séparation entraînement, validation et test (70 / 15 / 1
 
 Interprétabilité : valeurs SHAP, importance par permutation, analyse des dix plus grosses erreurs. Le modèle retrouve l'ordre des effets de la formule de simulation (secteur, puis durée, puis pays), et ses erreurs se concentrent sur les projets très courts et très longs, là où l'effet de la durée n'est pas linéaire.
 
-### Lire les documents (rôle 3, `src/nlp.py`)
+### Lire les documents (Ayoub Asseffar, `src/nlp.py`)
 
 - **`extract`** donne trois notes de 1 à 5 (impact environnemental et social, alignement stratégique, faisabilité) et la phrase qui justifie chaque note. Il n'existait pas de vérité terrain : l'équipe a écrit une grille de notation et noté 260 documents à la main, puis fait noter 900 documents par le LLM local pour l'entraînement. Le modèle livré combine des mots-clés tirés de la grille et une régression logistique sur TF-IDF. Sur les 100 documents de test : **kappa pondéré 0,66**, contre 0,52 pour le LLM lui-même et 0,49 pour TF-IDF seul. Il note les 2 000 documents en une dizaine de secondes.
 - **`retrieve`** trouve les passages qui répondent à une question, avec des embeddings de phrases (`all-MiniLM-L6-v2`, en local). Sur 25 requêtes de test jugées à la main : **précision@3 de 0,75**, contre 0,55 pour TF-IDF.
 
-### Repérer les dossiers anormaux et classer (rôle 2, `src/mcda.py`)
+### Repérer les dossiers anormaux et classer (Zineb Baghzali, `src/mcda.py`)
 
 - **ACP** (3 axes, 70 % de la variance) et **clustering** avec quatre familles de méthodes (K-means, hiérarchique, DBSCAN, mélange gaussien). Résultat honnête : pas de groupes naturels nets (silhouette 0,20), deux grands profils de projets.
 - **`detect_anomalies`** : Isolation Forest appris une fois sur les 2 000 projets, contamination fixée à 5 % avant toute mesure. Il retrouve les 13 durées incohérentes fabriquées sur 13, 19 anomalies sur 40 en tout, au prix de 81 fausses alertes, toutes mesurées et expliquées.
 - **`rank`** : TOPSIS, choisi face à la somme pondérée par une règle écrite et commitée avant la mesure. Les deux méthodes sont stables (aucun changement des trois premiers sous ± 20 % de poids), mais la somme pondérée ne réagit pas à 3 profils de poids sur 7, parce qu'un coût aberrant écrase sa normalisation. Les poids par défaut sont cohérents au sens d'AHP (ratio de cohérence 0,006). Classement de 2 000 projets en 2 ms.
-
-### L'agent et l'application (rôle 4, `src/agent.py`, `app/`)
-
-- Boucle d'agent écrite à la main avec l'appel d'outils d'Ollama, sans cadriciel, avec les garde-fous décrits plus haut.
-- Évaluation sur cinq scénarios (demandes variées, poids imposés, demande hors sujet), deux passages chacun, face au pipeline fixe, avec des vérifications automatiques de fidélité : chaque chiffre du texte doit venir d'un outil, chaque citation d'un document. Rapport et analyse des erreurs dans `reports/tests_agent.md`.
-- Application Streamlit sur le thème d'un quotidien financier :
-  - relief 3D du portefeuille en Three.js, une colonne cliquable par projet, qui se réordonne quand le classement change ;
-  - poids modifiables en direct, sans relancer l'agent ;
-  - journal des étapes, comparaison avec le pipeline fixe, graphique SHAP.
-- Aucun appel externe : LLM, polices et bibliothèque 3D sont sur la machine.
 
 ## Rigueur
 
@@ -167,10 +174,10 @@ tests/        140 tests automatiques
 
 | Rôle | Responsable | Contribution |
 |---|---|---|
-| 1. Apprentissage supervisé | Salma Akazi | Analyse exploratoire, séparation des jeux, prétraitement, une dizaine de modèles comparés, SHAP, `predict` |
-| 2. Non supervisé et multicritère | Zineb Baghzali | ACP, clustering, Isolation Forest, somme pondérée, AHP, TOPSIS, sensibilité, `rank` et `detect_anomalies` |
-| 3. NLP et RAG | Ayoub Asseffar | Exploration des textes, vérité terrain construite, `extract`, `retrieve` par embeddings, évaluations |
-| 4. Agent, application, intégration | Ilyas Ben Alla | Architecture et contrat commun, jeu de données, agent LLM et ses garde-fous, évaluation de l'agent, application et relief 3D, intégration des modules, revue des 31 pull requests, dépôt |
+| Responsable technique : architecture, agent, application, intégration | **Ilyas Ben Alla** | Architecture et contrat commun, jeu de données, agent LLM et ses garde-fous, évaluation de l'agent, application et relief 3D, intégration des quatre modules, revue des 31 pull requests, dépôt |
+| Apprentissage supervisé | Salma Akazi | Analyse exploratoire, séparation des jeux, prétraitement, une dizaine de modèles comparés, SHAP, `predict` |
+| Non supervisé et multicritère | Zineb Baghzali | ACP, clustering, Isolation Forest, somme pondérée, AHP, TOPSIS, sensibilité, `rank` et `detect_anomalies` |
+| NLP et recherche de passages | Ayoub Asseffar | Exploration des textes, vérité terrain construite, `extract`, `retrieve` par embeddings, évaluations |
 
 ## Licences
 
