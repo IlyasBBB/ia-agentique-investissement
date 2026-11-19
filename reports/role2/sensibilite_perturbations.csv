@@ -1,0 +1,29 @@
+critère,facteur,méthode,trois premiers,ensemble changé,ordre changé
+rentabilite_predite,1.2,somme pondérée,"P511001, P508608, P176335",False,True
+rentabilite_predite,1.2,TOPSIS,"P511001, P176335, P176733",False,False
+rentabilite_predite,0.8,somme pondérée,"P511001, P176335, P508608",False,False
+rentabilite_predite,0.8,TOPSIS,"P511001, P176335, P176733",False,False
+proba_risque,1.2,somme pondérée,"P511001, P176335, P508608",False,False
+proba_risque,1.2,TOPSIS,"P511001, P176335, P176733",False,False
+proba_risque,0.8,somme pondérée,"P511001, P508608, P176335",False,True
+proba_risque,0.8,TOPSIS,"P511001, P176335, P176733",False,False
+cout_total,1.2,somme pondérée,"P511001, P176335, P508608",False,False
+cout_total,1.2,TOPSIS,"P511001, P176335, P176733",False,False
+cout_total,0.8,somme pondérée,"P511001, P176335, P508608",False,False
+cout_total,0.8,TOPSIS,"P511001, P176335, P176733",False,False
+duree_mois,1.2,somme pondérée,"P511001, P176335, P508608",False,False
+duree_mois,1.2,TOPSIS,"P511001, P176335, P176733",False,False
+duree_mois,0.8,somme pondérée,"P511001, P176335, P508608",False,False
+duree_mois,0.8,TOPSIS,"P511001, P176335, P176733",False,False
+impact_env_social,1.2,somme pondérée,"P511001, P176335, P508608",False,False
+impact_env_social,1.2,TOPSIS,"P511001, P176335, P176733",False,False
+impact_env_social,0.8,somme pondérée,"P511001, P176335, P508608",False,False
+impact_env_social,0.8,TOPSIS,"P511001, P176335, P176733",False,False
+alignement_strategique,1.2,somme pondérée,"P511001, P176335, P508608",False,False
+alignement_strategique,1.2,TOPSIS,"P511001, P176335, P176733",False,False
+alignement_strategique,0.8,somme pondérée,"P511001, P176335, P508608",False,False
+alignement_strategique,0.8,TOPSIS,"P511001, P176335, P176733",False,False
+faisabilite,1.2,somme pondérée,"P511001, P176335, P508608",False,False
+faisabilite,1.2,TOPSIS,"P511001, P176335, P176733",False,False
+faisabilite,0.8,somme pondérée,"P511001, P176335, P508608",False,False
+faisabilite,0.8,TOPSIS,"P511001, P176335, P176733",False,False

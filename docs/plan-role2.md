@@ -13,7 +13,7 @@ Responsable : Zineb Baghzali. Module à livrer : `src/mcda.py` (`rank`, `detect_
 | 5 | Somme pondérée (référence) | | fait, branche `role2/tache-4-5-9` | `somme_ponderee`, `normaliser` dans `src/mcda.py` ; tests dans `tests/test_mcda.py` |
 | 6 | Poids par AHP | | fait, branche `role2/tache-6` | `ahp_poids`, `MATRICE_AHP_EXEMPLE` dans `src/mcda.py` ; deux exemples vérifiés à la main dans `tests/test_mcda.py` |
 | 7 | TOPSIS | | fait, branche `role2/tache-7` | `topsis` dans `src/mcda.py` ; vérification à la main sur 4 projets dans `tests/test_mcda.py` ; 0,6 ms sur 2 000 projets |
-| 8 | Sensibilité du classement | | à faire | `notebooks/role2/02_mcda_sensibilite.ipynb` |
+| 8 | Sensibilité du classement | | fait, branche `role2/tache-8` : TOPSIS retenu pour `rank` | `notebooks/role2/02_mcda_sensibilite.ipynb` ; `reports/role2/sensibilite_*.csv`, `reports/role2/figures/rangs_topsis_somme.png`, `reactivite_profils.png` |
 | 9 | `rank` et `detect_anomalies` au format du contrat, tests | **21 nov.** | `rank` (somme pondérée) et `detect_anomalies` faits, branche `role2/tache-4-5-9` | `src/mcda.py`, `tests/test_mcda.py` ; `rank` : 3,9 ms sur 2 000 projets |
 | 10 | Partie du rapport et diapositives | brouillon 21, final 27 | à faire | `reports/role2/rapport_partie2.md` |
 
@@ -30,3 +30,27 @@ Responsable : Zineb Baghzali. Module à livrer : `src/mcda.py` (`rank`, `detect_
 - Sensibilité à la contamination (analyse seulement, `detect_anomalies` garde 5 %) : de 1 % à 10 %, la précision baisse de 0,45 à 0,11 et le rappel monte de 0,23 à 0,55 (`reports/role2/anomalies_sensibilite.csv`).
 - TOPSIS (tâche 7) : normalisation vectorielle, pondération, solutions idéale et anti-idéale, distances euclidiennes, score d- / (d+ + d-). Valeur manquante : pire valeur observée du critère. Colonne constante : ne compte pas (idéale = anti-idéale). Un seul projet ou projets identiques : 0,5. Une rentabilité négative ne pose pas de problème (la division par la norme garde l'ordre). Vérifiée à la main sur 4 projets (scores 0,746 ; 0,517 ; 0,373 ; 0,314). `rank` reste sur la somme pondérée : le passage à TOPSIS se décidera selon une règle écrite avant de comparer les deux méthodes.
 - AHP (tâche 6) : poids = vecteur propre de la plus grande valeur propre, ramené à une somme de 1 ; IC = (λmax − n) / (n − 1), RC = IC / indice aléatoire de Saaty (1,32 pour 7 critères). RC ≥ 0,1 : avertissement dans le journal et `coherente` à faux, mais les poids sont quand même rendus (à l'utilisateur de revoir ses jugements). Matrice refusée si elle n'est pas carrée, positive et réciproque. Matrice d'exemple des 7 critères (`MATRICE_AHP_EXEMPLE`), construite pour redonner à peu près `POIDS_PAR_DEFAUT` : poids 0,265 / 0,188 / 0,087 / 0,049 / 0,162 / 0,162 / 0,087, λmax 7,047, RC 0,006. Vérifiés à la main : matrice cohérente 3 × 3 (poids 4/7, 2/7, 1/7 ; RC 0) et matrice circulaire incohérente (RC 1,149).
+
+## Règle de choix entre TOPSIS et somme pondérée pour `rank` (tâche 8)
+
+Fixée par Zineb le 19 novembre 2026, **avant toute mesure** (ce commit précède la mesure dans l'historique Git).
+
+- **Projets** : les 500 projets en cours de `projets.csv`, ceux que l'agent évalue. Critères : `rentabilite_predite` et `proba_risque` donnés par `src.supervise.predict`, notes qualitatives données par `src.nlp.extract` sur `data/docs/<id_projet>.txt`, `cout_total` et `duree_mois` de `projets.csv`.
+- **Comme l'agent** : `rank` sur les 500 projets, anomalies comprises (les retirer avant changerait la normalisation, surtout celle de la somme pondérée) ; les « trois premiers » sont les trois premiers projets **non signalés** par `detect_anomalies`, dans l'ordre du classement.
+- **Poids de référence** : `POIDS_PAR_DEFAUT`.
+- **Perturbations** : chaque poids, l'un après l'autre, multiplié par 1,2 puis par 0,8, les six autres ramenés proportionnellement pour que la somme reste 1 : 14 perturbations.
+- **« Les trois premiers changent »** : l'ensemble des trois premiers diffère de celui des poids de référence (l'ordre entre eux ne compte pas ; les changements d'ordre sont comptés à part, pour information).
+- **Garde-fou, réactivité aux poids** : 7 profils franchement différents, chacun avec 0,70 sur un critère et 0,05 sur les six autres. Une méthode est **réactive** si ses trois premiers diffèrent de ceux des poids de référence pour au moins 5 profils sur 7. Une méthode stable parce qu'elle ignore les poids ne convient pas à l'application : une méthode non réactive est écartée.
+- **Décision** : parmi les méthodes réactives, `rank` prend celle dont les trois premiers changent dans la plus petite part des 14 perturbations. Si l'écart entre les deux est de moins de 5 points de pourcentage (avec 14 perturbations, cela revient au même nombre de changements), **TOPSIS**, la méthode prévue par le plan commun. Si aucune n'est réactive : TOPSIS, et le dire dans le rapport.
+- **Compléments pour le rapport, qui ne décident rien** : 1 000 tirages où tous les poids sont multipliés à la fois par un nombre tiré entre 0,8 et 1,2 puis ramenés à une somme de 1 (graine 42) ; corrélation de Spearman entre les classements TOPSIS et somme pondérée sur les 500 projets (poids de référence) ; profils de poids et projets qui montent ou descendent.
+- Le passage éventuel de `rank` à TOPSIS se fera dans une branche à part (tâche 9), après cette mesure.
+
+### Résultat de la mesure (tâche 8)
+
+- 500 projets en cours, 24 signalés par `detect_anomalies` (gardés dans le classement, écartés des trois premiers).
+- **Stabilité** : 0 perturbation sur 14 ne change les trois premiers, pour les deux méthodes (la somme pondérée change deux fois l'ordre entre eux). Sur 1 000 tirages où tous les poids bougent à la fois : 0 % de changements pour la somme pondérée, 3,8 % pour TOPSIS.
+- **Garde-fou** : TOPSIS réagit à 7 profils sur 7, la somme pondérée à 4 sur 7 (0,70 sur le coût, l'impact ou l'alignement ne change pas ses trois premiers). La somme pondérée n'est pas réactive : elle est écartée.
+- **Décision par la règle : TOPSIS** (seule méthode réactive). Passage de `rank` à TOPSIS dans une branche à part (tâche 9).
+- Explication : le coût aberrant de 37 707 M$ (projet signalé, mais gardé dans le classement) écrase la normalisation min-max du coût : les projets non signalés coûtent tous moins de 2 800 M$ et reçoivent presque 1. Les notes qualitatives sont souvent au maximum (médiane 5 en faisabilité).
+- Spearman entre les deux classements : 0,74 ; 7 projets communs dans les 10 premiers, 29 dans les 50 premiers ; écart de rang médian 72 places.
+- Non essayé, pour ne pas ajuster la méthode après le résultat : somme pondérée sur le log du coût, ou bornes calculées sans les projets signalés.
