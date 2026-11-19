@@ -2,7 +2,7 @@
 
 Le plan complet des quatre rôles est dans `docs/Plan_projet_ML_IA_agentique.xlsx`. Ce fichier ne reprend que les tâches d'Ilyas. Statuts possibles : à faire, en cours, terminé.
 
-Dernière mise à jour : 18 novembre 2026.
+Dernière mise à jour : 19 novembre 2026.
 
 ## Tâche reprise au rôle 1
 
@@ -19,10 +19,10 @@ Dernière mise à jour : 18 novembre 2026.
 | 3 | Coder l'agent | Tâche 2 | jeu. 19 nov. | terminé (16 nov. : essai réel réussi avec `qwen2.5:3b` en 58 s ; qualité à mesurer à la tâche 5) | `src/agent.py`, `prompts/systeme.txt`, `tests/test_agent.py`. Cinq outils sur tout le portefeuille, `pipeline_fixe` comme référence et secours |
 | 4 | Coder l'application Streamlit | Tâches 2 et 3. Graphique SHAP du rôle 1 (factice en attendant) | ven. 20 nov. | terminé (16 nov. : application codée et redessinée ; graphique SHAP factice en attendant le rôle 1) | `app/app.py`, `app/composants.py`, `app/graphiques.py`, `app/style.css`, `.streamlit/config.toml`, `tests/test_app.py` |
 | 5 | Tester l'agent sur 5 scénarios | Tâche 3 | sam. 21 nov. | terminé avec les fausses fonctions (16 nov. : 5 scénarios, 2 passages, agent et pipeline fixe ; à refaire après la tâche 6 avec `python scripts/evaluer_agent.py --passages 2`) | `tests/test_agent.py`, `reports/tests_agent.md`, `src/scenarios.py`, `scripts/evaluer_agent.py`, `reports/resultats_scenarios.csv` |
-| 6 | Intégration des vrais modules | IMPOSSIBLE avant `predict` (rôle 1), `rank` (rôle 2), `extract` et `retrieve` (rôle 3), attendus le 21 | mar. 24 nov. | bloqué | Application complète en local |
+| 6 | Intégration des vrais modules | IMPOSSIBLE avant `predict` (rôle 1), `rank` (rôle 2), `extract` et `retrieve` (rôle 3), attendus le 21 | mar. 24 nov. | terminé (19 nov. : les quatre modules sur `main`, 5 scénarios relancés avec `USE_MOCKS=0`, voir `reports/tests_agent.md` section 9) | Application complète en local |
 | 7 | Déploiement ou démonstration locale | Tâche 6 | mar. 24 nov. | bloqué | Démonstration prête à filmer |
 | 8 | README final | Tâche 6, sources des données | mer. 25 nov. | en cours (18 nov. : version complète, à vérifier après l'intégration) | `README.md` |
-| 9 | Partie du rapport (LLM, agents, architecture, tests) | Tâche 5, puis tâche 6 pour les résultats | brouillon sam. 21, final ven. 27 | en cours (18 nov. : brouillon dans `reports/rapport/partie_role4.md`, résultats d'intégration à compléter) | 4 à 6 pages, 3 à 4 diapositives |
+| 9 | Partie du rapport (LLM, agents, architecture, tests) | Tâche 5, puis tâche 6 pour les résultats | brouillon sam. 21, final ven. 27 | brouillon complet (19 nov. : résultats d'intégration ajoutés), version finale le 27 | 4 à 6 pages, 3 à 4 diapositives |
 | 10 | Assembler rapport et présentation | Parties des rôles 1, 2 et 3 | ven. 27 nov. | bloqué | Rapport et PowerPoint complets |
 
 ## Jalons communs
@@ -46,3 +46,4 @@ Dernière mise à jour : 18 novembre 2026.
 - 17 nov. : application refaite (branche `role4/app-v2`) : thème de quotidien financier sur papier saumon, relief 3D du portefeuille en Three.js (colonnes cliquables qui se réordonnent), poids modifiables en direct sans relancer l'agent, page découpée en fragment pour la fluidité, polices et Three.js copiés dans le dépôt (aucun appel externe).
 - 18 nov. : brouillon de la partie 4 du rapport (`reports/rapport/partie_role4.md`) : théorie (LLM, prompt, appel d'outils, agents, RAG), architecture, choix du modèle, méthode et résultats de l'évaluation, analyse des erreurs, limites, plan des diapositives. Résultats avec les vrais modules à ajouter après la tâche 6.
 - 18 nov. : README réécrit : présentation, rôles et modules, installation (Ollama, modèle d'embeddings), lancement de l'application, variables d'environnement, tests, reproduction des résultats (données, recherche, agent), données et mise en garde sur les cibles simulées, limites, équipe, licences.
+- 19 nov. : les quatre modules livrés et fusionnés après relecture (31 pull requests). Intégration : 5 scénarios relancés avec les vrais modules ; une erreur introduite par la modification du prompt du 18 nov. (exemple recopié, demande hors sujet analysée) diagnostiquée et corrigée en rétablissant la formulation d'origine. Graphique SHAP du rôle 1 dans l'application. Produit renommé InvestMind ; README final avec captures.
