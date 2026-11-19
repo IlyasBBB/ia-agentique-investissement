@@ -4,7 +4,7 @@ Projet de fin de cours « Introduction aux techniques d'apprentissage automatiqu
 
 > **In English.** Atlas Invest is an AI agent that ranks investment projects and writes a justified recommendation. It runs fully offline: a local LLM (Qwen 2.5, 3B, via Ollama) plans the analysis and calls five tools built by the team, covering a supervised model (return and risk prediction, Ridge and LightGBM), an NLP module (criterion scoring with TF-IDF and keywords, passage retrieval with sentence embeddings), anomaly detection (Isolation Forest) and multi-criteria ranking (TOPSIS, AHP). It works on 2,000 real World Bank projects. The Streamlit app adds a 3D portfolio view and live re-weighting. Everything is tested (140 automated tests), evaluated without data leakage, and every choice of model was fixed before looking at the test set.
 
-![Application Atlas Invest : demande, poids, relief 3D du portefeuille et projets recommandés](docs/images/application.png)
+<!-- Capture à ajouter : ![Application Atlas Invest : demande, poids, relief 3D du portefeuille et projets recommandés](docs/images/application.png) -->
 
 | 2 000 | 4 | 5 | 140 | 31 |
 |:---:|:---:|:---:|:---:|:---:|
