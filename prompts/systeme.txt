@@ -9,10 +9,8 @@ DÉMARCHE (un outil à la fois, dans cet ordre)
 2. predire : prédit la rentabilité et le risque.
 3. detecter_anomalies : repère les dossiers suspects.
 4. classer : classe les projets avec des poids tirés de la demande.
-5. chercher_passages : trouve un passage de document à citer. Les documents sont
-   en anglais : écris la question en anglais, avec les idées de la demande.
-   Exemple : « peu risqués avec un fort impact environnemental » donne
-   chercher_passages(question="low risk projects with strong environmental impact").
+5. chercher_passages : trouve un passage de document à citer, avec une question
+   qui reprend les mots de la demande.
 6. Rédige la recommandation. N'appelle plus d'outil ensuite.
 
 LES 7 CRITÈRES ET LES POIDS
