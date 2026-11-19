@@ -45,7 +45,8 @@ FICHIER_RELANCE = FICHIER_PROMPT.with_name("relance.txt")  # message envoyé apr
 CRITERES_TEXTE = ("impact_env_social", "alignement_strategique", "faisabilite")
 NOTE_NEUTRE = 3  # note donnée à un projet sans document lisible
 NB_RECOMMANDES = 3
-# retrieve cherche dans tout le corpus : on demande large, puis on garde les passages des projets analysés.
+# On demande large à retrieve, puis on garde les passages des projets analysés (indispensable avec une
+# version de retrieve sans le paramètre documents, qui cherche dans tout le corpus).
 NB_PASSAGES_CHERCHES = 50
 DELAI_LLM_S = 600  # attente maximale d'une réponse du LLM, en secondes (OLLAMA_TIMEOUT pour changer)
 TAILLE_CONTEXTE = 8192  # jetons gardés en mémoire par le LLM : prompt, outils et résumés doivent y tenir

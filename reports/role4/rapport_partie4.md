@@ -73,7 +73,8 @@ Les quatre rôles ont fixé dès le départ un contrat commun (`docs/contrat.md`
 - les arguments inventés par le LLM sont ignorés, seuls ceux que l'outil accepte sont transmis ;
 - les poids proposés sont ramenés à une somme de 1, et ceux fixés par l'utilisateur passent avant ;
 - les dossiers anormaux sont retirés des trois projets recommandés ;
-- après la rédaction, un contrôle ajoute les projets et les alertes oubliés, et signale une citation qui n'a pas été rendue par `chercher_passages` ;
+- si le LLM ne cherche pas de passage après `classer`, l'agent le fait lui-même, avec les noms des projets recommandés ;
+- après la rédaction, un contrôle ajoute les projets et les alertes oubliés, et signale une citation qui ne figure pas mot pour mot dans un passage rendu par `chercher_passages` ;
 - si le LLM rend une réponse vide, l'agent le relance une fois ;
 - si Ollama ne répond pas ou si le LLM ne termine pas en dix tours, l'agent finit sans LLM et le dit.
 
@@ -180,7 +181,7 @@ L'application Streamlit ne calcule rien : elle charge les projets, appelle l'age
 
 - la demande, avec trois exemples, et des curseurs pour fixer les poids ;
 - un relief 3D du portefeuille, une colonne par projet, dont la hauteur est le score et la couleur distingue les projets recommandés et les dossiers anormaux ;
-- les trois projets recommandés, l'alerte sur les dossiers anormaux, le classement complet, le journal des étapes et la comparaison avec le pipeline fixe.
+- les trois projets recommandés, l'alerte sur les dossiers anormaux, le classement complet, le journal des étapes, la comparaison avec le pipeline fixe et le graphique SHAP du modèle de rentabilité (rôle 1).
 
 Après une analyse, bouger les curseurs refait le classement sans relancer l'agent. Tout tourne en local : le LLM, les polices et la bibliothèque 3D sont sur la machine, l'application ne contacte aucun service externe.
 

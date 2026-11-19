@@ -113,7 +113,7 @@ pip install -r requirements.txt
 ollama pull qwen2.5:3b
 ```
 
-Sous macOS ou Linux : `source .venv/bin/activate`. Un processeur suffit, aucune carte graphique n'est nécessaire. Au premier lancement, le modèle d'embeddings (80 Mo) est téléchargé et l'index des 8 293 passages est calculé (environ 4 minutes) ; les modèles des rôles 1 et 2 sont appris en quelques secondes. Ensuite tout fonctionne sans Internet.
+Sous macOS ou Linux : `source .venv/bin/activate`. Un processeur suffit, aucune carte graphique n'est nécessaire. Au premier lancement, le modèle d'embeddings (80 Mo) est téléchargé et l'index des 8 293 passages est calculé (environ 4 minutes) ; les modèles de prédiction et de détection d'anomalies sont appris en quelques secondes. Ensuite tout fonctionne sans Internet.
 
 ## Lancer l'application
 
