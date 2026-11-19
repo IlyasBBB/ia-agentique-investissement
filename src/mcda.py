@@ -180,9 +180,10 @@ def rank(matrice: pd.DataFrame, poids: dict[str, float]) -> pd.DataFrame:
     Rend le même tableau (colonnes en plus gardées) avec `score` entre 0 et 1 et `rang`
     (1 pour le meilleur), trié par score décroissant. En cas d'égalité de score, l'ordre
     suit `id_projet`, pour que le classement soit toujours le même et les rangs uniques.
-    Méthode actuelle : somme pondérée (somme_ponderee).
+    Méthode : TOPSIS, retenue par la règle écrite avant la comparaison (tâche 8,
+    docs/plan-role2.md) ; somme_ponderee reste la référence.
     """
-    score = somme_ponderee(matrice, poids).to_numpy()
+    score = topsis(matrice, poids).to_numpy()
     ordre = np.lexsort((matrice["id_projet"].astype(str).to_numpy(), -score))
     sortie = matrice.iloc[ordre].copy()
     sortie["score"] = score[ordre]

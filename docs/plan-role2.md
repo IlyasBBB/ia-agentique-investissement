@@ -14,7 +14,7 @@ Responsable : Zineb Baghzali. Module à livrer : `src/mcda.py` (`rank`, `detect_
 | 6 | Poids par AHP | | fait, branche `role2/tache-6` | `ahp_poids`, `MATRICE_AHP_EXEMPLE` dans `src/mcda.py` ; deux exemples vérifiés à la main dans `tests/test_mcda.py` |
 | 7 | TOPSIS | | fait, branche `role2/tache-7` | `topsis` dans `src/mcda.py` ; vérification à la main sur 4 projets dans `tests/test_mcda.py` ; 0,6 ms sur 2 000 projets |
 | 8 | Sensibilité du classement | | fait, branche `role2/tache-8` : TOPSIS retenu pour `rank` | `notebooks/role2/02_mcda_sensibilite.ipynb` ; `reports/role2/sensibilite_*.csv`, `reports/role2/figures/rangs_topsis_somme.png`, `reactivite_profils.png` |
-| 9 | `rank` et `detect_anomalies` au format du contrat, tests | **21 nov.** | `rank` (somme pondérée) et `detect_anomalies` faits, branche `role2/tache-4-5-9` | `src/mcda.py`, `tests/test_mcda.py` ; `rank` : 3,9 ms sur 2 000 projets |
+| 9 | `rank` et `detect_anomalies` au format du contrat, tests | **21 nov.** | fait : `rank` (TOPSIS depuis la tâche 8) et `detect_anomalies` ; branche `role2/tache-9` pour le passage à TOPSIS | `src/mcda.py`, `tests/test_mcda.py` (37 tests) ; `rank` : 2,3 ms sur 2 000 projets |
 | 10 | Partie du rapport et diapositives | brouillon 21, final 27 | à faire | `reports/role2/rapport_partie2.md` |
 
 ## Décisions
@@ -44,6 +44,7 @@ Fixée par Zineb le 19 novembre 2026, **avant toute mesure** (ce commit précèd
 - **Décision** : parmi les méthodes réactives, `rank` prend celle dont les trois premiers changent dans la plus petite part des 14 perturbations. Si l'écart entre les deux est de moins de 5 points de pourcentage (avec 14 perturbations, cela revient au même nombre de changements), **TOPSIS**, la méthode prévue par le plan commun. Si aucune n'est réactive : TOPSIS, et le dire dans le rapport.
 - **Compléments pour le rapport, qui ne décident rien** : 1 000 tirages où tous les poids sont multipliés à la fois par un nombre tiré entre 0,8 et 1,2 puis ramenés à une somme de 1 (graine 42) ; corrélation de Spearman entre les classements TOPSIS et somme pondérée sur les 500 projets (poids de référence) ; profils de poids et projets qui montent ou descendent.
 - Le passage éventuel de `rank` à TOPSIS se fera dans une branche à part (tâche 9), après cette mesure.
+- Fait (tâche 9, branche `role2/tache-9`) : `rank` calcule son score avec `topsis` ; tri, égalités et format inchangés. `somme_ponderee` reste dans le module comme référence.
 
 ### Résultat de la mesure (tâche 8)
 

@@ -104,6 +104,15 @@ def test_rank_ordre_attendu_et_entree_non_modifiee():
     pd.testing.assert_frame_equal(m, copie)
 
 
+def test_rank_utilise_topsis():
+    # Méthode retenue à la tâche 8 (docs/plan-role2.md) : le score de rank est celui de topsis.
+    m = matrice_exemple()
+    sortie = rank(m, POIDS_PAR_DEFAUT)
+    attendu = topsis(m, POIDS_PAR_DEFAUT).set_axis(m["id_projet"])
+    assert sortie["score"].tolist() == pytest.approx(attendu[sortie["id_projet"]].tolist())
+    assert sortie["score"].tolist() == sorted(attendu.tolist(), reverse=True)
+
+
 def test_rank_un_seul_projet():
     sortie = rank(matrice_exemple().iloc[[2]], POIDS_PAR_DEFAUT)
     verifier_classement(sortie)
