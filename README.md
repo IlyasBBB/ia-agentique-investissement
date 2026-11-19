@@ -46,7 +46,6 @@ Un **pipeline fixe** (les cinq outils dans le même ordre, sans LLM) sert de mod
 
 ### Architecture, agent, application et intégration (Ilyas Ben Alla, responsable technique)
 
-Ilyas a conçu le système et l'a fait tenir ensemble, du premier jour à l'assemblage :
 
 - **Architecture et contrat commun.** Découpage du produit en quatre modules, format exact de chaque fonction (`docs/contrat.md`, vérifié par `src/contrat.py`), fausses fonctions pour que chaque membre avance sans attendre les autres, branchement de chaque module dès sa livraison (`src/outils.py`, `MODULES_REELS`).
 - **Jeu de données.** Téléchargement des 28 245 projets de la Banque mondiale, filtrage, tirage des 2 000 projets, documents texte, simulation documentée des cibles et injection des 40 anomalies de test (`scripts/`, `data/README.md`).
