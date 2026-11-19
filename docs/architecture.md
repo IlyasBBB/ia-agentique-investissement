@@ -76,7 +76,7 @@ Sur les 2 000 projets avec les fausses fonctions, il répond en moins d'une seco
 
 ## Évaluation du 16 novembre sur cinq scénarios
 
-Cinq demandes, 30 projets en cours, deux passages, agent et `pipeline_fixe` : protocole, résultats et analyse des erreurs dans `reports/tests_agent.md`. Les scénarios et les vérifications automatiques sont dans `src/scenarios.py`, l'évaluation se relance avec `python scripts/evaluer_agent.py --passages 2`.
+Cinq demandes, 30 projets en cours, deux passages, agent et `pipeline_fixe` : protocole, résultats et analyse des erreurs dans `reports/role4/tests_agent.md`. Les scénarios et les vérifications automatiques sont dans `src/scenarios.py`, l'évaluation se relance avec `python scripts/evaluer_agent.py --passages 2`.
 
 Deux corrections de `src/agent.py` en sont sorties :
 

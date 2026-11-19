@@ -36,7 +36,7 @@ Sujet choisi par le groupe : IA agentique pour la décision d'investissement mul
 
 ## Ce que cela implique pour le rôle 4
 
-- Interprétabilité côté agent : analyse détaillée des erreurs sur les scénarios de test (`reports/tests_agent.md`).
+- Interprétabilité côté agent : analyse détaillée des erreurs sur les scénarios de test (`reports/role4/tests_agent.md`).
 - Modèle de référence côté agent : comparer l'agent à un enchaînement fixe des outils sans LLM (même ordre à chaque fois). Cela montre ce que l'agent apporte ou non.
 - Déploiement : Ollama ne tourne pas sur l'hébergement Streamlit gratuit. La démonstration se fait en local et sera filmée, ce que la consigne accepte.
 - Partie théorique à rédiger : LLM et pré-entraînement, IA agentique, appel d'outils.

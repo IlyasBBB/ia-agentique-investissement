@@ -1,15 +1,22 @@
-pandas
-numpy
-pydantic>=2
-pytest
-streamlit
-plotly
-ollama
-python-dotenv
-scikit-learn==1.9.1
-sentence-transformers==6.3.0
-joblib==1.6.0
-matplotlib==3.10.9
-lightgbm==4.6.0
-shap==0.52.0
+# Données et calcul
+numpy==2.5.5
+pandas==3.1.1
 scipy==1.18.1
+pydantic==2.14.3
+
+# Apprentissage automatique
+scikit-learn==1.9.1
+lightgbm==4.6.0
+joblib==1.6.0
+shap==0.52.0
+sentence-transformers==6.3.0
+
+# Agent (LLM local) et application
+ollama==0.6.3
+python-dotenv==1.2.4
+streamlit==1.67.0
+plotly==7.1.0
+matplotlib==3.10.9
+
+# Tests
+pytest==9.2.0

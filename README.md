@@ -1,5 +1,10 @@
 # InvestMind : un agent IA pour choisir des projets d'investissement
 
+[![Tests](https://github.com/IlyasBBB/ia-agentique-investissement/actions/workflows/tests.yml/badge.svg)](https://github.com/IlyasBBB/ia-agentique-investissement/actions/workflows/tests.yml)
+![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-1d4f8c)
+![LLM local](https://img.shields.io/badge/LLM-Ollama%20local-8e1b3a)
+[![Licence MIT](https://img.shields.io/badge/licence-MIT-a8641c)](LICENSE)
+
 École Centrale Casablanca, novembre 2026. Équipe de quatre ingénieurs.
 
 > **In English.** InvestMind is an AI agent that ranks investment projects and writes a justified recommendation. It runs fully offline: a local LLM (Qwen 2.5, 3B, via Ollama) plans the analysis and calls five tools built by the team, covering a supervised model (return and risk prediction, Ridge and LightGBM), an NLP module (criterion scoring with TF-IDF and keywords, passage retrieval with sentence embeddings), anomaly detection (Isolation Forest) and multi-criteria ranking (TOPSIS, AHP). It works on 2,000 real World Bank projects. The Streamlit app adds a 3D portfolio view and live re-weighting. Everything is tested (140 automated tests), evaluated without data leakage, and every choice of model was fixed before looking at the test set.
@@ -46,11 +51,10 @@ Un **pipeline fixe** (les cinq outils dans le même ordre, sans LLM) sert de mod
 
 ### Architecture, agent, application et intégration (Ilyas Ben Alla, responsable technique)
 
-
 - **Architecture et contrat commun.** Découpage du produit en quatre modules, format exact de chaque fonction (`docs/contrat.md`, vérifié par `src/contrat.py`), fausses fonctions pour que chaque membre avance sans attendre les autres, branchement de chaque module dès sa livraison (`src/outils.py`, `MODULES_REELS`).
 - **Jeu de données.** Téléchargement des 28 245 projets de la Banque mondiale, filtrage, tirage des 2 000 projets, documents texte, simulation documentée des cibles et injection des 40 anomalies de test (`scripts/`, `data/README.md`).
 - **L'agent** (`src/agent.py`). Boucle écrite à la main avec l'appel d'outils d'Ollama, sans cadriciel ; outils qui traitent tout le portefeuille ; tous les garde-fous décrits plus haut ; choix du modèle après mesure (`qwen3:4b` écarté, 10 minutes par tour, au profit de `qwen2.5:3b`).
-- **L'évaluation de l'agent.** Cinq scénarios (demandes variées, poids imposés, demande hors sujet), deux passages chacun, face au pipeline fixe, avec des vérifications automatiques de fidélité : chaque chiffre du texte doit venir d'un outil, chaque citation d'un document. Avec les quatre modules de l'équipe : passages cités dans 8 analyses sur 8, aucun chiffre ni aucune citation inventés, mêmes résultats aux deux passages, demande hors sujet refusée, poids adaptés à la demande dans 6 analyses sur 8, environ deux minutes par analyse sur un PC portable sans carte graphique. Analyse détaillée des erreurs et des corrections dans `reports/tests_agent.md`.
+- **L'évaluation de l'agent.** Cinq scénarios (demandes variées, poids imposés, demande hors sujet), deux passages chacun, face au pipeline fixe, avec des vérifications automatiques de fidélité : chaque chiffre du texte doit venir d'un outil, chaque citation d'un document. Avec les quatre modules de l'équipe : passages cités dans 8 analyses sur 8, aucun chiffre ni aucune citation inventés, mêmes résultats aux deux passages, demande hors sujet refusée, poids adaptés à la demande dans 6 analyses sur 8, environ deux minutes par analyse sur un PC portable sans carte graphique. Analyse détaillée des erreurs et des corrections dans `reports/role4/tests_agent.md`.
 - **L'application** (`app/`). Streamlit sur le thème d'un quotidien financier :
   - relief 3D du portefeuille, composant écrit en Three.js : une colonne cliquable par projet, qui se réordonne quand le classement change ;
   - poids modifiables en direct, sans relancer l'agent ;
@@ -98,7 +102,7 @@ Interprétabilité : valeurs SHAP, importance par permutation, analyse des dix p
 
 ## Installation
 
-Il faut Python 3.11 ou plus récent, et [Ollama](https://ollama.com) pour l'agent. Commandes pour Windows (PowerShell) :
+Il faut Python 3.12 ou plus récent, et [Ollama](https://ollama.com) pour l'agent. Commandes pour Windows (PowerShell) :
 
 ```
 git clone https://github.com/IlyasBBB/ia-agentique-investissement.git
@@ -143,7 +147,7 @@ python -m pytest -m llm     # + 6 tests avec le vrai LLM (Ollama doit tourner)
 | Rôle 1 : modèles et test | notebooks `notebooks/role1/` ; `python -m src.supervise` réapprend le modèle livré | `reports/role1/` |
 | Rôle 2 : anomalies, sensibilité | `python scripts/evaluer_anomalies_mcda.py` ; notebooks `notebooks/role2/` | `reports/role2/` |
 | Rôle 3 : `extract` et `retrieve` | `python scripts/evaluer_extract_nlp.py`, `python scripts/evaluer_retrieve_nlp.py` | `reports/role3/` |
-| Rôle 4 : agent sur 5 scénarios | `python scripts/evaluer_agent.py --passages 2` (Ollama) | `reports/tests_agent.md` |
+| Rôle 4 : agent sur 5 scénarios | `python scripts/evaluer_agent.py --passages 2` (Ollama) | `reports/role4/tests_agent.md` |
 
 Toutes les étapes aléatoires utilisent la graine 42.
 
@@ -152,14 +156,14 @@ Toutes les étapes aléatoires utilisent la graine 42.
 ```
 app/          application Streamlit (page, blocs HTML, graphiques Plotly, relief 3D Three.js, thème)
 data/         projets.csv, un document texte par projet ; données brutes hors Git
-docs/         contrat commun, architecture de l'agent, consignes, plans de chaque rôle
+docs/         contrat commun, architecture de l'agent, données, captures ; organisation/ : plans et consignes
 models/       modèles appris et index de recherche (hors Git, recréés automatiquement)
 notebooks/    analyses des rôles 1, 2 et 3 (8 notebooks)
 prompts/      prompts de l'agent
-reports/      résultats, figures et brouillons du rapport de chaque rôle
+reports/      un dossier par rôle : résultats, figures, évaluations et brouillon du rapport
 scripts/      téléchargement et préparation des données, évaluations
 src/          agent, contrat, fausses fonctions et les modules des quatre rôles
-tests/        140 tests automatiques
+tests/        140 tests automatiques, lancés par GitHub Actions à chaque modification de main
 ```
 
 ## Limites
@@ -180,4 +184,4 @@ tests/        140 tests automatiques
 
 ## Licences
 
-Données : Banque mondiale, CC BY 4.0. Three.js : licence MIT. Polices Archivo et Source Serif 4 : SIL Open Font License (`app/static/polices/LICENCES.md`). Code : projet étudiant de l'École Centrale Casablanca.
+Données : Banque mondiale, CC BY 4.0. Three.js : licence MIT. Polices Archivo et Source Serif 4 : SIL Open Font License (`app/static/polices/LICENCES.md`). Code : licence MIT (`LICENSE`).

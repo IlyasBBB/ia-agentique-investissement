@@ -54,7 +54,7 @@ Pour les trois projets et l'alerte, on distingue le texte écrit par le LLM et l
 
 ## 3. Résultats (état final du code)
 
-Fichier : `reports/resultats_scenarios.csv`. Textes complets : `reports/sorties_scenarios.json`.
+Fichier : `reports/role4/scenarios/resultats_scenarios.csv`. Textes complets : `reports/role4/scenarios/sorties_scenarios.json`.
 
 ### Agent
 
@@ -199,14 +199,14 @@ Chaque erreur observée, sa cause probable et ce qui a été fait.
 | `src/scenarios.py` | Les cinq scénarios, les 30 projets, les vérifications |
 | `scripts/evaluer_agent.py` | Lance l'évaluation (`--passages`, `--scenarios`, `--suffixe`) |
 | `tests/test_agent.py` | Les scénarios en tests : pipeline fixe (sans LLM) et vrai modèle (`python -m pytest -m llm`) |
-| `reports/resultats_scenarios.csv`, `sorties_scenarios.json` | État final du code |
+| `reports/role4/scenarios/resultats_scenarios.csv`, `sorties_scenarios.json` | État final du code |
 | `reports/*_avant_corrections.*` | Première évaluation, avant toute correction |
 | `reports/*_correction1.*` | Scénario 1 relancé après la correction E1 |
 | `reports/*_essai_crochets.*`, `*_essai_alertes.*` | Les deux reformulations du prompt, non gardées |
 
 ## 9. Intégration du 19 novembre : les quatre vrais modules
 
-Mêmes cinq scénarios, mêmes 30 projets, deux passages, avec `USE_MOCKS=0` : `predict` (Ridge et LightGBM, rôle 1), `rank` (TOPSIS) et `detect_anomalies` (Isolation Forest, rôle 2), `extract` et `retrieve` (rôle 3). Reproduire : `USE_MOCKS=0 python scripts/evaluer_agent.py --passages 2 --suffixe integration` (environ 20 minutes). Fichiers : `reports/resultats_scenarios_integration.csv`, `reports/sorties_scenarios_integration.json`.
+Mêmes cinq scénarios, mêmes 30 projets, deux passages, avec `USE_MOCKS=0` : `predict` (Ridge et LightGBM, rôle 1), `rank` (TOPSIS) et `detect_anomalies` (Isolation Forest, rôle 2), `extract` et `retrieve` (rôle 3). Reproduire : `USE_MOCKS=0 python scripts/evaluer_agent.py --passages 2 --suffixe integration` (environ 20 minutes). Fichiers : `reports/role4/scenarios/resultats_scenarios_integration.csv`, `reports/role4/scenarios/sorties_scenarios_integration.json`.
 
 ### Résultats de l'agent
 
@@ -236,9 +236,9 @@ La durée augmente parce que les vrais modules renvoient plus d'informations (no
 
 ### E8. Exemple du prompt recopié (scénarios 3 et 5) : corrigée le 19 novembre
 
-- **Observé.** Première évaluation d'intégration (`reports/resultats_scenarios_integration_prompt18nov.csv`) : au scénario 3, le LLM prend exactement les poids de l'exemple du prompt (rentabilité 0,36, durée 0,27) ; au scénario 5, il lance une analyse complète pour une question de météo au lieu de refuser.
-- **Diagnostic.** Les scénarios 3 et 5 relancés avec les fausses fonctions (`reports/resultats_scenarios_diagnostic.csv`) donnent la même erreur au scénario 3 : la cause n'est pas dans les modules. Le seul changement du premier tour depuis le 16 novembre est l'étape 5 du prompt, réécrite le 18 novembre pour faire écrire la question de recherche en anglais, avec un exemple qui reprenait mot pour mot la demande du scénario 1.
-- **Correction (prompt).** Formulation d'origine de l'étape 5 rétablie. L'indication « en anglais » reste dans la description de l'outil, et la recherche d'office utilise de toute façon les noms des projets, en anglais. Relancés avec les fausses fonctions (`reports/resultats_scenarios_diagnostic_prompt.csv`) : le scénario 3 ne recopie plus l'exemple, le scénario 5 refuse de nouveau.
+- **Observé.** Première évaluation d'intégration (`reports/role4/scenarios/resultats_scenarios_integration_prompt18nov.csv`) : au scénario 3, le LLM prend exactement les poids de l'exemple du prompt (rentabilité 0,36, durée 0,27) ; au scénario 5, il lance une analyse complète pour une question de météo au lieu de refuser.
+- **Diagnostic.** Les scénarios 3 et 5 relancés avec les fausses fonctions (`reports/role4/scenarios/resultats_scenarios_diagnostic.csv`) donnent la même erreur au scénario 3 : la cause n'est pas dans les modules. Le seul changement du premier tour depuis le 16 novembre est l'étape 5 du prompt, réécrite le 18 novembre pour faire écrire la question de recherche en anglais, avec un exemple qui reprenait mot pour mot la demande du scénario 1.
+- **Correction (prompt).** Formulation d'origine de l'étape 5 rétablie. L'indication « en anglais » reste dans la description de l'outil, et la recherche d'office utilise de toute façon les noms des projets, en anglais. Relancés avec les fausses fonctions (`reports/role4/scenarios/resultats_scenarios_diagnostic_prompt.csv`) : le scénario 3 ne recopie plus l'exemple, le scénario 5 refuse de nouveau.
 - **Ce qui reste.** Au scénario 3, la durée a bien le poids le plus fort, mais la faisabilité et le coût restent sous la rentabilité. Troisième confirmation de la leçon du point E3 : avec un modèle de 3 milliards de paramètres, une modification du prompt, même faite pour une autre raison, déplace les erreurs.
 
 ### Comparaison avec le pipeline fixe

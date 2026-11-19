@@ -1,6 +1,6 @@
 # Partie 4 : l'agent, son architecture et son évaluation
 
-Brouillon du 19 novembre 2026. Deux séries d'essais : le 16 novembre avec les fausses fonctions des rôles 1 à 3, le 19 novembre avec les quatre vrais modules (intégration). Détail dans `reports/tests_agent.md`.
+Brouillon du 19 novembre 2026. Deux séries d'essais : le 16 novembre avec les fausses fonctions des rôles 1 à 3, le 19 novembre avec les quatre vrais modules (intégration). Détail dans `reports/role4/tests_agent.md`.
 
 ## 4.1 Fondements théoriques
 

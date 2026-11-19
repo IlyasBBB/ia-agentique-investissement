@@ -97,7 +97,7 @@ def fiche_projet(ligne: dict) -> str:
 
 def cartes_recommandes(recommandes: pd.DataFrame) -> str:
     """Les cartes des projets recommandés, côte à côte."""
-    return f'<div class="cartes">{"".join(carte_projet(l) for l in recommandes.to_dict("records"))}</div>'
+    return f'<div class="cartes">{"".join(carte_projet(p) for p in recommandes.to_dict("records"))}</div>'
 
 
 def alerte_anomalies(anormaux: list[str], limite: int = 15) -> str:
