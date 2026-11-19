@@ -1,12 +1,14 @@
 """Tests du rôle 2 : src/mcda.py."""
 from __future__ import annotations
 
+import time
+
 import numpy as np
 import pandas as pd
 import pytest
 
-from src.contrat import CRITERES, POIDS_PAR_DEFAUT
-from src.mcda import normaliser, somme_ponderee
+from src.contrat import CRITERES, POIDS_PAR_DEFAUT, verifier_classement
+from src.mcda import normaliser, rank, somme_ponderee
 
 
 def matrice_exemple() -> pd.DataFrame:
@@ -82,3 +84,73 @@ def test_somme_ponderee_refuse_des_poids_hors_contrat():
 def test_somme_ponderee_tous_les_criteres_du_contrat():
     assert set(POIDS_PAR_DEFAUT) == set(CRITERES)
     assert len(somme_ponderee(matrice_exemple(), POIDS_PAR_DEFAUT)) == 4
+
+
+# --- Tâche 9 : rank au format du contrat ----------------------------------------------
+
+def test_rank_respecte_le_contrat():
+    sortie = rank(matrice_exemple(), POIDS_PAR_DEFAUT)
+    verifier_classement(sortie)
+    assert sortie["rang"].tolist() == [1, 2, 3, 4]
+    assert sorted(sortie["id_projet"]) == ["A", "B", "C", "D"]
+
+
+def test_rank_ordre_attendu_et_entree_non_modifiee():
+    m = matrice_exemple()
+    copie = m.copy()
+    sortie = rank(m, {"proba_risque": 1.0})
+    assert sortie["id_projet"].tolist() == ["B", "A", "D", "C"]
+    pd.testing.assert_frame_equal(m, copie)
+
+
+def test_rank_un_seul_projet():
+    sortie = rank(matrice_exemple().iloc[[2]], POIDS_PAR_DEFAUT)
+    verifier_classement(sortie)
+    assert sortie["rang"].tolist() == [1]
+    assert sortie["score"].iloc[0] == pytest.approx(0.5)
+
+
+def test_rank_egalites_rangs_uniques_et_stables():
+    m = pd.concat([matrice_exemple()] * 3, ignore_index=True)
+    m["id_projet"] = [f"P{i:02d}" for i in range(len(m))][::-1]
+    sortie = rank(m, POIDS_PAR_DEFAUT)
+    verifier_classement(sortie)
+    # A, A', A'' ont le même score : départagés par id_projet croissant
+    egaux = sortie[sortie["score"] == sortie["score"].iloc[0]]
+    assert len(egaux) == 3
+    assert egaux["id_projet"].tolist() == sorted(egaux["id_projet"])
+    assert rank(m.sample(frac=1, random_state=42), POIDS_PAR_DEFAUT)["id_projet"].tolist() == sortie["id_projet"].tolist()
+
+
+def test_rank_tous_projets_identiques():
+    m = pd.concat([matrice_exemple().iloc[[0]]] * 5, ignore_index=True)
+    m["id_projet"] = list("EDCBA")
+    sortie = rank(m, POIDS_PAR_DEFAUT)
+    verifier_classement(sortie)
+    assert sortie["id_projet"].tolist() == list("ABCDE")
+
+
+def test_rank_garde_les_colonnes_en_plus():
+    m = matrice_exemple().assign(nom=["a", "b", "c", "d"], secteur="Énergie")
+    sortie = rank(m, POIDS_PAR_DEFAUT)
+    assert {"nom", "secteur", "score", "rang"} <= set(sortie.columns)
+    assert sortie.set_index("id_projet").loc["B", "nom"] == "b"
+
+
+def test_rank_tableau_vide():
+    sortie = rank(matrice_exemple().iloc[0:0], POIDS_PAR_DEFAUT)
+    verifier_classement(sortie)
+    assert len(sortie) == 0
+
+
+def test_rank_rapide_sur_2000_projets():
+    rng = np.random.default_rng(42)
+    m = pd.DataFrame({c: rng.random(2000) for c in CRITERES})
+    m.insert(0, "id_projet", [f"P{i:04d}" for i in range(2000)])
+    rank(m, POIDS_PAR_DEFAUT)  # premier appel : échauffement
+    debut = time.perf_counter()
+    for _ in range(10):
+        sortie = rank(m, POIDS_PAR_DEFAUT)
+    duree_ms = (time.perf_counter() - debut) / 10 * 1000
+    verifier_classement(sortie)
+    assert duree_ms < 50, f"rank trop lent : {duree_ms:.1f} ms"

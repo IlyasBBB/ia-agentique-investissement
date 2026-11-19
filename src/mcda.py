@@ -52,3 +52,19 @@ def somme_ponderee(matrice: pd.DataFrame, poids: dict[str, float]) -> pd.Series:
     w = np.array([poids[c] for c in criteres], dtype=float)
     score = normaliser(matrice, criteres) @ w if criteres else np.zeros(len(matrice))
     return pd.Series(np.clip(score, 0.0, 1.0), index=matrice.index, name="score")
+
+
+def rank(matrice: pd.DataFrame, poids: dict[str, float]) -> pd.DataFrame:
+    """Classe les projets du meilleur au moins bon (contrat : docs/contrat.md).
+
+    Rend le même tableau (colonnes en plus gardées) avec `score` entre 0 et 1 et `rang`
+    (1 pour le meilleur), trié par score décroissant. En cas d'égalité de score, l'ordre
+    suit `id_projet`, pour que le classement soit toujours le même et les rangs uniques.
+    Méthode actuelle : somme pondérée (somme_ponderee).
+    """
+    score = somme_ponderee(matrice, poids).to_numpy()
+    ordre = np.lexsort((matrice["id_projet"].astype(str).to_numpy(), -score))
+    sortie = matrice.iloc[ordre].copy()
+    sortie["score"] = score[ordre]
+    sortie["rang"] = np.arange(1, len(sortie) + 1)
+    return sortie.reset_index(drop=True)
