@@ -1,0 +1,15 @@
+"profil (0,70 sur)",méthode,trois premiers,différents de la référence
+rentabilite_predite,somme pondérée,"P511001, P508608, P178347",True
+rentabilite_predite,TOPSIS,"P511001, P508608, P178347",True
+proba_risque,somme pondérée,"P511001, P179757, P176335",True
+proba_risque,TOPSIS,"P511001, P173503, P179757",True
+cout_total,somme pondérée,"P511001, P176335, P508608",False
+cout_total,TOPSIS,"P511001, P173503, P510360",True
+duree_mois,somme pondérée,"P511001, P511758, P509855",True
+duree_mois,TOPSIS,"P178965, P513735, P509855",True
+impact_env_social,somme pondérée,"P511001, P176335, P508608",False
+impact_env_social,TOPSIS,"P511001, P176335, P507935",True
+alignement_strategique,somme pondérée,"P511001, P176335, P508608",False
+alignement_strategique,TOPSIS,"P511001, P176335, P507935",True
+faisabilite,somme pondérée,"P176335, P508608, P510360",True
+faisabilite,TOPSIS,"P176335, P510360, P515685",True
