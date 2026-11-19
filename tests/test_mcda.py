@@ -8,8 +8,8 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from src.contrat import CRITERES, POIDS_PAR_DEFAUT, verifier_classement
-from src.mcda import FICHIER_PROJETS, detect_anomalies, normaliser, rank, score_anomalie, somme_ponderee, topsis
+from src.contrat import CRITERES, POIDS_PAR_DEFAUT, verifier_classement, verifier_poids
+from src.mcda import FICHIER_PROJETS, MATRICE_AHP_EXEMPLE, ahp_poids, detect_anomalies, normaliser, rank, score_anomalie, somme_ponderee, topsis
 
 
 def matrice_exemple() -> pd.DataFrame:
@@ -298,3 +298,57 @@ def test_topsis_rapide_sur_2000_projets():
     for _ in range(10):
         topsis(m, POIDS_PAR_DEFAUT)
     assert (time.perf_counter() - debut) / 10 * 1000 < 50
+
+
+# --- Tâche 6 : poids par AHP ----------------------------------------------------------
+
+def test_ahp_matrice_parfaitement_coherente_verifiee_a_la_main():
+    # A deux fois plus important que B, B deux fois plus que C, donc A quatre fois plus que C.
+    # Poids attendus 4/7, 2/7, 1/7 ; lambda_max = n = 3, donc IC = RC = 0.
+    m = pd.DataFrame([[1, 2, 4], [1 / 2, 1, 2], [1 / 4, 1 / 2, 1]],
+                     index=list("ABC"), columns=list("ABC"))
+    res = ahp_poids(m)
+    assert res["poids"] == pytest.approx({"A": 4 / 7, "B": 2 / 7, "C": 1 / 7})
+    assert res["lambda_max"] == pytest.approx(3.0)
+    assert res["rc"] == pytest.approx(0.0, abs=1e-9)
+    assert res["coherente"]
+
+
+def test_ahp_matrice_incoherente_verifiee_a_la_main():
+    # Jugements circulaires : A > B (3), B > C (3), mais C > A (3).
+    # Par symétrie, poids 1/3 chacun ; lambda_max = 1 + 3 + 1/3 = 13/3 ;
+    # IC = (13/3 - 3) / 2 = 2/3 ; RC = (2/3) / 0,58 = 1,149, bien au-dessus de 0,1.
+    m = np.array([[1, 3, 1 / 3], [1 / 3, 1, 3], [3, 1 / 3, 1]])
+    res = ahp_poids(m)
+    assert list(res["poids"].values()) == pytest.approx([1 / 3] * 3)
+    assert res["lambda_max"] == pytest.approx(13 / 3)
+    assert res["ic"] == pytest.approx(2 / 3)
+    assert res["rc"] == pytest.approx((2 / 3) / 0.58)
+    assert not res["coherente"]
+
+
+def test_ahp_matrice_exemple_des_7_criteres():
+    res = ahp_poids(MATRICE_AHP_EXEMPLE)
+    assert list(res["poids"]) == list(CRITERES)
+    assert sum(res["poids"].values()) == pytest.approx(1.0)
+    assert res["rc"] < 0.1
+    verifier_poids(res["poids"])  # utilisables tels quels par rank
+    for critere, p in POIDS_PAR_DEFAUT.items():
+        assert res["poids"][critere] == pytest.approx(p, abs=0.02)
+    verifier_classement(rank(matrice_exemple(), res["poids"]))
+
+
+def test_ahp_petites_matrices():
+    assert ahp_poids(np.array([[1.0]]))["poids"] == {0: 1.0}
+    res = ahp_poids(np.array([[1, 3], [1 / 3, 1]]))
+    assert list(res["poids"].values()) == pytest.approx([0.75, 0.25])
+    assert res["rc"] == 0.0
+
+
+def test_ahp_refuse_une_matrice_invalide():
+    with pytest.raises(ValueError):
+        ahp_poids(np.ones((2, 3)))  # pas carrée
+    with pytest.raises(ValueError):
+        ahp_poids(np.array([[1, 2], [2, 1]]))  # pas réciproque
+    with pytest.raises(ValueError):
+        ahp_poids(np.array([[1, -2], [-0.5, 1]]))  # négative
