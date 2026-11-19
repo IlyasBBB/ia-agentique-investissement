@@ -1,19 +1,23 @@
 # Contrat commun
 
-Format des données et des fonctions partagé par les quatre rôles. Version provisoire : le jeu de données n'est pas encore choisi, les colonnes peuvent changer. Toute modification se fait ici et dans `src/contrat.py` en même temps, puis est annoncée à l'équipe.
+Format des données et des fonctions partagé par les quatre modules. Les sorties sont vérifiées par les modèles de `src/contrat.py` et par `tests/test_contrat.py`. Toute modification se fait ici et dans `src/contrat.py` en même temps. Dernière modification : 18 novembre 2026 (paramètre `documents` de `retrieve`).
 
 ## Fiche projet
 
 | Colonne | Type | Signification | Exemple |
 |---|---|---|---|
-| `id_projet` | texte | Identifiant unique, repris dans le nom du document associé | `P001` |
-| `nom` | texte | Nom du projet | Centrale solaire |
-| `secteur` | catégorie | Secteur d'activité | Énergie |
-| `pays` | catégorie | Pays ou région | Maroc |
+| `id_projet` | texte | Identifiant Banque mondiale, repris dans le nom du document associé (`data/docs/<id_projet>.txt`) | `P171266` |
+| `nom` | texte | Nom du projet (en anglais) | Agriculture Resilience and Competitiveness Project |
+| `secteur` | catégorie | Un des 11 secteurs (voir `data/README.md`) | Agriculture |
+| `pays` | catégorie | Pays ou zone | Bosnia and Herzegovina |
+| `region` | catégorie | Région de la Banque mondiale | Europe et Asie centrale |
 | `cout_total` | nombre | Investissement en millions de dollars | 120 |
 | `duree_mois` | nombre | Durée prévue en mois | 36 |
-| `rentabilite` | nombre | Cible de la régression, en %. Connue pour les projets passés seulement | 11.5 |
-| `risque` | catégorie | Cible de la classification : `faible`, `moyen`, `eleve` | `moyen` |
+| `annee_approbation` | entier | Année d'approbation | 2022 |
+| `type_financement` | catégorie | `IBRD`, `IDA`, `Dons` ou `Autre` | `IBRD` |
+| `statut` | catégorie | `termine` ou `en_cours` (projets à évaluer, cibles vides) | `en_cours` |
+| `rentabilite` | nombre | Cible de la régression, en %, **simulée**. Connue pour les projets terminés seulement | 11.5 |
+| `risque` | catégorie | Cible de la classification, **simulée** : `faible`, `moyen`, `eleve`. Connue pour les projets terminés seulement | `moyen` |
 | `impact_env_social` | note 1 à 5 | Critère qualitatif extrait par le rôle 3 | 4 |
 | `alignement_strategique` | note 1 à 5 | Critère qualitatif extrait par le rôle 3 | 3 |
 | `faisabilite` | note 1 à 5 | Critère qualitatif extrait par le rôle 3 | 4 |

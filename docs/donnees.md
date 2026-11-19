@@ -1,6 +1,6 @@
 # Jeu de données
 
-État au 16 novembre 2026 : jeu choisi et préparé. Reste à mettre le contrat à jour et à prévenir l'équipe (étapes 4 et 5 plus bas).
+Jeu choisi et préparé le 16 novembre 2026, utilisé par les quatre modules.
 
 ## Choix : jeu hybride
 
@@ -31,8 +31,8 @@ Pistes écartées : les jeux Kaggle (licence et qualité à vérifier au cas par
 1. Fait. `python scripts/telecharger_donnees.py` écrit le brut dans `data/raw/` sans le modifier.
 2. Fait. `python scripts/preparer_donnees.py` écrit `data/processed/` et `data/docs/`.
 3. Fait. `data/README.md` rempli.
-4. À faire. Mettre à jour `docs/contrat.md` et `src/contrat.py` : nouvelles colonnes `region`, `annee_approbation`, `type_financement`, `statut` ; identifiants du type `P123456` ; cibles vides pour les projets en cours.
-5. À faire. Prévenir les rôles 1, 2 et 3 que le fichier est disponible.
+4. Fait. `docs/contrat.md` décrit les colonnes du fichier (`region`, `annee_approbation`, `type_financement`, `statut`, identifiants Banque mondiale, cibles vides pour les projets en cours).
+5. Fait. Fichier utilisé par les rôles 1, 2 et 3.
 
 ## À dire dans le rapport
 
