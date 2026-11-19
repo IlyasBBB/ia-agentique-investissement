@@ -4,7 +4,7 @@ Pour chaque passage et chaque scénario, on lance sur les mêmes 30 projets :
 - pipeline_fixe : le modèle de référence, sans LLM ;
 - run_agent : l'agent piloté par le LLM (Ollama doit tourner).
 
-Fichiers écrits dans reports/ :
+Fichiers écrits dans reports/role4/scenarios/ :
 - resultats_scenarios.csv : une ligne par exécution, avec toutes les vérifications ;
 - sorties_scenarios.json : les textes complets et le journal des étapes, pour l'analyse des erreurs.
 
@@ -32,7 +32,7 @@ from src.agent import MODELE_PAR_DEFAUT, pipeline_fixe, run_agent  # noqa: E402
 from src.scenarios import SCENARIOS, charger_projets_scenarios, verifier_sortie  # noqa: E402
 
 journal = logging.getLogger("evaluer_agent")
-DOSSIER_RAPPORTS = RACINE / "reports"
+DOSSIER_RAPPORTS = RACINE / "reports" / "role4" / "scenarios"
 COLONNES_RESUME = ["passage", "scenario", "mode", "duree_s", "ordre_ok", "poids_ok", "top3_cite_par_llm",
                    "top3_dans_sortie", "anomalies_citees_par_llm", "citation_ok", "chiffres_non_retrouves",
                    "controle_auto", "secours", "meme_top3_que_pipeline"]
@@ -51,7 +51,7 @@ def evaluer(passages: int, numeros: list[int], suffixe: str) -> pd.DataFrame:
     projets, documents = charger_projets_scenarios()
     journal.info("%d projets, %d documents, modules : %s, modèle %s", len(projets), len(documents),
                  outils.description_modules(), os.getenv("OLLAMA_MODEL") or MODELE_PAR_DEFAUT)
-    DOSSIER_RAPPORTS.mkdir(exist_ok=True)
+    DOSSIER_RAPPORTS.mkdir(parents=True, exist_ok=True)
     fin = f"_{suffixe}" if suffixe else ""
     fichier_csv = DOSSIER_RAPPORTS / f"resultats_scenarios{fin}.csv"
     fichier_json = DOSSIER_RAPPORTS / f"sorties_scenarios{fin}.json"
