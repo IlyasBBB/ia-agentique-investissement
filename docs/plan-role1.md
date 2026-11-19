@@ -23,9 +23,9 @@ Responsable : Salma Akazi. Module à livrer : `src/supervise.py` (`predict`), su
 | 6 | Ridge, Lasso, ElasticNet | 20 nov. | fusionnée (PR n°16) ; complément fusionné (PR n°17) : forêt aléatoire R² 0,40, LightGBM 0,37, moins bien que Ridge | notebook 02 : R² validation dans les bornes 0,44 (Ridge, ElasticNet), 0,42 (Lasso, 66 colonnes sur 175 mises à zéro) ; `reports/role1/figures/regularisation_alpha.png` |
 | 7 | Classification du risque | 20 nov. | fusionnée (PR n°17) | notebook 02 : F1 macro validation 0,53 (logistique), 0,57 (forêt), 0,59 (LightGBM) ; exactitude 55 à 59 % ; AUC élevé 0,86 ; `reports/role1/figures/confusion_risque.png` |
 | 8 | Tableau comparatif, test ouvert une fois | 20 nov. | fusionnée (PR n°18) | `reports/role1/comparaison_rentabilite.csv`, `comparaison_risque.csv`, `comparaison_modeles.png`, `resultats_test.csv` ; test : Ridge R² 0,47 dans les bornes (0,12 complet), LightGBM 67 % / F1 0,66 |
-| 9 | Interprétabilité (SHAP, permutation, erreurs) | 21 nov. | faite, branche `role1/tache-9` | `notebooks/role1/03_interpretabilite.ipynb`, `reports/role1/shap_importance.csv` (modèle livré), 6 figures dans `reports/role1/figures/` |
+| 9 | Interprétabilité (SHAP, permutation, erreurs) | 21 nov. | fusionnée (PR n°20) | `notebooks/role1/03_interpretabilite.ipynb`, `reports/role1/shap_importance.csv` (modèle livré), 6 figures dans `reports/role1/figures/` |
 | 10 | `predict`, modèles `joblib`, tests | **21 nov.** | fusionnée (PR n°19) | `src/supervise.py` (`predict`, `entrainer`, `charger_modeles`), `tests/test_supervise.py` (17 tests) ; 2 000 appels en 0,005 s après un chargement de 0,2 s |
-| 11 | Partie du rapport et diapositives | brouillon 21, final 27 | à faire | `reports/role1/rapport_partie1.md` |
+| 11 | Partie du rapport et diapositives | brouillon 21, final 27 | brouillon fait, branche `role1/tache-11` (final le 27, après l'intégration du 22) | `reports/role1/rapport_partie1.md` (théorie, données, méthode, résultats, interprétabilité, `predict`, limites, références, plan des 4 diapositives) |
 
 ## Décisions
 
