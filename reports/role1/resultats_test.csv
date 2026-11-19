@@ -1,0 +1,21 @@
+cible,modèle,jeu,mesure,valeur
+rentabilité,Ridge (choisi),test complet,RMSE,5.539753067954582
+rentabilité,Ridge (choisi),test complet,MAE,2.303730919755181
+rentabilité,Ridge (choisi),test complet,R2,0.12451010409599206
+rentabilité,Ridge (choisi),test dans les bornes,RMSE,2.238373336620667
+rentabilité,Ridge (choisi),test dans les bornes,MAE,1.8559022637552622
+rentabilité,Ridge (choisi),test dans les bornes,R2,0.4694383148921737
+rentabilité,DummyRegressor (moyenne),test complet,RMSE,5.933420070417705
+rentabilité,DummyRegressor (moyenne),test complet,MAE,2.902747552149851
+rentabilité,DummyRegressor (moyenne),test complet,R2,-0.004339439829543101
+rentabilité,DummyRegressor (moyenne),test dans les bornes,RMSE,3.0873548981440364
+rentabilité,DummyRegressor (moyenne),test dans les bornes,MAE,2.4556869920794466
+rentabilité,DummyRegressor (moyenne),test dans les bornes,R2,-0.009355019283839194
+risque,LightGBM (choisi),test complet,exactitude,0.6711111111111111
+risque,LightGBM (choisi),test complet,F1 macro,0.6623133525489452
+risque,LightGBM (choisi),test complet,AUC élevé contre le reste,0.8772839506172839
+risque,LightGBM (choisi),test complet,rappel faible,0.7888888888888889
+risque,LightGBM (choisi),test complet,rappel moyen,0.5777777777777777
+risque,LightGBM (choisi),test complet,rappel eleve,0.6222222222222222
+risque,DummyClassifier (most_frequent),test complet,exactitude,0.4
+risque,DummyClassifier (most_frequent),test complet,F1 macro,0.19047619047619047
