@@ -130,6 +130,23 @@ def normaliser_poids(poids: dict | str | None) -> dict[str, float]:
     return resultat
 
 
+def extrait(passage: str, limite: int = 300) -> str:
+    """Début d'un passage, coupé à la fin d'une phrase, sinon à la fin d'un mot suivi de « … ».
+
+    Le LLM recopie mot pour mot ce qu'on lui donne : une coupe au milieu d'un mot (« … impact
+    evaluation. Th ») finirait telle quelle dans la recommandation. L'extrait reste un morceau
+    exact du passage, ce que vérifie le contrôle des citations.
+    """
+    passage = " ".join(str(passage).split())
+    if len(passage) <= limite:
+        return passage
+    debut = passage[:limite]
+    fin_phrase = max(debut.rfind(". "), debut.rfind("; "), debut.rfind("! "), debut.rfind("? "))
+    if fin_phrase >= limite // 2:
+        return debut[:fin_phrase + 1]
+    return debut.rsplit(" ", 1)[0].rstrip(",;:") + " …"
+
+
 def numeroter(classement: pd.DataFrame) -> pd.DataFrame:
     """Ajoute `rang_retenu` : 1, 2, 3… pour les projets non anormaux, vide pour les dossiers anormaux.
 
@@ -266,7 +283,7 @@ class Portefeuille:
         self.passages = [p for p in trouves if p["id_projet"] in connus][:k]
         if not self.passages:
             return "Aucun passage trouvé dans les documents des projets analysés."
-        return " | ".join(f"{p['id_projet']} : « {p['passage'][:200]} »" for p in self.passages)
+        return " | ".join(f"{p['id_projet']} : « {extrait(p['passage'], 240)} »" for p in self.passages)
 
     def question_automatique(self) -> str:
         """Question de recherche tirée des noms des projets recommandés (en anglais, comme les documents)."""
@@ -318,7 +335,7 @@ def rediger_recommandation(portefeuille: Portefeuille) -> str:
                       f"({', '.join(anomalies[:10])}). À vérifier avant toute décision.")
     if portefeuille.passages:
         p = portefeuille.passages[0]
-        lignes.append(f"Passage à l'appui ({p['id_projet']}) : « {p['passage'][:300]} »")
+        lignes.append(f"Passage à l'appui ({p['id_projet']}) : « {' '.join(p['passage'].split())} »")  # en entier
     lignes.append("Limites : les prédictions viennent d'un modèle entraîné sur des cibles simulées ; "
                   "cette recommandation aide à la décision, elle ne la remplace pas.")
     return "\n".join(lignes)
@@ -359,7 +376,7 @@ def controler_recommandation(portefeuille: Portefeuille, texte: str) -> str:
                       "il n'est pas vérifié et ne doit pas être pris en compte.")
         if portefeuille.passages:
             p = portefeuille.passages[0]
-            ajouts.append(f"- Passage vérifié ({p['id_projet']}) : « {p['passage'][:300]} »")
+            ajouts.append(f"- Passage vérifié ({p['id_projet']}) : « {' '.join(p['passage'].split())} »")
     return texte + "\n".join(ajouts)
 
 

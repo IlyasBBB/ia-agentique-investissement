@@ -140,7 +140,8 @@ def chiffres_non_retrouves(texte: str, classement: pd.DataFrame, poids: dict[str
 
     Valeurs admises : score, rentabilité, probabilité de risque et coût des projets cités
     dans le texte, et les poids. Tolérance : une unité du dernier chiffre écrit (arrondi
-    ou troncature). Limite : les nombres entiers (notes sur 5, rangs, pourcentages
+    ou troncature). Les nombres entre guillemets (passage cité) ne sont pas comptés.
+    Limite : les nombres entiers (notes sur 5, rangs, pourcentages
     arrondis) ne sont pas contrôlés, et un chiffre juste attribué au mauvais projet
     cité passe le contrôle.
     """
@@ -152,8 +153,11 @@ def chiffres_non_retrouves(texte: str, classement: pd.DataFrame, poids: dict[str
     if "proba_risque" in cites:  # une probabilité peut être écrite en pourcentage
         admis += (100 * cites["proba_risque"].astype(float)).tolist()
 
+    # Les nombres d'un passage cité viennent du document, pas des outils : ils sont vérifiés par
+    # citation_verifiee (la citation doit figurer mot pour mot dans un passage rendu).
+    hors_citations = re.sub(r"«[^»]*»|\"[^\"]*\"|“[^”]*”", " ", texte)
     inconnus = []
-    for ecrit in re.findall(r"\d+[.,]\d+", texte):
+    for ecrit in re.findall(r"\d+[.,]\d+", hors_citations):
         nombre = float(ecrit.replace(",", "."))
         tolerance = 10 ** -len(re.split(r"[.,]", ecrit)[1]) + 1e-9
         if not any(abs(nombre - valeur) <= tolerance for valeur in admis):

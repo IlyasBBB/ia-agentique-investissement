@@ -465,3 +465,44 @@ def test_citation_verifiee_seulement_si_rendue_par_l_outil(fausse_recherche):
     assert citation_verifiee("Passage cité : aucun.", sortie)
     assert citation_verifiee("Passage cité : P001 « Réduction attendue des émissions de CO2. »", sortie)
     assert not citation_verifiee("Passage cité : P001 « Le projet crée 5 000 emplois. »", sortie)
+
+
+PASSAGES_COUPES = [  # vus dans l'application, coupés en plein mot à 300 caractères
+    "The second component, improving access to finance for MSMEs will finance the provision of a partial credit "
+    "guarantee (PCG) and a line of credit (LoC) to participating financial institutions (PFIs). The third component "
+    "is enhancing strategy, coordination, project management, and impact evaluation. The fourth component supports "
+    "the government's reform program.",
+    "This project has three components. 1) The first component, : Investments to Promote Urban Resilience, aims to "
+    "support BRDE to finance eligible sub-projects in selected municipalities to promote urban resilience through the "
+    "construction or the upgrading of existing infrastructure to mitigate the impacts of floods and landslides.",
+]
+
+
+@pytest.mark.parametrize("passage", PASSAGES_COUPES)
+def test_extrait_jamais_coupe_au_milieu_d_un_mot(passage):
+    court = agent.extrait(passage, 240)
+    assert len(court) <= 242
+    assert court.endswith(".") or court.endswith(" …")
+    assert court.rstrip(" …") in passage  # morceau exact du passage, au mot près
+    assert passage[len(court.rstrip(" …"))] in " ."  # la coupe tombe sur une fin de mot
+    # Une citation recopiée depuis cet extrait reste reconnue par le contrôle.
+    assert not agent.citation_inventee(f"Passage cité : P1 « {court} »", [{"id_projet": "P1", "passage": passage}])
+
+
+def test_le_lecteur_voit_le_passage_entier(monkeypatch):
+    passage = PASSAGES_COUPES[1]
+    portefeuille = Portefeuille(PROJETS_EXEMPLE, DOCUMENTS_EXEMPLE, None)
+    portefeuille.appeler("classer", {})
+    portefeuille.passages = [{"id_projet": "P001", "passage": passage, "score": 1.0}]
+    assert passage in agent.rediger_recommandation(portefeuille)  # pipeline fixe : passage complet
+    ids = ", ".join(portefeuille.recommandes()["id_projet"]) + ", " + ", ".join(portefeuille.anomalies)
+    controle = agent.controler_recommandation(portefeuille, f"{ids}. Passage cité : « inventé »")
+    assert passage in controle  # « Passage vérifié » : passage complet
+
+
+def test_chiffres_d_un_passage_cite_ignores():
+    classement = pd.DataFrame({"id_projet": ["P001"], "score": [0.5], "rentabilite_predite": [10.0],
+                               "proba_risque": [0.2], "cout_total": [100.0]})
+    texte = "P001 : score 0.50. Passage cité : « The project costs 2,160.5 million and lasts 4.5 years. »"
+    assert chiffres_non_retrouves(texte, classement, {}) == []
+    assert chiffres_non_retrouves("P001 : score 0.93.", classement, {}) == ["0.93"]
