@@ -1,0 +1,19 @@
+contamination,perimetre,projets,anomalies_reelles,signales,vrais_positifs,faux_positifs,manquees,precision,rappel
+0.01,tous les projets,2000,40,20,9,11,31,0.45,0.225
+0.01,"tous, sans les rentabilités extrêmes",2000,30,20,9,11,21,0.45,0.3
+0.01,projets en cours,500,15,6,3,3,12,0.5,0.2
+0.02,tous les projets,2000,40,40,15,25,25,0.375,0.375
+0.02,"tous, sans les rentabilités extrêmes",2000,30,40,15,25,15,0.375,0.5
+0.02,projets en cours,500,15,17,7,10,8,0.412,0.467
+0.03,tous les projets,2000,40,60,17,43,23,0.283,0.425
+0.03,"tous, sans les rentabilités extrêmes",2000,30,60,16,44,14,0.267,0.533
+0.03,projets en cours,500,15,18,8,10,7,0.444,0.533
+0.05,tous les projets,2000,40,100,19,81,21,0.19,0.475
+0.05,"tous, sans les rentabilités extrêmes",2000,30,100,18,82,12,0.18,0.6
+0.05,projets en cours,500,15,24,9,15,6,0.375,0.6
+0.08,tous les projets,2000,40,160,20,140,20,0.125,0.5
+0.08,"tous, sans les rentabilités extrêmes",2000,30,160,19,141,11,0.119,0.633
+0.08,projets en cours,500,15,30,10,20,5,0.333,0.667
+0.1,tous les projets,2000,40,200,22,178,18,0.11,0.55
+0.1,"tous, sans les rentabilités extrêmes",2000,30,200,21,179,9,0.105,0.7
+0.1,projets en cours,500,15,32,11,21,4,0.344,0.733
