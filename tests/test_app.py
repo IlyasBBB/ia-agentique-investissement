@@ -92,3 +92,18 @@ def test_onglet_explication_montre_le_shap():
     assert not app.exception
     titres = [s.value for s in app.subheader]
     assert "Ce qui pèse sur la rentabilité prédite" in titres
+
+
+def test_cartes_et_tableau_numerotent_les_projets_retenus():
+    import sys
+
+    import pandas as pd
+
+    sys.path.insert(0, str(Path(APP).parent))
+    import composants
+
+    carte = composants.carte_projet({"rang": 3, "rang_retenu": 2, "id_projet": "P3", "nom": "Projet", "secteur": "Eau",
+                                     "pays": "Maroc", "score": 0.5, "rentabilite_predite": 4.2, "proba_risque": 0.3})
+    assert "N° 2" in carte and "N° 3" not in carte
+    assert composants.rang_affiche({"rang": 2, "rang_retenu": pd.NA, "anomalie": True}) == "écarté"
+    assert composants.rang_affiche({"rang": 3, "rang_retenu": 2, "anomalie": False}) == "2"

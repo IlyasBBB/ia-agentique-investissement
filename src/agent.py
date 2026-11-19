@@ -130,9 +130,25 @@ def normaliser_poids(poids: dict | str | None) -> dict[str, float]:
     return resultat
 
 
+def numeroter(classement: pd.DataFrame) -> pd.DataFrame:
+    """Ajoute `rang_retenu` : 1, 2, 3… pour les projets non anormaux, vide pour les dossiers anormaux.
+
+    rank classe tous les projets, anomalies comprises (c'est ainsi que la méthode a été choisie).
+    Les dossiers anormaux sont ensuite écartés : ils ne doivent pas prendre un numéro, sinon les
+    trois projets recommandés s'afficheraient par exemple « n° 1, n° 3, n° 4 ».
+    """
+    sortie = classement.copy()
+    anormal = sortie["anomalie"].astype(bool) if "anomalie" in sortie else pd.Series(False, index=sortie.index)
+    sortie["rang_retenu"] = pd.Series(pd.NA, index=sortie.index, dtype="Int64")
+    sortie.loc[~anormal, "rang_retenu"] = range(1, int((~anormal).sum()) + 1)
+    return sortie
+
+
 def decrire(ligne: dict) -> str:
     """Une ligne du classement en texte, avec les chiffres rendus par les outils."""
-    return (f"rang {ligne['rang']}, {ligne['id_projet']} {ligne.get('nom', '')} : score {ligne['score']:.3f}, "
+    rang = ligne.get("rang_retenu")
+    rang = ligne["rang"] if rang is None or pd.isna(rang) else int(rang)
+    return (f"rang {rang}, {ligne['id_projet']} {ligne.get('nom', '')} : score {ligne['score']:.3f}, "
             f"rentabilité prédite {ligne['rentabilite_predite']} %, "
             f"probabilité de risque élevé {ligne['proba_risque']:.2f}, "
             f"impact {ligne['impact_env_social']}/5, alignement {ligne['alignement_strategique']}/5, "
@@ -198,6 +214,7 @@ class Portefeuille:
         self.anomalies = sortie.loc[sortie["anomalie"].astype(bool), "id_projet"].tolist()
         if self.classement is not None:
             self.classement["anomalie"] = self.classement["id_projet"].isin(self.anomalies)
+            self.classement = numeroter(self.classement)
         if not self.anomalies:
             return "Aucun dossier anormal détecté."
         suite = " (dix premiers)" if len(self.anomalies) > 10 else ""
@@ -227,7 +244,7 @@ class Portefeuille:
         classement = classement.merge(infos, on="id_projet", how="left")
         classement = classement.merge(self.predictions[["id_projet", "risque_predit"]], on="id_projet", how="left")
         classement["anomalie"] = classement["id_projet"].isin(self.anomalies)
-        self.classement = classement
+        self.classement = numeroter(classement)
 
         poids_texte = ", ".join(f"{c} {p:.2f}" for c, p in poids.items() if p > 0)
         retenus = " | ".join(decrire(r) for r in self.recommandes().to_dict("records"))

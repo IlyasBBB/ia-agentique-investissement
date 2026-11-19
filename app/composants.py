@@ -55,10 +55,11 @@ def carte_projet(ligne: dict) -> str:
     sens = "hausse" if rentabilite >= 0 else "baisse"
     rentabilite_texte = f"{rentabilite:+.1f}".replace(".", ",")  # le signe + double la couleur
     lieu = " · ".join(str(ligne[c]) for c in ("secteur", "pays") if ligne.get(c))
-    premiere = " premiere" if ligne["rang"] == 1 else ""
+    numero = ligne.get("rang_retenu", ligne["rang"])  # rang parmi les projets retenus (dossiers anormaux écartés)
+    premiere = " premiere" if numero == 1 else ""
     return (
         f'<article class="carte{premiere}">'
-        f'<div class="carte-tete"><span class="carte-rang">N° {propre(ligne["rang"])}</span>'
+        f'<div class="carte-tete"><span class="carte-rang">N° {propre(numero)}</span>'
         f'<span class="carte-id">{propre(ligne["id_projet"])}</span></div>'
         f'<p class="carte-nom">{propre(ligne.get("nom", ""))}</p>'
         f'<p class="carte-lieu">{propre(lieu)}</p>'
@@ -72,6 +73,14 @@ def carte_projet(ligne: dict) -> str:
     )
 
 
+def rang_affiche(ligne: dict) -> str:
+    """Rang parmi les projets retenus, ou « écarté » pour un dossier anormal."""
+    numero = ligne.get("rang_retenu", ligne.get("rang"))
+    if ligne.get("anomalie") or numero is None or pd.isna(numero):
+        return "écarté"
+    return str(int(numero))
+
+
 def fiche_projet(ligne: dict) -> str:
     """Fiche du projet cliqué dans le relief 3D : identité, rang, score et les sept critères."""
     def note(colonne: str) -> str:
@@ -79,7 +88,7 @@ def fiche_projet(ligne: dict) -> str:
 
     lieu = " · ".join(str(ligne[c]) for c in ("secteur", "pays") if ligne.get(c))
     mesures = [
-        ("Rang", f"{ligne['rang']}"), ("Score", nombre(float(ligne["score"]), 3)),
+        ("Rang", rang_affiche(ligne)), ("Score", nombre(float(ligne["score"]), 3)),
         ("Rentabilité prédite", f"{nombre(float(ligne['rentabilite_predite']), 1)}{ESPACE_FINE}%"),
         ("Risque élevé", f"{float(ligne['proba_risque']):.0%}"),
         ("Coût", f"{nombre(float(ligne['cout_total']))}{ESPACE_FINE}M$"),

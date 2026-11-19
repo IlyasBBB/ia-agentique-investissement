@@ -11,6 +11,7 @@ et les tests des vérifications automatiques utilisées pour les évaluer.
 import os
 from types import SimpleNamespace
 
+import pandas as pd
 import pytest
 
 from src import agent, outils
@@ -225,6 +226,32 @@ def test_agent_avec_le_vrai_llm():
     assert len(sortie["recommandation"]) > 50
     for etape in sortie["etapes"]:
         Etape(**etape)
+
+
+def test_dossier_anormal_ne_prend_pas_de_numero(monkeypatch):
+    # Vu dans l'application : le n° 2 du classement est anormal, les cartes affichaient « N° 1, 3, 4 ».
+    portefeuille = Portefeuille(PROJETS_EXEMPLE, DOCUMENTS_EXEMPLE, None)
+    portefeuille.appeler("classer", {})
+    deuxieme = portefeuille.classement.iloc[1]["id_projet"]
+
+    def fausse_detection(df):
+        return df.assign(anomalie=df["id_projet"] == deuxieme)
+
+    monkeypatch.setattr(agent.outils, "detect_anomalies", fausse_detection)
+    portefeuille = Portefeuille(PROJETS_EXEMPLE, DOCUMENTS_EXEMPLE, None)
+    resume = portefeuille.classer()
+    classement = portefeuille.classement
+    assert classement.loc[classement["id_projet"] == deuxieme, "rang_retenu"].isna().all()
+    assert list(portefeuille.recommandes()["rang_retenu"]) == [1, 2, 3]
+    assert "rang 4" not in resume and "rang 3" in resume  # texte envoyé au LLM
+    assert sorted(classement["rang"]) == list(range(1, len(classement) + 1))  # rang de rank inchangé
+    texte = agent.rediger_recommandation(portefeuille)
+    assert "rang 1" in texte and "rang 2" in texte and "rang 3" in texte and "rang 4" not in texte
+
+
+def test_numeroter_sans_colonne_anomalie():
+    classement = pd.DataFrame({"id_projet": ["A", "B"], "score": [0.9, 0.1], "rang": [1, 2]})
+    assert list(agent.numeroter(classement)["rang_retenu"]) == [1, 2]
 
 
 def test_chercher_passages_garde_k_passages_des_projets_analyses(monkeypatch):

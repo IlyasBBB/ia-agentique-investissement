@@ -31,7 +31,7 @@ import composants  # noqa: E402
 import graphiques  # noqa: E402
 from graphiques import LIBELLES  # noqa: E402
 from src import outils  # noqa: E402
-from src.agent import MODELE_PAR_DEFAUT, normaliser_poids, pipeline_fixe, run_agent  # noqa: E402
+from src.agent import MODELE_PAR_DEFAUT, normaliser_poids, numeroter, pipeline_fixe, run_agent  # noqa: E402
 from src.contrat import CRITERES, POIDS_PAR_DEFAUT  # noqa: E402
 
 NOM_PRODUIT = "InvestMind"
@@ -50,11 +50,11 @@ EXEMPLES = [
     "Je veux des projets rapides et peu coûteux, faciles à mettre en œuvre.",
 ]
 COLONNES_TABLEAU = {
-    "rang": "Rang", "id_projet": "Projet", "nom": "Nom", "secteur": "Secteur", "pays": "Pays", "score": "Score",
+    "rang_retenu": "Rang", "id_projet": "Projet", "nom": "Nom", "secteur": "Secteur", "pays": "Pays", "score": "Score",
     "rentabilite_predite": "Rentabilité prédite (%)", "proba_risque": "Proba. risque élevé",
     "risque_predit": "Risque prédit", "cout_total": "Coût (M$)", "duree_mois": "Durée (mois)",
     "impact_env_social": "Impact /5", "alignement_strategique": "Alignement /5", "faisabilite": "Faisabilité /5",
-    "anomalie": "Dossier anormal",
+    "anomalie": "Dossier anormal", "rang": "Rang avant écart des dossiers anormaux",
 }
 JOURS = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]
 MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre",
@@ -167,7 +167,9 @@ def afficher_classement(classement: pd.DataFrame) -> None:
     st.subheader("Les 10 meilleurs scores")
     afficher_graphique(graphiques.figure_meilleurs_scores(classement))
     st.subheader("Classement complet")
-    tableau = classement[[c for c in COLONNES_TABLEAU if c in classement]]
+    tableau = classement[[c for c in COLONNES_TABLEAU if c in classement]].copy()
+    if "rang_retenu" in tableau:  # un dossier anormal n'a pas de rang : il est écarté
+        tableau["rang_retenu"] = [("écarté" if pd.isna(r) else str(int(r))) for r in tableau["rang_retenu"]]
     if "anomalie" in tableau:  # lignes des dossiers anormaux sur fond rose pâle
         surligner = lambda ligne: ["background-color: #f7dcd9; color: #5c0f24" if ligne["anomalie"] else ""] * len(ligne)  # noqa: E731
         tableau = tableau.style.apply(surligner, axis=1).format(precision=3, decimal=",")
@@ -248,8 +250,8 @@ def afficher_comparaison(agent: dict, reference: dict, poids_fixes: dict | None)
 def reclasser(classement: pd.DataFrame, poids: dict[str, float]) -> pd.DataFrame:
     """Refait le classement avec d'autres poids, sans relancer l'agent : rank sur les sept critères déjà calculés."""
     nouveau = outils.rank(classement[["id_projet", *CRITERES]], poids)
-    infos = classement.drop(columns=[c for c in ("score", "rang", *CRITERES) if c in classement])
-    return nouveau.merge(infos, on="id_projet", how="left")
+    infos = classement.drop(columns=[c for c in ("score", "rang", "rang_retenu", *CRITERES) if c in classement])
+    return numeroter(nouveau.merge(infos, on="id_projet", how="left"))
 
 
 def projets_pour_relief(projets: pd.DataFrame, classement: pd.DataFrame | None) -> list[dict]:
@@ -262,6 +264,7 @@ def projets_pour_relief(projets: pd.DataFrame, classement: pd.DataFrame | None) 
         recommandes = trois_premiers(classement)["id_projet"].tolist()
     return [{"id": str(p["id_projet"]), "nom": str(p.get("nom", ""))[:80], "secteur": str(p.get("secteur", "")),
              "pays": str(p.get("pays", "")), "rang": int(p["rang"]),
+             "numero": None if pd.isna(p.get("rang_retenu", pd.NA)) else int(p["rang_retenu"]),
              "score": None if pd.isna(p["score"]) else round(float(p["score"]), 4),
              "anomalie": bool(p["anomalie"]), "reco": p["id_projet"] in recommandes}
             for p in lignes.to_dict("records")]
