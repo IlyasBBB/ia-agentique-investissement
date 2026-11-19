@@ -1,8 +1,8 @@
 # InvestMind : un agent IA pour choisir des projets d'investissement
 
-École Centrale Casablanca, novembre 2026. Équipe de quatre ingénieurs, projet mené techniquement par Ilyas Ben Alla (architecture, agent, application, intégration).
+École Centrale Casablanca, novembre 2026. Équipe de quatre ingénieurs.
 
-> **In English.** InvestMind is an AI agent that ranks investment projects and writes a justified recommendation. It runs fully offline: a local LLM (Qwen 2.5, 3B, via Ollama) plans the analysis and calls five tools built by the team, covering a supervised model (return and risk prediction, Ridge and LightGBM), an NLP module (criterion scoring with TF-IDF and keywords, passage retrieval with sentence embeddings), anomaly detection (Isolation Forest) and multi-criteria ranking (TOPSIS, AHP). It works on 2,000 real World Bank projects. The Streamlit app adds a 3D portfolio view and live re-weighting. Everything is tested (140 automated tests), evaluated without data leakage, and every choice of model was fixed before looking at the test set. Technical lead: Ilyas Ben Alla (architecture, shared contract, LLM agent, app, integration of the four modules, review of all 31 pull requests).
+> **In English.** InvestMind is an AI agent that ranks investment projects and writes a justified recommendation. It runs fully offline: a local LLM (Qwen 2.5, 3B, via Ollama) plans the analysis and calls five tools built by the team, covering a supervised model (return and risk prediction, Ridge and LightGBM), an NLP module (criterion scoring with TF-IDF and keywords, passage retrieval with sentence embeddings), anomaly detection (Isolation Forest) and multi-criteria ranking (TOPSIS, AHP). It works on 2,000 real World Bank projects. The Streamlit app adds a 3D portfolio view and live re-weighting. Everything is tested (140 automated tests), evaluated without data leakage, and every choice of model was fixed before looking at the test set.
 
 ![Application InvestMind : demande, poids, relief 3D du portefeuille de 500 projets](docs/images/application.png)
 
