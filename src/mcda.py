@@ -61,13 +61,59 @@ def somme_ponderee(matrice: pd.DataFrame, poids: dict[str, float]) -> pd.Series:
     Un critère absent de `poids` compte pour 0. Le score est entre 0 et 1 car les poids
     somment à 1. Rend une série alignée sur l'index de `matrice`.
     """
+    criteres, w = _criteres_et_poids(matrice, poids)
+    score = normaliser(matrice, criteres) @ w if criteres else np.zeros(len(matrice))
+    return pd.Series(np.clip(score, 0.0, 1.0), index=matrice.index, name="score")
+
+
+def _criteres_et_poids(matrice: pd.DataFrame, poids: dict[str, float]) -> tuple[list[str], np.ndarray]:
+    """Vérifie les poids et rend les critères de poids non nul, avec leurs poids."""
     verifier_poids(poids)
     criteres = [c for c in CRITERES if poids.get(c, 0) > 0]
     manquants = [c for c in criteres if c not in matrice.columns]
     if manquants:
         raise ValueError(f"Critères absents de la matrice : {manquants}")
-    w = np.array([poids[c] for c in criteres], dtype=float)
-    score = normaliser(matrice, criteres) @ w if criteres else np.zeros(len(matrice))
+    return criteres, np.array([poids[c] for c in criteres], dtype=float)
+
+
+def topsis(matrice: pd.DataFrame, poids: dict[str, float]) -> pd.Series:
+    """Score TOPSIS : proximité relative à la solution idéale, entre 0 et 1.
+
+    Les cinq étapes :
+    1. normalisation vectorielle : chaque colonne est divisée par sa norme (racine de la
+       somme des carrés), pour comparer des critères d'unités différentes ;
+    2. pondération : chaque colonne est multipliée par son poids ;
+    3. solution idéale (meilleure valeur de chaque critère : maximum ou minimum selon le
+       sens) et solution anti-idéale (la pire) ;
+    4. distance euclidienne de chaque projet à l'idéale (d+) et à l'anti-idéale (d-) ;
+    5. score = d- / (d+ + d-) : 1 si le projet est l'idéal, 0 s'il est l'anti-idéal.
+
+    Comme pour somme_ponderee, une valeur manquante reçoit la pire valeur du critère.
+    Projets tous identiques (ou un seul projet) : d+ = d- = 0, score 0,5.
+    Rend une série alignée sur l'index de `matrice`.
+    """
+    criteres, w = _criteres_et_poids(matrice, poids)
+    n = len(matrice)
+    if not criteres or n == 0:
+        return pd.Series(np.full(n, 0.5), index=matrice.index, name="score")
+    x = matrice[criteres].to_numpy(dtype=float)
+    maximiser = np.array([CRITERES[c] for c in criteres])
+
+    # Valeur manquante : pire valeur observée du critère (0 si la colonne est vide).
+    with np.errstate(all="ignore"):
+        pire = np.where(maximiser, np.nanmin(x, axis=0), np.nanmax(x, axis=0))
+    pire = np.nan_to_num(pire, nan=0.0)
+    x = np.where(np.isnan(x), pire, x)
+
+    norme = np.sqrt((x ** 2).sum(axis=0))                      # étape 1
+    r = x / np.where(norme > 0, norme, 1.0)
+    v = r * w                                                  # étape 2
+    ideale = np.where(maximiser, v.max(axis=0), v.min(axis=0))  # étape 3
+    anti_ideale = np.where(maximiser, v.min(axis=0), v.max(axis=0))
+    d_plus = np.sqrt(((v - ideale) ** 2).sum(axis=1))          # étape 4
+    d_moins = np.sqrt(((v - anti_ideale) ** 2).sum(axis=1))
+    total = d_plus + d_moins
+    score = np.divide(d_moins, total, out=np.full(n, 0.5), where=total > 0)  # étape 5
     return pd.Series(np.clip(score, 0.0, 1.0), index=matrice.index, name="score")
 
 
