@@ -260,11 +260,11 @@ def projets_pour_relief(projets: pd.DataFrame, classement: pd.DataFrame | None) 
     else:
         lignes = classement
         recommandes = trois_premiers(classement)["id_projet"].tolist()
-    return [{"id": str(l["id_projet"]), "nom": str(l.get("nom", ""))[:80], "secteur": str(l.get("secteur", "")),
-             "pays": str(l.get("pays", "")), "rang": int(l["rang"]),
-             "score": None if pd.isna(l["score"]) else round(float(l["score"]), 4),
-             "anomalie": bool(l["anomalie"]), "reco": l["id_projet"] in recommandes}
-            for l in lignes.to_dict("records")]
+    return [{"id": str(p["id_projet"]), "nom": str(p.get("nom", ""))[:80], "secteur": str(p.get("secteur", "")),
+             "pays": str(p.get("pays", "")), "rang": int(p["rang"]),
+             "score": None if pd.isna(p["score"]) else round(float(p["score"]), 4),
+             "anomalie": bool(p["anomalie"]), "reco": p["id_projet"] in recommandes}
+            for p in lignes.to_dict("records")]
 
 
 def date_du_jour() -> str:

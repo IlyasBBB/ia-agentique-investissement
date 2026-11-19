@@ -72,7 +72,12 @@ def _charger() -> dict:
     return fonctions
 
 
-globals().update(_charger())
+_FONCTIONS = _charger()
+predict = _FONCTIONS["predict"]
+rank = _FONCTIONS["rank"]
+detect_anomalies = _FONCTIONS["detect_anomalies"]
+extract = _FONCTIONS["extract"]
+retrieve = _FONCTIONS["retrieve"]
 
 __all__ = ["predict", "rank", "detect_anomalies", "extract", "retrieve",
            "utilise_mocks", "modules_reels", "description_modules"]

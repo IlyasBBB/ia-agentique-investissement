@@ -17,7 +17,8 @@ from src import agent, outils
 from src.agent import MAX_TOURS, Portefeuille, normaliser_poids, pipeline_fixe, run_agent
 from src.contrat import CRITERES, POIDS_PAR_DEFAUT, Etape, Passage, verifier_classement, verifier_poids
 from src.mocks import DOCUMENTS_EXEMPLE, PROJETS_EXEMPLE
-from src.scenarios import SCENARIOS, charger_projets_scenarios, chiffres_non_retrouves, citation_verifiee,     dossiers_anormaux, poids_coherents, trois_premiers, verifier_sortie
+from src.scenarios import (SCENARIOS, charger_projets_scenarios, chiffres_non_retrouves, citation_verifiee,
+                           dossiers_anormaux, poids_coherents, trois_premiers, verifier_sortie)
 
 DEMANDE = "Je veux des projets peu risqués avec un fort impact environnemental"
 ORDRE_FIXE = ["extraire_criteres", "predire", "detecter_anomalies", "classer", "chercher_passages"]
@@ -378,7 +379,7 @@ def verifier_ce_qui_doit_tenir(sortie: dict, scenario: dict) -> dict:
 
     Les comportements qui dépendent du modèle (poids choisis, ordre des outils, qualité
     du texte) ne sont pas affirmés ici : ils sont mesurés par scripts/evaluer_agent.py
-    et commentés dans reports/tests_agent.md.
+    et commentés dans reports/role4/tests_agent.md.
     """
     resultat = verifier_sortie(sortie, scenario)
     assert resultat["contrat_ok"]
