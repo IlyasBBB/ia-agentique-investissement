@@ -159,7 +159,7 @@ if (rendu) {
       if (!p.reco || p.anomalie) return;
       const element = document.createElement("div");
       element.className = "etiquette";
-      element.textContent = `n° ${p.rang} · ${p.id}`;  // textContent : jamais lu comme du HTML
+      element.textContent = `n° ${p.numero ?? p.rang} · ${p.id}`;  // textContent : jamais lu comme du HTML
       document.body.appendChild(element);
       etiquettes.push({ element, i });
     });
@@ -222,7 +222,10 @@ if (rendu) {
 
   function lignesBulle(p) {
     const lignes = [`${p.id} · ${p.nom}`, `${p.secteur} · ${p.pays}`];
-    if (p.score != null) lignes.push(`Rang ${p.rang} · score ${p.score.toFixed(3).replace(".", ",")}`);
+    if (p.score != null) {
+      const rang = p.anomalie ? "écarté" : `Rang ${p.numero ?? p.rang}`;  // les dossiers anormaux n'ont pas de rang
+      lignes.push(`${rang} · score ${p.score.toFixed(3).replace(".", ",")}`);
+    }
     if (p.anomalie) lignes.push("Dossier anormal : écarté de la recommandation");
     return lignes;
   }

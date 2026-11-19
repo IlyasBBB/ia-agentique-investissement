@@ -139,18 +139,25 @@ def figure_meilleurs_scores(classement: pd.DataFrame, nombre: int = 10) -> go.Fi
     return figure
 
 
+def _rangs(lignes: pd.DataFrame) -> pd.Series:
+    """Rang parmi les projets retenus (« écarté » pour un dossier anormal), en texte."""
+    if "rang_retenu" not in lignes:
+        return lignes["rang"].astype(str)
+    return lignes["rang_retenu"].map(lambda r: "écarté" if pd.isna(r) else str(int(r)))
+
+
 def _points_3d(lignes: pd.DataFrame, nom: str, tailles: pd.Series, marqueur: dict,
                avec_texte: bool = False) -> go.Scatter3d:
     """Une famille de points du nuage 3D, avec la fiche du projet au survol."""
     fiche = pd.DataFrame({
         "id": _sans_balise(lignes["id_projet"]),
         "nom": _sans_balise(lignes["nom"].astype(str).str[:60]) if "nom" in lignes else "",
-        "rang": lignes["rang"], "score": lignes["score"], "cout": lignes["cout_total"],
+        "rang": _rangs(lignes), "score": lignes["score"], "cout": lignes["cout_total"],
     })
     return go.Scatter3d(
         name=nom, x=lignes[AXES_3D[0]], y=lignes[AXES_3D[1]], z=lignes[AXES_3D[2]],
         mode="markers+text" if avec_texte else "markers",
-        text=("n°" + lignes["rang"].astype(str)) if avec_texte else None,
+        text=("n°" + _rangs(lignes)) if avec_texte else None,
         textposition="top center", textfont={"family": POLICE_CHIFFRES, "color": TEXTE, "size": 14},
         marker={"size": tailles.loc[lignes.index], "sizemode": "diameter", "opacity": 0.9, **marqueur},
         customdata=fiche[["id", "nom", "rang", "score", "cout"]],
