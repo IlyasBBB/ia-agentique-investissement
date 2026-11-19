@@ -117,6 +117,63 @@ def topsis(matrice: pd.DataFrame, poids: dict[str, float]) -> pd.Series:
     return pd.Series(np.clip(score, 0.0, 1.0), index=matrice.index, name="score")
 
 
+# --- Poids par AHP --------------------------------------------------------------------
+
+# Indice aléatoire de Saaty : cohérence moyenne de matrices remplies au hasard, selon la taille.
+INDICE_ALEATOIRE = {1: 0.0, 2: 0.0, 3: 0.58, 4: 0.90, 5: 1.12, 6: 1.24, 7: 1.32, 8: 1.41, 9: 1.45, 10: 1.49}
+
+# Exemple de comparaisons deux à deux des 7 critères (échelle de Saaty, 1 à 9). Case (i, j) :
+# combien de fois le critère de la ligne est plus important que celui de la colonne.
+# Choisie pour redonner à peu près POIDS_PAR_DEFAUT ; ratio de cohérence 0,006.
+_ORDRE = list(CRITERES)
+MATRICE_AHP_EXEMPLE = pd.DataFrame(
+    [[1,   1,   3, 5, 2,   2,   3],
+     [1,   1,   2, 4, 1,   1,   2],
+     [1/3, 1/2, 1, 2, 1/2, 1/2, 1],
+     [1/5, 1/4, 1/2, 1, 1/3, 1/3, 1/2],
+     [1/2, 1,   2, 3, 1,   1,   2],
+     [1/2, 1,   2, 3, 1,   1,   2],
+     [1/3, 1/2, 1, 2, 1/2, 1/2, 1]],
+    index=_ORDRE, columns=_ORDRE, dtype=float)
+
+
+def ahp_poids(matrice: pd.DataFrame | np.ndarray) -> dict:
+    """Poids des critères par AHP, à partir d'une matrice de comparaisons deux à deux.
+
+    La matrice est carrée, positive et réciproque (case (j, i) = 1 / case (i, j)). Les poids
+    sont le vecteur propre de la plus grande valeur propre lambda_max, ramené à une somme de 1.
+    Cohérence : IC = (lambda_max - n) / (n - 1), RC = IC / indice aléatoire de Saaty ; les
+    jugements sont jugés cohérents si RC < 0,1.
+
+    Rend {"poids": {critère: poids}, "lambda_max", "ic", "rc", "coherente"}. Les critères sont
+    les noms des colonnes (DataFrame) ou leurs numéros (tableau numpy).
+    """
+    noms = list(matrice.columns) if isinstance(matrice, pd.DataFrame) else None
+    a = np.asarray(matrice, dtype=float)
+    n = a.shape[0]
+    if a.ndim != 2 or a.shape[1] != n or n == 0:
+        raise ValueError("La matrice de comparaisons doit être carrée et non vide.")
+    if not (a > 0).all():
+        raise ValueError("Toutes les comparaisons doivent être strictement positives.")
+    if not np.allclose(a * a.T, 1.0, rtol=1e-3):
+        raise ValueError("La matrice doit être réciproque : case (j, i) = 1 / case (i, j).")
+    if n > max(INDICE_ALEATOIRE):
+        raise ValueError(f"AHP limité à {max(INDICE_ALEATOIRE)} critères (indice aléatoire de Saaty).")
+
+    valeurs, vecteurs = np.linalg.eig(a)
+    k = int(np.argmax(valeurs.real))
+    lambda_max = float(valeurs.real[k])
+    w = np.abs(vecteurs[:, k].real)  # vecteur propre de Perron : tous ses termes ont le même signe
+    w = w / w.sum()
+    ic = max(lambda_max - n, 0.0) / (n - 1) if n > 2 else 0.0
+    rc = ic / INDICE_ALEATOIRE[n] if INDICE_ALEATOIRE[n] else 0.0
+    if rc >= 0.1:
+        journal.warning("Comparaisons AHP incohérentes : RC = %.3f (seuil 0,1).", rc)
+    noms = noms if noms is not None else list(range(n))
+    return {"poids": {nom: float(p) for nom, p in zip(noms, w)}, "lambda_max": lambda_max,
+            "ic": ic, "rc": rc, "coherente": rc < 0.1}
+
+
 def rank(matrice: pd.DataFrame, poids: dict[str, float]) -> pd.DataFrame:
     """Classe les projets du meilleur au moins bon (contrat : docs/contrat.md).
 
