@@ -1,6 +1,6 @@
 """Vérifie que les outils branchés dans src/outils.py respectent le contrat.
 
-Avec USE_MOCKS=1 on teste les fausses fonctions, avec USE_MOCKS=0 les vrais modules.
+Par défaut, les tests utilisent les fausses fonctions (tests/conftest.py) ; avec USE_MOCKS=0, les vrais modules.
 """
 import pandas as pd
 import pytest
@@ -114,10 +114,19 @@ def test_modules_reels_branche_seulement_le_module_demande(recharger_outils):
     assert "nlp" in module.description_modules()
 
 
-def test_sans_variable_tout_est_factice(recharger_outils):
-    from src import mocks
+def test_sans_variable_les_vrais_modules_sont_branches(recharger_outils):
+    from src import nlp
 
     module = recharger_outils()
+    assert module.modules_reels() == set(module.MODULES)
+    assert module.extract is nlp.extract
+    assert not module.utilise_mocks()
+
+
+def test_use_mocks_1_branche_les_fausses_fonctions(recharger_outils):
+    from src import mocks
+
+    module = recharger_outils(USE_MOCKS="1")
     assert module.modules_reels() == set()
     assert module.extract is mocks.extract
 
